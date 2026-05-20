@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>لوحة التحكم المتكاملة | سودانيل لوجيستك</title>
+  
+  <!-- Session Security Shield Check -->
+  <script>
+    if (!localStorage.getItem('sessionToken') || !localStorage.getItem('sessionToken').startsWith('sovereign_admin_')) {
+      window.location.replace('../_21/login.html');
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Three.js and OrbitControls Libraries for 3D Globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: "#060d1e",
+              light: "#0b1b3d",
+              lighter: "#122854"
+            },
+            gold: {
+              DEFAULT: "#d4af37",
+              light: "#ffdfa0"
+            }
+          },
+          borderRadius: {
+            "DEFAULT": "0.375rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --navy: #060d1e;
+      --navy-light: #0b1b3d;
+      --gold: #d4af37;
+      --gold-light: #ffdfa0;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+    }
+
+    body {
+      font-family: 'Alexandria', 'Montserrat', sans-serif;
+      background-color: var(--navy);
+      color: #f1f5f9;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .light-mode body {
+      background-color: var(--gray-50);
+      color: var(--navy);
+    }
+
+    .glass {
+      background: rgba(11, 27, 61, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .light-mode .glass {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(11, 27, 61, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .glass-sidebar {
+      background: rgba(6, 13, 30, 0.85);
+      backdrop-filter: blur(16px);
+      border-left: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .light-mode .glass-sidebar {
+      background: var(--navy);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Standard Direction Handling */
+    html[dir="ltr"] .glass-sidebar {
+      border-left: none;
+      border-right: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    html[dir="ltr"].light-mode .glass-sidebar {
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .gold-glow {
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .gold-border {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .light-mode .gold-border {
+      border-color: rgba(6, 13, 30, 0.15);
+    }
+
+    /* WebGL styles */
+    #globe3DContainer canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    /* Modal Animation */
+    .modal-backdrop {
+      background: rgba(3, 7, 18, 0.7);
+      backdrop-filter: blur(4px);
+    }
+    
+    .pulsing-indicator::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      animation: pulse 1.8s infinite;
+      opacity: 0;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="min-h-screen custom-scroll overflow-x-hidden">
+
+  <!-- Toast Center -->
+  <div id="toast-container" class="fixed bottom-6 left-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Top Glass Bar Header -->
+  <header class="fixed top-0 left-0 right-0 h-16 z-50 glass border-b flex justify-between items-center px-4 md:px-8 max-w-[1920px] mx-auto transition-all duration-300">
+    <div class="flex items-center gap-4">
+      <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain" />
+      <div class="h-6 w-px bg-gold/30 hidden md:block"></div>
+      <h1 class="font-bold text-sm md:text-lg tracking-wide hidden md:block lang-text" data-ar="منصة الإدارة المتكاملة" data-en="Integrated Control Platform">منصة الإدارة المتكاملة</h1>
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-4">
+      <!-- Odoo API Indicator -->
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-light/60 border border-gold/15 text-xs text-gold-light">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+        </span>
+        <span class="lang-text" data-ar="خادم Odoo نشط" data-en="Odoo Server Active">خادم Odoo نشط</span>
+      </div>
+
+      <!-- Theme Selector Toggle -->
+      <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-navy-light/60 border border-gold/20 flex items-center justify-center hover:bg-gold/15 active:scale-95 transition-all text-gold cursor-pointer" title="تغيير المظهر / Toggle Theme">
+        <span class="material-symbols-outlined text-xl" id="theme-icon">light_mode</span>
+      </button>
+
+      <!-- Language Selector Toggle -->
+      <button onclick="toggleLanguage()" class="lang-btn px-3 py-1.5 rounded-xl bg-navy-light/60 border border-gold/20 flex items-center gap-1.5 hover:bg-gold/15 active:scale-95 transition-all text-xs font-bold text-gold cursor-pointer">
+        <span class="material-symbols-outlined text-base">language</span>
+        <span id="lang-btn-text">EN</span>
+      </button>
+
+      <div class="h-6 w-px bg-gold/30"></div>
+
+      <!-- Admin Profile info & Logout -->
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl border border-gold/30 overflow-hidden bg-navy-lighter flex items-center justify-center">
+          <span class="material-symbols-outlined text-gold">admin_panel_settings</span>
+        </div>
+        <button onclick="handleLogout()" class="w-9 h-9 rounded-xl bg-red-950/20 border border-red-500/30 flex items-center justify-center text-red-400 hover:bg-red-950/50 hover:text-red-300 active:scale-95 transition-all cursor-pointer" title="تسجيل الخروج / Logout">
+          <span class="material-symbols-outlined text-lg">logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar Responsive Navigation Drawer -->
+  <aside class="fixed right-0 top-0 h-full w-16 md:w-64 z-40 glass-sidebar pt-20 flex flex-col items-center md:items-stretch px-2 md:px-4 py-4 gap-2 transition-all duration-300 select-none">
+    <div class="mb-6 px-2 py-3 bg-navy-light/40 rounded-xl border border-gold/10 hidden md:block">
+      <div class="text-xs text-gold font-bold lang-text" data-ar="مرحبًا، مدير النظام" data-en="Welcome, Administrator">مرحبًا، مدير النظام</div>
+      <div class="text-[10px] text-slate-400 mt-1 select-all font-mono" id="admin-email">admin@sudanil.com</div>
+    </div>
+
+    <!-- SPA Navigation list -->
+    <nav class="flex flex-col gap-1 w-full" id="sidebar-nav">
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer bg-gold text-navy font-bold" data-tab="dashboard">
+        <span class="material-symbols-outlined text-xl">dashboard</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="لوحة المعلومات" data-en="Dashboard">لوحة المعلومات</span>
+      </button>
+      
+      <button onclick="switchTab('shipments')" id="nav-shipments" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="shipments">
+        <span class="material-symbols-outlined text-xl">local_shipping</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="إدارة الشحنات" data-en="Shipments Manager">إدارة الشحنات</span>
+      </button>
+
+      <button onclick="switchTab('warehouses')" id="nav-warehouses" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="warehouses">
+        <span class="material-symbols-outlined text-xl">inventory_2</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="سعة المستودعات" data-en="Warehouse Sliders">سعة المستودعات</span>
+      </button>
+
+      <button onclick="switchTab('clients')" id="nav-clients" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="clients">
+        <span class="material-symbols-outlined text-xl">corporate_fare</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="قاعدة بيانات العملاء" data-en="Client Accounts">قاعدة بيانات العملاء</span>
+      </button>
+
+      <button onclick="switchTab('erp')" id="nav-erp" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="erp">
+        <span class="material-symbols-outlined text-xl">sync</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="مزامنة Odoo ERP" data-en="Odoo ERP Sync">مزامنة Odoo ERP</span>
+      </button>
+    </nav>
+
+    <!-- Side bottom actions -->
+    <div class="mt-auto w-full pt-4 border-t border-gold/10 flex flex-col gap-2">
+      <button onclick="openAddShipmentModal()" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold p-3 md:py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer" title="إضافة شحنة جديدة / New Shipment">
+        <span class="material-symbols-outlined">add_circle</span>
+        <span class="text-xs font-bold hidden md:block lang-text" data-ar="شحنة جديدة" data-en="New Shipment">شحنة جديدة</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CANVAS -->
+  <main class="pt-20 pb-12 pr-16 md:pr-64 min-h-screen transition-all duration-300">
+    <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+
+      <!-- ==================== TAB: DASHBOARD ==================== -->
+      <section id="tab-content-dashboard" class="tab-panel flex flex-col gap-6">
+        <!-- Dashboard Welcome Head -->
+        <div class="flex justify-between items-center gap-4 py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="لوحة التحكم الإدارية المتكاملة" data-en="Integrated Administration Console">لوحة التحكم الإدارية المتكاملة</h2>
+            <p class="text-xs text-slate-400 font-medium mt-1 lang-text" data-ar="إدارة ومراقبة كامل العمليات اللوجستية، المستودعات الإقليمية، ومزامنة الأنظمة الأساسية." data-en="Monitor global operations, update capacity indices, and configure core ERP parameters.">إدارة ومراقبة كامل العمليات اللوجستية، المستودعات الإقليمية، ومزامنة الأنظمة الأساسية.</p>
+          </div>
+        </div>
+
+        <!-- Telemetry Indicators Grid (Dynamic Widgets) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Widget: Active Shipments -->
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="إجمالي الشحنات النشطة" data-en="Active Shipments">إجمالي الشحنات النشطة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono" id="widget-active-shipments">0</h3>
+              <p class="text-[10px] text-emerald-500 font-bold mt-1 lang-text" data-ar="شحنات نشطة قيد التحديث" data-en="Active shipments in transit">شحنات نشطة قيد التحديث</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">local_shipping</span></div>
+          </div>
+
+          <!-- Widget: Warehouse capacity average -->
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="سعة المستودعات العامة" data-en="Warehouse Capacity">سعة المستودعات العامة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono" id="widget-warehouse-capacity">0%</h3>
+              <div class="w-24 bg-navy-light rounded-full h-1.5 mt-2 overflow-hidden border border-gold/10">
+                <div id="widget-warehouse-progress" class="bg-gradient-to-r from-emerald-500 to-amber-500 h-full rounded-full" style="width: 0%"></div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">warehouse</span></div>
+          </div>
+
+          <!-- Widget: Corporate Clients Active -->
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="الشركات والعملاء النشطين" data-en="Active Client Accounts">الشركات والعملاء النشطين</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono" id="widget-active-clients">0</h3>
+              <p class="text-[10px] text-slate-400 font-semibold mt-1 lang-text" data-ar="حسابات مسجلة وموثقة" data-en="Verified corporate accounts">حسابات مسجلة وموثقة</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">corporate_fare</span></div>
+          </div>
+
+          <!-- Widget: Last ERP Sync time -->
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="آخر مزامنة Odoo ERP" data-en="Odoo Core Sync">آخر مزامنة Odoo ERP</p>
+              <h3 class="text-sm font-black text-gold mt-2 select-all font-mono" id="widget-last-sync">--:--:--</h3>
+              <p class="text-[10px] text-emerald-400 font-bold mt-2 lang-text flex items-center gap-1" data-ar="تكامل المزامنة مؤمن" data-en="API Connection Secure"><span class="material-symbols-outlined text-xs">shield</span> تكامل المزامنة مؤمن</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">sync</span></div>
+          </div>
+        </div>
+
+        <!-- Globe Section & System News Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- WebGL 3D Globe Interactive Visualization (8 Columns) -->
+          <div class="lg:col-span-8 glass p-4 rounded-2xl border flex flex-col h-[520px] relative overflow-hidden group">
+            <!-- Globe Panel HUD Header -->
+            <div class="flex justify-between items-center z-10 px-2 py-1 select-none">
+              <div>
+                <h3 class="text-sm font-extrabold text-gold tracking-wide lang-text" data-ar="الخريطة التفاعلية المتكاملة ثلاثية الأبعاد" data-en="Interactive 3D Integrated Route Map">الخريطة التفاعلية المتكاملة ثلاثية الأبعاد</h3>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="دوران تفاعلي لمراقبة مسارات الشحن والخطوط اللوجستية الإقليمية." data-en="Pulsing network nodes and freight vectors across Africa and the Middle East.">دوران تفاعلي لمراقبة مسارات الشحن والخطوط اللوجستية الإقليمية.</p>
+              </div>
+            </div>
+
+            <!-- Globe canvas container -->
+            <div id="globe3DContainer" class="w-full flex-grow relative cursor-grab active:cursor-grabbing">
+              <canvas id="canvas3D"></canvas>
+              
+              <!-- Floating Globe Hover Info Overlay (HUD Panel) -->
+              <div id="hud-panel" class="absolute bottom-4 left-4 p-4 rounded-xl glass border border-gold/30 w-64 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 z-20">
+                <div class="flex justify-between items-center border-b border-gold/20 pb-2 mb-2">
+                  <h4 class="font-bold text-xs text-gold" id="hud-node-name">المستودع الرئيسي</h4>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulsing-indicator relative"></span>
+                </div>
+                <div class="flex flex-col gap-1 text-[11px] text-slate-300">
+                  <div class="flex justify-between">
+                    <span class="lang-text" data-ar="السعة المشغولة:" data-en="Occupancy Capacity:">السعة المشغولة:</span>
+                    <span class="font-bold font-mono text-gold-light" id="hud-node-occupancy">92%</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="lang-text" data-ar="شحنات واردة:" data-en="Incoming freight:">شحنات واردة:</span>
+                    <span class="font-bold font-mono text-slate-300" id="hud-node-incoming">12</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="lang-text" data-ar="شحنات صادرة:" data-en="Outgoing freight:">شحنات صادرة:</span>
+                    <span class="font-bold font-mono text-slate-300" id="hud-node-outgoing">8</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Info Tip -->
+              <div class="absolute bottom-4 right-4 bg-navy/80 border border-gold/15 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] text-slate-400 select-none z-10 pointer-events-none lang-text" data-ar="💡 انقر على عقد المستودعات لاستعراض السعة اللوجستية" data-en="💡 Click on hub nodes to inspect operational capacity indices">
+                💡 انقر على عقد المستودعات لاستعراض السعة اللوجستية
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Operations News feed (4 Columns) -->
+          <div class="lg:col-span-4 glass p-5 rounded-2xl border flex flex-col h-[520px]">
+            <div class="border-b border-gold/10 pb-3 mb-3">
+              <h3 class="text-sm font-extrabold text-gold lang-text" data-ar="شريط الأحداث اللوجستية المباشر" data-en="Live Operations Event Feed">شريط الأحداث اللوجستية المباشر</h3>
+              <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="مراقبة حية لسجلات حركة الشحن والتكامل اللوجستي." data-en="Real-time log stream of system operations and sync records.">مراقبة حية لسجلات حركة الشحن والتكامل اللوجستي.</p>
+            </div>
+
+            <!-- Feed Log container -->
+            <div class="flex-grow overflow-y-auto custom-scroll pr-1 flex flex-col gap-3" id="live-logs-feed">
+              <!-- Dynamically populated operational feeds -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: SHIPMENTS CRUD ==================== -->
+      <section id="tab-content-shipments" class="tab-panel hidden flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="إدارة وتعديل شحنات المنصة" data-en="Sudanil Global Shipments Database">إدارة وتعديل شحنات المنصة</h2>
+            <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="إنشاء وتعديل وحذف سجلات الشحن الإقليمية والدولية ومزامنتها مباشرة مع بوابة العميل." data-en="Review, modify, generate, and purge shipments data securely synced with the Client Portal.">إنشاء وتعديل وحذف سجلات الشحن الإقليمية والدولية ومزامنتها مباشرة مع بوابة العميل.</p>
+          </div>
+          <button onclick="openAddShipmentModal()" class="flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-xl">add_circle</span>
+            <span class="text-xs font-bold lang-text" data-ar="إضافة شحنة جديدة" data-en="New Shipment Account">إضافة شحنة جديدة</span>
+          </button>
+        </div>
+
+        <!-- Filter and Search Control Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <!-- Search box -->
+          <div class="md:col-span-8 relative">
+            <span class="material-symbols-outlined absolute right-3.5 top-3.5 text-slate-400">search</span>
+            <input type="text" id="shipment-search-input" oninput="renderShipments()" class="w-full bg-navy-light/50 border border-gold/25 rounded-xl pr-11 pl-4 py-3 text-sm focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-400 text-slate-200 transition-all" placeholder="بحث عن شحنة، عميل، وجهة..." />
+          </div>
+          <!-- Status Dropdown filter -->
+          <div class="md:col-span-4">
+            <select id="shipment-status-filter" onchange="renderShipments()" class="w-full bg-navy-light/50 border border-gold/25 rounded-xl px-4 py-3 text-sm text-slate-300 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer transition-all">
+              <option value="ALL" class="bg-navy-light text-slate-200 lang-text" data-ar="جميع حالات الشحن" data-en="All Shipment States">جميع حالات الشحن</option>
+              <option value="قيد التوصيل" class="bg-navy-light text-slate-200 lang-text" data-ar="قيد التوصيل" data-en="In Transit">قيد التوصيل</option>
+              <option value="في المستودع" class="bg-navy-light text-slate-200 lang-text" data-ar="في المستودع" data-en="At Warehouse">في المستودع</option>
+              <option value="تم التسليم" class="bg-navy-light text-slate-200 lang-text" data-ar="تم التسليم" data-en="Delivered">تم التسليم</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Shipments Data Grid Table -->
+        <div class="glass rounded-2xl border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse select-none">
+              <thead>
+                <tr class="bg-navy-light/80 text-gold font-bold text-xs md:text-sm border-b border-gold/15">
+                  <th class="p-4 lang-text" data-ar="رمز الشحنة" data-en="ID Code">رمز الشحنة</th>
+                  <th class="p-4 lang-text" data-ar="الشركة العميل" data-en="Client Company">الشركة العميل</th>
+                  <th class="p-4 lang-text" data-ar="نوع الحمولة" data-en="Cargo Type">نوع الحمولة</th>
+                  <th class="p-4 lang-text" data-ar="الوزن" data-en="Weight">الوزن</th>
+                  <th class="p-4 lang-text" data-ar="خط السير" data-en="Freight Route">خط السير</th>
+                  <th class="p-4 lang-text" data-ar="الحالة" data-en="Shipment State">الحالة</th>
+                  <th class="p-4 lang-text" data-ar="تاريخ المغادرة" data-en="Departure Date">تاريخ المغادرة</th>
+                  <th class="p-4 text-center lang-text" data-ar="العمليات" data-en="Admin Actions">العمليات</th>
+                </tr>
+              </thead>
+              <tbody id="shipments-table-body" class="divide-y divide-gold/10 text-xs md:text-sm text-slate-200">
+                <!-- Javascript populated shipments rows -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Table Empty placeholder -->
+          <div id="shipments-empty-view" class="hidden p-12 text-center flex flex-col items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-5xl text-gold/30">inventory_2</span>
+            <p class="font-bold text-slate-400 lang-text" data-ar="عذرًا، لم يتم العثور على أي شحنات مطابقة للبحث." data-en="No matching shipment records located in the registry.">عذرًا، لم يتم العثور على أي شحنات مطابقة للبحث.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: WAREHOUSES CAPACITY ==================== -->
+      <section id="tab-content-warehouses" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="متحكمات سعة المخازن الإقليمية" data-en="Regional Warehouses Capacity Controller">متحكمات سعة المخازن الإقليمية</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="اسحب الموتشر لتعديل السعة المشغولة لكل مستودع رئيسي؛ سيؤدي ذلك لتحديث الرسوم البيانية لوحة التحكم وبوابات العملاء فورًا." data-en="Modify occupied capacity sliders below to dynamically update the 3D globe, telemetry widgets, and client consoles.">اسحب الموتشر لتعديل السعة المشغولة لكل مستودع رئيسي؛ سيؤدي ذلك لتحديث الرسوم البيانية لوحة التحكم وبوابات العملاء فورًا.</p>
+        </div>
+
+        <!-- Capacity Sliders Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="warehouse-sliders-grid">
+          <!-- Javascript dynamically generates warehouse controller cards -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: CLIENTS DATABASE ==================== -->
+      <section id="tab-content-clients" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="قاعدة بيانات حسابات الشركات والعملاء" data-en="Corporate Accounts Registry">قاعدة بيانات حسابات الشركات والعملاء</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="مراقبة حسابات الشركات والتحكم في حالتها (تنشيط أو تعليق الحساب) وإدارة مدراء الحسابات المخصصين لهم." data-en="Review client accounts database, inspect active shipments volume, and toggle active/suspended status indexes.">مراقبة حسابات الشركات والتحكم في حالتها (تنشيط أو تعليق الحساب) وإدارة مدراء الحسابات المخصصين لهم.</p>
+        </div>
+
+        <!-- Clients list table card -->
+        <div class="glass rounded-2xl border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse select-none">
+              <thead>
+                <tr class="bg-navy-light/80 text-gold font-bold text-xs md:text-sm border-b border-gold/15">
+                  <th class="p-4 lang-text" data-ar="الشركة العميل" data-en="Company Account">الشركة العميل</th>
+                  <th class="p-4 lang-text" data-ar="الشحنات المسجلة" data-en="Total Shipments">الشحنات المسجلة</th>
+                  <th class="p-4 lang-text" data-ar="مدير الحساب المخصص" data-en="Dedicated Account Manager">مدير الحساب المخصص</th>
+                  <th class="p-4 lang-text" data-ar="حالة الاتصال والحساب" data-en="Account Registry State">حالة الحساب</th>
+                  <th class="p-4 text-center lang-text" data-ar="تغيير الحالة" data-en="Toggle State">تغيير الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="clients-table-body" class="divide-y divide-gold/10 text-xs md:text-sm text-slate-200">
+                <!-- Javascript populated clients rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: ODOO ERP SYNC ==================== -->
+      <section id="tab-content-erp" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="منفذ تكامل ومزامنة Odoo ERP" data-en="Odoo ERP Integration Gateway">منفذ تكامل ومزامنة Odoo ERP</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="تكامل سيادي متكامل لمزامنة قاعدة البيانات المحلية للشحنات والمستودعات مع خوادم Odoo الأساسية للمؤسسة." data-en="Force core synchronized sweeps, log API checkpoints, and update global enterprise registers.">تكامل سيادي متكامل لمزامنة قاعدة البيانات المحلية للشحنات والمستودعات مع خوادم Odoo الأساسية للمؤسسة.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- ERP Control card -->
+          <div class="lg:col-span-1 glass p-6 rounded-2xl border flex flex-col gap-6 items-center text-center">
+            <div class="w-20 h-20 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center relative" id="erp-sync-glow-indicator">
+              <span class="material-symbols-outlined text-4xl text-gold" id="erp-sync-indicator-icon">sync</span>
+            </div>
+            
+            <div>
+              <h3 class="font-extrabold text-lg text-gold lang-text" data-ar="أداة المزامنة القسرية" data-en="ERP Synchronization Trigger">أداة المزامنة القسرية</h3>
+              <p class="text-xs text-slate-400 mt-2 max-w-[280px] mx-auto lang-text" data-ar="انقر على الزر لتشغيل الفحص القسري ومزامنة بيانات الشحنات المخزنة محليًا مع Odoo ERP." data-en="Click below to broadcast active local storage updates to all registered Odoo cloud endpoints.">انقر على الزر لتشغيل الفحص القسري ومزامنة بيانات الشحنات المخزنة محليًا مع Odoo ERP.</p>
+            </div>
+
+            <button onclick="triggerOdooSync()" id="erp-sync-trigger-btn" class="w-full py-3.5 bg-gradient-to-r from-gold to-yellow-600 text-navy font-extrabold rounded-xl hover:shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined" id="erp-btn-icon">sync</span>
+              <span class="lang-text" id="erp-btn-text" data-ar="مزامنة الآن مع Odoo" data-en="Force ERP Sync Now">مزامنة الآن مع Odoo</span>
+            </button>
+
+            <!-- Sync stats -->
+            <div class="w-full pt-4 border-t border-gold/10 flex flex-col gap-2 text-xs text-slate-300 text-right">
+              <div class="flex justify-between">
+                <span class="lang-text" data-ar="حالة اتصال Odoo API:" data-en="Odoo API Connection:">حالة اتصال Odoo API:</span>
+                <span class="text-emerald-400 font-bold lang-text" data-ar="متصل (آمن)" data-en="Connected (Secure)">متصل (آمن)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="lang-text" data-ar="آخر مزامنة ناجحة:" data-en="Last Sync Trigger:">آخر مزامنة ناجحة:</span>
+                <span class="font-mono font-bold text-gold" id="erp-last-sync-time">--:--:--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic sync logger console -->
+          <div class="lg:col-span-2 glass rounded-2xl border flex flex-col h-[400px] overflow-hidden">
+            <div class="bg-navy-light/60 px-5 py-3 border-b border-gold/10 flex justify-between items-center select-none">
+              <span class="text-xs font-extrabold text-gold font-mono">&gt;_ ODOO_SYNC_LOG_STREAM</span>
+              <button onclick="clearSyncLogs()" class="text-[10px] text-slate-400 hover:text-red-400 font-bold lang-text" data-ar="مسح السجلات" data-en="Clear Logs">مسح السجلات</button>
+            </div>
+            
+            <div class="flex-grow bg-slate-950 p-5 font-mono text-[11px] text-emerald-400 overflow-y-auto custom-scroll flex flex-col gap-1.5" id="erp-sync-logs-console">
+              <!-- Logs populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODALS: SHIPMENTS CRUD ACTIONS ==================== -->
+
+  <!-- MODAL: ADD SHIPMENT -->
+  <div id="add-shipment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4">
+    <div class="absolute inset-0 modal-backdrop" onclick="closeAddShipmentModal()"></div>
+    <div class="glass w-full max-w-xl rounded-2xl border p-6 z-10 relative transform scale-95 opacity-0 transition-all duration-300 flex flex-col gap-4 text-slate-100" id="add-shipment-modal-content">
+      <div class="flex justify-between items-center border-b border-gold/10 pb-3">
+        <h3 class="font-extrabold text-lg text-gold lang-text" data-ar="إنشاء سجل شحنة جديدة" data-en="Create New Shipment Record">إنشاء سجل شحنة جديدة</h3>
+        <button onclick="closeAddShipmentModal()" class="w-8 h-8 rounded-lg hover:bg-gold/10 flex items-center justify-center text-slate-400 hover:text-gold cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <form id="add-shipment-form" onsubmit="handleAddShipment(event)" class="flex flex-col gap-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="رمز الشحنة (مثال: SD-9025)" data-en="Shipment ID (e.g. SD-9025)">رمز الشحنة (مثال: SD-9025)</label>
+            <input type="text" id="add-shipment-id" required pattern="^SD-[0-9]{4}$" class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="SD-0000" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="الشركة العميل" data-en="Client Company">الشركة العميل</label>
+            <input type="text" id="add-shipment-client" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="شركة النيل العالمية" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="نوع الحمولة" data-en="Cargo Category">نوع الحمولة</label>
+            <input type="text" id="add-shipment-cargo" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="أجهزة طبية، إلكترونيات..." />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="الوزن (طن/حجم)" data-en="Cargo Weight (Tons)">الوزن (طن/حجم)</label>
+            <input type="text" id="add-shipment-weight" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="12 طن" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="منطقة المغادرة / نقطة البدء" data-en="Departure Origin">منطقة المغادرة / نقطة البدء</label>
+            <input type="text" id="add-shipment-origin" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="دبي - جبل علي" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="الوجهة النهائية" data-en="Final Destination">الوجهة النهائية</label>
+            <input type="text" id="add-shipment-dest" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="الخرطوم شمال" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="حالة الشحنة البدئية" data-en="Initial Shipment State">حالة الشحنة البدئية</label>
+            <select id="add-shipment-status" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-300 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer">
+              <option value="قيد التوصيل" class="bg-navy-light text-slate-200 lang-text" data-ar="قيد التوصيل" data-en="In Transit">قيد التوصيل</option>
+              <option value="في المستودع" class="bg-navy-light text-slate-200 lang-text" data-ar="في المستودع" data-en="At Warehouse">في المستودع</option>
+              <option value="تم التسليم" class="bg-navy-light text-slate-200 lang-text" data-ar="تم التسليم" data-en="Delivered">تم التسليم</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="تاريخ المغادرة" data-en="Departure Date">تاريخ المغادرة</label>
+            <input type="date" id="add-shipment-date" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer" />
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 border-t border-gold/10 pt-4 mt-2">
+          <button type="button" onclick="closeAddShipmentModal()" class="px-5 py-2 rounded-xl border border-gold/20 text-slate-300 hover:bg-gold/5 text-xs font-bold cursor-pointer lang-text" data-ar="إلغاء الأمر" data-en="Cancel Form">إلغاء الأمر</button>
+          <button type="submit" class="px-6 py-2 rounded-xl bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold text-xs cursor-pointer lang-text" data-ar="تأكيد الإنشاء" data-en="Confirm Creation">تأكيد الإنشاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SHIPMENT -->
+  <div id="edit-shipment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4">
+    <div class="absolute inset-0 modal-backdrop" onclick="closeEditShipmentModal()"></div>
+    <div class="glass w-full max-w-lg rounded-2xl border p-6 z-10 relative transform scale-95 opacity-0 transition-all duration-300 flex flex-col gap-4 text-slate-100" id="edit-shipment-modal-content">
+      <div class="flex justify-between items-center border-b border-gold/10 pb-3">
+        <h3 class="font-extrabold text-lg text-gold lang-text" data-ar="تحديث مسار وحالة الشحنة" data-en="Update Shipment Transit Parameters">تحديث مسار وحالة الشحنة</h3>
+        <button onclick="closeEditShipmentModal()" class="w-8 h-8 rounded-lg hover:bg-gold/10 flex items-center justify-center text-slate-400 hover:text-gold cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <form id="edit-shipment-form" onsubmit="handleEditShipment(event)" class="flex flex-col gap-4">
+        <!-- Immutable fields -->
+        <input type="hidden" id="edit-shipment-index" />
+        <div class="flex flex-col gap-1 p-3 bg-navy-light/40 rounded-xl border border-gold/10 text-xs">
+          <div class="flex justify-between">
+            <span class="text-slate-400 lang-text" data-ar="رمز الشحنة:" data-en="Shipment ID:">رمز الشحنة:</span>
+            <span class="font-bold text-gold font-mono" id="edit-shipment-id-label">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400 lang-text" data-ar="العميل والوزن:" data-en="Client & Weight:">العميل والوزن:</span>
+            <span class="font-bold text-slate-200" id="edit-shipment-details-label">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400 lang-text" data-ar="مسار الشحن الأصلي:" data-en="Original Route:">مسار الشحن الأصلي:</span>
+            <span class="font-bold text-slate-300" id="edit-shipment-route-label">--</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="حالة التقدم اللوجستي" data-en="Operational Status">حالة التقدم اللوجستي</label>
+          <select id="edit-shipment-status" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-300 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer">
+            <option value="قيد التوصيل" class="bg-navy-light text-slate-200 lang-text" data-ar="قيد التوصيل" data-en="In Transit">قيد التوصيل</option>
+            <option value="في المستودع" class="bg-navy-light text-slate-200 lang-text" data-ar="في المستودع" data-en="At Warehouse">في المستودع</option>
+            <option value="تم التسليم" class="bg-navy-light text-slate-200 lang-text" data-ar="تم التسليم" data-en="Delivered">تم التسليم</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5 lang-text" data-ar="أحدث علامة بارزة بالطريق (مثال: الشحنة غادرت ميناء بورتسودان)" data-en="Latest Routing Milestone (e.g. Cleared Custom Checkpoint)">أحدث علامة بارزة بالطريق (مثال: الشحنة غادرت ميناء بورتسودان)</label>
+          <input type="text" id="edit-shipment-milestone" required class="w-full bg-navy-light/60 border border-gold/20 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold placeholder:text-slate-500" placeholder="مثال: الشحنة غادرت ميناء بورتسودان" />
+        </div>
+
+        <div class="flex justify-end gap-3 border-t border-gold/10 pt-4 mt-2">
+          <button type="button" onclick="closeEditShipmentModal()" class="px-5 py-2 rounded-xl border border-gold/20 text-slate-300 hover:bg-gold/5 text-xs font-bold cursor-pointer lang-text" data-ar="إلغاء الأمر" data-en="Cancel">إلغاء الأمر</button>
+          <button type="submit" class="px-6 py-2 rounded-xl bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold text-xs cursor-pointer lang-text" data-ar="تأكيد التحديث" data-en="Confirm Update">تأكيد التحديث</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: DELETE SHIPMENT WARNING -->
+  <div id="delete-shipment-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4">
+    <div class="absolute inset-0 modal-backdrop" onclick="closeDeleteShipmentModal()"></div>
+    <div class="glass w-full max-w-md rounded-2xl border p-6 z-10 relative transform scale-95 opacity-0 transition-all duration-300 flex flex-col gap-4 text-slate-100" id="delete-shipment-modal-content">
+      <div class="flex items-center gap-3 text-red-400">
+        <span class="material-symbols-outlined text-4xl">warning_amber</span>
+        <h3 class="font-extrabold text-base md:text-lg lang-text" data-ar="تحذير أمني: حذف سجل الشحنة" data-en="Security Warning: Delete Shipment">تحذير أمني: حذف سجل الشحنة</h3>
+      </div>
+      
+      <p class="text-xs md:text-sm text-slate-300 leading-relaxed lang-text" data-ar="هل أنت متأكد من رغبتك في حذف هذا السجل نهائيًا؟ هذا الإجراء لا يمكن التراجع عنه وسيقوم بإزالة الشحنة من بوابات العميل على الفور." data-en="Are you absolutely sure you wish to delete this record? This action is permanent and will purge the shipment entry from all client portals instantly.">هل أنت متأكد من رغبتك في حذف هذا السجل نهائيًا؟ هذا الإجراء لا يمكن التراجع عنه وسيقوم بإزالة الشحنة من بوابات العميل على الفور.</p>
+
+      <div class="p-3 bg-red-950/20 border border-red-500/20 rounded-xl flex justify-between text-xs font-mono">
+        <span class="text-slate-400 lang-text" data-ar="رقم الشحنة المستهدفة:" data-en="Target Shipment ID:">رقم الشحنة المستهدفة:</span>
+        <span class="font-bold text-red-300" id="delete-shipment-id-label">--</span>
+      </div>
+
+      <input type="hidden" id="delete-shipment-index" />
+
+      <div class="flex justify-end gap-3 border-t border-gold/10 pt-4 mt-2">
+        <button onclick="closeDeleteShipmentModal()" class="px-5 py-2 rounded-xl border border-gold/20 text-slate-300 hover:bg-gold/5 text-xs font-bold cursor-pointer lang-text" data-ar="إلغاء الأمر" data-en="Cancel">إلغاء الأمر</button>
+        <button onclick="confirmDeleteShipment()" class="px-6 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs cursor-pointer lang-text" data-ar="حذف السجل نهائيًا" data-en="Purge Record">حذف السجل نهائيًا</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== CORE JS LOGIC & SYSTEM STATE ENGINE ==================== -->
+  <script>
+    // ----------------------------------------------------
+    // 1. Data Initialization & Storage state management
+    // ----------------------------------------------------
+    const DEFAULT_SHIPMENTS = [
+      { id: "SD-9021", client: "شركة النيل العالمية", cargo: "إلكترونيات وهواتف ذكية", weight: "12 طن", origin: "دبي - جبل علي", dest: "الخرطوم - المنطقة الصناعية", status: "قيد التوصيل", date: "2026-05-18", milestone: "عبرت منفذ حلفا البري قيد الفحص الجمركي" },
+      { id: "SD-8845", client: "سودان بترول", cargo: "معدات حفر واستخراج حقول النفط", weight: "45 طن", origin: "بورتسودان", dest: "حقول النفط - هجليج", status: "في المستودع", date: "2026-05-19", milestone: "فرغت بالمستودع الإقليمي ببورتسودان" },
+      { id: "SD-7712", client: "مجموعة البركة", cargo: "مواد غذائية معلبة ودقيق", weight: "28 طن", origin: "القاهرة - مدينة نصر", dest: "الخرطوم شمال", status: "تم التسليم", date: "2026-05-12", milestone: "سلمت للعميل بالمنطقة الصناعية بالخرطوم بحري" },
+      { id: "SD-6610", client: "شركة الصمغ العربي", cargo: "صمغ عربي خام للتصدير", weight: "60 طن", origin: "الأبيض", dest: "بورتسودان", status: "قيد التوصيل", date: "2026-05-20", milestone: "غادرت مستودع الأبيض متوجهة لشرق السودان" },
+      { id: "SD-5541", client: "مجموعة النيل الأزرق", cargo: "حاصدات وآلات زراعية ثقيلة", weight: "34 طن", origin: "القاهرة", dest: "مدني", status: "تم التسليم", date: "2026-05-15", milestone: "تم تسليم الآلات بمشروع الجزيرة بنجاح" }
+    ];
+
+    const DEFAULT_WAREHOUSES = [
+      { id: "khartoum", name_ar: "الخرطوم شمال", name_en: "Khartoum North", occupancy: 92, incoming: 12, outgoing: 8, lat: 15.6, lon: 32.5 },
+      { id: "port_sudan", name_ar: "بورتسودان", name_en: "Port Sudan", occupancy: 64, incoming: 22, outgoing: 15, lat: 19.6, lon: 37.2 },
+      { id: "madani", name_ar: "مدني", name_en: "Madani", occupancy: 45, incoming: 5, outgoing: 4, lat: 14.4, lon: 33.5 },
+      { id: "cairo", name_ar: "القاهرة - مدينة نصر", name_en: "Cairo - Nasr City", occupancy: 75, incoming: 18, outgoing: 12, lat: 30.0, lon: 31.2 },
+      { id: "dubai", name_ar: "دبي - جبل علي", name_en: "Dubai - Jebel Ali", occupancy: 80, incoming: 40, outgoing: 35, lat: 25.2, lon: 55.2 }
+    ];
+
+    const DEFAULT_CLIENTS = [
+      { company: "شركة النيل العالمية", shipments: 12, manager: "أحمد كمال / Ahmed Kamal", active: true },
+      { company: "سودان بترول", shipments: 8, manager: "سارة فاروق / Sara Farooq", active: true },
+      { company: "مجموعة البركة", shipments: 5, manager: "سارة فاروق / Sara Farooq", active: true },
+      { company: "شركة الصمغ العربي", shipments: 14, manager: "محمد علي / Mohammed Ali", active: true },
+      { company: "مجموعة النيل الأزرق", shipments: 7, manager: "أحمد كمال / Ahmed Kamal", active: false }
+    ];
+
+    // Seed state engine
+    if (!localStorage.getItem('sudanil_shipments')) {
+      localStorage.setItem('sudanil_shipments', JSON.stringify(DEFAULT_SHIPMENTS));
+    }
+    if (!localStorage.getItem('sudanil_warehouses')) {
+      localStorage.setItem('sudanil_warehouses', JSON.stringify(DEFAULT_WAREHOUSES));
+    }
+    if (!localStorage.getItem('sudanil_clients')) {
+      localStorage.setItem('sudanil_clients', JSON.stringify(DEFAULT_CLIENTS));
+    }
+    if (!localStorage.getItem('sudanil_last_erp_sync')) {
+      localStorage.setItem('sudanil_last_erp_sync', new Date().toLocaleTimeString());
+    }
+
+    // Dynamic initial state
+    let shipments = JSON.parse(localStorage.getItem('sudanil_shipments'));
+    let warehouses = JSON.parse(localStorage.getItem('sudanil_warehouses'));
+    let clients = JSON.parse(localStorage.getItem('sudanil_clients'));
+
+    // ----------------------------------------------------
+    // 2. SPA View Routing Engine (Switching Panels)
+    // ----------------------------------------------------
+    function switchTab(tabId) {
+      // Hide all panels
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      // Show selected panel
+      const targetPanel = document.getElementById(`tab-content-${tabId}`);
+      if (targetPanel) targetPanel.classList.remove('hidden');
+
+      // Update sidebar styling
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('bg-gold', 'text-navy', 'font-bold');
+        item.classList.add('text-slate-300', 'hover:bg-navy-light', 'hover:text-gold');
+      });
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) {
+        activeNav.classList.remove('text-slate-300', 'hover:bg-navy-light', 'hover:text-gold');
+        activeNav.classList.add('bg-gold', 'text-navy', 'font-bold');
+      }
+
+      // Re-trigger three.js globe updates if returning to Dashboard
+      if (tabId === 'dashboard' && window.globeRenderer) {
+        setTimeout(onWindowResize, 50);
+      }
+
+      // Appending a quick audit navigation log to operations feed
+      appendOperationalLog(
+        `تنقل المستخدم إلى لوحة ${tabId.toUpperCase()}`,
+        `Administrator navigated to ${tabId.toUpperCase()} workspace panel.`
+      );
+    }
+
+    // ----------------------------------------------------
+    // 3. UI Theme & Bilingual Localization Toggles
+    // ----------------------------------------------------
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('light-mode')) {
+        html.classList.remove('light-mode');
+        icon.textContent = 'light_mode';
+        localStorage.setItem('sudanil_theme', 'dark');
+        showToast('تم تمكين المظهر الداكن المتكامل', 'Integrated Dark Theme Enabled', 'success');
+      } else {
+        html.classList.add('light-mode');
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('sudanil_theme', 'light');
+        showToast('تم تمكين المظهر الفاتح الكلاسيكي', 'Classic Light Theme Enabled', 'success');
+      }
+
+      // Update 3D Globe colors dynamically
+      if (window.globeMesh && window.globeAmbientLight && window.globeLighting) {
+        const isLight = html.classList.contains('light-mode');
+        window.globeAmbientLight.color.setHex(isLight ? 0xe2e8f0 : 0x021e2d);
+        window.globeLighting.color.setHex(isLight ? 0xd4af37 : 0xffdfa0);
+        window.globeMesh.material.color.setHex(isLight ? 0x1a365d : 0x021e2d);
+      }
+    }
+
+    function toggleLanguage() {
+      const html = document.documentElement;
+      const currentLang = html.getAttribute('lang') || 'ar';
+      const newLang = currentLang === 'ar' ? 'en' : 'ar';
+      
+      html.setAttribute('lang', newLang);
+      html.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
+      
+      document.getElementById('lang-btn-text').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+      localStorage.setItem('sudanil_lang', newLang);
+
+      // Re-translate all components
+      document.querySelectorAll('.lang-text').forEach(el => {
+        const text = el.getAttribute(`data-${newLang}`);
+        if (text) el.innerHTML = text;
+      });
+
+      // Retranslate form placeholders
+      const search = document.getElementById('shipment-search-input');
+      if (search) {
+        search.placeholder = newLang === 'ar' 
+          ? "بحث عن شحنة، عميل، وجهة..." 
+          : "Search shipments, client, route...";
+      }
+
+      // Re-render components
+      renderShipments();
+      renderWarehouseSliders();
+      renderClientsTable();
+      renderLiveLogsFeed();
+
+      showToast(
+        'تم تغيير لغة الواجهة بنجاح',
+        'System language toggled successfully',
+        'info'
+      );
+    }
+
+    // ----------------------------------------------------
+    // 4. Toast Alerts System
+    // ----------------------------------------------------
+    function showToast(messageAr, messageEn, type = 'success') {
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+      const message = currentLang === 'ar' ? messageAr : messageEn;
+      const toast = document.createElement('div');
+      toast.className = `p-4 rounded-xl border shadow-lg text-xs md:text-sm font-bold flex items-center gap-2.5 transition-all duration-300 transform translate-y-3 opacity-0 pointer-events-auto select-none ${
+        type === 'success' 
+          ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-300 backdrop-blur-md' 
+          : type === 'error'
+          ? 'bg-red-950/80 border-red-500/30 text-red-300 backdrop-blur-md'
+          : 'bg-indigo-950/80 border-indigo-500/30 text-indigo-300 backdrop-blur-md'
+      }`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info'}</span>
+        <span>${message}</span>
+      `;
+      document.getElementById('toast-container').appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-3', 'opacity-0');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-3', 'opacity-0');
+        setTimeout(() => toast.remove(), 350);
+      }, 3500);
+    }
+
+    // ----------------------------------------------------
+    // 5. System News & Live Operational Log Feed
+    // ----------------------------------------------------
+    const LIVE_LOGS = [
+      { time: "06:12:45", ar: "فرغت شحنة #SD-8845 حمولتها بمستودع بورتسودان بنجاح.", en: "Shipment #SD-8845 successfully discharged cargo at Port Sudan hub." },
+      { time: "05:40:12", ar: "تم تحديث مؤشر سعة مستودع الخرطوم شمال إلى 92%.", en: "Capacity index updated for Khartoum North warehouse (92% load)." },
+      { time: "04:22:15", ar: "اكتملت مزامنة Odoo ERP لقواعد الشحنات الإقليمية آليًا.", en: "Automated Odoo ERP registry reconciliation completed successfully." },
+      { time: "03:15:00", ar: "شحنة #SD-9021 عبرت منفذ حلفا البري قيد الجمارك.", en: "Shipment #SD-9021 cleared Egypt-Sudan border checkpoint." },
+      { time: "01:05:30", ar: "تم تفعيل حساب عميل Nile Global بعد المراجعة الربعية.", en: "Customer account Nile Global active state approved." }
+    ];
+
+    function renderLiveLogsFeed() {
+      const feed = document.getElementById('live-logs-feed');
+      if (!feed) return;
+      feed.innerHTML = '';
+
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+      
+      LIVE_LOGS.forEach(log => {
+        const block = document.createElement('div');
+        block.className = 'p-3 rounded-xl bg-navy-light/40 border border-gold/10 flex flex-col gap-1 text-[11px] hover:border-gold/30 transition-all';
+        block.innerHTML = `
+          <div class="flex justify-between items-center text-gold-light select-none font-bold">
+            <span>${currentLang === 'ar' ? 'سجل العمليات' : 'SYSTEM LOG'}</span>
+            <span class="font-mono">${log.time}</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed font-medium mt-1">${currentLang === 'ar' ? log.ar : log.en}</p>
+        `;
+        feed.appendChild(block);
+      });
+    }
+
+    function appendOperationalLog(ar, en) {
+      const time = new Date().toLocaleTimeString();
+      LIVE_LOGS.unshift({ time, ar, en });
+      if (LIVE_LOGS.length > 30) LIVE_LOGS.pop();
+      renderLiveLogsFeed();
+    }
+
+    // ----------------------------------------------------
+    // 6. Dynamic Stats Widget Counters Recalculator
+    // ----------------------------------------------------
+    function recalculateWidgets() {
+      // 1. Active shipments count
+      const activeCount = shipments.filter(s => s.status !== 'تم التسليم').length;
+      document.getElementById('widget-active-shipments').innerText = activeCount;
+
+      // 2. Average warehouse utilization computed directly from state array
+      const totalOccupancy = warehouses.reduce((acc, curr) => acc + Number(curr.occupancy), 0);
+      const avgOccupancy = Math.round(totalOccupancy / warehouses.length);
+      document.getElementById('widget-warehouse-capacity').innerText = `${avgOccupancy}%`;
+      
+      const progress = document.getElementById('widget-warehouse-progress');
+      progress.style.width = `${avgOccupancy}%`;
+      // Dynamic coloring based on load severity
+      if (avgOccupancy > 85) {
+        progress.className = "bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full";
+      } else {
+        progress.className = "bg-gradient-to-r from-emerald-500 to-amber-500 h-full rounded-full";
+      }
+
+      // 3. Active clients counts
+      const activeClients = clients.filter(c => c.active).length;
+      document.getElementById('widget-active-clients').innerText = activeClients;
+
+      // 4. Last Sync
+      document.getElementById('widget-last-sync').innerText = localStorage.getItem('sudanil_last_erp_sync');
+      document.getElementById('erp-last-sync-time').innerText = localStorage.getItem('sudanil_last_erp_sync');
+    }
+
+    // ----------------------------------------------------
+    // 7. Shipments CRUD Operations System
+    // ----------------------------------------------------
+    function renderShipments() {
+      const tbody = document.getElementById('shipments-table-body');
+      const emptyView = document.getElementById('shipments-empty-view');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+      const searchVal = document.getElementById('shipment-search-input').value.toLowerCase().trim();
+      const filterVal = document.getElementById('shipment-status-filter').value;
+
+      let filtered = shipments.filter(s => {
+        // Search matches
+        const matchesSearch = s.id.toLowerCase().includes(searchVal) ||
+                              s.client.toLowerCase().includes(searchVal) ||
+                              s.cargo.toLowerCase().includes(searchVal) ||
+                              s.origin.toLowerCase().includes(searchVal) ||
+                              s.dest.toLowerCase().includes(searchVal);
+        
+        // Status filter
+        const matchesStatus = filterVal === 'ALL' || s.status === filterVal;
+        
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        emptyView.classList.remove('hidden');
+      } else {
+        emptyView.classList.add('hidden');
+      }
+
+      filtered.forEach((s, idx) => {
+        // Status badge design
+        let badgeClass = '';
+        if (s.status === 'قيد التوصيل') {
+          badgeClass = 'bg-amber-950/60 border border-amber-500/30 text-amber-300';
+        } else if (s.status === 'في المستودع') {
+          badgeClass = 'bg-blue-950/60 border border-blue-500/30 text-blue-300';
+        } else {
+          badgeClass = 'bg-emerald-950/60 border border-emerald-500/30 text-emerald-300';
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-navy-light/35 transition-colors border-b border-gold/5';
+        tr.innerHTML = `
+          <td class="p-4 font-mono font-bold text-gold-light select-all">${s.id}</td>
+          <td class="p-4 font-semibold text-slate-200">${s.client}</td>
+          <td class="p-4 text-xs text-slate-300 max-w-[140px] truncate" title="${s.cargo}">${s.cargo}</td>
+          <td class="p-4 font-medium font-mono text-slate-300">${s.weight}</td>
+          <td class="p-4 text-xs font-semibold">
+            <span class="text-slate-400">${s.origin}</span>
+            <span class="text-gold px-1 select-none">→</span>
+            <span class="text-slate-200">${s.dest}</span>
+          </td>
+          <td class="p-4">
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${badgeClass}">${s.status}</span>
+          </td>
+          <td class="p-4 font-mono text-xs text-slate-400">${s.date}</td>
+          <td class="p-4 flex gap-2 justify-center items-center">
+            <button onclick="openEditShipmentModal(${idx})" class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 text-gold flex items-center justify-center hover:bg-gold hover:text-navy active:scale-90 transition-all cursor-pointer" title="تعديل الشحنة / Edit">
+              <span class="material-symbols-outlined text-base">edit</span>
+            </button>
+            <button onclick="openDeleteShipmentModal(${idx})" class="w-8 h-8 rounded-lg bg-red-950/20 border border-red-500/30 text-red-400 flex items-center justify-center hover:bg-red-600 hover:text-white active:scale-90 transition-all cursor-pointer" title="حذف الشحنة / Delete">
+              <span class="material-symbols-outlined text-base">delete</span>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ADD MODAL LOGIC
+    function openAddShipmentModal() {
+      const m = document.getElementById('add-shipment-modal');
+      const mc = document.getElementById('add-shipment-modal-content');
+      m.classList.remove('hidden');
+      document.getElementById('add-shipment-date').value = new Date().toISOString().split('T')[0];
+      setTimeout(() => {
+        mc.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeAddShipmentModal() {
+      const m = document.getElementById('add-shipment-modal');
+      const mc = document.getElementById('add-shipment-modal-content');
+      mc.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        m.classList.add('hidden');
+        document.getElementById('add-shipment-form').reset();
+      }, 300);
+    }
+
+    function handleAddShipment(e) {
+      e.preventDefault();
+      const id = document.getElementById('add-shipment-id').value.trim();
+      const client = document.getElementById('add-shipment-client').value.trim();
+      const cargo = document.getElementById('add-shipment-cargo').value.trim();
+      const weight = document.getElementById('add-shipment-weight').value.trim();
+      const origin = document.getElementById('add-shipment-origin').value.trim();
+      const dest = document.getElementById('add-shipment-dest').value.trim();
+      const status = document.getElementById('add-shipment-status').value;
+      const date = document.getElementById('add-shipment-date').value;
+
+      // Uniqueness check
+      if (shipments.some(s => s.id === id)) {
+        showToast('رمز الشحنة مكرر! يرجى استخدام رمز فريد', 'Duplicate ID code! Use unique ID.', 'error');
+        return;
+      }
+
+      const newShipment = { id, client, cargo, weight, origin, dest, status, date, milestone: "تم إنشاء ملف الشحنة بالمنظومة الإدارية المتكاملة" };
+      shipments.unshift(newShipment);
+      localStorage.setItem('sudanil_shipments', JSON.stringify(shipments));
+      
+      closeAddShipmentModal();
+      renderShipments();
+      recalculateWidgets();
+
+      appendOperationalLog(
+        `إنشاء شحنة جديدة رقم ${id} لحساب ${client}.`,
+        `Created new shipment record ${id} for corporate account ${client}.`
+      );
+
+      showToast('تم إضافة الشحنة وتعميمها بنجاح', 'Shipment added and synced successfully', 'success');
+    }
+
+    // EDIT MODAL LOGIC
+    function openEditShipmentModal(idx) {
+      const m = document.getElementById('edit-shipment-modal');
+      const mc = document.getElementById('edit-shipment-modal-content');
+      const s = shipments[idx];
+
+      document.getElementById('edit-shipment-index').value = idx;
+      document.getElementById('edit-shipment-id-label').innerText = s.id;
+      document.getElementById('edit-shipment-details-label').innerText = `${s.client} (${s.weight})`;
+      document.getElementById('edit-shipment-route-label').innerText = `${s.origin} → ${s.dest}`;
+      document.getElementById('edit-shipment-status').value = s.status;
+      document.getElementById('edit-shipment-milestone').value = s.milestone || '';
+
+      m.classList.remove('hidden');
+      setTimeout(() => {
+        mc.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeEditShipmentModal() {
+      const m = document.getElementById('edit-shipment-modal');
+      const mc = document.getElementById('edit-shipment-modal-content');
+      mc.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        m.classList.add('hidden');
+        document.getElementById('edit-shipment-form').reset();
+      }, 300);
+    }
+
+    function handleEditShipment(e) {
+      e.preventDefault();
+      const idx = document.getElementById('edit-shipment-index').value;
+      const status = document.getElementById('edit-shipment-status').value;
+      const milestone = document.getElementById('edit-shipment-milestone').value.trim();
+
+      const oldStatus = shipments[idx].status;
+      shipments[idx].status = status;
+      shipments[idx].milestone = milestone;
+
+      localStorage.setItem('sudanil_shipments', JSON.stringify(shipments));
+
+      closeEditShipmentModal();
+      renderShipments();
+      recalculateWidgets();
+
+      appendOperationalLog(
+        `تحديث شحنة # ${shipments[idx].id}: من [${oldStatus}] إلى [${status}].`,
+        `Updated shipment ${shipments[idx].id}: State changed from [${oldStatus}] to [${status}].`
+      );
+
+      showToast('تم تحديث مسار الشحنة وحفظ التعديلات', 'Shipment parameters updated successfully', 'success');
+    }
+
+    // DELETE MODAL LOGIC
+    function openDeleteShipmentModal(idx) {
+      const m = document.getElementById('delete-shipment-modal');
+      const mc = document.getElementById('delete-shipment-modal-content');
+      
+      document.getElementById('delete-shipment-index').value = idx;
+      document.getElementById('delete-shipment-id-label').innerText = shipments[idx].id;
+
+      m.classList.remove('hidden');
+      setTimeout(() => {
+        mc.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeDeleteShipmentModal() {
+      const m = document.getElementById('delete-shipment-modal');
+      const mc = document.getElementById('delete-shipment-modal-content');
+      mc.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        m.classList.add('hidden');
+      }, 300);
+    }
+
+    function confirmDeleteShipment() {
+      const idx = document.getElementById('delete-shipment-index').value;
+      const deletedId = shipments[idx].id;
+      const client = shipments[idx].client;
+
+      shipments.splice(idx, 1);
+      localStorage.setItem('sudanil_shipments', JSON.stringify(shipments));
+
+      closeDeleteShipmentModal();
+      renderShipments();
+      recalculateWidgets();
+
+      appendOperationalLog(
+        `حذف الشحنة المتكاملة ${deletedId} التابعة للعميل ${client}.`,
+        `Purged shipment ${deletedId} owned by account ${client} from enterprise records.`
+      );
+
+      showToast('تم شطب وحذف الشحنة من النظام المتكامل', 'Shipment deleted from integrated system', 'success');
+    }
+
+    // ----------------------------------------------------
+    // 8. Warehouse Sliders & Capacity Controller System
+    // ----------------------------------------------------
+    function renderWarehouseSliders() {
+      const grid = document.getElementById('warehouse-sliders-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+
+      warehouses.forEach((w, idx) => {
+        const card = document.createElement('div');
+        card.className = 'glass p-5 rounded-2xl border flex flex-col gap-4 group hover:border-gold/30 transition-all';
+        
+        // Progress bar styling color
+        let barColor = 'bg-emerald-500';
+        let txtColor = 'text-emerald-400';
+        if (w.occupancy > 85) {
+          barColor = 'bg-red-500';
+          txtColor = 'text-red-400';
+        } else if (w.occupancy > 60) {
+          barColor = 'bg-amber-500';
+          txtColor = 'text-amber-400';
+        }
+
+        card.innerHTML = `
+          <div class="flex justify-between items-center select-none">
+            <h4 class="font-bold text-sm text-slate-200">${currentLang === 'ar' ? w.name_ar : w.name_en}</h4>
+            <span class="w-2.5 h-2.5 rounded-full ${barColor} pulsing-indicator relative"></span>
+          </div>
+
+          <div class="flex items-end justify-between font-mono">
+            <span class="text-xs text-slate-400 lang-text" data-ar="مؤشر السعة المشغولة:" data-en="Load Index:">مؤشر السعة المشغولة:</span>
+            <span class="text-2xl font-black ${txtColor}" id="slider-txt-${idx}">${w.occupancy}%</span>
+          </div>
+
+          <!-- Slide progress bar -->
+          <div class="w-full bg-navy rounded-full h-2 border border-gold/10 overflow-hidden relative">
+            <div id="slider-bar-${idx}" class="${barColor} h-full rounded-full transition-all duration-300" style="width: ${w.occupancy}%"></div>
+          </div>
+
+          <!-- Dynamic interactive input -->
+          <input type="range" min="0" max="100" value="${w.occupancy}" 
+            oninput="handleWarehouseCapacitySlider(this.value, ${idx})"
+            class="w-full h-1 bg-gold/10 rounded-lg appearance-none cursor-pointer accent-gold active:accent-yellow-600 transition-all" />
+          
+          <div class="flex justify-between text-[10px] text-slate-400 select-none">
+            <span class="lang-text" data-ar="شحنات واردة: ${w.incoming}" data-en="Incoming: ${w.incoming}">وارد: ${w.incoming}</span>
+            <span class="lang-text" data-ar="شحنات صادرة: ${w.outgoing}" data-en="Outgoing: ${w.outgoing}">صادر: ${w.outgoing}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function handleWarehouseCapacitySlider(val, idx) {
+      // Update values
+      warehouses[idx].occupancy = Number(val);
+      localStorage.setItem('sudanil_warehouses', JSON.stringify(warehouses));
+
+      // Dynamic view updates
+      document.getElementById(`slider-txt-${idx}`).innerText = `${val}%`;
+      const bar = document.getElementById(`slider-bar-${idx}`);
+      bar.style.width = `${val}%`;
+
+      // Update styling dynamically
+      let colorClass = 'bg-emerald-500';
+      let txtClass = 'text-emerald-400';
+      if (val > 85) {
+        colorClass = 'bg-red-500';
+        txtClass = 'text-red-400';
+      } else if (val > 60) {
+        colorClass = 'bg-amber-500';
+        txtClass = 'text-amber-400';
+      }
+
+      bar.className = `${colorClass} h-full rounded-full transition-all duration-300`;
+      document.getElementById(`slider-txt-${idx}`).className = `text-2xl font-black ${txtClass}`;
+
+      // Live Recalculate Dashboard statistics
+      recalculateWidgets();
+    }
+
+    // ----------------------------------------------------
+    // 9. Client Accounts Database operations
+    // ----------------------------------------------------
+    function renderClientsTable() {
+      const tbody = document.getElementById('clients-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+
+      clients.forEach((c, idx) => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+            <td class="p-4 font-bold text-slate-200">${c.company}</td>
+            <td class="p-4 font-semibold font-mono text-gold-light">${c.shipments} شحنة</td>
+            <td class="p-4 text-xs font-medium text-slate-300">${c.manager}</td>
+            <td class="p-4">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold ${
+                c.active 
+                  ? 'bg-emerald-950/60 border border-emerald-500/30 text-emerald-300' 
+                  : 'bg-red-950/60 border border-red-500/30 text-red-300'
+              }">${
+                c.active 
+                  ? (currentLang === 'ar' ? 'حساب نشط' : 'Active Account') 
+                  : (currentLang === 'ar' ? 'حساب معلق' : 'Suspended')
+              }</span>
+            </td>
+            <td class="p-4 text-center">
+              <button onclick="toggleClientState(${idx})" class="px-3.5 py-1.5 rounded-lg border text-xs font-bold cursor-pointer transition-all ${
+                c.active 
+                  ? 'bg-red-950/20 border-red-500/20 text-red-400 hover:bg-red-600 hover:text-white' 
+                  : 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400 hover:bg-emerald-600 hover:text-white'
+              }">
+                ${
+                  c.active 
+                    ? (currentLang === 'ar' ? 'تعليق الحساب' : 'Suspend Account') 
+                    : (currentLang === 'ar' ? 'تنشيط الحساب' : 'Activate Account')
+                }
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function toggleClientState(idx) {
+      clients[idx].active = !clients[idx].active;
+      localStorage.setItem('sudanil_clients', JSON.stringify(clients));
+
+      renderClientsTable();
+      recalculateWidgets();
+
+      const newState = clients[idx].active ? 'نشط / ACTIVE' : 'معلق / SUSPENDED';
+      appendOperationalLog(
+        `تغيير حالة حساب العميل ${clients[idx].company} إلى [${newState}].`,
+        `Toggled customer account ${clients[idx].company} active status parameter to [${newState}].`
+      );
+
+      showToast(
+        'تم تغيير حالة حساب العميل بنجاح',
+        'Customer account status index updated successfully',
+        'success'
+      );
+    }
+
+    // ----------------------------------------------------
+    // 10. Core Odoo ERP Synchronization gateway
+    // ----------------------------------------------------
+    let isSyncing = false;
+
+    function clearSyncLogs() {
+      const console = document.getElementById('erp-sync-logs-console');
+      if (console) console.innerHTML = '';
+    }
+
+    function triggerOdooSync() {
+      if (isSyncing) return;
+      isSyncing = true;
+
+      const btn = document.getElementById('erp-sync-trigger-btn');
+      const bText = document.getElementById('erp-btn-text');
+      const bIcon = document.getElementById('erp-btn-icon');
+      const indicator = document.getElementById('erp-sync-glow-indicator');
+      const indicatorIcon = document.getElementById('erp-sync-indicator-icon');
+      const consolePanel = document.getElementById('erp-sync-logs-console');
+
+      btn.classList.add('pointer-events-none', 'opacity-60');
+      bIcon.classList.add('animate-spin');
+      indicatorIcon.classList.add('animate-spin');
+      indicator.classList.add('pulsing-indicator');
+
+      const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+      bText.innerText = currentLang === 'ar' ? "مزامنة جارية الآن..." : "Reconciliation Sync Active...";
+
+      clearSyncLogs();
+
+      // Live terminal logs simulation sequence
+      const logLines = [
+        { ar: "[INFO] بدء الاتصال بمنفذ Odoo XML-RPC API...", en: "[INFO] Initializing handshake request to Odoo XML-RPC API..." },
+        { ar: "[INFO] جاري تأمين بروتوكول TLS 1.3 وتشفير مفتاح الاتصال...", en: "[INFO] Securing TLS 1.3 handshakes, token authorized." },
+        { ar: "[SUCCESS] تم تأسيس اتصال آمن وموثق بخوادم Odoo بنجاح.", en: "[SUCCESS] Secured Odoo web connection initialized successfully." },
+        { ar: "[SYNC] جاري سحب مؤشرات سعة مستودع الخرطوم شمال وبورتسودان...", en: "[SYNC] Resolving Khartoum North & Port Sudan load indexes..." },
+        { ar: "[SYNC] جاري دفع شحنات localStorage المحلية لمصنع تكرير النفط...", en: "[SYNC] Pulling local storage records to Odoo production databases..." },
+        { ar: "[DATABASE] كتابة الشحنات النشطة المحدثة وحساب الموازين...", en: "[DATABASE] Committing active shipment entries and audit indices..." },
+        { ar: "[SUCCESS] تم ضخ وتحديث سجل المخطط العام، خوادم Odoo ERP متزامنة 100%!", en: "[SUCCESS] 100% database synchronization with enterprise Odoo ERP core achieved." }
+      ];
+
+      let lineIdx = 0;
+      function appendLog() {
+        if (lineIdx < logLines.length) {
+          const l = logLines[lineIdx];
+          const text = currentLang === 'ar' ? l.ar : l.en;
+          const time = new Date().toLocaleTimeString();
+          
+          consolePanel.innerHTML += `
+            <div class="flex gap-2">
+              <span class="text-slate-500 font-bold select-none">[${time}]</span>
+              <span>${text}</span>
+            </div>
+          `;
+          consolePanel.scrollTop = consolePanel.scrollHeight;
+          lineIdx++;
+          setTimeout(appendLog, 650);
+        } else {
+          // Finished syncing
+          isSyncing = false;
+          btn.classList.remove('pointer-events-none', 'opacity-60');
+          bIcon.classList.remove('animate-spin');
+          indicatorIcon.classList.remove('animate-spin');
+          indicator.classList.remove('pulsing-indicator');
+
+          bText.innerText = currentLang === 'ar' ? "مزامنة الآن مع Odoo" : "Force ERP Sync Now";
+          
+          const nowTime = new Date().toLocaleTimeString();
+          localStorage.setItem('sudanil_last_erp_sync', nowTime);
+          
+          recalculateWidgets();
+          
+          appendOperationalLog(
+            `أجرى المسؤول مزامنة قسرية شاملة مع Odoo ERP بنجاح.`,
+            `Administrator triggered integrated manual reconciliation sweep with Odoo ERP.`
+          );
+
+          showToast(
+            'مزامنة Odoo ERP اكتملت بالكامل بنجاح',
+            'Integrated Odoo ERP database synchronization completed',
+            'success'
+          );
+        }
+      }
+
+      appendLog();
+    }
+
+    // ----------------------------------------------------
+    // 11. Interactive 3D WebGL Globe Visualization
+    // ----------------------------------------------------
+    let globeRenderer, globeScene, globeCamera, globeControls, globeMesh, globeWireframe, globeAmbientLight, globeLighting;
+    let globeNodeGroup;
+    let globeParticles = [];
+    const activeRoutes = [
+      { from: 0, to: 1 },
+      { from: 0, to: 2 },
+      { from: 1, to: 3 },
+      { from: 1, to: 4 }
+    ];
+
+    function latLonToVector3(lat, lon, radius) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -(radius * Math.sin(phi) * Math.sin(theta)),
+        radius * Math.cos(phi),
+        radius * Math.sin(phi) * Math.cos(theta)
+      );
+    }
+
+    function init3DGlobe() {
+      const container = document.getElementById('globe3DContainer');
+      const canvas = document.getElementById('canvas3D');
+      const hud = document.getElementById('hud-panel');
+      if (!canvas || !container) return;
+
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      globeScene = new THREE.Scene();
+      globeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+      globeCamera.position.set(0, 0, 14);
+
+      try {
+        globeRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      } catch (e) {
+        canvas.style.display = 'none';
+        return;
+      }
+
+      globeRenderer.setSize(width, height);
+      globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const isLight = document.documentElement.classList.contains('light-mode');
+
+      globeAmbientLight = new THREE.AmbientLight(isLight ? 0xe2e8f0 : 0x021e2d, 1.8);
+      globeScene.add(globeAmbientLight);
+
+      globeLighting = new THREE.DirectionalLight(isLight ? 0xd4af37 : 0xffdfa0, isLight ? 1.8 : 1.2);
+      globeLighting.position.set(5, 3, 5);
+      globeScene.add(globeLighting);
+
+      globeControls = new THREE.OrbitControls(globeCamera, globeRenderer.domElement);
+      globeControls.enableDamping = true;
+      globeControls.dampingFactor = 0.05;
+      globeControls.enableZoom = false;
+
+      // Construct Globe sphere mesh
+      const sphereGeo = new THREE.SphereGeometry(4, 64, 64);
+      const sphereMat = new THREE.MeshPhongMaterial({
+        color: isLight ? 0x1a365d : 0x021e2d,
+        transparent: true,
+        opacity: 0.85,
+        shininess: 40,
+        bumpScale: 0.05
+      });
+      globeMesh = new THREE.Mesh(sphereGeo, sphereMat);
+      globeScene.add(globeMesh);
+
+      // Save global references for dynamic light-mode toggles
+      window.globeAmbientLight = globeAmbientLight;
+      window.globeLighting = globeLighting;
+      window.globeMesh = globeMesh;
+
+      // Draw global wireframe overlay
+      const wireGeo = new THREE.SphereGeometry(4.01, 24, 24);
+      const wireMat = new THREE.MeshBasicMaterial({
+        color: 0xd4af37,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15
+      });
+      globeWireframe = new THREE.Mesh(wireGeo, wireMat);
+      globeMesh.add(globeWireframe);
+
+      // Render Hub Nodes on the globe
+      globeNodeGroup = new THREE.Group();
+      const nodeGeo = new THREE.SphereGeometry(0.12, 16, 16);
+      const nodeMat = new THREE.MeshBasicMaterial({ color: 0xffdfa0 });
+
+      warehouses.forEach(w => {
+        const pos = latLonToVector3(w.lat, w.lon, 4);
+        const mesh = new THREE.Mesh(nodeGeo, nodeMat.clone());
+        mesh.position.copy(pos);
+        mesh.userData = w;
+        globeNodeGroup.add(mesh);
+      });
+      globeMesh.add(globeNodeGroup);
+
+      // Setup Route Arcs
+      function createRouteArc(start, end, color = 0xd4af37) {
+        const midPoint = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
+        const distance = start.distanceTo(end);
+        midPoint.normalize().multiplyScalar(4 + distance * 0.25);
+        
+        const curve = new THREE.QuadraticBezierCurve3(start, end, midPoint);
+        const points = curve.getPoints(50);
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+        
+        const lineMat = new THREE.LineBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.4
+        });
+        
+        return { line: new THREE.Line(lineGeo, lineMat), curve: curve };
+      }
+
+      // Draw Arcs and generate dynamic shipping particles
+      activeRoutes.forEach(r => {
+        const start = latLonToVector3(warehouses[r.from].lat, warehouses[r.from].lon, 4);
+        const end = latLonToVector3(warehouses[r.to].lat, warehouses[r.to].lon, 4);
+        const arc = createRouteArc(start, end);
+        globeMesh.add(arc.line);
+        
+        const pGeo = new THREE.SphereGeometry(0.06, 8, 8);
+        const pMat = new THREE.MeshBasicMaterial({ color: 0xffdfa0 });
+        const pMesh = new THREE.Mesh(pGeo, pMat);
+        globeMesh.add(pMesh);
+        
+        globeParticles.push({
+          mesh: pMesh,
+          curve: arc.curve,
+          progress: Math.random(),
+          speed: 0.005 + Math.random() * 0.005
+        });
+      });
+
+      // Pointer Raycasting interactive events
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
+      function onPointerMove(event) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        
+        raycaster.setFromCamera(mouse, globeCamera);
+        const intersects = raycaster.intersectObjects(globeNodeGroup.children);
+        
+        if (intersects.length > 0) {
+          canvas.style.cursor = 'pointer';
+        } else {
+          canvas.style.cursor = 'grab';
+        }
+      }
+
+      function onPointerDown(event) {
+        raycaster.setFromCamera(mouse, globeCamera);
+        const intersects = raycaster.intersectObjects(globeNodeGroup.children);
+        
+        if (intersects.length > 0) {
+          const w = intersects[0].object.userData;
+          
+          // Pull live value dynamically matching index
+          const liveHub = warehouses.find(wh => wh.id === w.id);
+          const currentLang = document.documentElement.getAttribute('lang') || 'ar';
+          
+          document.getElementById('hud-node-name').innerText = currentLang === 'ar' ? liveHub.name_ar : liveHub.name_en;
+          document.getElementById('hud-node-occupancy').innerText = `${liveHub.occupancy}%`;
+          document.getElementById('hud-node-incoming').innerText = currentLang === 'ar' ? `${liveHub.incoming} شحنة` : `${liveHub.incoming} freight`;
+          document.getElementById('hud-node-outgoing').innerText = currentLang === 'ar' ? `${liveHub.outgoing} شحنة` : `${liveHub.outgoing} freight`;
+          
+          hud.style.opacity = '1';
+          hud.style.transform = 'translateY(0)';
+          
+          showToast(
+            `مستودع ${liveHub.name_ar} نشط بمعدل تشغيل ${liveHub.occupancy}%`,
+            `Hub ${liveHub.name_en} selected. Operational index ${liveHub.occupancy}% load.`,
+            'info'
+          );
+        } else {
+          hud.style.opacity = '0';
+          hud.style.transform = 'translateY(12px)';
+        }
+      }
+
+      canvas.addEventListener('mousemove', onPointerMove);
+      canvas.addEventListener('mousedown', onPointerDown);
+
+      // WebGL Anim loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        // Dynamic slower rotation
+        globeMesh.rotation.y += 0.0008;
+
+        // Route particles progression
+        globeParticles.forEach(p => {
+          p.progress += p.speed;
+          if (p.progress > 1) {
+            p.progress = 0;
+            p.speed = 0.005 + Math.random() * 0.005;
+          }
+          const pt = p.curve.getPointAt(p.progress);
+          p.mesh.position.copy(pt);
+        });
+
+        globeControls.update();
+        globeRenderer.render(globeScene, globeCamera);
+      }
+      
+      animate();
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('globe3DContainer');
+      if (!container || !globeRenderer || !globeCamera) return;
+      globeCamera.aspect = container.clientWidth / container.clientHeight;
+      globeCamera.updateProjectionMatrix();
+      globeRenderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    window.addEventListener('resize', onWindowResize);
+
+    // ----------------------------------------------------
+    // 12. Security Logout & Initial Seeding checks
+    // ----------------------------------------------------
+    function handleLogout() {
+      localStorage.removeItem('sessionToken');
+      showToast('جاري تسجيل الخروج من البوابة المتكاملة...', 'Logging out from integrated administrative gateway...', 'info');
+      setTimeout(() => {
+        window.location.replace('../_21/login.html');
+      }, 1000);
+    }
+
+    // ----------------------------------------------------
+    // 13. System boot initialization
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      // Restore cached configurations
+      if (localStorage.getItem('sudanil_theme') === 'light') {
+        document.documentElement.classList.add('light-mode');
+        document.getElementById('theme-icon').textContent = 'dark_mode';
+      }
+
+      if (localStorage.getItem('sudanil_lang') === 'en') {
+        document.documentElement.setAttribute('lang', 'ar'); // Reset trigger
+        toggleLanguage();
+      } else {
+        // Load default translations
+        document.querySelectorAll('.lang-text').forEach(el => {
+          const text = el.getAttribute('data-ar');
+          if (text) el.innerHTML = text;
+        });
+      }
+
+      // Initial component rendering
+      renderShipments();
+      renderWarehouseSliders();
+      renderClientsTable();
+      renderLiveLogsFeed();
+      recalculateWidgets();
+
+      // Launch interactive globe
+      init3DGlobe();
+      initAssistant3D();
+
+      showToast(
+        'مرحبًا بك في لوحة الإدارة المتكاملة لسودانيل',
+        'Welcome to the Sudanil Integrated Administrative Gateway',
+        'success'
+      );
+    });
+  </script>
+<!-- Floating AI Assistant Button -->
+<button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#d4af37] to-[#ecc165] text-[#060d1e] shadow-[0_8px_30px_rgba(212,175,55,0.4)] border border-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300">
+  <span class="material-symbols-outlined text-2xl font-bold">smart_toy</span>
+  <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#060d1e] animate-pulse"></span>
+</button>
+
+<!-- AI Assistant Chat Panel -->
+<div id="ai-chat-panel" class="fixed bottom-24 z-[999] w-[380px] h-[520px] rounded-2xl industrial-shadow flex flex-col opacity-0 translate-y-10 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+  <div class="flex items-center justify-between px-4 py-3 border-b border-[#d4af37]/20 bg-gradient-to-r from-[#060d1e]/90 to-[#0b1b3d]/90 rounded-t-2xl">
+    <div class="flex items-center gap-3">
+      <div class="relative w-12 h-12 bg-[#060d1e] border border-[#d4af37]/30 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+        <canvas id="assistant3DCanvas" class="w-full h-full"></canvas>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-[#d4af37] lang-text" data-ar="المساعد الذكي الموحد" data-en="Smart AI Assistant">المساعد الذكي الموحد</h4>
+        <span class="text-[10px] text-green-400 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping"></span>
+          <span class="lang-text" data-ar="متصل ونشط" data-en="Online & Active">متصل ونشط</span>
+        </span>
+      </div>
+    </div>
+    <button id="close-ai-chat" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+      <span class="material-symbols-outlined text-lg">close</span>
+    </button>
+  </div>
+
+  <div id="ai-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/40 backdrop-blur-md">
+    <div class="flex gap-2.5 items-start">
+      <div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>
+      <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]">
+        <p class="lang-text" data-ar="مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟" data-en="Welcome to Sudanil Integrated Logistics Portal. I am your intelligent assistant. I can help you track shipments, calculate customs clearances, check warehouse capacities, and facilitate all your operations. How can I assist you today?">مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟</p>
+        <div class="mt-2.5 flex flex-wrap gap-1.5">
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="أين شحنتي #SN-TRK-908125؟" data-en="Where is my shipment #SN-TRK-908125?">أين شحنتي #SN-TRK-908125؟</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حساب تكلفة الجمارك" data-en="Calculate customs fees">حساب تكلفة الجمارك</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حالة مستودع الخرطوم" data-en="Khartoum Warehouse status">حالة مستودع الخرطوم</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="ai-chat-form" class="p-3 border-t border-[#d4af37]/20 bg-[#060d1e]/90 flex gap-2 rounded-b-2xl">
+    <input id="ai-user-input" type="text" autocomplete="off" placeholder="اكتب استفسارك هنا..." class="flex-1 bg-slate-900/60 border border-slate-700/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all" data-ar-placeholder="اكتب استفسارك هنا..." data-en-placeholder="Type your inquiry here...">
+    <button type="submit" class="w-9 h-9 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center text-[#060d1e] hover:scale-105 active:scale-95 transition-all shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+      <span class="material-symbols-outlined text-lg font-bold">send</span>
+    </button>
+  </form>
+</div>
+
+<style>
+  html[dir="rtl"] #ai-assistant-btn { left: 24px; right: auto; }
+  html[dir="ltr"] #ai-assistant-btn { right: 24px; left: auto; }
+  html[dir="rtl"] #ai-chat-panel { left: 24px; right: auto; }
+  html[dir="ltr"] #ai-chat-panel { right: 24px; left: auto; }
+</style>
+
+<script>
+  let assistant3DScene, assistant3DCamera, assistant3DRenderer, assistant3DOrb, assistant3DCore;
+  let aiThinkingState = false;
+
+  function initAssistant3D() {
+      const canvas = document.getElementById('assistant3DCanvas');
+      if (!canvas) return;
+      
+      assistant3DScene = new THREE.Scene();
+      assistant3DCamera = new THREE.PerspectiveCamera(50, 1, 0.1, 10);
+      assistant3DCamera.position.z = 3.5;
+      
+      try {
+          assistant3DRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      } catch (e) {
+          canvas.style.display = 'none';
+          return;
+      }
+      
+      assistant3DRenderer.setSize(48, 48);
+      assistant3DRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      
+      const geo = new THREE.IcosahedronGeometry(1.2, 2);
+      const mat = new THREE.MeshBasicMaterial({
+          color: 0xd4af37,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.65
+      });
+      assistant3DOrb = new THREE.Mesh(geo, mat);
+      assistant3DScene.add(assistant3DOrb);
+      
+      const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
+      const coreMat = new THREE.PointsMaterial({
+          color: 0x6e8799,
+          size: 0.08,
+          transparent: true,
+          opacity: 0.85
+      });
+      assistant3DCore = new THREE.Points(coreGeo, coreMat);
+      assistant3DScene.add(assistant3DCore);
+      
+      function animateAssistant() {
+          requestAnimationFrame(animateAssistant);
+          
+          const speedFactor = aiThinkingState ? 5 : 1;
+          assistant3DOrb.rotation.y += 0.015 * speedFactor;
+          assistant3DOrb.rotation.z += 0.005 * speedFactor;
+          assistant3DCore.rotation.x -= 0.01 * speedFactor;
+          
+          if (aiThinkingState) {
+              const scale = 1.0 + Math.sin(Date.now() * 0.012) * 0.12;
+              assistant3DOrb.scale.setScalar(scale);
+              assistant3DCore.scale.setScalar(scale * 0.8);
+          } else {
+              assistant3DOrb.scale.setScalar(1.0);
+              assistant3DCore.scale.setScalar(1.0);
+          }
+          
+          assistant3DRenderer.render(assistant3DScene, assistant3DCamera);
+      }
+      animateAssistant();
+  }
+
+  // Toggle Panel
+  const aiBtn = document.getElementById('ai-assistant-btn');
+  const aiPanel = document.getElementById('ai-chat-panel');
+  const aiClose = document.getElementById('close-ai-chat');
+  const aiForm = document.getElementById('ai-chat-form');
+  const aiInput = document.getElementById('ai-user-input');
+  const aiMessages = document.getElementById('ai-messages');
+
+  if (aiBtn && aiPanel && aiClose) {
+      aiBtn.addEventListener('click', () => {
+          aiPanel.classList.toggle('opacity-0');
+          aiPanel.classList.toggle('translate-y-10');
+          aiPanel.classList.toggle('pointer-events-none');
+          const badge = aiBtn.querySelector('.animate-pulse');
+          if (badge) badge.classList.add('hidden');
+      });
+      
+      aiClose.addEventListener('click', () => {
+          aiPanel.classList.add('opacity-0');
+          aiPanel.classList.add('translate-y-10');
+          aiPanel.classList.add('pointer-events-none');
+      });
+  }
+
+  if (aiForm) {
+      aiForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const text = aiInput.value.trim();
+          if (!text) return;
+          
+          aiInput.value = '';
+          appendMessage(text, true);
+          processAIResponse(text);
+      });
+  }
+
+  function appendMessage(text, isUser) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex gap-2.5 items-start ' + (isUser ? 'justify-end' : '');
+      
+      const avatarHTML = isUser 
+          ? `<div class="w-8 h-8 rounded-lg bg-[#0b1b3d] border border-slate-700 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs">U</div>`
+          : `<div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>`;
+          
+      const bubbleClass = isUser
+          ? 'bg-gradient-to-br from-[#d4af37]/20 to-[#ecc165]/10 border border-[#d4af37]/20 p-3 rounded-2xl rounded-tl-none text-xs text-white leading-relaxed max-w-[80%]'
+          : 'bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]';
+          
+      msgDiv.innerHTML = isUser 
+          ? `<div class="${bubbleClass}">${text}</div>${avatarHTML}`
+          : `${avatarHTML}<div class="${bubbleClass}">${text}</div>`;
+          
+      aiMessages.appendChild(msgDiv);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+  }
+
+  function sendQuickReply(btn) {
+      const text = btn.innerText;
+      appendMessage(text, true);
+      processAIResponse(text);
+  }
+
+  function processAIResponse(query) {
+      aiThinkingState = true;
+      
+      const loaderDiv = document.createElement('div');
+      loaderDiv.className = 'flex gap-2.5 items-start temp-loader';
+      loaderDiv.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center flex-shrink-0 text-[#060d1e] font-bold text-sm">SL</div>
+          <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-400 leading-relaxed flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 0ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 150ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 300ms"></span>
+          </div>
+      `;
+      aiMessages.appendChild(loaderDiv);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+      
+      const isArabic = document.documentElement.getAttribute('lang') === 'ar';
+      
+      setTimeout(() => {
+          const loader = aiMessages.querySelector('.temp-loader');
+          if (loader) loader.remove();
+          
+          aiThinkingState = false;
+          
+          let response = '';
+          const q = query.toLowerCase();
+          
+          if (q.includes('trk') || q.includes('شحن') || q.includes('908125')) {
+              response = isArabic
+                  ? 'تم الاستعلام في سجلات Odoo لتقصي الشحنة **#SN-TRK-908125**: الشحنة في طريقها حالياً (ترانزيت) إلى **الخرطوم - مستودع الشمال** بنسبة تقدم **45%**. متوقع وصولها وجاهزيتها للاستلام خلال 48 ساعة.'
+                  : 'Queried Odoo records for shipment **#SN-TRK-908125**: It is currently **In Transit** to **Khartoum - North Terminal** with a progress of **45%**. Expected delivery within 48 hours.';
+          } else if (q.includes('جمارك') || q.includes('custom') || q.includes('fee') || q.includes('تكلفة')) {
+              response = isArabic
+                  ? 'بناءً على نظام التخليص الجمركي المدمج لدينا، تبلغ الرسوم الجمركية المبدئية للبضائع القياسية 5% من القيمة الإجمالية المصرح عنها للسلعة، بالإضافة إلى 10% ضريبة القيمة المضافة. يمكنك استخدام حاسبة الجمارك التفاعلية من لوحة التحكم للتفاصيل الدقيقة.'
+                  : 'Based on our integrated customs system, basic customs clearance fees are calculated at 5% of the total declared value + 10% VAT. You can use the Interactive Customs Calculator in the dashboard for exact declarations.';
+          } else if (q.includes('خرطوم') || q.includes('مستودع') || q.includes('warehouse') || q.includes('stock')) {
+              response = isArabic
+                  ? 'مؤشرات المزامنة الحالية مع Odoo تشير إلى أن **مستودع الخرطوم** ممتلئ بنسبة **94%** (المساحة المستخدمة 4,700 م²). ننصح بحجز سعة شحنك في **مستودع مدني** المتوفر بسعة ممتازة (معدل إشغال 48% فقط).'
+                  : 'Odoo sync indicates **Khartoum Terminal** occupancy is currently at **94%** (4,700 m² filled). We highly recommend reserving capacity in **Madani Terminal** which has excellent availability (only 48% occupied).';
+          } else {
+              response = isArabic
+                  ? 'مرحباً بك! أنا مساعد سودانيل اللوجستي الموحد. يمكنني مساعدتك في تتبع شحناتك، حساب رسوم التخليص الجمركي المبدئية، أو الاستفسار عن مخزونات المستودعات المزامنة مع Odoo. كيف يمكنني خدمتك اليوم؟'
+                  : 'Hello! I am the Sudanil Unified Logistics Assistant. I can assist you with real-time shipment tracking, initial customs clearance estimates, or checking warehouse capacities synced with Odoo. How can I help you today?';
+          }
+          
+          appendMessage(response, false);
+      }, 1200);
+  }
+</script>
+
+</body>
+</html>

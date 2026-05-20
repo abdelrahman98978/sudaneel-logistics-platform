@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Noto+Kufi+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#6e8799",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1a1c1c",
+                    "secondary": "#795900",
+                    "surface-bright": "#f9f9f9",
+                    "surface-variant": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "tertiary": "#010101",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary-fixed": "#e2e2e2",
+                    "inverse-primary": "#b0cade",
+                    "surface": "#f9f9f9",
+                    "primary": "#000000",
+                    "on-secondary-container": "#785800",
+                    "primary-fixed": "#cce6fb",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "inverse-surface": "#2f3131",
+                    "primary-container": "#021e2d",
+                    "surface-container": "#eeeeee",
+                    "background": "#f9f9f9",
+                    "on-primary-fixed": "#021e2d",
+                    "on-surface-variant": "#42474c",
+                    "on-background": "#1a1c1c",
+                    "primary-fixed-dim": "#b0cade",
+                    "secondary-fixed": "#ffdfa0",
+                    "secondary-container": "#fdcb5b",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-dim": "#dadada",
+                    "on-primary-fixed-variant": "#314a5a",
+                    "secondary-fixed-dim": "#ecc165",
+                    "outline-variant": "#c3c7cc",
+                    "on-secondary-fixed": "#261a00",
+                    "surface-tint": "#496173",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#1c1c1c",
+                    "outline": "#73787c",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-low": "#f3f3f3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "max-width": "1280px",
+                    "section-gap": "80px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-md": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "headline-xl": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "body-md": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "body-lg": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "headline-md": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "headline-lg-mobile": ["Noto Kufi Arabic", "Be Vietnam Pro"],
+                    "headline-lg": ["Noto Kufi Arabic", "Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Noto Kufi Arabic', 'Be Vietnam Pro', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .logistic-shadow { shadow: 0 4px 24px rgba(0, 27, 42, 0.08); }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar (Authority & Shell) -->
+<aside class="fixed right-0 top-0 h-full w-64 bg-primary-container dark:bg-black flex flex-col p-4 gap-2 shadow-[4px_0_24px_rgba(0,27,42,0.08)] z-50">
+<div class="mb-8 px-2">
+<div class="mb-2"><img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/></div>
+<p class="font-label-md text-label-md text-on-primary-container/70">Enterprise Logistics</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Active: Dashboard -->
+<a class="bg-secondary-container text-on-secondary-container rounded-lg font-bold flex items-center gap-3 p-3 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg flex items-center gap-3 p-3 transition-all duration-200 hover:-translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Shipments</span>
+</a>
+<a class="text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg flex items-center gap-3 p-3 transition-all duration-200 hover:-translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg flex items-center gap-3 p-3 transition-all duration-200 hover:-translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg flex items-center gap-3 p-3 transition-all duration-200 hover:-translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 border-t border-white/10 pt-4">
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-lg font-bold flex justify-center items-center gap-2 scale-95 active:scale-90 transition-transform mb-4">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Shipment</span>
+</button>
+<a class="text-on-primary-container/70 hover:text-on-primary flex items-center gap-3 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="text-on-primary-container/70 hover:text-on-primary flex items-center gap-3 p-2" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="mr-64 p-margin-desktop min-h-screen">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-section-gap">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-primary mb-2">أهلاً بك، أحمد</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">تتبع شحناتك وإدارتها بكل سهولة من مكان واحد.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container h-12 w-12 rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<div class="h-12 w-12 rounded-full overflow-hidden border-2 border-secondary-container">
+<img alt="User profile" data-alt="A professional headshot of a Middle Eastern male entrepreneur in a modern office setting. He is wearing a sharp navy blue suit and smiling confidently. The lighting is bright and natural, reflecting a clean corporate aesthetic with high-end glass office partitions in the soft-focus background. The overall mood is one of success and logistical leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU0OwIndj5eSVsMITx7rUxxZPhaqXYIqK4wSrbEqiU4i-F_ZshCrMQwjt-oUXGt-HjbYRklZhtgWCUPQ6lbO_8-j8tbz5eI9mBhDglcVKOjL4yrkuNyJvItY_12kqfrM1vFI-WCdGKz4iSnkrsFYHhfbHOv3rxXsLZHA_9GVASNKQs7eIlH17KW_E5Tnf4SsDCJ9ncFjGwOeZAoi_5bkD6iBh1sdwApvk1WUv8aRjxYjKBu8e2dHPj-8FIUX3VLhvU4jiMpx96vPU"/>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Quick Track Input (Hero Component) -->
+<section class="col-span-12 lg:col-span-8">
+<div class="bg-primary-container p-8 rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-primary mb-6">تتبع شحنتك الآن</h3>
+<div class="flex bg-white rounded-lg p-2 items-center">
+<span class="material-symbols-outlined px-4 text-outline" data-icon="search">search</span>
+<input class="flex-1 border-none focus:ring-0 text-body-lg py-4 placeholder:text-outline-variant" placeholder="أدخل رقم التتبع (مثال: SNL-12345678)" type="text"/>
+<button class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-lg font-bold hover:bg-secondary-fixed transition-colors">
+                                تتبع المسار
+                            </button>
+</div>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -left-10 -bottom-10 opacity-10 text-[200px] text-white">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+</div>
+</div>
+</section>
+<!-- Upcoming Deliveries (Secondary Sidebar) -->
+<section class="col-span-12 lg:col-span-4 row-span-2">
+<div class="bg-white border border-outline-variant p-6 rounded-xl h-full shadow-sm hover:translate-y-[-4px] transition-all duration-300">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">عمليات تسليم قادمة</h3>
+<span class="text-secondary font-bold text-label-md">الكل</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Delivery Card -->
+<div class="p-4 rounded-lg border border-outline-variant hover:border-secondary transition-colors group cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="bg-secondary-container/20 text-on-secondary-container px-2 py-1 rounded text-xs font-bold">اليوم</span>
+<span class="text-on-surface-variant font-label-md">#SNL-0982</span>
+</div>
+<p class="font-label-md text-label-md mb-1">طرد إلكترونيات - دبي</p>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-sm">متوقع بحلول الساعة 4:00 مساءً</span>
+</div>
+</div>
+<!-- Delivery Card -->
+<div class="p-4 rounded-lg border border-outline-variant hover:border-secondary transition-colors group cursor-pointer">
+<div class="flex justify-between mb-2">
+<span class="bg-surface-container text-on-surface-variant px-2 py-1 rounded text-xs font-bold">غداً</span>
+<span class="text-on-surface-variant font-label-md">#SNL-1143</span>
+</div>
+<p class="font-label-md text-label-md mb-1">مستندات قانونية - الرياض</p>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-sm">متوقع بحلول الساعة 10:00 صباحاً</span>
+</div>
+</div>
+</div>
+<div class="mt-8 rounded-xl overflow-hidden border border-outline-variant">
+<img alt="Logistics Map" data-alt="A sophisticated digital map visualization showing real-time logistics routes across a simplified metropolitan grid. The map is designed with professional navy and amber tones, featuring glowing data points and subtle motion lines that suggest activity and precision. The aesthetic is clean and modern, highlighting a tech-forward approach to global shipping and delivery management." data-location="Riyadh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByQ_pZfBLvg3CjAD-6iKVEv8vt_L9Ewmkrr7QCrXP5ybVFYK_VR_uW_GqAAFLH2PszU6BFCWrZqS_LlSD6Lg1q58IAbamhzElCCW77ZliqlmBVa2tLFZ46Zj-3u11SOX8BeJKeS6jB7FiXChbFAyMUu1C7CREbhQq0RSmnTuK4z50QIg-WiJ7xjzhaN2tAAOf58RKwPC6IU2LF_FNKXKO6uwzwlQ4BDv0Wz48_067Ye7q957r-fpCK3ESal_d95LnCbQ8XVySucxY"/>
+</div>
+</div>
+</section>
+<!-- Recent Shipment Status (Progress Bar Section) -->
+<section class="col-span-12 lg:col-span-8">
+<div class="bg-white border border-outline-variant p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md mb-1">أحدث شحنة قيد التنفيذ</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">مرجع: SNL-88421093 | من: جدة إلى: أبوظبي</p>
+</div>
+<div class="bg-secondary-container px-4 py-2 rounded-full font-bold text-on-secondary-container">
+                            في الطريق
+                        </div>
+</div>
+<!-- Progress Tracker -->
+<div class="relative py-12">
+<div class="absolute top-1/2 left-0 w-full h-1 bg-surface-container -translate-y-1/2"></div>
+<div class="absolute top-1/2 right-0 w-3/4 h-1 bg-secondary -translate-y-1/2"></div>
+<div class="relative z-10 flex justify-between items-center px-4">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-md text-label-md text-primary">تم الاستلام</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-md text-label-md text-primary">في المستودع</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-secondary-container border-4 border-white shadow-md flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="local_shipping">local_shipping</span>
+</div>
+<span class="font-label-md text-label-md text-secondary font-bold">في الطريق</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" data-icon="home">home</span>
+</div>
+<span class="font-label-md text-label-md">تم التوصيل</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Shipping History Table -->
+<section class="col-span-12">
+<div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">سجل الشحنات الأخير</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg border border-outline-variant text-label-md flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                                تصفية
+                            </button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant text-label-md flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                                تصدير
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-right border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-md">
+<th class="p-4">رقم الشحنة</th>
+<th class="p-4">التاريخ</th>
+<th class="p-4">الوجهة</th>
+<th class="p-4">النوع</th>
+<th class="p-4">الحالة</th>
+<th class="p-4">المبلغ</th>
+<th class="p-4"></th>
+</tr>
+</thead>
+<tbody class="text-body-md">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">SNL-7721</td>
+<td class="p-4">12 مايو 2024</td>
+<td class="p-4">المنامة، البحرين</td>
+<td class="p-4">جوي</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 text-green-600 font-bold">
+<span class="w-2 h-2 rounded-full bg-green-600"></span>
+                                            تم التوصيل
+                                        </span>
+</td>
+<td class="p-4">150.00 ر.س</td>
+<td class="p-4">
+<button class="text-secondary hover:underline">التفاصيل</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">SNL-8842</td>
+<td class="p-4">10 مايو 2024</td>
+<td class="p-4">أبوظبي، الإمارات</td>
+<td class="p-4">بري</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 text-secondary font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                            في الطريق
+                                        </span>
+</td>
+<td class="p-4">210.00 ر.س</td>
+<td class="p-4">
+<button class="text-secondary hover:underline">التفاصيل</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">SNL-5590</td>
+<td class="p-4">05 مايو 2024</td>
+<td class="p-4">القاهرة، مصر</td>
+<td class="p-4">جوي</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 text-green-600 font-bold">
+<span class="w-2 h-2 rounded-full bg-green-600"></span>
+                                            تم التوصيل
+                                        </span>
+</td>
+<td class="p-4">425.00 ر.س</td>
+<td class="p-4">
+<button class="text-secondary hover:underline">التفاصيل</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-section-gap w-full py-12 flex flex-col md:flex-row justify-between items-center gap-gutter border-t border-outline-variant">
+<div class="flex flex-col gap-2">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Sudanil Logistic. جميع الحقوق محفوظة.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">سياسة الخصوصية</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">شروط الخدمة</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">الامتثال العالمي</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">اتصل بنا</a>
+</div>
+</footer>
+</main>
+</body></html>

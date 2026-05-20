@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Shipment Reference -->
+    <record id="seq_sudanil_shipment" model="ir.sequence">
+        <field name="name">Sudanil Shipment Waybill Sequence</field>
+        <field name="code">sudanil.shipment</field>
+        <field name="prefix">SN-TRK-</field>
+        <field name="padding">6</field>
+        <field name="number_next">908125</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Shipment Form View -->
+    <record id="view_sudanil_shipment_form" model="ir.ui.view">
+        <field name="name">sudanil.shipment.form</field>
+        <field name="model">sudanil.shipment</field>
+        <field name="arch" type="xml">
+            <form string="Sovereign Shipment">
+                <header>
+                    <button name="action_start_transit" string="Start Transit" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_reach_customs" string="Arrived at Customs" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'transit')]}"/>
+                    <button name="action_release_customs" string="Clear Customs" type="object" class="btn-success" attrs="{'invisible': ['|', ('state', '!=', 'customs'), ('customs_status', '=', 'released')]}"/>
+                    <button name="action_deliver" string="Complete Delivery" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'transit')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,transit,customs,delivered"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label">Waybill Reference</span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Client & Cargo Details">
+                            <field name="partner_id"/>
+                            <field name="cargo_type"/>
+                            <field name="cargo_weight"/>
+                            <field name="route_type"/>
+                        </group>
+                        <group string="Border & Customs Status">
+                            <field name="origin"/>
+                            <field name="destination"/>
+                            <field name="customs_status" readonly="1"/>
+                            <field name="customs_declaration_no" placeholder="Sovereign Customs Ref No." attrs="{'readonly': [('customs_status', '=', 'released')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Shipment Tree View -->
+    <record id="view_sudanil_shipment_tree" model="ir.ui.view">
+        <field name="name">sudanil.shipment.tree</field>
+        <field name="model">sudanil.shipment</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'transit'" decoration-warning="state == 'customs'" decoration-success="state == 'delivered'" string="Sudanil Shipments">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="cargo_type"/>
+                <field name="cargo_weight" sum="Total Weight"/>
+                <field name="route_type"/>
+                <field name="origin"/>
+                <field name="destination"/>
+                <field name="customs_status" widget="badge" decoration-success="customs_status == 'released'" decoration-warning="customs_status == 'in_progress'" decoration-danger="customs_status == 'failed'"/>
+                <field name="state" widget="badge" decoration-info="state == 'transit'" decoration-success="state == 'delivered'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Shipment Kanban View -->
+    <record id="view_sudanil_shipment_kanban" model="ir.ui.view">
+        <field name="name">sudanil.shipment.kanban</field>
+        <field name="model">sudanil.shipment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="cargo_type"/>
+                <field name="cargo_weight"/>
+                <field name="customs_status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section">
+                                    <span class="badge badge-secondary"><field name="partner_id"/></span>
+                                </div>
+                                <ul>
+                                    <li>Cargo: <field name="cargo_type"/></li>
+                                    <li>Weight: <field name="cargo_weight"/> Tons</li>
+                                    <li>Customs: <field name="customs_status"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action Window for Sudanil Shipment -->
+    <record id="action_sudanil_shipment" model="ir.actions.act_window">
+        <field name="name">Waybills &amp; Shipments</field>
+        <field name="res_model">sudanil.shipment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register Sudanil's first sovereign shipment waybill!
+            </p>
+            <p>
+                Link incoming custom duties, dry-dock freight, and marine cargo weight to Odoo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menus -->
+    <menuitem id="menu_sudanil_root" name="Sudanil Logistics" web_icon="sudanil_logistics_odoo,static/description/icon.png" groups="base.group_user"/>
+    <menuitem id="menu_sudanil_shipments" name="Sovereign Waybills" parent="menu_sudanil_root" action="action_sudanil_shipment" sequence="10"/>
+
+    <!-- Inherited Views Integration -->
+    <!-- Inherited Stock Warehouse Form -->
+    <record id="view_warehouse_form_inherit_sudanil" model="ir.ui.view">
+        <field name="name">stock.warehouse.form.inherit.sudanil</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='warehouse_group']" position="after">
+                <group string="Sudanil Capacity Integration">
+                    <group>
+                        <field name="sudanil_terminal_type"/>
+                        <field name="sudanil_capacity_max"/>
+                    </group>
+                    <group>
+                        <field name="sudanil_capacity_current"/>
+                        <field name="sudanil_occupancy_rate" widget="progressbar"/>
+                        <field name="sudanil_needs_rebalance" readonly="1" decoration-danger="sudanil_needs_rebalance == True"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited Account Move Form -->
+    <record id="view_move_form_inherit_sudanil" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.sudanil</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="sudanil_shipment_id" options="{'no_create': True}"/>
+                <field name="sudanil_customs_charge"/>
+                <field name="sudanil_logistics_charge"/>
+                <field name="sudanil_is_sovereign_tax"/>
+                <field name="sudanil_portal_sync_status" readonly="1" decoration-success="sudanil_portal_sync_status == 'synced'" decoration-warning="sudanil_portal_sync_status == 'pending'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

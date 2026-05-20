@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Register QWeb PDF Report Action -->
+    <record id="action_report_sudanil_waybill" model="ir.actions.report">
+        <field name="name">Sovereign Waybill (بوليصة الشحن السيادية)</field>
+        <field name="model">sudanil.shipment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sudanil_logistics_odoo.report_waybill_template</field>
+        <field name="report_file">sudanil_logistics_odoo.report_waybill_template</field>
+        <field name="binding_model_id" ref="model_sudanil_shipment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- QWeb HTML/PDF Template -->
+    <template id="report_waybill_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <!-- Styles for Executive Sovereign Visual Identity (Navy & Gold Accent) -->
+                    <style type="text/css">
+                        .sudanil-container {
+                            font-family: 'Cairo', 'Helvetica Neue', sans-serif;
+                            color: #0B1B3D;
+                            direction: ltr;
+                        }
+                        .sudanil-rtl {
+                            direction: rtl;
+                            text-align: right;
+                        }
+                        .sudanil-header {
+                            border-bottom: 3px double #C5A880;
+                            padding-bottom: 10px;
+                            margin-bottom: 20px;
+                        }
+                        .sudanil-title {
+                            font-size: 26px;
+                            font-weight: bold;
+                            color: #0B1B3D;
+                            text-align: center;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                        }
+                        .sudanil-subtitle {
+                            font-size: 18px;
+                            color: #C5A880;
+                            text-align: center;
+                            font-weight: 600;
+                            margin-top: -5px;
+                        }
+                        .sovereign-badge {
+                            background-color: #0B1B3D;
+                            color: #C5A880;
+                            font-weight: bold;
+                            padding: 8px 15px;
+                            border-radius: 4px;
+                            display: inline-block;
+                            border: 1px solid #C5A880;
+                        }
+                        .sudanil-grid {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        }
+                        .sudanil-grid th {
+                            background-color: #0B1B3D;
+                            color: #FFFFFF;
+                            border: 1px solid #C5A880;
+                            padding: 10px;
+                            font-size: 11px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                        }
+                        .sudanil-grid td {
+                            border: 1px solid #C5A880;
+                            padding: 10px;
+                            font-size: 12px;
+                            background-color: #FAFAFA;
+                        }
+                        .sudanil-footer-signature {
+                            margin-top: 50px;
+                            width: 100%;
+                        }
+                        .signature-box {
+                            border-top: 1px solid #0B1B3D;
+                            text-align: center;
+                            font-size: 11px;
+                            padding-top: 5px;
+                            width: 45%;
+                            float: left;
+                        }
+                        .signature-box-right {
+                            border-top: 1px solid #0B1B3D;
+                            text-align: center;
+                            font-size: 11px;
+                            padding-top: 5px;
+                            width: 45%;
+                            float: right;
+                        }
+                    </style>
+
+                    <div class="page sudanil-container">
+                        <!-- Dual Language Document Header -->
+                        <div class="sudanil-header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2 class="sudanil-title">Sovereign Bill of Lading</h2>
+                                    <div class="sudanil-subtitle">Sudanil Logistics Group</div>
+                                </div>
+                                <div class="col-6 text-right sudanil-rtl">
+                                    <h2 class="sudanil-title" style="font-family: 'Cairo';">بوليصة الشحن السيادية</h2>
+                                    <div class="sudanil-subtitle" style="font-family: 'Cairo';">مجموعة سودانيل للخدمات اللوجستية</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reference Info Banner -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong>Waybill Ref:</strong> <span class="sovereign-badge" t-field="o.name"/><br/>
+                                <strong>Date Issued:</strong> <span t-field="o.create_date" t-options='{"widget": "date"}'/><br/>
+                                <strong>Sovereign Client:</strong> <span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="col-6 text-right sudanil-rtl">
+                                <strong>رقم البوليصة:</strong> <span class="sovereign-badge" t-field="o.name"/><br/>
+                                <strong>تاريخ الإصدار:</strong> <span t-field="o.create_date" t-options='{"widget": "date"}'/><br/>
+                                <strong>العميل السيادي:</strong> <span t-field="o.partner_id.name"/>
+                            </div>
+                        </div>
+
+                        <!-- Logistics Routing Grid -->
+                        <table class="sudanil-grid">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Routing Details (تفاصيل خط السير)</th>
+                                    <th style="width: 50%;">Cargo Specification (مواصفات الشحنة)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Origin Terminal (ميناء القيام):</strong><br/>
+                                        <span t-field="o.origin"/><br/><br/>
+                                        <strong>Destination Terminal (ميناء الوصول):</strong><br/>
+                                        <span t-field="o.destination"/><br/><br/>
+                                        <strong>Freight Method (طريقة الشحن):</strong><br/>
+                                        <span t-field="o.route_type"/>
+                                    </td>
+                                    <td>
+                                        <strong>Cargo Description (وصف البضاعة):</strong><br/>
+                                        <span t-field="o.cargo_type"/><br/><br/>
+                                        <strong>Gross Weight (الوزن الإجمالي):</strong><br/>
+                                        <span t-field="o.cargo_weight"/> Tons (طن)<br/><br/>
+                                        <strong>Transit State (الحالة اللوجستية):</strong><br/>
+                                        <span t-field="o.state"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Customs Declaration Sovereign Status -->
+                        <table class="sudanil-grid">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Sovereign Customs Clearance Protocol (بروتوكول التخليص الجمركي السيادي)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <strong>Sovereign Declaration Ref:</strong><br/>
+                                        <span t-if="o.customs_declaration_no" t-field="o.customs_declaration_no"/>
+                                        <span t-if="not o.customs_declaration_no">PENDING ISSUANCE / قيد التدقيق</span>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <strong>Customs Control Stage (مرحلة الرقابة الجمركية):</strong><br/>
+                                        <span t-field="o.customs_status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Billing & Account Valuation Summary -->
+                        <div class="card p-3 my-4" style="border: 1px solid #C5A880; background: #0B1B3D; color: #FFFFFF;">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4 class="m-0" style="color: #C5A880; font-weight: bold;">Official Sovereign Logistics Certification</h4>
+                                    <p class="small m-0 text-white-50">This document verifies active customs status, weights, and security ledgers mapped with Odoo ERP.</p>
+                                </div>
+                                <div class="col-4 text-right sudanil-rtl">
+                                    <h4 class="m-0" style="color: #C5A880; font-family: Cairo; font-weight: bold;">اعتماد الشحن السيادي الرسمي</h4>
+                                    <p class="small m-0 text-white-50">تثبت هذه الوثيقة الحالة الجمركية والأوزان والقيود المعتمدة في Odoo.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formal Institutional Signatures -->
+                        <div class="sudanil-footer-signature">
+                            <div class="signature-box">
+                                <strong>Logistics Terminal Officer</strong><br/>
+                                <span>Group Operations Authority</span>
+                                <br/><br/><br/>
+                                <span>_____________________________</span>
+                            </div>
+                            <div class="signature-box-right sudanil-rtl">
+                                <strong>مسؤول محطة الشحن والجمارك</strong><br/>
+                                <span>سلطة عمليات المجموعة اللوجستية</span>
+                                <br/><br/><br/>
+                                <span>_____________________________</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>من نحن | سودانيل لوجيستك - Sudanil Logistic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Cairo:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Cairo', 'Be Vietnam Pro', sans-serif;
+        }
+        .logistic-depth {
+            box-shadow: 0 10px 30px -5px rgba(0, 27, 42, 0.08), 0 4px 6px -2px rgba(0, 27, 42, 0.05);
+        }
+        .service-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 27, 42, 0.12);
+        }
+        .diagonal-accent {
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#6e8799",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-container": "#fdcb5b",
+                        "surface-tint": "#496173",
+                        "surface": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "surface-variant": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "on-primary-fixed": "#021e2d",
+                        "tertiary": "#000000",
+                        "inverse-surface": "#2f3131",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#ffdf9f",
+                        "secondary": "#795900",
+                        "outline": "#73787c",
+                        "on-surface-variant": "#42474c",
+                        "primary-container": "#021e2d",
+                        "on-tertiary-fixed": "#001e2e",
+                        "surface-dim": "#dadada",
+                        "background": "#f9f9f9",
+                        "on-surface": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "outline-variant": "#c3c7cc",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed-dim": "#b0cade",
+                        "on-secondary-container": "#735500",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#261a00",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed-dim": "#f1bf51",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#314a5a",
+                        "primary-fixed": "#cce6fb",
+                        "on-tertiary-container": "#6c879c",
+                        "primary": "#000000",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#cae6fd",
+                        "on-tertiary-fixed-variant": "#2e4a5c",
+                        "inverse-primary": "#b0cade",
+                        "tertiary-container": "#001e2e",
+                        "tertiary-fixed-dim": "#aecae1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "section-gap": "80px",
+                        "max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Cairo", "Be Vietnam Pro"],
+                        "body-md": ["Cairo", "Be Vietnam Pro"],
+                        "headline-md": ["Cairo", "Be Vietnam Pro"],
+                        "headline-lg": ["Cairo", "Be Vietnam Pro"],
+                        "label-md": ["Cairo", "Be Vietnam Pro"],
+                        "headline-xl": ["Cairo", "Be Vietnam Pro"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/95 backdrop-blur-md border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-base">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-secondary" href="#">About Us</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Track Shipment</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+<button class="bg-primary-container text-white px-6 py-2 rounded-lg font-label-md hover:opacity-90 transition-all active:scale-95">
+            Request a Quote
+        </button>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A wide angle professional photograph of a bustling modern logistics shipping terminal at sunrise. Massive cargo ships are being loaded with colorful containers by towering cranes, bathed in soft golden hour light. The atmosphere is industrious and precise, using a corporate blue and amber color palette to reflect Sudanil Logistic's branding for trust and speed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlV5AQPXQEM6L4TCu9k6comRmUhnOQcs5ZOTflXjWBVN3G7bJOrFkI4xFGpPv0QwuItjLNxRdTnkWyshDi7zunN0VkrfbfkT-3GL436zAGS10ufacrfyvCtEOaW4rHofLOm4ClBqF-dRHfF2is1ue8tL23PhP5zKG0NBRSywthy-ElROBMObzMpdGvTsIzz3J33z_UpLV3ktvBUIgo06YwrufhUiV7s8DymSK0cp-uPG7aLSTLm7CoGlYk4TVNG2-AfESud4jdLPY"/>
+<div class="absolute inset-0 bg-gradient-to-l from-primary-container/90 via-primary-container/60 to-transparent"></div>
+</div>
+<div class="relative z-10 px-margin-desktop w-full max-w-4xl mr-auto text-white">
+<span class="inline-block py-1 px-4 bg-secondary-container text-on-secondary-container font-label-md rounded-full mb-6">منذ عام 2009</span>
+<h1 class="font-headline-xl text-headline-xl mb-6">سودانيل لوجيستك: <br/><span class="text-secondary-container">15 عاماً من التميز</span> في النقل والخدمات اللوجستية</h1>
+<p class="font-body-lg text-body-lg max-w-2xl text-on-primary-container leading-relaxed">
+                    نحن شريكك الموثوق في تقديم حلول لوجستية متكاملة تتخطى الحدود. بفضل خبرتنا العميقة وشبكتنا الواسعة، نضمن وصول شحناتك بأمان ودقة متناهية.
+                </p>
+</div>
+</section>
+<!-- Mission & Vision - Bento Grid -->
+<section class="px-margin-desktop py-section-gap max-w-max-width mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Experience Card -->
+<div class="md:col-span-8 bg-surface-container-lowest p-10 rounded-xl logistic-depth border border-outline-variant relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/10 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">history_edu</span>
+<h2 class="font-headline-lg text-headline-lg mb-6">قصتنا ونجاحنا</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<p class="font-body-md text-on-surface-variant leading-loose">
+                                انطلقت سودانيل لوجيستك برؤية طموحة لإعادة تعريف معايير النقل في المنطقة. على مدار أكثر من 15 عاماً، نجحنا في بناء أسطول ضخم وشبكة شراكات عالمية تمكننا من الوصول إلى أي وجهة في العالم.
+                            </p>
+<p class="font-body-md text-on-surface-variant leading-loose">
+                                نحن لا ننقل البضائع فحسب، بل ننقل الثقة والوعود. التزامنا بالجودة والابتكار جعلنا الخيار الأول للشركات الكبرى والمؤسسات التي تبحث عن الكفاءة والسرعة في التنفيذ.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Vision Card -->
+<div class="md:col-span-4 bg-primary-container text-white p-10 rounded-xl logistic-depth relative overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-1 bg-secondary-container"></div>
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-6">visibility</span>
+<h3 class="font-headline-md text-headline-md mb-4">رؤيتنا</h3>
+<p class="font-body-md text-on-primary-container leading-relaxed">
+                        أن نكون القوة الدافعة للتجارة العالمية في المنطقة من خلال توفير حلول لوجستية ذكية ومستدامة تفوق توقعات عملائنا.
+                    </p>
+</div>
+<!-- Mission Card -->
+<div class="md:col-span-4 bg-secondary-container text-on-secondary-container p-10 rounded-xl logistic-depth">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-6">rocket_launch</span>
+<h3 class="font-headline-md text-headline-md mb-4">رسالتنا</h3>
+<p class="font-body-md leading-relaxed">
+                        تقديم خدمات لوجستية متكاملة (برية، بحرية، وجوية) بأعلى معايير الأمان والكفاءة، مع التركيز المستمر على رضا العميل والابتكار التقني.
+                    </p>
+</div>
+<!-- Values Card -->
+<div class="md:col-span-8 bg-surface-container-high p-10 rounded-xl logistic-depth border border-outline-variant">
+<h3 class="font-headline-md text-headline-md mb-8 text-center">قيمنا الجوهرية</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="text-center">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center mx-auto mb-4 shadow-sm">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<span class="font-label-md">النزاهة</span>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center mx-auto mb-4 shadow-sm">
+<span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+</div>
+<span class="font-label-md">الدقة</span>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center mx-auto mb-4 shadow-sm">
+<span class="material-symbols-outlined text-primary">speed</span>
+</div>
+<span class="font-label-md">السرعة</span>
+</div>
+<div class="text-center">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center mx-auto mb-4 shadow-sm">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<span class="font-label-md">العمل الجماعي</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Office & Boardroom Showcase -->
+<section class="bg-surface-container py-section-gap">
+<div class="px-margin-desktop max-w-max-width mx-auto">
+<div class="flex flex-col md:flex-row gap-gutter items-center mb-16">
+<div class="md:w-1/2">
+<h2 class="font-headline-lg text-headline-lg mb-6">بيئة عمل احترافية</h2>
+<p class="font-body-lg text-on-surface-variant leading-loose mb-8">
+                            نؤمن بأن التميز يبدأ من الداخل. توفر مكاتبنا وقاعات الاجتماعات لدينا بيئة متطورة تشجع على الإبداع واتخاذ القرارات الاستراتيجية التي تدفع بأعمالكم نحو الأمام.
+                        </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">تجهيزات تكنولوجية حديثة</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">قاعات اجتماعات مجهزة بالكامل</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">إدارة عمليات مركزية على مدار الساعة</span>
+</li>
+</ul>
+</div>
+<div class="md:w-1/2">
+<div class="rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Office Boardroom" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEFH8GMCBMcPcJ3Eyzot94HZiBFhsX2BBZCmT1s9qjpCCGfQLe1KNtNcpl7gy7DUELvg6DMpLFdJTJZHtyQ6mo6xYBAlYMWY_CMzP_42VWAMtFFfVQZUeOkXKlObkJlMf7jhaY7cIGcFBvpqPlQ4ia25kOLeLbT-FSbN_mIrC7VpkUS-3UT4bLefKwmp_XAZsH2tSyhtpLxbHFaZZAZEU34iBEX3GIUzD9jz_SRygGB4l8prhMoho96ZsBOHmV0Qb4uR1rwjX5PT8"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Team / Leadership Section -->
+<section class="px-margin-desktop py-section-gap max-w-max-width mx-auto text-center">
+<h2 class="font-headline-lg text-headline-lg mb-4">فريق القيادة</h2>
+<p class="font-body-md text-on-surface-variant max-w-2xl mx-auto mb-16">
+                خبراء متخصصون يقودون التحول اللوجستي في المنطقة، يجمعهم شغف واحد: التميز في الخدمة.
+            </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Leader 1 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional portrait of a senior logistics executive in a sharp navy blue business suit, standing confidently in a modern glass-walled office with a soft-focus warehouse background. The lighting is crisp and professional, emphasizing leadership and authority. The overall aesthetic is clean and corporate, matching the Sudanil Logistic brand's high-scale professional identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN6E9oJbg4KS6ddEeno9yQ552xFtuZe8MYLp09fn0pH4tl2z47JfWpQotIrUE6YDqvkT40AGJD5NlG1sWzGic3IywrH37C5cYLY5YXrp1utwVi230VPiHr8f9hDnDJlpltPZWYUEfvAyXxwVksySyaIzFAIdJt0M9sejS2TNS7RehPmddrmD8Gu8fES3oM54fR6jynt61a25DAxjcrU933-lUgoiVdax8QVacFTTucbtdoQwXZ_Yb4zZpmrTdHaRJH47z4BQMX2V4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+<div class="flex gap-4 text-white">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">mail</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">share</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md mb-1">أحمد محمد</h4>
+<p class="font-label-md text-secondary uppercase tracking-widest">المدير التنفيذي</p>
+</div>
+<!-- Leader 2 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional portrait of a female operations manager in a smart grey blazer, holding a tablet and smiling warmly. She is standing in a brightly lit, contemporary logistical control center with digital dashboards in the background. The mood is efficient, friendly, and highly capable, reflecting the reliable and precise nature of Sudanil Logistic's management team." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx4KLyHmQX-PPva5Z7xz-B-RTGXOh5S8yhf4YsLxwX-C0txXPbsR49R4HinngEov1G2ov6vjBvrzK593bFdaN4Fku53tSBBnxiHZ0_GyukLe7zheDST4mOGEGmQcQauuXNF7iJXKLqtPvdUokmWZmLG9f0KS2rtlP5nv1IpyQf-xF7p-wvZWk1XQlWC-R9lxzUZrePY6Q2_1g7RCcRFB0VXBdZWeuSz1AlHV47gkE2sohdG92IEC1U_MPgiC8Ddl8K74I8XQ4J9Vc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+<div class="flex gap-4 text-white">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">mail</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">share</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md mb-1">سارة إبراهيم</h4>
+<p class="font-label-md text-secondary uppercase tracking-widest">مدير العمليات</p>
+</div>
+<!-- Leader 3 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden rounded-xl aspect-[3/4]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional headshot of a middle-aged male director of global partnerships in a black suit. He is standing against a minimalist wall with a subtle architectural linear pattern. The lighting is soft and even, highlighting a sophisticated and trustworthy character. The style is modern corporate, aligning with the industrial precision of a global logistics leader." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrCK-db0nf2V2uhyzTvJVtFHWLQ9wQ-YdoAKoInexCDFDTFHklxwCvGKOmbHj89-PgXHhp3qRJXbsUKUWrFlUfvAy59JHjI8jtG8os9FronhPj5Sf4kOO3WcHiiP5vJtXvI8r4Z8nB-lzMtrrsOjrRUqlg3pq4a7iQ7_JNBpju3i9RrkY4q-38R-UHVU4fLxhiCEQIm2pJl9N33WcAScfDe_Tg6R8ouI2ix0scb7uBqDbLY6H1X2sC5OBiiNTrlBvOieOZD9xoa-Y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+<div class="flex gap-4 text-white">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">mail</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container">share</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md mb-1">خالد حسن</h4>
+<p class="font-label-md text-secondary uppercase tracking-widest">مدير الشراكات الدولية</p>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="bg-primary-container text-white py-20 px-margin-desktop">
+<div class="max-w-max-width mx-auto grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div>
+<div class="font-headline-xl text-headline-xl text-secondary-container mb-2">15+</div>
+<p class="font-label-md">عاماً من الخبرة</p>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-secondary-container mb-2">500+</div>
+<p class="font-label-md">شاحنة نقل</p>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-secondary-container mb-2">50k+</div>
+<p class="font-label-md">شحنة ناجحة</p>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-secondary-container mb-2">24/7</div>
+<p class="font-label-md">دعم فني</p>
+</div>
+</div>
+</section>
+<!-- Partners Grid -->
+<section class="py-section-gap px-margin-desktop bg-surface-bright">
+<div class="max-w-max-width mx-auto">
+<h3 class="font-label-md text-center text-outline mb-12 uppercase tracking-widest">شركاء النجاح حول العالم</h3>
+<div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
+<img alt="Maersk" class="h-8 md:h-12 grayscale hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt4t_TP0MhLfkXNLPCtvoGePK7iJphM9M0qTXeLl0RuLPYaPCZVeauJscnpfm5fn6hTZ7iqt60OoJ7XgXPPFQJZVS0TUFKN6Dhn5On3PEFOl-ht726x0hY464CLYauqeaWS7ByUaOiA1oqcHL8KNWrUDTd8ZEt-m3PYmNXJhb0bf5O_IfhTKcDofERdRCNFn85tQKyu9a0rgF5un5HbxqOIXUH2NFJ8_yzl_gtjKIe6M5w5gS4eFwvh--ROg3t5FlPXbUh2p1O7yU"/>
+<img alt="MSC" class="h-8 md:h-12 grayscale hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMTmlmF1xxH9nyMNMZ6IVBLw5s96TSZCcwym8sOEzLR9ec5G815WXeoBqD2g5Zmz-6FphWM78ks7jQAZBUGsUXfXGz6FEW584DnRxeTERkjf3s6WSGCn8uQBdc5SqF3JpZl8HfUUVPZqBcftD9PsTREnBnWIkcfgH6WJILfvd3Pv9jxaBw2ZYZkpVdTdVLaxhSBt2d7m6v3OdJ4n7fmHT_VVjvE7zm3u1E7o-fqVlISR_9UohawLPYJwsmp1j83ClefNTIVYvQ7WQ"/>
+<img alt="DP World" class="h-8 md:h-12 grayscale hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD01pxhbMZOS64FDTz9X5Pkc2OJSqZPMCaryQuekspmiPjB7sw-lp9ZdOVYehM04pjhOj3tYQhPQTVg1bYaZpejhYyIwAmVp_3NMkoMvP1XJyTepI9nFE4FeO7NtYMIqfZfy61jSBTSuCpP0zoUQFq2rfgVlBx4G3--uvEEl2enAdx_5RjgHVCZDtiV0eIrXDpp70TTBUunULv-O80BOYSVon5jINXPZcH6mLi1FdjX1S4BEaSvuM1PiNQinB3T9ytEM1Ul98s0s5Q"/>
+<img alt="DHL" class="h-6 md:h-10 grayscale hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZg8fOKVUlAMNlT83rgytDZAMgsc9TCghWQx-7BVRxwdEA5O1FBBqGz7rA6x0n62cAXN9-3XDHCNfPk9yy3jzk5WihQh394RdgsHY14fazyDn7bXhpsmViaVKx-38xWphBgERkZZjzzuNYHPiTIHoJx-8uIr9LW3JUjpem2pr8D6m77blpVJRqrg1h9TWUK_ejjzUGvjDBuHOR_DUAwl7aQYH49Rwg-246HvkiuDOK8RSmvod9khFK1UnrPA6Pn6OHQkH--teBAUc"/>
+<img alt="Aramex" class="h-6 md:h-10 grayscale hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxbNHgdO4UUMFvLUNxbm_gHoyzB5A4bJvtVU2w_JfVxPmu2QVOGAa1ap8HUz7HyrCIuUnDptCS1oFahaXEtckXfKTpXPK57ZTZNH5sY85LD095y99u5LLCnomLOX-Eqj0fFL-pg1_mTe_jW50Wkof94ilwp8Rm_eV3lzT6s6YGCk3d8UmpZEjIGLqhALD2KHSWf-fOXagZMR1aoNh55-qh_ucomfxQpIYP8OCQiZfHbXkMX_lq9Q_8XUNgKiEOYm9D174fGZCK7Eg"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-section-gap grid grid-cols-1 md:grid-cols-4 gap-gutter bg-primary-container dark:bg-surface-container-lowest text-on-primary-container">
+<div class="flex flex-col gap-6">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"/>
+<p class="font-body-md text-on-primary-container/80 leading-relaxed">
+                رائدون في عالم اللوجستيات، نقدم الحلول التي تربط العالم ببعضه البعض بدقة وموثوقية عالية.
+            </p>
+</div>
+<div>
+<h4 class="font-headline-md text-white mb-6">روابط سريعة</h4>
+<ul class="flex flex-col gap-4">
+<li><a class="font-body-md hover:text-secondary-container transition-transform hover:translate-x-1 inline-block" href="#">Home</a></li>
+<li><a class="font-body-md text-secondary-container font-bold" href="#">About Us</a></li>
+<li><a class="font-body-md hover:text-secondary-container transition-transform hover:translate-x-1 inline-block" href="#">Services</a></li>
+<li><a class="font-body-md hover:text-secondary-container transition-transform hover:translate-x-1 inline-block" href="#">Track Shipment</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline-md text-white mb-6">اتصل بنا</h4>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">location_on</span>
+<span class="font-body-md">الخرطوم، السودان</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">call</span>
+<span class="font-body-md" dir="ltr">+249 123 456 789</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">mail</span>
+<span class="font-body-md">info@sudanil-logistic.com</span>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline-md text-white mb-6">تابعنا</h4>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full border border-on-primary-container/30 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl">share</span>
+</div>
+<div class="w-10 h-10 rounded-full border border-on-primary-container/30 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl">public</span>
+</div>
+</div>
+<p class="mt-8 text-label-md text-on-primary-container/60">© 2024 Sudanil Logistic. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>من نحن | سودانيل لوجيستك</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Alexandria', 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-shadow {
+            box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.08), 0 4px 10px -3px rgba(11, 27, 61, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .logistic-depth { box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.08), 0 4px 10px -3px rgba(11, 27, 61, 0.04); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .logistic-depth-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .logistic-depth-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 40px -10px rgba(11, 27, 61, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.05); border-color: #d4af37; }
+        .bg-gradient-navy { background: linear-gradient(145deg, #0b1b3d 0%, #1a365d 100%); }
+        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.85) 0%, rgba(26,54,93,0.6) 60%, rgba(212,175,55,0.3) 100%); }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            background-size: 200% auto;
+        }
+        @keyframes shimmer { to { background-position: -200% center; } }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "100px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container selection:text-primary">
+<!-- Top Navigation Bar -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-24 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all">
+    <div class="flex items-center gap-12">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-8 items-center text-sm">
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+            <span class="material-symbols-outlined text-xl">language</span>
+            <span id="langToggleText">EN</span>
+        </button>
+        <a href="../_21/code.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2" data-ar="بوابة العملاء" data-en="Client Portal">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            بوابة العملاء
+        </a>
+    </div>
+</header>
+<main class="pt-20">
+<!-- Hero Section - Cinematic -->
+<section class="relative h-[600px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Hero background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600&q=80"/>
+<div class="absolute inset-0 hero-gradient"></div>
+<div class="absolute right-0 bottom-0 w-1/3 h-full bg-secondary/10 skew-x-[-20deg] translate-x-1/2"></div>
+</div>
+<div class="relative z-10 max-w-max-width mx-auto px-margin-desktop w-full">
+<div class="max-w-2xl text-white" data-aos="fade-up" data-aos-duration="1000">
+<span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-5 py-2 rounded-full mb-6">
+<span class="w-2 h-2 bg-secondary-container rounded-full animate-pulse"></span>
+منذ عام 2009
+</span>
+<h1 class="lang-text text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight" data-ar="نقود مستقبل اللوجستيات <span class='text-gradient-gold'>بدقة واحترافية</span>" data-en="Driving the Future of Logistics <span class='text-gradient-gold'>with Precision and Professionalism</span>">نقود مستقبل اللوجستيات <span class="text-gradient-gold">بدقة واحترافية</span></h1>
+<p class="lang-text text-lg text-white/80 leading-relaxed" data-ar="نحن في سودانيل لوجيستك نؤمن بأن الحركة هي حياة الاقتصاد. من خلال شبكتنا الواسعة وحلولنا المبتكرة، نربط السودان بالعالم ونحرك البضائع بأمان وسرعة فائقة." data-en="At Sudanil Logistic, we believe movement is the life of the economy. Through our extensive network and innovative solutions, we connect Sudan to the world and move goods with utmost safety and speed.">
+نحن في سودانيل لوجيستك نؤمن بأن الحركة هي حياة الاقتصاد. من خلال شبكتنا الواسعة وحلولنا المبتكرة، نربط السودان بالعالم ونحرك البضائع بأمان وسرعة فائقة.
+</p>
+</div>
+</div>
+</section>
+<!-- Company History & Vision Bento -->
+<section class="py-section-gap px-margin-desktop max-w-max-width mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- History -->
+<div class="md:col-span-7 bg-white p-12 rounded-xl border border-outline-variant logistic-depth flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-4xl text-secondary">history</span>
+<h2 class="font-headline-lg text-headline-lg">تاريخنا العريق</h2>
+</div>
+<p class="font-body-md text-on-surface-variant leading-relaxed text-lg">
+                            انطلقت رحلة سودانيل لوجيستك في عام 2009 كشركة ناشئة في مجال النقل البري. وبفضل التزامنا الصارم بالجودة والمواعيد، تطورنا لنصبح اليوم الرائد الوطني في الحلول اللوجستية المتكاملة، مدعومين بأسطول ضخم وخبرات عالمية المستوى.
+                        </p>
+</div>
+<div class="mt-12 grid grid-cols-3 gap-4">
+<div class="text-center">
+<div class="text-headline-md font-bold text-secondary">15+</div>
+<div class="text-label-md text-outline">عام من الخبرة</div>
+</div>
+<div class="text-center">
+<div class="text-headline-md font-bold text-secondary">500+</div>
+<div class="text-label-md text-outline">مركبة حديثة</div>
+</div>
+<div class="text-center">
+<div class="text-headline-md font-bold text-secondary">1M+</div>
+<div class="text-label-md text-outline">شحنة ناجحة</div>
+</div>
+</div>
+</div>
+<!-- Mission & Vision -->
+<div class="md:col-span-5 grid grid-rows-2 gap-gutter">
+<div class="bg-primary-container text-white p-8 rounded-xl logistic-depth relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">visibility</span> رؤيتنا
+                            </h3>
+<p class="font-body-md text-white/80">أن نكون الشريك اللوجستي الأول في المنطقة، متميزين بالابتكار الرقمي والوصول الجغرافي الشامل.</p>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[160px]">trending_up</span>
+</div>
+</div>
+<div class="bg-secondary text-white p-8 rounded-xl logistic-depth relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">flag</span> رسالتنا
+                            </h3>
+<p class="font-body-md text-white/80">توفير حلول نقل وتخزين ذكية وآمنة تدعم نمو أعمال عملائنا وتساهم في التنمية الاقتصادية المستدامة.</p>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 transition-transform duration-500 text-primary-container">
+<span class="material-symbols-outlined text-[160px]">handshake</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Values Section -->
+<section class="py-section-gap bg-surface-container-low">
+<div class="max-w-max-width mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">قيمنا الجوهرية</h2>
+<p class="font-body-md text-on-surface-variant max-w-xl mx-auto">المبادئ التي تحكم كل ميل نقطعه وكل قرار نتخذه لخدمة عملائنا.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<!-- Value 1 -->
+<div class="bg-white p-8 rounded-xl border border-outline-variant logistic-depth-hover transition-all text-center group">
+<div class="w-16 h-16 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">verified_user</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-3">الأمان المطلق</h4>
+<p class="font-body-md text-on-surface-variant">حماية بضائعكم هي أولويتنا القصوى عبر بروتوكولات تأمين عالمية.</p>
+</div>
+<!-- Value 2 -->
+<div class="bg-white p-8 rounded-xl border border-outline-variant logistic-depth-hover transition-all text-center group">
+<div class="w-16 h-16 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">speed</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-3">دقة المواعيد</h4>
+<p class="font-body-md text-on-surface-variant">نحترم وقتكم؛ لذا نلتزم بجداول زمنية صارمة لضمان وصول الشحنات في موعدها.</p>
+</div>
+<!-- Value 3 -->
+<div class="bg-white p-8 rounded-xl border border-outline-variant logistic-depth-hover transition-all text-center group">
+<div class="w-16 h-16 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-3">الابتكار التقني</h4>
+<p class="font-body-md text-on-surface-variant">نستخدم أحدث أنظمة التتبع والذكاء الاصطناعي لتحسين مسارات النقل.</p>
+</div>
+<!-- Value 4 -->
+<div class="bg-white p-8 rounded-xl border border-outline-variant logistic-depth-hover transition-all text-center group">
+<div class="w-16 h-16 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">support_agent</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-3">محورية العميل</h4>
+<p class="font-body-md text-on-surface-variant">فريقنا مكرس لتقديم تجربة عملاء سلسة وشفافة في كل مرحلة.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Fleet Showcase -->
+<section class="py-section-gap">
+<div class="max-w-max-width mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+<div class="max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg mb-4">أسطولنا الحديث</h2>
+<p class="font-body-md text-on-surface-variant">نمتلك واحداً من أكبر وأحدث أساطيل النقل في المنطقة، مجهزاً بكافة تقنيات التتبع والسلامة للتعامل مع مختلف أنواع الحمولات.</p>
+</div>
+<button class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-label-md hover:bg-primary hover:text-white transition-all">تصفح الخدمات</button>
+</div>
+<div class="rounded-2xl overflow-hidden logistic-depth relative h-[500px]">
+<img alt="Fleet image" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1600&q=80"/>
+<div class="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black/80 to-transparent text-white">
+<div class="flex flex-wrap gap-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">local_shipping</span>
+<div>
+<div class="text-xl font-bold">شاحنات ثقيلة</div>
+<div class="text-white/60 text-sm">للنقل العابر للحدود</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">airport_shuttle</span>
+<div>
+<div class="text-xl font-bold">مركبات توزيع</div>
+<div class="text-white/60 text-sm">للميل الأخير والمدن</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">ac_unit</span>
+<div>
+<div class="text-xl font-bold">شحن مبرد</div>
+<div class="text-white/60 text-sm">للأدوية والمواد الغذائية</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Executive Team Section -->
+<section class="py-section-gap bg-surface">
+<div class="max-w-max-width mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">فريقنا القيادي</h2>
+<p class="font-body-md text-on-surface-variant max-w-xl mx-auto">خبرات وطنية وعالمية تقود التحول اللوجستي في السودان.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Leader 1 -->
+<div class="group">
+<div class="aspect-[3/4] overflow-hidden rounded-xl mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A professional portrait of a senior executive male in a crisp navy blue suit, standing in a brightly lit modern office with floor-to-ceiling glass windows. The lighting is soft and corporate, creating a trustful and authoritative atmosphere. The color palette is dominated by professional blues and greys, aligning with a premium logistics brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCShfecOP459UOb3JACgv_BR66GdBw0aCW1eWrGQo_CVmsl6AwyJJZOX3mZeDFkADbFyr1KAdFlMuSNZJV_BYbOWEv1onvfjoOogz3O0reLsNq29D381KkIQfz3oHfflA1oci3LQaaqahgo9yby91XLSQ7tFf7al8DxcTNJwfSjuAKFqRwyHahVfwsk0xouc7_DNQSbWH7lGAKjfkOIGHohWQIIrPdfn8x4bkOrZp-0gBNOz8IdbQvgQ2zX_41Npj7o2J4DTERHPqs"/>
+<div class="absolute inset-0 bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h5 class="font-headline-md text-headline-md">أحمد عثمان</h5>
+<p class="text-secondary font-label-md mb-2">الرئيس التنفيذي</p>
+<p class="font-body-md text-on-surface-variant">خبرة 20 عاماً في إدارة سلاسل الإمداد العالمية.</p>
+</div>
+<!-- Leader 2 -->
+<div class="group">
+<div class="aspect-[3/4] overflow-hidden rounded-xl mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A professional portrait of a female executive in business attire, looking confident and smiling warmly in a minimalist corporate hallway. The setting features clean architectural lines and warm, natural sunlight. The visual style is high-end and modern, emphasizing leadership and precision with a focus on human connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD02JTwhfFLe_Xlwnm0BGgClRLi3wBqoylsYLPv0d7cweVEQGi5qP2-TUBK1gVgKUD0brbRbkvzQcxpcDrbjxyBJp0-vwlogP_e6vf8ppWLiVOEeDKHMBK_kX6Hc8sbyurm09jJq78GJEumUsBgCv9-sADxV3fQb3GDEv7I11Oto8EgnpiI4PFanIQaXLxoxHBKfVfMmguFekSvHrP60Jpk0knaJbwzg-Lpo2QhUWYyasJF7tEAfVL8DTFzG9TiQLnmmEW8IlZy2lQ"/>
+<div class="absolute inset-0 bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h5 class="font-headline-md text-headline-md">سارة يوسف</h5>
+<p class="text-secondary font-label-md mb-2">مديرة العمليات</p>
+<p class="font-body-md text-on-surface-variant">متخصصة في هندسة المسارات اللوجستية والتحسين التقني.</p>
+</div>
+<!-- Leader 3 -->
+<div class="group">
+<div class="aspect-[3/4] overflow-hidden rounded-xl mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A professional portrait of a male director in a smart-casual blazer, standing against a blurred background of a busy shipping port during sunset. The lighting is golden and dramatic, highlighting the industrial theme. The aesthetic is gritty yet polished, showcasing the scale of logistics operations and professional oversight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAci75SaIzP2V5rG-WHnoOtw__YzqW8Dh-ORSH1LH7ZCUu6y0maVqj9zFBgSei5rnrObGlrL_99mCPSZ-6abOaL8nz4SekWs7qMic-uIflIB2S6JYb3aXCxVi7aBo3205mymXeoessw948gSt4FatNhgr2kWspbh4vUr04WIGBJUx8kuNFKP2Jp7QrDG7kwkyhFgOTRRVg3YOvjMiB7-8ZwjTgefv9sV4mYtbVX8oO_nqxuwvBvn00gMS6jgRcm0MT8NgOmoiNDZZw"/>
+<div class="absolute inset-0 bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h5 class="font-headline-md text-headline-md">محمد علي</h5>
+<p class="text-secondary font-label-md mb-2">مدير الأسطول</p>
+<p class="font-body-md text-on-surface-variant">قائد استراتيجي لإدارة وصيانة الأصول المتحركة وتأمين النقل.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-section-gap px-margin-desktop">
+<div class="max-w-max-width mx-auto bg-gradient-navy rounded-3xl p-16 text-center text-white relative overflow-hidden">
+<!-- Abstract arrow motif from logo -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-headline-xl text-headline-xl mb-6">هل تبحث عن شريك لوجستي موثوق؟</h2>
+<p class="font-body-lg text-body-lg text-white/70 mb-10">انضم إلى مئات الشركات التي تعتمد علينا يومياً لنقل أعمالها نحو الأمام.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-secondary text-primary-container font-bold px-10 py-4 rounded-lg hover:bg-secondary-fixed transition-all shadow-lg active:scale-95">ابدأ الآن</button>
+<button class="bg-transparent border-2 border-white/30 text-white px-10 py-4 rounded-lg hover:bg-white/10 transition-all active:scale-95">تواصل مع خبير</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="#" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>بوابة العملاء</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Language Toggle Logic
+    function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute('lang') || 'ar';
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+        const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+        
+        html.setAttribute('lang', newLang);
+        html.setAttribute('dir', newDir);
+        localStorage.setItem('preferredLang', newLang);
+        
+        document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+        
+        document.querySelectorAll('.lang-text').forEach(el => {
+            if(el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+                el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+            } else {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            }
+        });
+        
+        // Fix icon alignment for LTR
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(newLang === 'en') {
+                if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                    icon.parentElement.classList.remove('flex-row-reverse');
+                    icon.parentElement.dataset.reversed = "true";
+                }
+            } else {
+                if (icon.parentElement.dataset.reversed === "true") {
+                    icon.parentElement.classList.add('flex-row-reverse');
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && savedLang === 'en') {
+            document.documentElement.setAttribute('lang', 'ar'); 
+            toggleLanguage();
+        }
+    });
+
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+</script>
+</body></html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>سياسة الخصوصية | سودانيل لوجيستك</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Alexandria', 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-depth { 
+            box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.06), 0 4px 10px -3px rgba(11, 27, 61, 0.03); 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+        }
+        .logistic-depth-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .logistic-depth-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 35px -10px rgba(11, 27, 61, 0.12); border-color: #d4af37; }
+        .bg-gradient-navy { background: linear-gradient(145deg, #0b1b3d 0%, #1a365d 100%); }
+        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.9) 0%, rgba(26,54,93,0.7) 60%, rgba(212,175,55,0.2) 100%); }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "80px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container selection:text-primary">
+
+<!-- Top Navigation Bar -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-24 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all">
+    <div class="flex items-center gap-12">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-8 items-center text-sm">
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+            <span class="material-symbols-outlined text-xl">language</span>
+            <span id="langToggleText">EN</span>
+        </button>
+        <a href="../_21/code.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2" data-ar="بوابة العملاء" data-en="Client Portal">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            بوابة العملاء
+        </a>
+    </div>
+</header>
+
+<main class="pt-24">
+    <!-- Page Hero Section -->
+    <section class="relative py-20 bg-gradient-navy text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img alt="Cargo terminal background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600&q=80"/>
+        </div>
+        <div class="absolute right-0 bottom-0 w-1/3 h-full bg-secondary/10 skew-x-[-20deg] translate-x-1/2"></div>
+        <div class="relative z-10 max-w-max-width mx-auto px-margin-desktop text-center">
+            <span class="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-secondary-light text-xs font-bold px-5 py-2 rounded-full mb-4">
+                <span class="material-symbols-outlined text-xs">verified_user</span>
+                <span class="lang-text" data-ar="آخر تحديث: مايو 2026" data-en="Last Updated: May 2026">آخر تحديث: مايو 2026</span>
+            </span>
+            <h1 class="lang-text text-3xl md:text-5xl font-extrabold mb-4" data-ar="سياسة الخصوصية وحماية البيانات" data-en="Privacy Policy & Data Protection">سياسة الخصوصية وحماية البيانات</h1>
+            <p class="lang-text text-slate-300 max-w-2xl mx-auto text-sm md:text-base" data-ar="نلتزم التزاماً مطلقاً بحماية معلوماتكم وضمان سرية بياناتكم اللوجستية والتجارية بأعلى المعايير الأمنية." data-en="We are fully committed to protecting your information and ensuring the confidentiality of your logistical and commercial data using the highest security standards.">نلتزم التزاماً مطلقاً بحماية معلوماتكم وضمان سرية بياناتكم اللوجستية والتجارية بأعلى المعايير الأمنية.</p>
+        </div>
+    </section>
+
+    <!-- Content Sections: Bento Layout -->
+    <section class="py-16 px-margin-desktop max-w-max-width mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- Left Sidebar / Navigation Quick Links -->
+            <div class="md:col-span-4 flex flex-col gap-4" data-aos="fade-up">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-28">
+                    <h3 class="lang-text text-sm font-bold text-primary uppercase tracking-wider mb-4 pb-2 border-b border-slate-100" data-ar="فهرس السياسة" data-en="Policy Contents">فهرس السياسة</h3>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold">
+                        <li>
+                            <a href="#collect" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">assignment</span>
+                                <span class="lang-text" data-ar="1. جمع البيانات الشخصية واللوجستية" data-en="1. Personal & Logistical Data Collection">1. جمع البيانات الشخصية واللوجستية</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#usage" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">insights</span>
+                                <span class="lang-text" data-ar="2. كيفية استخدام البيانات" data-en="2. How We Use Your Data">2. كيفية استخدام البيانات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#protection" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">shield</span>
+                                <span class="lang-text" data-ar="3. حماية وتشفير البيانات" data-en="3. Data Protection & Encryption">3. حماية وتشفير البيانات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#sharing" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">share</span>
+                                <span class="lang-text" data-ar="4. مشاركة البيانات مع أطراف ثالثة" data-en="4. Third-Party Data Sharing">4. مشاركة البيانات مع أطراف ثالثة</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#cookies" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">cookie</span>
+                                <span class="lang-text" data-ar="5. ملفات تعريف الارتباط والتحليلات" data-en="5. Cookies & Analytics">5. ملفات تعريف الارتباط والتحليلات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Legal Content -->
+            <div class="md:col-span-8 flex flex-col gap-8">
+                
+                <!-- Section 1 -->
+                <div id="collect" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">assignment</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="1. جمع البيانات الشخصية واللوجستية" data-en="1. Personal & Logistical Data Collection">1. جمع البيانات الشخصية واللوجستية</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-6" data-ar="نقوم بجمع البيانات الشخصية واللوجستية اللازمة لتقديم خدمات النقل، والتخزين، والتخليص الجمركي بفاعلية واحترافية. تشمل البيانات التي نجمعها:" data-en="We collect personal and logistical data essential to provide transport, warehousing, and customs clearance services efficiently and professionally. The data we collect includes:">نقوم بجمع البيانات الشخصية واللوجستية اللازمة لتقديم خدمات النقل، والتخزين، والتخليص الجمركي بفاعلية واحترافية. تشمل البيانات التي نجمعها:</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold pr-4 md:pr-6 border-r-2 border-secondary/20">
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>بيانات الهوية والاتصال (الاسم الكامل، رقم الهاتف، عنوان البريد الإلكتروني، وعنوان التسليم)." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Identity and contact info (Full Name, Phone number, Email, and Shipping Address)."><span class="w-2 h-2 rounded-full bg-secondary"></span>بيانات الهوية والاتصال (الاسم الكامل، رقم الهاتف، عنوان البريد الإلكتروني، وعنوان التسليم).</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>تفاصيل الشحنة والجمارك (طبيعة البضائع، الأوزان، الأحجام، والقيمة الجمركية المعلنة)." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Shipment and customs details (nature of goods, weight, size, and declared customs value)."><span class="w-2 h-2 rounded-full bg-secondary"></span>تفاصيل الشحنة والجمارك (طبيعة البضائع، الأوزان، الأحجام، والقيمة الجمركية المعلنة).</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>المعلومات الرقمية (عنوان بروتوكول الإنترنت IP، وسجلات التصفح عبر بوابة العملاء)." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Digital information (IP address, and browsing logs through the Client Portal)."><span class="w-2 h-2 rounded-full bg-secondary"></span>المعلومات الرقمية (عنوان بروتوكول الإنترنت IP، وسجلات التصفح عبر بوابة العملاء).</li>
+                    </ul>
+                </div>
+
+                <!-- Section 2 -->
+                <div id="usage" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">insights</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="2. كيفية استخدام البيانات" data-en="2. How We Use Your Data">2. كيفية استخدام البيانات</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-6" data-ar="تستخدم سودانيل لوجيستك معلوماتكم للأغراض المحددة مسبقاً لضمان تنفيذ العقود وتسهيل حركة الشحن والتخليص:" data-en="Sudanil Logistics utilizes your information for predetermined purposes to ensure contract execution, streamline transport, and facilitate clearance:">تستخدم سودانيل لوجيستك معلوماتكم للأغراض المحددة مسبقاً لضمان تنفيذ العقود وتسهيل حركة الشحن والتخليص:</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold pr-4 md:pr-6 border-r-2 border-secondary/20">
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>تحديثكم الفوري بحالة وتتبع الشحنات وإشعار المستلمين بمواعيد الوصول." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Providing real-time tracking updates and notifying recipients of arrival dates."><span class="w-2 h-2 rounded-full bg-secondary"></span>تحديثكم الفوري بحالة وتتبع الشحنات وإشعار المستلمين بمواعيد الوصول.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>معالجة الفواتير، وإصدار بوالص الشحن، وإنجاز التخليص الجمركي في الموانئ والمعابر." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Processing invoices, issuing bills of lading, and executing customs clearance at ports."><span class="w-2 h-2 rounded-full bg-secondary"></span>معالجة الفواتير، وإصدار بوالص الشحن، وإنجاز التخليص الجمركي في الموانئ والمعابر.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>تحسين جودة عمليات أسطول النقل البري ومسارات التوزيع الذكية." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Optimizing the performance of our road freight fleet and smart distribution routes."><span class="w-2 h-2 rounded-full bg-secondary"></span>تحسين جودة عمليات أسطول النقل البري ومسارات التوزيع الذكية.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 3 -->
+                <div id="protection" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">shield</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="3. حماية وتشفير البيانات" data-en="3. Data Protection & Encryption">3. حماية وتشفير البيانات</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="نحن نطبق تدابير تقنية وإدارية متكاملة لحماية معلوماتكم من الاختراق أو الفقدان. يتم تخزين كافة البيانات في خوادم سحابية آمنة ومحمية بجدران نارية متطورة وأنظمة كشف تسلل معتمدة دولياً." data-en="We implement holistic technical and administrative measures to protect your information against breach or loss. All data is stored on secure cloud servers protected by advanced firewalls and internationally certified intrusion detection systems.">نحن نطبق تدابير تقنية وإدارية متكاملة لحماية معلوماتكم من الاختراق أو الفقدان. يتم تخزين كافة البيانات في خوادم سحابية آمنة ومحمية بجدران نارية متطورة وأنظمة كشف تسلل معتمدة دولياً.</p>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base" data-ar="كما نستخدم بروتوكول التشفير الآمن SSL القياسي لحماية المعاملات الرقمية والبيانات المتبادلة عبر بوابة العملاء الخاصة بنا." data-en="We also utilize industry-standard SSL encryption protocols to secure digital transactions and data exchanged through our client portal.">كما نستخدم بروتوكول التشفير الآمن SSL القياسي لحماية المعاملات الرقمية والبيانات المتبادلة عبر بوابة العملاء الخاصة بنا.</p>
+                </div>
+
+                <!-- Section 4 -->
+                <div id="sharing" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">share</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="4. مشاركة البيانات مع أطراف ثالثة" data-en="4. Third-Party Data Sharing">4. مشاركة البيانات مع أطراف ثالثة</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="نحن لا نبيع أو نؤجر بيانات عملائنا لأي جهة تسويقية خارجية. نشارك المعلومات فقط مع شركاء سلاسل الإمداد المعتمدين والموثوقين (مثل خطوط الشحن البحري، والمطارات، ووكلاء الجمارك الرسميين) بهدف إتمام النقل والتسليم القانوني فقط." data-en="We do not sell, rent, or trade customer data to third-party marketing companies. Data is shared strictly with approved and trusted supply chain partners (shipping lines, airports, official customs brokers) solely to complete legal transport and delivery.">نحن لا نبيع أو نؤجر بيانات عملائنا لأي جهة تسويقية خارجية. نشارك المعلومات فقط مع شركاء سلاسل الإمداد المعتمدين والموثوقين (مثل خطوط الشحن البحري، والمطارات، ووكلاء الجمارك الرسميين) بهدف إتمام النقل والتسليم القانوني فقط.</p>
+                </div>
+
+                <!-- Section 5 -->
+                <div id="cookies" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">cookie</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="5. ملفات تعريف الارتباط والتحليلات" data-en="5. Cookies & Analytics">5. ملفات تعريف الارتباط والتحليلات</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="يستخدم موقعنا ملفات تعريف الارتباط (Cookies) لتحسين تجربة المستخدم وتحليل تدفق حركة المرور على أنظمتنا الرقمية. يمكنكم التحكم في إعدادات ملفات تعريف الارتباط أو تعطيلها مباشرة من متصفحكم." data-en="Our website employs cookies to enhance user experience and analyze digital traffic patterns on our platforms. You can control or disable cookie settings directly through your web browser.">يستخدم موقعنا ملفات تعريف الارتباط (Cookies) لتحسين تجربة المستخدم وتحليل تدفق حركة المرور على أنظمتنا الرقمية. يمكنكم التحكم في إعدادات ملفات تعريف الارتباط أو تعطيلها مباشرة من متصفحكم.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>بوابة العملاء</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Language Toggle Logic
+    function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute('lang') || 'ar';
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+        const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+        
+        html.setAttribute('lang', newLang);
+        html.setAttribute('dir', newDir);
+        localStorage.setItem('preferredLang', newLang);
+        
+        document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+        
+        document.querySelectorAll('.lang-text').forEach(el => {
+            if(el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+                el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+            } else {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            }
+        });
+        
+        // Fix icon alignment for LTR
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(newLang === 'en') {
+                if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                    icon.parentElement.classList.remove('flex-row-reverse');
+                    icon.parentElement.dataset.reversed = "true";
+                }
+            } else {
+                if (icon.parentElement.dataset.reversed === "true") {
+                    icon.parentElement.classList.add('flex-row-reverse');
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && savedLang === 'en') {
+            document.documentElement.setAttribute('lang', 'ar'); 
+            toggleLanguage();
+        }
+    });
+
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+</script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sudanil Logistic | سودانيل لوجيستك</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .logistic-depth {
+            box-shadow: 0 10px 30px -5px rgba(0, 27, 42, 0.08), 0 4px 12px -2px rgba(0, 27, 42, 0.03);
+        }
+        .service-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 27, 42, 0.12);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #795900 0%, #fdcb5b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f9f9f9",
+                    "on-surface": "#1a1c1c",
+                    "inverse-on-surface": "#f1f1f1",
+                    "primary-container": "#021e2d",
+                    "on-surface-variant": "#42474c",
+                    "surface-dim": "#dadada",
+                    "on-tertiary-fixed": "#001e2e",
+                    "outline-variant": "#c3c7cc",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#000000",
+                    "inverse-surface": "#2f3131",
+                    "outline": "#73787c",
+                    "secondary-fixed": "#ffdf9f",
+                    "secondary": "#795900",
+                    "surface-variant": "#e2e2e2",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeee",
+                    "surface": "#f9f9f9",
+                    "surface-container-low": "#f3f3f3",
+                    "on-primary-fixed": "#021e2d",
+                    "on-primary-container": "#6e8799",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#496173",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-container": "#fdcb5b",
+                    "tertiary-fixed": "#cae6fd",
+                    "tertiary-container": "#001e2e",
+                    "inverse-primary": "#b0cade",
+                    "tertiary-fixed-dim": "#aecae1",
+                    "on-tertiary-fixed-variant": "#2e4a5c",
+                    "surface-container-high": "#e8e8e8",
+                    "primary": "#000000",
+                    "on-tertiary-container": "#6c879c",
+                    "surface-container-highest": "#e2e2e2",
+                    "secondary-fixed-dim": "#f1bf51",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#cce6fb",
+                    "on-primary-fixed-variant": "#314a5a",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#b0cade",
+                    "on-secondary-container": "#261a00", /* Fixed for contrast on gold: #261a00 is deep dark brown/black */
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-secondary-fixed": "#261a00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "max-width": "1280px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-xl": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "headline-lg-mobile": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/95 backdrop-blur-md shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-8">
+<div class="text-headline-md font-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+                Sudanil Logistic
+            </div>
+<div class="hidden md:flex gap-6">
+<a class="text-primary font-bold border-b-2 border-secondary font-label-md text-label-md py-1" href="#">الرئيسية</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors font-label-md text-label-md py-1" href="../_7/code.html">من نحن</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors font-label-md text-label-md py-1" href="../_8/code.html">خدماتنا</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors font-label-md text-label-md py-1" href="../_12/code.html">تتبع الشحنة</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors font-label-md text-label-md py-1" href="../_3/code.html">تواصل معنا</a>
+</div>
+</div>
+<a href="../_21/code.html" class="bg-primary-container text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-lg logistic-depth hover:translate-y-[-2px] transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            بوابة العملاء
+</a>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-[90vh] min-h-[700px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Warehouse Background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4UkgkFlk5Z7ssDoykOcQaGVBM2Ptpbdx_HsbBs8NEIT4AyzKWfdUFPUnksQvyVxp35OASMnnDIPcWQgSog-J_ZT4OMlTZbZxBjcm37XfyBB_T3i8SV4mtBczgnZKDKSJhvExBpsdiUqH8XyfDS00QnEl9OTH47IH3ocHsEqloyDbMjvQmq0Ta58MT3sPFPBBrCiYap_S7R35QaDCbbpC9fGbTh01XJxcHSSrjl-eOdbkTvMkvfb2qlrAVKkLPdEWqtSAIjsVoQn4"/>
+<div class="absolute inset-0 bg-primary-container/60 backdrop-brightness-50"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl px-margin-mobile">
+<h1 class="font-headline-xl text-headline-xl text-on-primary mb-6">
+                نقل بثقة.. <span class="text-secondary-container">نوصل باحتراف</span>
+</h1>
+<p class="text-on-primary/95 font-body-lg text-body-lg mb-12 max-w-2xl mx-auto">
+                رائدون في مجال الخدمات اللوجستية المتكاملة، نضمن وصول شحناتكم بأمان ودقة عالية عبر شبكتنا العالمية المتميزة.
+            </p>
+<!-- Tracking Search Bar Overlay -->
+<div class="bg-surface/95 backdrop-blur-md p-2 rounded-xl logistic-depth max-w-2xl mx-auto flex items-center gap-2">
+<div class="flex-grow flex items-center px-4 gap-3 border-l border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input id="trackingInput" class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md" placeholder="أدخل رقم التتبع الخاص بك هنا..." type="text"/>
+</div>
+<button id="trackBtn" class="bg-secondary-container text-on-secondary-container font-label-md text-label-md px-8 py-3 rounded-lg hover:bg-secondary transition-colors font-bold whitespace-nowrap">
+                    تتبع الآن
+                </button>
+</div>
+</div>
+</section>
+<!-- Services Bento Grid -->
+<section class="py-section-gap px-margin-desktop max-w-max-width mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4 text-on-surface">خدماتنا اللوجستية</h2>
+<div class="h-1.5 w-24 bg-secondary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Land Freight - Large Card -->
+<div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-xl logistic-depth service-card-hover bg-surface border border-outline-variant flex flex-col">
+<div class="h-1/2 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional fleet of Sudanil Logistic trucks and vans parked in a clean, high-key white studio environment. The large white trailer truck features the bold blue and gold brand identity with elegant swooping lines, while the smaller delivery van mirrors the same sophisticated design. The lighting is crisp and even, highlighting the metallic precision and industrial reliability of the logistics company fleet. The mood is clean, corporate, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDznklvN7HftCvdx0tMUeHixcDgde8X83ppSHvpa2kgXHLUuYm94lEkefAT72CKNnBW2cMhJ8PHfhaNWDxAQ6ReVIcuAmhvxgyJJ5WeKZTN21INYuS2Lzl9CbauoCED4bqjNO_GaJW6ZswmOaMN62ZeCmU_Ico2sMZH0bNWgfJNoM4ZjkVjZzIUgjJEDvTlWAwAV_Xp3yeIp1cJa4K8D-MxunvFnEN6qYEsDy92Duq2XFzheIfj8iLoJkyePrs9tfUOp2Zgcx6KpZQ"/>
+<div class="absolute inset-0 bg-primary-container/20"></div>
+</div>
+<div class="p-8 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl">local_shipping</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">الشحن البري</h3>
+</div>
+<p class="text-on-surface-variant font-body-md mb-6">أسطول حديث ومجهز بأحدث تقنيات التتبع لنقل بضائعكم عبر الحدود وداخل المدن بأعلى مستويات الأمان.</p>
+</div>
+<a class="text-secondary font-bold flex items-center gap-2 group/link" href="#">
+                        اكتشف المزيد
+                        <span class="material-symbols-outlined text-sm group-hover/link:translate-x-[-4px] transition-transform">arrow_back</span>
+</a>
+</div>
+</div>
+<!-- Air Freight -->
+<div class="group overflow-hidden rounded-xl logistic-depth service-card-hover bg-surface border border-outline-variant flex flex-col">
+<div class="h-40 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container/70 z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A close-up side view of a large commercial cargo aircraft tail featuring a sleek blue and gold livery under a bright clear sky. The lighting is sharp, creating crisp shadows on the fuselage, emphasizing a modern and high-speed logistics aesthetic. The image conveys rapid global connectivity and industrial precision within the air freight industry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxsmgol0YpLFSV6-NouVfRoFJ8UpXMhHp6leJLnD_f_EaSe0Rm6MIwo5qC0i2bG2cKyDqYCKMXnYNdS2HWFfUGdnSmIwngNF0HVnBx9Gyvhb9DYTIhD3Ts7XICjXkmzys-RVTmSlTrucbwDnUg1iE0YwlsH8EMg3t_CcdMyTlSioNe5XRhkYRSeH4C2wYKiXmsoy9ot56Cn5vCNHdHre83u_KZ84nMsWRct2rJCbi_4Ve7gsjlqu2Zgh5y5LsLI4XR8LofbVipy6k"/>
+</div>
+<div class="p-6">
+<span class="material-symbols-outlined text-secondary mb-4">flight</span>
+<h3 class="font-headline-md text-headline-md mb-2 text-on-surface">الشحن الجوي</h3>
+<p class="text-on-surface-variant text-sm font-body-md">الخيار الأسرع لشحناتكم العاجلة مع تغطية لمطارات العالم الرئيسية.</p>
+</div>
+</div>
+<!-- Sea Freight -->
+<div class="group overflow-hidden rounded-xl logistic-depth service-card-hover bg-surface border border-outline-variant flex flex-col">
+<div class="h-40 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container/70 z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A massive cargo ship loaded with multicolored containers navigating through deep blue ocean waters during the golden hour. The sunlight reflects off the water's surface, creating a shimmering effect. The scene highlights global trade at a massive scale, emphasizing strength, volume, and the dependable nature of international sea logistics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFGbIuFcJgce9LypanNpPBtKUqpnjNAOiJqOhzEsYTXO1t_JsWt7kP7jPl339CwjKJUZfGDyCxmD_PQ6us_TH7AhQ889aAnCPrmhd5-frmkmcX-qktxII6e1PTPd40DrHaPZwWDZe1lk71fZvvY9ucKOLxtZrJl2bNZphyB1vxvKum5IrtTnJAHaes-xFtMRk4MwqRAHm-1OqJ5Q0iYWxF6IF6wS-6Lrw9hghi1ImRxMnfMXChqQ5kgzvrYoZB4B40vbOAiF99fcA"/>
+</div>
+<div class="p-6">
+<span class="material-symbols-outlined text-secondary mb-4">directions_boat</span>
+<h3 class="font-headline-md text-headline-md mb-2 text-on-surface">الشحن البحري</h3>
+<p class="text-on-surface-variant text-sm font-body-md">حلول اقتصادية وفعالة لنقل الحاويات والبضائع الضخمة عالمياً.</p>
+</div>
+</div>
+<!-- Warehouse -->
+<div class="md:col-span-2 group overflow-hidden rounded-xl logistic-depth service-card-hover bg-surface border border-outline-variant flex flex-col md:flex-row">
+<div class="md:w-1/2 h-full relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container/50 z-10"></div>
+<img class="w-full h-full object-cover" data-alt="The interior of a high-tech logistics warehouse with towering steel racks filled with organized pallets. The floor is polished concrete with painted yellow safety lines, and the lighting is bright and industrial. A forklift is visible in the distance, portraying an environment of extreme organization and operational excellence in supply chain management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2o8ILM_ev4feJ_jUageQvN98tr57hYVyLiVPiZvOV_pBtOCmcAMSAdUo6vu30KocxDxC7o3kMcUwMxpayYZbRB9Y_URpCCkpuOb86Azh3L4V1-5pXssnUc9EPvK8QN8RG72t9qHBil7oDJrsUNkAnSl9qw0CiHXZcIZJW70Dij35Ih-ZvnqSnEhk-FQ8vBJLBDU96QzjBEYo8LEymx1qACPKVHs9mceJhOt51fgNQZAP6diLjsT6r-IBiqQg68t0YmmEb37UcWwc"/>
+</div>
+<div class="md:w-1/2 p-8">
+<span class="material-symbols-outlined text-secondary mb-4">inventory_2</span>
+<h3 class="font-headline-md text-headline-md mb-4 text-on-surface">التخزين والتوزيع</h3>
+<p class="text-on-surface-variant font-body-md mb-4">مستودعات ذكية مجهزة بأنظمة إدارة متطورة لضمان سلامة مخزونكم وسرعة توزيعه.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us / Network Section -->
+<section class="bg-primary-container py-section-gap">
+<div class="max-w-max-width mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-primary mb-8">لماذا يختارنا الشركاء؟</h2>
+<div class="space-y-8">
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">verified_user</span>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-2">أمان وموثوقية عالية</h4>
+<p class="text-on-primary/70 text-sm">نطبق أعلى معايير السلامة العالمية في كافة مراحل النقل والتخزين لضمان وصول شحنتكم سليمة.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">language</span>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-2">شبكة عالمية واسعة</h4>
+<p class="text-on-primary/70 text-sm">شركاؤنا في كل قارات العالم يضمنون لكم تغطية شاملة ومرونة في اختيار المسارات الأنسب.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">schedule</span>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-2">دقة في المواعيد</h4>
+<p class="text-on-primary/70 text-sm">نقدر قيمة الوقت، لذا نلتزم بجداول زمنية صارمة لضمان سير أعمالكم دون أي تأخير.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square bg-on-tertiary-fixed-variant/20 rounded-full flex items-center justify-center p-8">
+<div class="relative w-full h-full bg-primary-container rounded-full overflow-hidden border border-on-primary-container/30 logistic-depth">
+<!-- Simplified World Map Placeholder Logic -->
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="A stylized, minimalist digital map of the world rendered in subtle shades of deep navy and glowing gold lines. Arcs representing logistics routes connect major global trade hubs across continents. The aesthetic is clean, technological, and premium, symbolizing global reach and high-speed connectivity in a dark-mode inspired environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1LsdctFRaujdlbg9NsB4QD9Vl9p0IPhqZ-2hxiKERcf9XGIT9DVXYd7mBvG9jXmjB-ao0FHW9cBep35AmgUYTdvQOCe6GZhF2jEYmZEEUtchIVVb5vNy9tEn6ml0-6DT9kY5AVHyCHhEHQiM0GbAkiYX2SS4rqe9c41_K4N55LB0Wgq3dgjs6BpbcSG_7DZjDmF5SiJ2zSjLSEX67PM1fv78B8daNjNFjCK_frowlLaHo2njz8VBSof-aPhdgX8_IqGoJcVnF2OI"/>
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<span class="text-headline-xl font-headline-xl text-secondary-container block">150+</span>
+<span class="text-on-primary font-label-md">وجهة حول العالم</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Partners Section -->
+<section class="py-section-gap px-margin-desktop overflow-hidden">
+<div class="max-w-max-width mx-auto">
+<h3 class="text-center font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-12">شركاء النجاح</h3>
+<div class="flex flex-wrap justify-center items-center gap-16">
+<!-- Using generic logos for representation -->
+<div class="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="w-32 h-12 bg-surface-variant flex items-center justify-center rounded font-bold text-on-surface-variant">LOGISTIC A</div>
+</div>
+<div class="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="w-32 h-12 bg-surface-variant flex items-center justify-center rounded font-bold text-on-surface-variant">GLOBAL-X</div>
+</div>
+<div class="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="w-32 h-12 bg-surface-variant flex items-center justify-center rounded font-bold text-on-surface-variant">SEA-CORE</div>
+</div>
+<div class="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="w-32 h-12 bg-surface-variant flex items-center justify-center rounded font-bold text-on-surface-variant">AIR-PORT</div>
+</div>
+<div class="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="w-32 h-12 bg-surface-variant flex items-center justify-center rounded font-bold text-on-surface-variant">FREIGHT-CO</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary-container w-full px-margin-desktop py-section-gap grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-primary">
+<div class="col-span-1 md:col-span-1">
+<div class="text-headline-md font-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">rocket_launch</span>
+<span class="text-on-primary">Sudanil Logistic</span>
+</div>
+<p class="text-on-primary/70 text-sm mb-6 leading-relaxed">
+                شريككم الموثوق في عالم اللوجستيات. نسعى لتقديم حلول مبتكرة تلبي طموحاتكم وتدعم نمو أعمالكم.
+            </p>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-6">روابط سريعة</h4>
+<ul class="space-y-3">
+<li><a class="text-on-primary/70 hover:text-secondary-container transition-transform hover:translate-x-[-4px] block" href="#">الرئيسية</a></li>
+<li><a class="text-on-primary/70 hover:text-secondary-container transition-transform hover:translate-x-[-4px] block" href="../_7/code.html">من نحن</a></li>
+<li><a class="text-on-primary/70 hover:text-secondary-container transition-transform hover:translate-x-[-4px] block" href="../_8/code.html">خدماتنا</a></li>
+<li><a class="text-on-primary/70 hover:text-secondary-container transition-transform hover:translate-x-[-4px] block" href="../_12/code.html">تتبع الشحنة</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-6">معلومات التواصل</h4>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-on-primary/70">
+<span class="material-symbols-outlined text-secondary-container text-sm">location_on</span>
+                    الخرطوم، السودان - المنطقة الصناعية
+                </li>
+<li class="flex items-center gap-3 text-on-primary/70">
+<span class="material-symbols-outlined text-secondary-container text-sm">phone</span>
+                    +249 123 456 789
+                </li>
+<li class="flex items-center gap-3 text-on-primary/70">
+<span class="material-symbols-outlined text-secondary-container text-sm">mail</span>
+                    info@sudanillogistic.com
+                </li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-primary font-bold mb-6">اشترك في نشرتنا</h4>
+<div class="flex gap-2">
+<input class="bg-white/10 border-white/20 rounded-lg text-white w-full focus:ring-secondary-container placeholder:text-on-primary/40" placeholder="بريدك الإلكتروني" type="email"/>
+<button class="bg-secondary-container p-2 rounded-lg text-on-secondary-container hover:bg-secondary transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<div class="col-span-1 md:col-span-4 border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-on-primary/50">
+<p>© 2024 Sudanil Logistic. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-on-primary" href="#">Privacy Policy</a>
+<a class="hover:text-on-primary" href="#">Terms of Service</a>
+<a class="hover:text-on-primary" href="../_3/code.html">Contact Us</a>
+</div>
+</div>
+</footer>
+<script>
+    document.getElementById('trackBtn').addEventListener('click', function() {
+        const id = document.getElementById('trackingInput').value.trim();
+        if (id) {
+            window.location.href = `../_12/code.html?tracking_id=${encodeURIComponent(id)}`;
+        }
+    });
+    document.getElementById('trackingInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const id = e.target.value.trim();
+            if (id) {
+                window.location.href = `../_12/code.html?tracking_id=${encodeURIComponent(id)}`;
+            }
+        }
+    });
+</script>
+</body></html>

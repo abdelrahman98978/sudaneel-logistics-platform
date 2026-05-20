@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>شروط الخدمة | سودانيل لوجيستك</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Alexandria', 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-depth { 
+            box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.06), 0 4px 10px -3px rgba(11, 27, 61, 0.03); 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+        }
+        .logistic-depth-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .logistic-depth-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 35px -10px rgba(11, 27, 61, 0.12); border-color: #d4af37; }
+        .bg-gradient-navy { background: linear-gradient(145deg, #0b1b3d 0%, #1a365d 100%); }
+        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.9) 0%, rgba(26,54,93,0.7) 60%, rgba(212,175,55,0.2) 100%); }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "80px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container selection:text-primary">
+
+<!-- Top Navigation Bar -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-24 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all">
+    <div class="flex items-center gap-12">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-8 items-center text-sm">
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+            <span class="material-symbols-outlined text-xl">language</span>
+            <span id="langToggleText">EN</span>
+        </button>
+        <a href="../_21/code.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2" data-ar="بوابة العملاء" data-en="Client Portal">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            بوابة العملاء
+        </a>
+    </div>
+</header>
+
+<main class="pt-24">
+    <!-- Page Hero Section -->
+    <section class="relative py-20 bg-gradient-navy text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img alt="Freight container ship background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600&q=80"/>
+        </div>
+        <div class="absolute right-0 bottom-0 w-1/3 h-full bg-secondary/10 skew-x-[-20deg] translate-x-1/2"></div>
+        <div class="relative z-10 max-w-max-width mx-auto px-margin-desktop text-center">
+            <span class="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-secondary-light text-xs font-bold px-5 py-2 rounded-full mb-4">
+                <span class="material-symbols-outlined text-xs">gavel</span>
+                <span class="lang-text" data-ar="شروط وأحكام تعاقدية" data-en="Contractual Terms & Conditions">شروط وأحكام تعاقدية</span>
+            </span>
+            <h1 class="lang-text text-3xl md:text-5xl font-extrabold mb-4" data-ar="شروط الخدمة والاستخدام" data-en="Terms of Service & Usage">شروط الخدمة والاستخدام</h1>
+            <p class="lang-text text-slate-300 max-w-2xl mx-auto text-sm md:text-base" data-ar="يرجى قراءة هذه الأحكام بدقة لتفهم القواعد القانونية والتنظيمية التي تحكم عمليات الشحن والخدمات اللوجستية التي نقدمها." data-en="Please read these terms carefully to understand the legal and regulatory frameworks governing the freight and logistical operations we provide.">يرجى قراءة هذه الأحكام بدقة لتفهم القواعد القانونية والتنظيمية التي تحكم عمليات الشحن والخدمات اللوجستية التي نقدمها.</p>
+        </div>
+    </section>
+
+    <!-- Content Sections: Bento Layout -->
+    <section class="py-16 px-margin-desktop max-w-max-width mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- Left Sidebar / Navigation Quick Links -->
+            <div class="md:col-span-4 flex flex-col gap-4" data-aos="fade-up">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-28">
+                    <h3 class="lang-text text-sm font-bold text-primary uppercase tracking-wider mb-4 pb-2 border-b border-slate-100" data-ar="أقسام الشروط" data-en="Terms Outline">أقسام الشروط</h3>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold">
+                        <li>
+                            <a href="#acceptance" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">rule</span>
+                                <span class="lang-text" data-ar="1. قبول الشروط والأحكام" data-en="1. Acceptance of Terms">1. قبول الشروط والأحكام</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#freight" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">local_shipping</span>
+                                <span class="lang-text" data-ar="2. عمليات الشحن والنقل والتخليص" data-en="2. Freight, Transport & Clearance">2. عمليات الشحن والنقل والتخليص</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#payment" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">payments</span>
+                                <span class="lang-text" data-ar="3. المدفوعات وسياسة الإلغاء" data-en="3. Payments & Cancellation">3. المدفوعات وسياسة الإلغاء</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#liability" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">gavel</span>
+                                <span class="lang-text" data-ar="4. حدود المسؤولية والتعويضات" data-en="4. Limitation of Liability">4. حدود المسؤولية والتعويضات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#governing" class="flex items-center gap-2 hover:text-secondary-container transition-colors">
+                                <span class="material-symbols-outlined text-base">balance</span>
+                                <span class="lang-text" data-ar="5. القانون الحاكم وحل النزاعات" data-en="5. Governing Law & Disputes">5. القانون الحاكم وحل النزاعات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Legal Content -->
+            <div class="md:col-span-8 flex flex-col gap-8">
+                
+                <!-- Section 1 -->
+                <div id="acceptance" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">rule</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="1. قبول الشروط والأحكام" data-en="1. Acceptance of Terms">1. قبول الشروط والأحكام</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-6" data-ar="باستخدامك لموقعنا الإلكتروني، أو بوابة العملاء، أو الاستعانة بخدمات النقل والخدمات اللوجستية التي تقدمها سودانيل لوجيستك، فإنك توافق دون قيد أو شرط على الالتزام بشروط الخدمة الواردة هنا. تشكل هذه الشروط اتفاقية قانونية ملزمة بين العميل والشركة." data-en="By using our website, client portal, or engaging in transport and logistics services provided by Sudanil Logistics, you unconditionally agree to comply with the Terms of Service detailed herein. These terms constitute a legally binding agreement between the client and the company.">باستخدامك لموقعنا الإلكتروني، أو بوابة العملاء، أو الاستعانة بخدمات النقل والخدمات اللوجستية التي تقدمها سودانيل لوجيستك، فإنك توافق دون قيد أو شرط على الالتزام بشروط الخدمة الواردة هنا. تشكل هذه الشروط اتفاقية قانونية ملزمة بين العميل والشركة.</p>
+                </div>
+
+                <!-- Section 2 -->
+                <div id="freight" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">local_shipping</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="2. عمليات الشحن والنقل والتخليص الجمركي" data-en="2. Freight, Transport & Customs Clearance">2. عمليات الشحن والنقل والتخليص الجمركي</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-6" data-ar="تخضع جميع عمليات نقل البضائع، التخزين، والتخليص الجمركي للشروط اللوجستية والمعايير الفنية التالية:" data-en="All freight operations, warehousing, and customs clearance are subject to the following logistics and technical frameworks:">تخضع جميع عمليات نقل البضائع، التخزين، والتخليص الجمركي للشروط اللوجستية والمعايير الفنية التالية:</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold pr-4 md:pr-6 border-r-2 border-secondary/20">
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>مسؤولية التغليف: يلتزم العميل بتعبئة وتغليف البضائع بشكل آمن ومناسب لطبيعتها وظروف النقل المختلفة لمنع التلف." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Packaging Responsibility: The client is fully responsible for wrapping and packaging goods safely to suit their nature and transport conditions."><span class="w-2 h-2 rounded-full bg-secondary"></span>مسؤولية التغليف: يلتزم العميل بتعبئة وتغليف البضائع بشكل آمن ومناسب لطبيعتها وظروف النقل المختلفة لمنع التلف.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>البضائع المحظورة: يحظر تماماً شحن أي مواد خطرة، متفجرة، غير قانونية، أو سلع محظورة بموجب القوانين الوطنية والدولية." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Prohibited Items: It is strictly forbidden to ship hazardous materials, explosives, illegal substances, or legally banned items."><span class="w-2 h-2 rounded-full bg-secondary"></span>البضائع المحظورة: يحظر تماماً شحن أي مواد خطرة، متفجرة، غير قانونية، أو سلع محظورة بموجب القوانين الوطنية والدولية.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>دقة الوثائق: يجب تقديم كافة المستندات والفواتير الجمركية بدقة كاملة. يتحمل العميل المسؤولية عن أي تأخير جمركي بسبب المستندات." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Documentation Accuracy: All customs documents and declarations must be accurate. The client bears sole liability for delays due to false info."><span class="w-2 h-2 rounded-full bg-secondary"></span>دقة الوثائق: يجب تقديم كافة المستندات والفواتير الجمركية بدقة كاملة. يتحمل العميل المسؤولية عن أي تأخير جمركي بسبب المستندات.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 3 -->
+                <div id="payment" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">payments</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="3. المدفوعات والرسوم وسياسة الإلغاء" data-en="3. Payments, Fees & Cancellation Policy">3. المدفوعات والرسوم وسياسة الإلغاء</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-6" data-ar="تطبق سودانيل لوجيستك القواعد المالية والرسوم الإضافية وسياسات إلغاء الحجوزات وفق البنود التالية:" data-en="Sudanil Logistics implements financial terms, additional charges, and booking cancellation policies in accordance with the following:">تطبق سودانيل لوجيستك القواعد المالية والرسوم الإضافية وسياسات إلغاء الحجوزات وفق البنود التالية:</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-500 font-semibold pr-4 md:pr-6 border-r-2 border-secondary/20">
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>شروط الدفع: يجب تسوية كافة رسوم الشحن والخدمات المتفق عليها مسبقاً قبل عملية الشحن أو وفق شروط الائتمان المقررة." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Payment Terms: All freight fees and service costs must be paid in full prior to cargo release or within agreed credit periods."><span class="w-2 h-2 rounded-full bg-secondary"></span>شروط الدفع: يجب تسوية كافة رسوم الشحن والخدمات المتفق عليها مسبقاً قبل عملية الشحن أو وفق شروط الائتمان المقررة.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>رسوم التأخير والديموراج: يتحمل العميل رسوم الأرضيات وتأخير الحاويات في الموانئ والمستودعات في حال عدم استلامها بالوقت المحدد." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Demurrage & Detention: The client is fully liable for port storage and container detention fees if cargo is not cleared timely."><span class="w-2 h-2 rounded-full bg-secondary"></span>رسوم التأخير والديموراج: يتحمل العميل رسوم الأرضيات وتأخير الحاويات في الموانئ والمستودعات في حال عدم استلامها بالوقت المحدد.</li>
+                        <li class="lang-text flex items-center gap-2" data-ar="<span class='w-2 h-2 rounded-full bg-secondary'></span>إلغاء الشحن: يحق للعميل إلغاء الحجز اللوجستي قبل 48 ساعة من موعد انطلاق الرحلة أو النقل البري دون تطبيق أي غرامات إلغاء." data-en="<span class='w-2 h-2 rounded-full bg-secondary'></span>Booking Cancellation: Clients have the right to cancel logistics bookings 48 hours prior to scheduled dispatch without penalties."><span class="w-2 h-2 rounded-full bg-secondary"></span>إلغاء الشحن: يحق للعميل إلغاء الحجز اللوجستي قبل 48 ساعة من موعد انطلاق الرحلة أو النقل البري دون تطبيق أي غرامات إلغاء.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 4 -->
+                <div id="liability" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">gavel</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="4. حدود المسؤولية والتعويضات" data-en="4. Limitation of Liability & Compensations">4. حدود المسؤولية والتعويضات</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="تخضع مسؤوليتنا عن الفقد أو التلف للاتفاقيات الدولية المنظمة للنقل (مثل اتفاقية كولونيا/CMR للنقل البري، واتفاقية لاهاي-فيسبي للنقل البحري، واتفاقية وارسو/مونتريال للنقل الجوي)." data-en="Our liability for cargo loss or damage is strictly governed by international conventions regulating transport (such as CMR for road, Hague-Visby for ocean, and Warsaw/Montreal for air freight).">تخضع مسؤوليتنا عن الفقد أو التلف للاتفاقيات الدولية المنظمة للنقل (مثل اتفاقية كولونيا/CMR للنقل البري، واتفاقية لاهاي-فيسبي للنقل البحري، واتفاقية وارسو/مونتريال للنقل الجوي).</p>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="لا تتحمل الشركة أي مسؤولية عن الأضرار غير المباشرة، أو خسارة الأرباح الفائتة، أو التأخيرات الناتجة عن القوة القاهرة والظروف الاستثنائية الخارجة عن الإرادة (كالكوارث الطبيعية، الاضطرابات السياسية، إغلاق الموانئ)." data-en="We do not accept liability for indirect damages, loss of profits, or delays resulting from Force Majeure and exceptional circumstances beyond control (natural disasters, political disruptions, port closures).">لا تتحمل الشركة أي مسؤولية عن الأضرار غير المباشرة، أو خسارة الأرباح الفائتة، أو التأخيرات الناتجة عن القوة القاهرة والظروف الاستثنائية الخارجة عن الإرادة (كالكوارث الطبيعية، الاضطرابات السياسية، إغلاق الموانئ).</p>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base" data-ar="نوصي بشدة جميع عملائنا الكرام بالاستعانة بخدمات التأمين الشامل على البضائع لضمان التغطية الكاملة لكافة المخاطر أثناء عبور الحدود." data-en="We strongly advise all clients to procure comprehensive cargo insurance policies to ensure full financial coverage for any risks during international transit.">نوصي بشدة جميع عملائنا الكرام بالاستعانة بخدمات التأمين الشامل على البضائع لضمان التغطية الكاملة لكافة المخاطر أثناء عبور الحدود.</p>
+                </div>
+
+                <!-- Section 5 -->
+                <div id="governing" class="bg-white p-8 md:p-10 rounded-2xl border border-slate-200 shadow-sm logistic-depth-hover scroll-mt-28" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl">balance</span>
+                        </span>
+                        <h2 class="lang-text text-xl font-extrabold text-primary" data-ar="5. القانون الحاكم وحل النزاعات" data-en="5. Governing Law & Dispute Resolution">5. القانون الحاكم وحل النزاعات</h2>
+                    </div>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base mb-4" data-ar="تخضع شروط الخدمة هذه وتفسر وتطبق وفقاً للقوانين والأنظمة المعمول بها في جمهورية السودان. ويتم تسوية أي خلاف أو نزاع ينشأ بين الطرفين ودياً وبحسن نية أولاً." data-en="These Terms of Service shall be governed by, construed, and enforced in accordance with the active laws and regulations of the Republic of Sudan. Any dispute arising under this agreement shall be settled amicably and in good faith first.">تخضع شروط الخدمة هذه وتفسر وتطبق وفقاً للقوانين والأنظمة المعمول بها في جمهورية السودان. ويتم تسوية أي خلاف أو نزاع ينشأ بين الطرفين ودياً وبحسن نية أولاً.</p>
+                    <p class="lang-text text-slate-600 leading-relaxed text-sm md:text-base" data-ar="في حال تعذر الحل الودي، يتم إحالة النزاع إلى التحكيم التجاري أو الاختصاص القضائي الحصري للمحاكم المختصة بجمهورية السودان." data-en="If an amicable resolution is not reached, the dispute shall be referred to commercial arbitration or the exclusive jurisdiction of the competent courts of the Republic of Sudan.">في حال تعذر الحل الودي، يتم إحالة النزاع إلى التحكيم التجاري أو الاختصاص القضائي الحصري للمحاكم المختصة بجمهورية السودان.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>بوابة العملاء</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors text-white" href="terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Language Toggle Logic
+    function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute('lang') || 'ar';
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+        const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+        
+        html.setAttribute('lang', newLang);
+        html.setAttribute('dir', newDir);
+        localStorage.setItem('preferredLang', newLang);
+        
+        document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+        
+        document.querySelectorAll('.lang-text').forEach(el => {
+            if(el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+                el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+            } else {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            }
+        });
+        
+        // Fix icon alignment for LTR
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(newLang === 'en') {
+                if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                    icon.parentElement.classList.remove('flex-row-reverse');
+                    icon.parentElement.dataset.reversed = "true";
+                }
+            } else {
+                if (icon.parentElement.dataset.reversed === "true") {
+                    icon.parentElement.classList.add('flex-row-reverse');
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && savedLang === 'en') {
+            document.documentElement.setAttribute('lang', 'ar'); 
+            toggleLanguage();
+        }
+    });
+
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+</script>
+</body>
+</html>
