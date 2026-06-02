@@ -45,6 +45,168 @@
             }
         }
     </script>
+    <style>
+    /* ===== PREMIUM DARK MODE OVERRIDES (MIDNIGHT NAVY & GOLD) ===== */
+    body.dark-mode {
+        --bg: #060d1e;
+        --surface: #0b1b3d;
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        background: var(--bg) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode #preloader {
+        background: var(--bg) !important;
+    }
+    body.dark-mode .loader-text {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled {
+        background: rgba(6, 13, 30, 0.92) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled a {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled a.active {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .legacy-nav-logo span {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-nav-links a {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .legacy-nav-links a:hover,
+    body.dark-mode .legacy-nav-links a.active {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .legacy-lang-btn {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-lang-btn:hover {
+        border-color: var(--gold) !important;
+        color: var(--gold) !important;
+    }
+    body.dark-mode #theme-toggle-btn {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode #theme-toggle-btn:hover {
+        border-color: var(--gold) !important;
+        color: var(--gold) !important;
+    }
+    body.dark-mode .hero-overlay {
+        background: radial-gradient(ellipse at 30% 50%, rgba(6, 13, 30, 0.75), rgba(6, 13, 30, 0.97)) !important;
+    }
+    body.dark-mode .hero-badge {
+        background: rgba(212, 175, 55, 0.15) !important;
+        border-color: rgba(212, 175, 55, 0.3) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-title {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-sub {
+        color: var(--text) !important;
+    }
+    body.dark-mode .scroll-hint {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-stat {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    body.dark-mode .hero-stat .num {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-stat .label {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .hero-search {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.25) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+    }
+    body.dark-mode .hero-search input {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-search input::placeholder {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .section-head h2 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .section-head p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .svc-card {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    body.dark-mode .svc-card:hover {
+        border-color: var(--gold) !important;
+        box-shadow: 0 20px 50px rgba(212, 175, 55, 0.1) !important;
+    }
+    body.dark-mode .svc-card h3 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .svc-card p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .svc-card .card-img::after {
+        background: linear-gradient(to bottom, transparent, var(--surface)) !important;
+    }
+    body.dark-mode .why-section {
+        background: var(--bg) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+    }
+    body.dark-mode .why-item h4 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .why-item p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .globe-center {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.25) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+    body.dark-mode .globe-center .num {
+        color: var(--text) !important;
+    }
+    body.dark-mode .partner-item {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        color: var(--muted) !important;
+    }
+    body.dark-mode .partner-item:hover {
+        color: var(--gold) !important;
+        border-color: var(--gold) !important;
+    }
+    body.dark-mode .partners {
+        background: var(--bg) !important;
+    }
+    body.dark-mode .faq-item {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+    }
+    body.dark-mode .faq-trigger {
+        color: var(--text) !important;
+    }
+    body.dark-mode .faq-trigger:hover {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .faq-content {
+        color: var(--muted) !important;
+    }
+    </style>
 </head>
 <body>
 
@@ -55,12 +217,12 @@
 </div>
 
 <!-- Navigation -->
-<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-24 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all">
-    <div class="flex items-center gap-12">
-        <a href="#" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
-            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all duration-300">
+    <div class="flex items-center gap-10">
+        <a href="#" class="font-headline text-xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
         </a>
-        <nav class="hidden md:flex gap-8 items-center text-sm">
+        <nav class="hidden md:flex gap-6 items-center text-sm">
             <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_7/code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
@@ -68,14 +230,18 @@
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
         </nav>
     </div>
-    <div class="flex items-center gap-4">
-        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-            <span class="material-symbols-outlined text-xl">language</span>
-            <span id="langToggleText">EN</span>
+    <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleTheme()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-1 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50" title="تغيير المظهر / Toggle Theme" id="theme-toggle-btn">
+            <span class="material-symbols-outlined text-lg" id="theme-icon">dark_mode</span>
         </button>
-        <a href="../_21/code.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2" data-ar="بوابة العملاء" data-en="Client Portal">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-1 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50">
+            <span class="material-symbols-outlined text-lg">language</span>
+            <span id="langToggleText" class="text-xs">EN</span>
+        </button>
+        <a href="../_21/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
             <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
-            بوابة العملاء
+            تسجيل الدخول
         </a>
     </div>
 </header>
@@ -85,9 +251,9 @@
 <canvas id="heroCanvas"></canvas>
 <div class="hero-overlay"></div>
 <div class="hero-content">
-<div class="hero-badge lang-text" data-ar="<span class='dot'></span> الشركة الرائدة في اللوجستيات بالسودان" data-en="<span class='dot'></span> The Leading Logistics Company in Sudan">
+<div class="hero-badge lang-text" data-ar="<span class='dot'></span> سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً" data-en="<span class='dot'></span> Sudanil Logistics.. The Leading Logistics Company Globally">
 <span class="dot"></span>
-<span class="lang-text" data-ar="الشركة الرائدة في اللوجستيات بالسودان" data-en="The Leading Logistics Company in Sudan">الشركة الرائدة في اللوجستيات بالسودان</span>
+<span class="lang-text" data-ar="سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً" data-en="Sudanil Logistics.. The Leading Logistics Company Globally">سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً</span>
 </div>
 <h1 class="hero-title">
 <span class="line"><span class="lang-text" data-ar="نقل بثقة.." data-en="Ship with Trust..">نقل بثقة..</span></span>
@@ -280,7 +446,7 @@
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>بوابة العملاء</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تسجيل الدخول" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Login"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
             </nav>
         </div>
 
@@ -421,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!-- Floating AI Assistant Button -->
 <button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#d4af37] to-[#ecc165] text-[#060d1e] shadow-[0_8px_30px_rgba(212,175,55,0.4)] border border-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300">
-  <span class="material-symbols-outlined text-2xl font-bold">smart_toy</span>
+  <span class="material-symbols-outlined text-2xl font-bold">support_agent</span>
   <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#060d1e] animate-pulse"></span>
 </button>
 
@@ -648,10 +814,33 @@ document.addEventListener('DOMContentLoaded', () => {
           appendMessage(response, false);
       }, 1200);
   }
+
+  // --- Premium Dark Mode Toggle Logic for Homepage ---
+  window.toggleTheme = function() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      if (body.classList.contains('dark-mode')) {
+          body.classList.remove('dark-mode');
+          if (icon) icon.textContent = 'dark_mode';
+          localStorage.setItem('sudanil_theme', 'light');
+      } else {
+          body.classList.add('dark-mode');
+          if (icon) icon.textContent = 'light_mode';
+          localStorage.setItem('sudanil_theme', 'dark');
+      }
+  };
+
+  // Restore saved theme preference immediately
+  const savedTheme = localStorage.getItem('sudanil_theme');
+  if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = 'light_mode';
+  }
 </script>
 
 <!-- Floating WhatsApp Widget -->
-<a href="https://wa.me/249123456789" target="_blank" id="whatsapp-chat-btn" class="fixed bottom-6 z-[998] w-14 h-14 rounded-full flex items-center justify-center bg-[#25D366] text-white shadow-[0_8px_30px_rgba(37,211,102,0.4)] border border-[#1ebd5a] hover:scale-110 active:scale-95 transition-all duration-300">
+<a href="https://wa.me/966543389314" target="_blank" id="whatsapp-chat-btn" class="fixed bottom-6 z-[998] w-14 h-14 rounded-full flex items-center justify-center bg-[#25D366] text-white shadow-[0_8px_30px_rgba(37,211,102,0.4)] border border-[#1ebd5a] hover:scale-110 active:scale-95 transition-all duration-300">
   <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
     <path d="M12.031 0C5.405 0 .015 5.39 .015 12.015c0 2.115.548 4.17 1.583 5.986L.01 24l6.155-1.614a11.94 11.94 0 0 0 5.866 1.527h.005c6.626 0 12.015-5.39 12.015-12.015C24.051 5.39 18.662 0 12.031 0zm0 21.916c-1.782 0-3.535-.48-5.074-1.39l-.364-.216-3.766.988.998-3.673-.238-.378a9.98 9.98 0 0 1-1.528-5.234c0-5.522 4.492-10.015 10.015-10.015 5.522 0 10.015 4.493 10.015 10.015 0 5.522-4.493 10.015-10.015 10.015zM17.525 14.4c-.302-.152-1.788-.882-2.064-.982-.275-.1-.475-.152-.676.152-.2.302-.782.982-.958 1.182-.175.2-.35.226-.652.076-1.554-.78-2.673-1.616-3.682-3.32-.202-.34.202-.315.495-.904.075-.152.037-.286-.02-.438-.057-.152-.676-1.636-.926-2.242-.243-.59-.49-.51-.676-.52-.175-.01-.375-.01-.575-.01-.2 0-.526.076-.8.378-.275.302-1.05 1.026-1.05 2.5 0 1.474 1.075 2.9 1.226 3.1.152.202 2.115 3.226 5.12 4.526 1.83.792 2.502.852 3.427.712.924-.14 2.18-.89 2.484-1.752.304-.862.304-1.602.213-1.752-.09-.152-.34-.243-.642-.394z"/>
   </svg>
@@ -662,5 +851,6 @@ document.addEventListener('DOMContentLoaded', () => {
   html[dir="ltr"] #whatsapp-chat-btn { right: 96px; left: auto; }
 </style>
 
+<script src="../translations.js"></script>
 </body>
 </html>

@@ -697,6 +697,318 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
     font-size: 12px;
   }
 }
+
+/* ===== DESKTOP SCROLL-LOCK COMPACT SPACING ===== */
+@media (min-width: 961px) {
+  .login-panel {
+    overflow-y: hidden !important;
+    padding: 16px 28px 8px;
+  }
+  .login-top {
+    margin-bottom: 8px;
+  }
+  .login-header {
+    margin-bottom: 8px !important;
+  }
+  .tab-container {
+    margin-bottom: 10px;
+  }
+  .form-group {
+    margin-bottom: 8px;
+  }
+  .form-extras {
+    margin-bottom: 10px;
+  }
+  .divider {
+    margin: 6px 0;
+  }
+  .demo-box {
+    padding: 6px 12px;
+  }
+  .demo-cred {
+    padding: 6px 8px;
+  }
+  .security-line {
+    margin-top: 6px;
+  }
+}
+
+/* ===== PREMIUM DARK MODE THEME ===== */
+body.dark-mode {
+  background: var(--navy) !important;
+}
+body.dark-mode .login-panel {
+  background: var(--navy) !important;
+  border-color: rgba(212, 175, 55, 0.2);
+}
+body.dark-mode .login-header h2 {
+  color: var(--white);
+}
+body.dark-mode .login-header p {
+  color: var(--gray-400);
+}
+body.dark-mode .form-group label {
+  color: var(--gray-300);
+}
+body.dark-mode .form-input {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+  color: var(--white) !important;
+}
+body.dark-mode .form-input::placeholder {
+  color: var(--gray-500) !important;
+}
+body.dark-mode .form-extras label span {
+  color: var(--gray-300) !important;
+}
+body.dark-mode .divider span {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .demo-box {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+}
+body.dark-mode .demo-cred {
+  background: var(--navy) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+}
+body.dark-mode .demo-cred:hover {
+  background: rgba(212, 175, 55, 0.05) !important;
+  border-color: var(--gold) !important;
+}
+body.dark-mode .demo-cred .lbl {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .demo-cred .val,
+body.dark-mode .demo-email,
+body.dark-mode .demo-pass {
+  color: var(--gray-200) !important;
+}
+body.dark-mode .tab-container {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+}
+body.dark-mode .tab-indicator {
+  background: var(--navy) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+}
+body.dark-mode .tab-btn {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .tab-btn.active {
+  color: var(--gold) !important;
+}
+body.dark-mode .biometric-btn {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+  color: var(--gold) !important;
+}
+body.dark-mode .biometric-btn:hover {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--gold-light) !important;
+}
+body.dark-mode .divider::before, 
+body.dark-mode .divider::after {
+  background: rgba(212, 175, 55, 0.15) !important;
+}
+body.dark-mode .back-btn, 
+body.dark-mode .lang-btn {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+  color: var(--gray-300) !important;
+}
+body.dark-mode .back-btn:hover, 
+body.dark-mode .lang-btn:hover {
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+}
+body.dark-mode .info-panel {
+  background: var(--navy) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+}
+body.dark-mode .info-logo-text {
+  color: var(--white) !important;
+}
+body.dark-mode .info-headline {
+  color: var(--white) !important;
+}
+body.dark-mode .info-sub {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .stat-card {
+  background: var(--navy-light) !important;
+  border-color: rgba(212, 175, 55, 0.1) !important;
+}
+body.dark-mode .stat-card:hover {
+  border-color: var(--gold) !important;
+}
+body.dark-mode .stat-num {
+  color: var(--white) !important;
+}
+body.dark-mode .stat-label {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .trust-item span:last-child {
+  color: var(--gray-400) !important;
+}
+body.dark-mode .trust-item .material-symbols-outlined {
+  color: var(--gold) !important;
+}
+body.dark-mode .forgot {
+  color: var(--gold) !important;
+}
+body.dark-mode .forgot:hover {
+  color: var(--gold-light) !important;
+}
+
+/* ===== CUSTOM LANG DROPDOWN STYLES FOR NON-TAILWIND LOGIN PAGE ===== */
+.group {
+  position: relative;
+}
+.inline-block {
+  display: inline-block;
+}
+.z-\[1000\] {
+  z-index: 1000;
+}
+.absolute {
+  position: absolute;
+}
+.top-full {
+  top: 100%;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.w-44 {
+  width: 11rem;
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.bg-slate-950\/90 {
+  background-color: rgba(2, 6, 23, 0.95);
+}
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.border {
+  border-width: 1px;
+  border-style: solid;
+}
+.border-\[\#d4af37\]\/25 {
+  border-color: rgba(212, 175, 55, 0.25);
+}
+.p-2\.5 {
+  padding: 0.625rem;
+}
+.shadow-\[0_20px_50px_rgba\(0\,0\,0\,0\.5\)\] {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.duration-300 {
+  transition-duration: 300ms;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.scale-95 {
+  transform: scale(0.95);
+}
+.pointer-events-none {
+  pointer-events: none;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+.z-\[9999\] {
+  z-index: 9999;
+}
+.left-0 {
+  left: 0;
+}
+.right-0 {
+  right: 0;
+}
+
+/* Hover effects */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+.group:hover .group-hover\:scale-100 {
+  transform: scale(1);
+}
+.group:hover .group-hover\:pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* Dropdown items */
+.w-full {
+  width: 100%;
+}
+.px-3\.5 {
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.text-slate-300 {
+  color: #cbd5e1;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.block {
+  display: block;
+}
+
+/* Align text dynamically based on page direction */
+html[dir="rtl"] .text-right {
+  text-align: right;
+}
+html[dir="ltr"] .text-right {
+  text-align: left;
+}
+
+/* Dropdown item hover */
+.hover\:text-\[\#d4af37\]:hover {
+  color: #d4af37;
+}
+.hover\:bg-\[\#d4af37\]\/10:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+}
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+/* Ensure button styling is clean */
+button.w-full.text-right {
+  background: none;
+  border: none;
+  font-family: inherit;
+}
 </style>
 </head>
 <body>
@@ -713,6 +1025,10 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
       <span class="material-symbols-outlined" id="back-btn-icon" style="font-size:16px">arrow_forward</span>
       <span class="lang-text" data-ar="الرجوع للموقع" data-en="Main Website">الرجوع للموقع</span>
     </a>
+    <!-- Theme Toggle Button -->
+    <button class="lang-btn" onclick="toggleLoginTheme()" title="تغيير المظهر / Toggle Theme" style="margin-inline-start: auto; margin-inline-end: 4px;">
+      <span class="material-symbols-outlined" id="theme-icon-login" style="font-size:16px">dark_mode</span>
+    </button>
     <!-- Language Toggle Button -->
     <button class="lang-btn" onclick="toggleLoginLang()">
       <span class="material-symbols-outlined" style="font-size:16px">language</span>
@@ -915,7 +1231,7 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
         <span class="material-symbols-outlined text-5xl text-gold" id="scanner-icon" style="font-size:48px; color:var(--gold);">fingerprint</span>
       </div>
       <!-- Moving laser sweep bar -->
-      <div id="scanner-line" class="animate-sweep" style="position:absolute; left:12px; right:12px; h-0.5; height:2px; bg-gradient-to-r; background:linear-gradient(90deg, transparent, var(--gold), transparent); box-shadow:0 0 8px var(--gold); pointer-events:none; z-index:20;"></div>
+      <div id="scanner-line" class="animate-sweep" style="position:absolute; left:12px; right:12px; height:2px; background:linear-gradient(90deg, transparent, var(--gold), transparent); box-shadow:0 0 8px var(--gold); pointer-events:none; z-index:20;"></div>
     </div>
 
     <!-- Active status readouts console -->
@@ -1422,11 +1738,35 @@ function initLogin3D() {
   animate();
 }
 
+// --- Premium Theme Toggle for Login Page ---
+function toggleLoginTheme() {
+  const body = document.body;
+  const icon = document.getElementById('theme-icon-login');
+  if (body.classList.contains('dark-mode')) {
+    body.classList.remove('dark-mode');
+    if (icon) icon.textContent = 'dark_mode';
+    localStorage.setItem('sudanil_theme', 'light');
+  } else {
+    body.classList.add('dark-mode');
+    if (icon) icon.textContent = 'light_mode';
+    localStorage.setItem('sudanil_theme', 'dark');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initLogin3D();
   // Init roles selector
   selectPasskeyRole('admin');
+
+  // Restore saved theme preference
+  const savedTheme = localStorage.getItem('sudanil_theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    const icon = document.getElementById('theme-icon-login');
+    if (icon) icon.textContent = 'light_mode';
+  }
 });
 </script>
+<script src="../translations.js"></script>
 </body>
 </html>

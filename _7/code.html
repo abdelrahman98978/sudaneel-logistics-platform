@@ -36,6 +36,40 @@
             background-size: 200% auto;
         }
         @keyframes shimmer { to { background-position: -200% center; } }
+        #mainNav {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mainNav nav a {
+            color: rgba(255, 255, 255, 0.75) !important;
+        }
+        #mainNav nav a:hover {
+            color: #d4af37 !important;
+        }
+        #mainNav nav a.text-primary, #mainNav nav a[class*="text-primary"] {
+            color: #d4af37 !important;
+            border-color: #d4af37 !important;
+        }
+        #mainNav button {
+            color: rgba(255, 255, 255, 0.8) !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        #mainNav .login-btn {
+            background: linear-gradient(135deg, #d4af37, #ecc165) !important;
+            color: #0b1b3d !important;
+            border: none !important;
+        }
+        #mainNav .login-btn span {
+            color: #0b1b3d !important;
+        }
+        #mainNav.scrolled {
+            background: rgba(11, 27, 61, 0.95) !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            height: 70px;
+        }
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -91,12 +125,12 @@
 </head>
 <body class="bg-background text-on-background font-body selection:bg-secondary-container selection:text-primary">
 <!-- Top Navigation Bar -->
-<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-24 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all">
-    <div class="flex items-center gap-12">
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all">
+    <div class="flex items-center gap-10">
         <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
-            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain inline-block" style="height: 40px; object-fit: contain;"/>
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
         </a>
-        <nav class="hidden md:flex gap-8 items-center text-sm">
+        <nav class="hidden md:flex gap-6 items-center text-sm">
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
             <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="من نحن" data-en="About Us">من نحن</a>
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
@@ -104,20 +138,20 @@
             <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
         </nav>
     </div>
-    <div class="flex items-center gap-4">
-        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-            <span class="material-symbols-outlined text-xl">language</span>
-            <span id="langToggleText">EN</span>
+    <div class="flex items-center gap-3">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50">
+            <span class="material-symbols-outlined text-lg">language</span>
+            <span id="langToggleText" class="text-xs">EN</span>
         </button>
-        <a href="../_21/code.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2" data-ar="بوابة العملاء" data-en="Client Portal">
+        <a href="../_21/login.html" class="login-btn lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
             <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
-            بوابة العملاء
+            تسجيل الدخول
         </a>
     </div>
 </header>
-<main class="pt-20">
+<main class="pt-0">
 <!-- Hero Section - Cinematic -->
-<section class="relative h-[600px] flex items-center overflow-hidden">
+<section class="relative h-[600px] flex items-center overflow-hidden pt-24">
 <div class="absolute inset-0 z-0">
 <img alt="Hero background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600&q=80"/>
 <div class="absolute inset-0 hero-gradient"></div>
@@ -275,6 +309,41 @@
 </div>
 </div>
 </section>
+<!-- Field Operations Team Uniform Showcase -->
+<section class="py-section-gap bg-gradient-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 right-10 w-72 h-72 bg-secondary/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-max-width mx-auto px-margin-desktop relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1" data-aos="fade-up">
+                <span class="lang-text inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-5 py-2 rounded-full mb-6" data-ar="فريق العمليات الميدانية" data-en="Field Operations Team">فريق العمليات الميدانية</span>
+                <h2 class="lang-text text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight" data-ar="فريقنا الميداني.. <span class='text-gradient-gold'>هوية واحترافية</span>" data-en="Our Field Team.. <span class='text-gradient-gold'>Identity & Professionalism</span>">فريقنا الميداني.. <span class="text-gradient-gold">هوية واحترافية</span></h2>
+                <p class="lang-text text-white/70 text-lg leading-relaxed mb-8" data-ar="يرتدي فريقنا الميداني الأزياء الرسمية التي تحمل شعار سودانيل لوجيستك، مما يعكس التزامنا بالاحترافية والانتماء المؤسسي في كل موقع عمل وكل عملية شحن." data-en="Our field team wears official uniforms bearing the Sudanil Logistic logo, reflecting our commitment to professionalism and corporate identity at every work site and every shipping operation.">يرتدي فريقنا الميداني الأزياء الرسمية التي تحمل شعار سودانيل لوجيستك، مما يعكس التزامنا بالاحترافية والانتماء المؤسسي في كل موقع عمل وكل عملية شحن.</p>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-secondary-container">250+</div>
+                        <div class="lang-text text-white/50 text-xs mt-1" data-ar="موظف ميداني" data-en="Field Staff">موظف ميداني</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-secondary-container">24/7</div>
+                        <div class="lang-text text-white/50 text-xs mt-1" data-ar="جاهزية تشغيلية" data-en="Operational Readiness">جاهزية تشغيلية</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-secondary-container">100%</div>
+                        <div class="lang-text text-white/50 text-xs mt-1" data-ar="معايير السلامة" data-en="Safety Standards">معايير السلامة</div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 md:order-2" data-aos="fade-up" data-aos-delay="200">
+                <div class="rounded-2xl overflow-hidden border-2 border-secondary/20 shadow-2xl shadow-secondary/10">
+                    <img src="workers_uniform.png" alt="Sudanil Logistics Field Team in Uniform" class="w-full h-auto object-cover" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Executive Team Section -->
 <section class="py-section-gap bg-surface">
 <div class="max-w-max-width mx-auto px-margin-desktop">
@@ -394,7 +463,7 @@
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>بوابة العملاء</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
             </nav>
         </div>
 
@@ -510,4 +579,45 @@
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
 </script>
+<!-- Floating WhatsApp Widget -->
+<a href="https://wa.me/966543389314" target="_blank" class="whatsapp-float" title="تواصل عبر واتساب">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="white"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.128 6.744 3.046 9.378L1.054 31.39l6.2-1.966A15.9 15.9 0 0 0 16.004 32C24.826 32 32 24.826 32 16.004S24.826 0 16.004 0zm9.336 22.594c-.39 1.098-1.936 2.01-3.164 2.276-.842.178-1.94.32-5.638-1.212-4.734-1.96-7.78-6.756-8.016-7.07-.228-.314-1.9-2.532-1.9-4.83s1.2-3.428 1.626-3.898c.428-.47.932-.588 1.244-.588.312 0 .622.002.894.016.288.014.674-.11 1.054.804.39.938 1.326 3.232 1.442 3.466.116.234.194.508.04.82-.156.312-.234.508-.468.782-.234.274-.492.612-.702.82-.234.234-.478.488-.206.958.274.47 1.216 2.008 2.612 3.254 1.794 1.6 3.306 2.096 3.776 2.33.47.234.744.196 1.018-.118.274-.314 1.172-1.37 1.486-1.84.312-.47.626-.39 1.054-.234.43.156 2.722 1.284 3.192 1.518.47.234.782.352.898.546.116.196.116 1.126-.274 2.224z"/></svg>
+    <span class="whatsapp-pulse"></span>
+</a>
+<style>
+    .whatsapp-float {
+        position: fixed;
+        bottom: 90px;
+        z-index: 998;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .whatsapp-float:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+    }
+    .whatsapp-pulse {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(37, 211, 102, 0.3);
+        animation: whatsappPulse 2s ease-out infinite;
+    }
+    @keyframes whatsappPulse {
+        0% { transform: scale(1); opacity: 0.5; }
+        100% { transform: scale(1.6); opacity: 0; }
+    }
+    html[dir="rtl"] .whatsapp-float { left: 24px; right: auto; }
+    html[dir="ltr"] .whatsapp-float { right: 24px; left: auto; }
+</style>
+<script src="../translations.js"></script>
 </body></html>

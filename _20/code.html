@@ -159,6 +159,98 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
+
+    /* ===== LIGHT MODE: Table, Form & Badge Theming ===== */
+    .light-mode table thead tr {
+      background: rgba(6, 13, 30, 0.06) !important;
+    }
+    .light-mode table thead th {
+      color: var(--navy) !important;
+      border-color: rgba(6, 13, 30, 0.1) !important;
+    }
+    .light-mode table tbody td {
+      color: #1e293b !important;
+      border-color: rgba(6, 13, 30, 0.06) !important;
+    }
+    .light-mode table tbody tr:hover {
+      background: rgba(212, 175, 55, 0.06) !important;
+    }
+    .light-mode table .font-mono {
+      color: var(--navy) !important;
+    }
+
+    .light-mode input, .light-mode textarea, .light-mode select {
+      background: rgba(241, 245, 249, 0.9) !important;
+      border-color: rgba(6, 13, 30, 0.15) !important;
+      color: #0f172a !important;
+    }
+    .light-mode input::placeholder, .light-mode textarea::placeholder {
+      color: #94a3b8 !important;
+    }
+    .light-mode input:focus, .light-mode textarea:focus, .light-mode select:focus {
+      border-color: var(--gold) !important;
+      ring-color: var(--gold) !important;
+    }
+
+    .light-mode .admin-notif-card {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(6, 13, 30, 0.1) !important;
+    }
+    .light-mode .admin-notif-card h4 {
+      color: #0f172a !important;
+    }
+    .light-mode .admin-notif-card p {
+      color: #64748b !important;
+    }
+
+    .light-mode .text-slate-200 { color: #1e293b !important; }
+    .light-mode .text-slate-300 { color: #334155 !important; }
+    .light-mode .text-slate-400 { color: #64748b !important; }
+    .light-mode .text-gold-light { color: #92711c !important; }
+
+    .light-mode .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.04);
+    }
+    .light-mode .custom-scroll::-webkit-scrollbar-thumb {
+      background: #a08525;
+    }
+
+    /* ===== LTR Direction: Sidebar & Main repositioning ===== */
+    html[dir="ltr"] aside {
+      left: 0 !important;
+      right: auto !important;
+    }
+    html[dir="ltr"] main {
+      padding-right: 0 !important;
+      padding-left: 4rem;
+    }
+    @media (min-width: 768px) {
+      html[dir="ltr"] main {
+        padding-left: 16rem;
+      }
+    }
+
+    /* ===== Notification badge ping animation ===== */
+    .notif-ping-dot {
+      animation: notifPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes notifPing {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+      70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* ===== Smooth panel transition ===== */
+    .tab-panel {
+      animation: panelFadeIn 0.35s ease-out;
+    }
+    .tab-panel.hidden {
+      animation: none;
+    }
+    @keyframes panelFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body class="min-h-screen custom-scroll overflow-x-hidden">
@@ -168,7 +260,7 @@
 
   <!-- Top Glass Bar Header -->
   <header class="fixed top-0 left-0 right-0 h-16 z-50 glass border-b flex justify-between items-center px-4 md:px-8 max-w-[1920px] mx-auto transition-all duration-300">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3">
       <img src="logo.png" alt="Sudanil Logistics Logo" class="h-10 w-auto object-contain" />
       <div class="h-6 w-px bg-gold/30 hidden md:block"></div>
       <h1 class="font-bold text-sm md:text-lg tracking-wide hidden md:block lang-text" data-ar="منصة الإدارة المتكاملة" data-en="Integrated Control Platform">منصة الإدارة المتكاملة</h1>
@@ -217,7 +309,10 @@
     </div>
 
     <!-- SPA Navigation list -->
-    <nav class="flex flex-col gap-1 w-full" id="sidebar-nav">
+    <nav class="flex flex-col gap-1 w-full flex-grow overflow-y-auto max-h-[calc(100vh-230px)] custom-scroll pr-1" id="sidebar-nav">
+      <!-- Operations Category -->
+      <div class="text-[10px] uppercase font-black text-slate-500 tracking-wider px-3 mt-2 mb-1.5 hidden md:block lang-text" data-ar="العمليات الأساسية" data-en="Core Operations">العمليات الأساسية</div>
+      
       <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer bg-gold text-navy font-bold" data-tab="dashboard">
         <span class="material-symbols-outlined text-xl">dashboard</span>
         <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="لوحة المعلومات" data-en="Dashboard">لوحة المعلومات</span>
@@ -233,14 +328,56 @@
         <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="سعة المستودعات" data-en="Warehouse Sliders">سعة المستودعات</span>
       </button>
 
+      <!-- Enterprise Category -->
+      <div class="text-[10px] uppercase font-black text-slate-500 tracking-wider px-3 mt-4 mb-1.5 hidden md:block lang-text" data-ar="شؤون المؤسسة" data-en="Enterprise Suite">شؤون المؤسسة</div>
+
       <button onclick="switchTab('clients')" id="nav-clients" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="clients">
         <span class="material-symbols-outlined text-xl">corporate_fare</span>
         <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="قاعدة بيانات العملاء" data-en="Client Accounts">قاعدة بيانات العملاء</span>
       </button>
 
+      <button onclick="switchTab('fleet')" id="nav-fleet" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="fleet">
+        <span class="material-symbols-outlined text-xl">directions_car</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="إدارة الأسطول" data-en="Fleet Registry">إدارة الأسطول</span>
+      </button>
+
+      <button onclick="switchTab('finance')" id="nav-finance" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="finance">
+        <span class="material-symbols-outlined text-xl">payments</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="الإدارة المالية" data-en="Financial Management">الإدارة المالية</span>
+      </button>
+
+      <button onclick="switchTab('hr')" id="nav-hr" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="hr">
+        <span class="material-symbols-outlined text-xl">group</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="الموارد البشرية" data-en="Human Resources">الموارد البشرية</span>
+      </button>
+
+      <!-- System Category -->
+      <div class="text-[10px] uppercase font-black text-slate-500 tracking-wider px-3 mt-4 mb-1.5 hidden md:block lang-text" data-ar="إدارة النظام" data-en="System & Tools">إدارة النظام</div>
+
       <button onclick="switchTab('erp')" id="nav-erp" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="erp">
         <span class="material-symbols-outlined text-xl">sync</span>
         <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="مزامنة Odoo ERP" data-en="Odoo ERP Sync">مزامنة Odoo ERP</span>
+      </button>
+
+      <button onclick="switchTab('reports')" id="nav-reports" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="reports">
+        <span class="material-symbols-outlined text-xl">assessment</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="التقارير والتحليلات" data-en="Reports & Analytics">التقارير والتحليلات</span>
+      </button>
+
+      <button onclick="switchTab('notifications')" id="nav-notifications" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold relative" data-tab="notifications">
+        <span class="material-symbols-outlined text-xl">notifications</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="مركز الإشعارات" data-en="Notifications Center">مركز الإشعارات</span>
+        <span id="nav-notif-badge" class="absolute top-2.5 left-2 md:left-auto md:right-4 w-4 h-4 bg-red-500 rounded-full border-2 border-navy text-[8px] font-black flex items-center justify-center text-white hidden"></span>
+      </button>
+
+      <button onclick="switchTab('profile')" id="nav-profile" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="profile">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="الملف الشخصي" data-en="User Profile">الملف الشخصي</span>
+      </button>
+
+      <button onclick="switchTab('support')" id="nav-support" class="nav-item w-full flex items-center justify-center md:justify-start gap-3 p-3 rounded-xl transition-all cursor-pointer text-slate-300 hover:bg-navy-light hover:text-gold" data-tab="support">
+        <span class="material-symbols-outlined text-xl">support_agent</span>
+        <span class="text-sm font-semibold tracking-wide hidden md:block lang-text" data-ar="الدعم الفني" data-en="Technical Support">الدعم الفني</span>
       </button>
     </nav>
 
@@ -312,7 +449,88 @@
           </div>
         </div>
 
+        <!-- Monthly Logistics Trend Analytics (CSS Based Chart) -->
+        <div class="glass p-5 rounded-2xl border flex flex-col hover:border-gold/30 transition-all">
+          <div class="border-b border-gold/10 pb-3 mb-4 flex justify-between items-center">
+            <div>
+              <h3 class="text-sm font-extrabold text-gold lang-text" data-ar="التحليل البياني للعمليات اللوجستية (شهري)" data-en="Monthly Logistics Trend Analytics">التحليل البياني للعمليات اللوجستية (شهري)</h3>
+              <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="مراقبة حجم الشحنات الواردة والصادرة على مدار العام." data-en="Monitor incoming and outgoing freight volumes over the year.">مراقبة حجم الشحنات الواردة والصادرة على مدار العام.</p>
+            </div>
+            <div class="p-2 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">bar_chart</span></div>
+          </div>
+          
+          <div class="flex items-end h-48 md:h-56 gap-2 sm:gap-4 lg:gap-6 w-full pt-6 relative px-2 md:px-6">
+            <!-- Dynamic Data Bars -->
+            <!-- Month 1 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/40 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 hover:brightness-110 transition-all" style="height: 40%;" title="وارد: 40"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold hover:brightness-110 transition-all" style="height: 60%;" title="صادر: 60"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">40 | 60</span>
+              </div>
+              <span class="text-[10px] text-slate-400 mt-2 font-bold select-none uppercase font-mono tracking-wider">Jan</span>
+            </div>
+            <!-- Month 2 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/40 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 hover:brightness-110 transition-all" style="height: 65%;" title="وارد: 65"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold hover:brightness-110 transition-all" style="height: 45%;" title="صادر: 45"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">65 | 45</span>
+              </div>
+              <span class="text-[10px] text-slate-400 mt-2 font-bold select-none uppercase font-mono tracking-wider">Feb</span>
+            </div>
+            <!-- Month 3 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/40 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 hover:brightness-110 transition-all" style="height: 85%;" title="وارد: 85"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold hover:brightness-110 transition-all" style="height: 70%;" title="صادر: 70"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">85 | 70</span>
+              </div>
+              <span class="text-[10px] text-slate-400 mt-2 font-bold select-none uppercase font-mono tracking-wider">Mar</span>
+            </div>
+            <!-- Month 4 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/40 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 hover:brightness-110 transition-all" style="height: 50%;" title="وارد: 50"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold hover:brightness-110 transition-all" style="height: 90%;" title="صادر: 90"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">50 | 90</span>
+              </div>
+              <span class="text-[10px] text-slate-400 mt-2 font-bold select-none uppercase font-mono tracking-wider">Apr</span>
+            </div>
+            <!-- Month 5 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/40 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 hover:brightness-110 transition-all" style="height: 95%;" title="وارد: 95"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold hover:brightness-110 transition-all" style="height: 75%;" title="صادر: 75"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">95 | 75</span>
+              </div>
+              <span class="text-[10px] text-emerald-400 mt-2 font-bold select-none uppercase font-mono tracking-wider">May</span>
+            </div>
+            <!-- Month 6 -->
+            <div class="flex-1 flex flex-col items-center justify-end group h-full opacity-50 grayscale hover:grayscale-0 transition-all">
+              <div class="w-full sm:w-4/5 max-w-[40px] bg-navy-light/20 rounded-t-lg flex items-end justify-center relative hover:bg-navy-light transition-all overflow-hidden border border-gold/5 border-dashed" style="height: 100%;">
+                <div class="w-1/2 bg-gradient-to-t from-emerald-600 to-emerald-400 transition-all" style="height: 0%;" title="وارد: 0"></div>
+                <div class="w-1/2 bg-gradient-to-t from-yellow-600 to-gold transition-all" style="height: 0%;" title="صادر: 0"></div>
+                <span class="absolute -top-6 text-[10px] font-mono text-gold-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-navy-light px-2 py-0.5 rounded-md border border-gold/20 shadow-xl z-10">TBD</span>
+              </div>
+              <span class="text-[10px] text-slate-500 mt-2 font-bold select-none uppercase font-mono tracking-wider">Jun</span>
+            </div>
+          </div>
+          
+          <div class="flex justify-center gap-6 mt-4 pt-4 border-t border-gold/10 text-[11px] font-bold select-none">
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span class="w-3 h-3 rounded bg-gradient-to-t from-emerald-600 to-emerald-400 shadow-sm"></span> 
+              <span class="lang-text" data-ar="معدل الوارد" data-en="Incoming Volume">معدل الوارد</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-gold">
+              <span class="w-3 h-3 rounded bg-gradient-to-t from-yellow-600 to-gold shadow-sm"></span> 
+              <span class="lang-text" data-ar="معدل الصادر" data-en="Outgoing Volume">معدل الصادر</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Globe Section & System News Grid -->
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           <!-- WebGL 3D Globe Interactive Visualization (8 Columns) -->
@@ -525,6 +743,529 @@
         </div>
       </section>
 
+      <!-- ==================== TAB: FLEET MANAGEMENT ==================== -->
+      <section id="tab-content-fleet" class="tab-panel hidden flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="إدارة أسطول المركبات والشاحنات" data-en="Fleet & Vehicle Registry">إدارة أسطول المركبات والشاحنات</h2>
+            <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="مراقبة كفاءة الوقود، جدول الصيانة الدورية للناقلات البرية، وحالة نشاط المركبات." data-en="Track heavy trailers, review active fuel consumption, and monitor vehicle maintenance status.">مراقبة كفاءة الوقود، جدول الصيانة الدورية للناقلات البرية، وحالة نشاط المركبات.</p>
+          </div>
+          <button onclick="showToast('تم فتح طلب إضافة ناقلة جديدة','New fleet asset wizard opened','info')" class="flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-xl">add_circle</span>
+            <span class="text-xs font-bold lang-text" data-ar="إضافة ناقلة" data-en="Add Vehicle Asset">إضافة ناقلة</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="الشاحنات والناقلات النشطة" data-en="Active Vehicles">الشاحنات والناقلات النشطة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">42</h3>
+              <p class="text-[10px] text-emerald-400 font-bold mt-1 lang-text" data-ar="قيد الخدمة الآن" data-en="Active on road">قيد الخدمة الآن</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">local_shipping</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="المركبات قيد الصيانة" data-en="Vehicles Under Maintenance">المركبات قيد الصيانة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">6</h3>
+              <p class="text-[10px] text-amber-400 font-bold mt-1 lang-text" data-ar="مجدول صيانة دورية" data-en="Scheduled checkups active">مجدول صيانة دورية</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">build</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="معدل كفاءة الوقود" data-en="Fuel Efficiency Average">معدل كفاءة الوقود</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">8.2 <span class="text-xs font-normal lang-text" data-ar="كم/لتر" data-en="km/L">كم/لتر</span></h3>
+              <p class="text-[10px] text-slate-400 font-medium mt-1 lang-text" data-ar="مؤشر استهلاك قياسي ممتاز" data-en="Eco-rating optimal scale">مؤشر استهلاك قياسي ممتاز</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">local_gas_station</span></div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse select-none">
+              <thead>
+                <tr class="bg-navy-light/80 text-gold font-bold text-xs md:text-sm border-b border-gold/15">
+                  <th class="p-4 lang-text" data-ar="رقم الناقلة" data-en="Asset ID">رقم الناقلة</th>
+                  <th class="p-4 lang-text" data-ar="النوع والفئة" data-en="Type Class">النوع والفئة</th>
+                  <th class="p-4 lang-text" data-ar="الكابتن السائق" data-en="Assigned Driver">الكابتن السائق</th>
+                  <th class="p-4 lang-text" data-ar="آخر موقع معروف" data-en="Last Known Location">آخر موقع معروف</th>
+                  <th class="p-4 lang-text" data-ar="الحالة التشغيلية" data-en="Operational State">الحالة التشغيلية</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gold/10 text-xs md:text-sm text-slate-200">
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">TRK-001</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="شاحنة ثقيلة - مقطورة" data-en="Heavy Cargo Trailer">شاحنة ثقيلة - مقطورة</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="محمد عبدالله" data-en="Mohammed Abdullah">محمد عبدالله</td>
+                  <td class="p-4 font-mono text-slate-300 lang-text" data-ar="الخرطوم بحري" data-en="Khartoum Bahri">الخرطوم بحري</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 lang-text" data-ar="نشط بالخدمة" data-en="Active Transit">نشط بالخدمة</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">TRK-007</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="مقطورة مسطحة" data-en="Flatbed Trailer">مقطورة مسطحة</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="أحمد إبراهيم" data-en="Ahmed Ibrahim">أحمد إبراهيم</td>
+                  <td class="p-4 font-mono text-slate-300 lang-text" data-ar="ميناء بورتسودان" data-en="Port Sudan Terminal">ميناء بورتسودان</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-950/60 border border-amber-500/30 text-amber-300 lang-text" data-ar="قيد الصيانة" data-en="In Repair Shop">قيد الصيانة</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">PKP-012</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="بيك أب شحن خفيف" data-en="Light Pickup Van">بيك أب شحن خفيف</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="عمر حسن" data-en="Omar Hassan">عمر حسن</td>
+                  <td class="p-4 font-mono text-slate-300 lang-text" data-ar="مدني - وسط السودان" data-en="Madani Hub">مدني - وسط السودان</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 lang-text" data-ar="نشط بالخدمة" data-en="Active Transit">نشط بالخدمة</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: FINANCIAL MANAGEMENT ==================== -->
+      <section id="tab-content-finance" class="tab-panel hidden flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="الإدارة المالية والمحاسبة الذكية" data-en="Financials & Enterprise Invoicing">الإدارة المالية والمحاسبة الذكية</h2>
+            <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="إدارة ومتابعة الفواتير النشطة، الإيرادات اللوجستية، وحساب هوامش الربح التشغيلية." data-en="Track pending corporate invoices, review operational expenses, and audit profit margins.">إدارة ومتابعة الفواتير النشطة، الإيرادات اللوجستية، وحساب هوامش الربح التشغيلية.</p>
+          </div>
+          <button onclick="showToast('جاري فتح معالج إصدار فاتورة جديدة','New invoice emitter wizard triggered','info')" class="flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-xl">receipt_long</span>
+            <span class="text-xs font-bold lang-text" data-ar="إصدار فاتورة جديدة" data-en="Issue New Invoice">إصدار فاتورة جديدة</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="إجمالي إيرادات النقل" data-en="Total Monthly Revenue">إجمالي إيرادات النقل</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">$128,400</h3>
+              <p class="text-[10px] text-emerald-400 font-bold mt-1 lang-text flex items-center gap-1" data-ar="▲ +18.5% نمو شهري" data-en="▲ +18.5% Monthly Growth">▲ +18.5% نمو شهري</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">trending_up</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="تكاليف التشغيل والوقود" data-en="Operational & Fuel Cost">تكاليف التشغيل والوقود</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">$85,600</h3>
+              <p class="text-[10px] text-red-400 font-bold mt-1 lang-text flex items-center gap-1" data-ar="▼ +5.2% زيادة مصاريف" data-en="▼ +5.2% Expense Shift">▼ +5.2% زيادة مصاريف</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">account_balance_wallet</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="صافي الأرباح المحققة" data-en="Net Operating Margin">صافي الأرباح المحققة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">$42,800</h3>
+              <p class="text-[10px] text-emerald-400 font-bold mt-1 lang-text" data-ar="معدل ربحية تشغيلية 33.3%" data-en="Net index 33.3% optimal">معدل ربحية تشغيلية 33.3%</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">savings</span></div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse select-none">
+              <thead>
+                <tr class="bg-navy-light/80 text-gold font-bold text-xs md:text-sm border-b border-gold/15">
+                  <th class="p-4 lang-text" data-ar="رقم الفاتورة" data-en="Invoice ID">رقم الفاتورة</th>
+                  <th class="p-4 lang-text" data-ar="الشركة العميل" data-en="Customer">الشركة العميل</th>
+                  <th class="p-4 lang-text" data-ar="المبلغ الكلي" data-en="Total Amount">المبلغ الكلي</th>
+                  <th class="p-4 lang-text" data-ar="تاريخ الاستحقاق" data-en="Due Date">تاريخ الاستحقاق</th>
+                  <th class="p-4 lang-text" data-ar="حالة الفاتورة" data-en="Invoice State">حالة الفاتورة</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gold/10 text-xs md:text-sm text-slate-200">
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">#INV-2041</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="شركة النيل العالمية" data-en="Nile Global Co.">شركة النيل العالمية</td>
+                  <td class="p-4 font-bold font-mono text-slate-300">$12,400</td>
+                  <td class="p-4 font-mono text-slate-300">2026-06-25</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 lang-text" data-ar="تم الدفع" data-en="Settled">تم الدفع</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">#INV-2042</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="مجموعة الفجر للتجارة" data-en="Al-Fajr Trading Group">مجموعة الفجر للتجارة</td>
+                  <td class="p-4 font-bold font-mono text-slate-300">$8,750</td>
+                  <td class="p-4 font-mono text-slate-300">2026-06-28</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-950/60 border border-amber-500/30 text-amber-300 lang-text" data-ar="تحت التحصيل" data-en="Unpaid Pending">تحت التحصيل</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-mono font-bold text-gold-light select-all">#INV-2038</td>
+                  <td class="p-4 font-semibold text-slate-200 lang-text" data-ar="شركة البركة للاستيراد" data-en="Al-Baraka Import Co.">شركة البركة للاستيراد</td>
+                  <td class="p-4 font-bold font-mono text-slate-300">$22,100</td>
+                  <td class="p-4 font-mono text-slate-300">2026-05-15</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-red-950/60 border border-red-500/30 text-red-300 lang-text" data-ar="متأخرة السداد" data-en="Overdue Alert">متأخرة السداد</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: HUMAN RESOURCES ==================== -->
+      <section id="tab-content-hr" class="tab-panel hidden flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="بوابة الموارد البشرية وإدارة الموظفين" data-en="HR & Workforce Management">بوابة الموارد البشرية وإدارة الموظفين</h2>
+            <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="إدارة ملفات الكوادر اللوجستية، نسب الحضور والانصراف اليومي، وطلبات الإجازات المعلقة." data-en="Oversee administrative staff registries, daily employee attendance rates, and leaves approvals.">إدارة ملفات الكوادر اللوجستية، نسب الحضور والانصراف اليومي، وطلبات الإجازات المعلقة.</p>
+          </div>
+          <button onclick="showToast('تم فتح وحدة تعيين موظف جديد','New staff hiring module opened','info')" class="flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-navy font-bold px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-xl">person_add</span>
+            <span class="text-xs font-bold lang-text" data-ar="إضافة موظف" data-en="Recruit Employee">إضافة موظف</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="إجمالي الكادر الوظيفي" data-en="Total Employee Base">إجمالي الكادر الوظيفي</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">186</h3>
+              <p class="text-[10px] text-slate-400 font-semibold mt-1 lang-text" data-ar="موظف مسجل بالمنظومة" data-en="Registered headcount active">موظف مسجل بالمنظومة</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">groups</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="نسبة الحضور والانصراف اليومي" data-en="Daily Attendance Index">نسبة الحضور والانصراف اليومي</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">92.4%</h3>
+              <p class="text-[10px] text-emerald-400 font-bold mt-1 lang-text" data-ar="مؤشر انضباط تشغيلي ممتاز" data-en="Attendance scale optimal">مؤشر انضباط تشغيلي ممتاز</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">fact_check</span></div>
+          </div>
+          <div class="glass p-5 rounded-2xl border flex items-center justify-between hover:translate-y-[-2px] transition-all">
+            <div>
+              <p class="text-xs text-slate-400 font-bold lang-text" data-ar="طلبات إجازة معلقة" data-en="Pending Vacation Approvals">طلبات إجازة معلقة</p>
+              <h3 class="text-3xl font-black text-gold mt-1 font-mono">8</h3>
+              <p class="text-[10px] text-amber-400 font-bold mt-1 lang-text" data-ar="بانتظار موافقة مدير الموارد" data-en="Requires review today">بانتظار موافقة مدير الموارد</p>
+            </div>
+            <div class="p-3.5 bg-gold/10 text-gold rounded-xl"><span class="material-symbols-outlined text-2xl">event_busy</span></div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl border overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse select-none">
+              <thead>
+                <tr class="bg-navy-light/80 text-gold font-bold text-xs md:text-sm border-b border-gold/15">
+                  <th class="p-4 lang-text" data-ar="الموظف الكادر" data-en="Employee Staff">الموظف الكادر</th>
+                  <th class="p-4 lang-text" data-ar="القسم الوظيفي" data-en="Corporate Unit">القسم الوظيفي</th>
+                  <th class="p-4 lang-text" data-ar="المسمى المهني" data-en="Designated Title">المسمى المهني</th>
+                  <th class="p-4 lang-text" data-ar="تاريخ التعيين" data-en="Recruitment Date">تاريخ التعيين</th>
+                  <th class="p-4 lang-text" data-ar="الحالة التشغيلية" data-en="Employment Status">الحالة التشغيلية</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gold/10 text-xs md:text-sm text-slate-200">
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-bold text-slate-200 lang-text" data-ar="عادل محمد" data-en="Adel Mohammed">عادل محمد</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="إدارة العمليات البرية" data-en="Land Operations Dept.">إدارة العمليات البرية</td>
+                  <td class="p-4 font-semibold text-slate-300 lang-text" data-ar="مدير عمليات النقل" data-en="Logistics Supervisor">مدير عمليات النقل</td>
+                  <td class="p-4 font-mono text-slate-300">2021-03-15</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 lang-text" data-ar="نشط بالخدمة" data-en="Active Status">نشط بالخدمة</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-bold text-slate-200 lang-text" data-ar="فاطمة علي" data-en="Fatima Ali">فاطمة علي</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="المالية والحسابات" data-en="Finance & Audit Suite">المالية والحسابات</td>
+                  <td class="p-4 font-semibold text-slate-300 lang-text" data-ar="محاسب أول" data-en="Senior Auditor">محاسب أول</td>
+                  <td class="p-4 font-mono text-slate-300">2022-01-10</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 lang-text" data-ar="نشط بالخدمة" data-en="Active Status">نشط بالخدمة</span></td>
+                </tr>
+                <tr class="hover:bg-navy-light/35 transition-colors border-b border-gold/5">
+                  <td class="p-4 font-bold text-slate-200 lang-text" data-ar="يوسف حسين" data-en="Yousef Hussein">يوسف حسين</td>
+                  <td class="p-4 text-xs text-slate-300 lang-text" data-ar="إدارة التخليص الجمركي" data-en="Customs Clearance Unit">إدارة التخليص الجمركي</td>
+                  <td class="p-4 font-semibold text-slate-300 lang-text" data-ar="منسق معاملات شحن" data-en="Customs Coordinator">منسق معاملات شحن</td>
+                  <td class="p-4 font-mono text-slate-300">2023-06-20</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-950/60 border border-amber-500/30 text-amber-300 lang-text" data-ar="إجازة سنوية" data-en="On Annual Leave">إجازة سنوية</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: REPORTS & ANALYTICS ==================== -->
+      <section id="tab-content-reports" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="مركز التقارير اللوجستية الاستراتيجية" data-en="Executive Analytics & Intel Reports">مركز التقارير اللوجستية الاستراتيجية</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="تصدير وتنزيل التحليلات الشاملة للأداء اللوجستي، حركة الشحنات، السجلات المالية، ومزامنة المستودعات." data-en="Generate and download business summaries tracking shipment trends, fiscal margins, and customs audit indices.">تصدير وتنزيل التحليلات الشاملة للأداء اللوجستي، حركة الشحنات، السجلات المالية، ومزامنة المستودعات.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Shipments Report -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">local_shipping</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="سجلات حركة الشحن" data-en="Freight Log Intel">سجلات حركة الشحن</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: مباشر اليوم" data-en="Last compiled: Live today">تحديث التقارير: مباشر اليوم</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير تقرير الشحنات PDF...','Exporting Shipments PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير تقرير الشحنات Excel...','Exporting Shipments Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+          <!-- Inventory Report -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">warehouse</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="مؤشرات إشغال المستودعات" data-en="Warehouse Occupancy Index">مؤشرات إشغال المستودعات</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: أمس" data-en="Last compiled: Yesterday">تحديث التقارير: أمس</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير تقرير المستودعات PDF...','Exporting Warehouse PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير تقرير المستودعات Excel...','Exporting Warehouse Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+          <!-- Financial Report -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">account_balance_wallet</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="الملخصات والتدفقات المالية" data-en="Fiscal Flow Audits">الملخصات والتدفقات المالية</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: مباشر اليوم" data-en="Last compiled: Live today">تحديث التقارير: مباشر اليوم</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير التقرير المالي PDF...','Exporting Fiscal PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير التقرير المالي Excel...','Exporting Fiscal Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+          <!-- Fleet Performance -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">airport_shuttle</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="كفاءة تشغيل الأسطول" data-en="Fleet Operational Stats">كفاءة تشغيل الأسطول</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: أمس" data-en="Last compiled: Yesterday">تحديث التقارير: أمس</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير تقرير الأسطول PDF...','Exporting Fleet PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير تقرير الأسطول Excel...','Exporting Fleet Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+          <!-- Customs Report -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">assignment_turned_in</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="بيانات التخليص الجمركي" data-en="Customs Clearance Registry">بيانات التخليص الجمركي</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: مباشر اليوم" data-en="Last compiled: Live today">تحديث التقارير: مباشر اليوم</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير تقرير الجمارك PDF...','Exporting Customs PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير تقرير الجمارك Excel...','Exporting Customs Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+          <!-- General KPIs -->
+          <div class="glass p-6 rounded-2xl border flex flex-col gap-4 hover:border-gold/30 transition-all select-none">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined">assessment</span></div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-200 lang-text" data-ar="مؤشرات الأداء العام KPI" data-en="Overall Logistics KPI">مؤشرات الأداء العام KPI</h4>
+                <p class="text-[10px] text-slate-400 mt-0.5 lang-text" data-ar="تحديث التقارير: مباشر اليوم" data-en="Last compiled: Live today">تحديث التقارير: مباشر اليوم</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="showToast('جاري تصدير التقرير العام PDF...','Exporting General KPI PDF...')" class="flex-grow py-2 bg-gold/10 hover:bg-gold/25 border border-gold/20 text-gold text-xs font-bold rounded-lg transition-colors cursor-pointer">PDF</button>
+              <button onclick="showToast('جاري تصدير التقرير العام Excel...','Exporting General KPI Excel...')" class="flex-grow py-2 bg-navy border border-gold/10 text-slate-300 hover:text-gold hover:border-gold/30 text-xs font-bold rounded-lg transition-colors cursor-pointer">Excel</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: NOTIFICATIONS CENTER ==================== -->
+      <section id="tab-content-notifications" class="tab-panel hidden flex flex-col gap-6">
+        <div class="flex justify-between items-center py-2 border-b border-gold/10">
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="مركز الإشعارات والإنذارات النشطة" data-en="System Alerts & Warnings Hub">مركز الإشعارات والإنذارات النشطة</h2>
+            <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="مراقبة الأحداث الحرجة للأنظمة اللوجستية، حركة البوابات، وتأكيدات المدفوعات." data-en="Monitor active alarms, system updates, and warehouse alerts in real-time.">مراقبة الأحداث الحرجة للأنظمة اللوجستية، حركة البوابات، وتأكيدات المدفوعات.</p>
+          </div>
+          <button onclick="clearSystemNotifications()" class="px-4 py-2 bg-navy-light/60 hover:bg-navy text-gold rounded-xl text-xs font-bold border border-gold/20 transition-all cursor-pointer lang-text" data-ar="تعليم الكل كمقروء" data-en="Mark All Read">تعليم الكل كمقروء</button>
+        </div>
+
+        <div class="space-y-3" id="admin-notifications-container">
+          <!-- Notification 1 -->
+          <div class="glass p-5 rounded-2xl border flex items-start gap-4 hover:border-gold/30 transition-all admin-notif-card">
+            <div class="p-2.5 bg-gold/10 text-gold rounded-xl flex-shrink-0"><span class="material-symbols-outlined">local_shipping</span></div>
+            <div class="flex-grow select-none">
+              <h4 class="font-extrabold text-slate-200 text-sm lang-text" data-ar="شحنة #SD-9021 وصلت ميناء بورتسودان بنجاح" data-en="Shipment #SD-9021 reached Port Sudan Terminal successfully">شحنة #SD-9021 وصلت ميناء بورتسودان بنجاح</h4>
+              <p class="text-[10px] text-slate-400 mt-1 font-bold lang-text" data-ar="منذ 15 دقيقة" data-en="15 minutes ago">منذ 15 دقيقة</p>
+            </div>
+            <span class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0 notif-ping-dot"></span>
+          </div>
+          <!-- Notification 2 -->
+          <div class="glass p-5 rounded-2xl border flex items-start gap-4 hover:border-gold/30 transition-all admin-notif-card">
+            <div class="p-2.5 bg-red-950/30 text-red-400 border border-red-500/20 rounded-xl flex-shrink-0"><span class="material-symbols-outlined">warning</span></div>
+            <div class="flex-grow select-none">
+              <h4 class="font-extrabold text-slate-200 text-sm lang-text" data-ar="تنبيه سعة: مستودع الخرطوم شمال تجاوز 92%" data-en="Alert: Khartoum North Warehouse occupancy crossed 92%">تنبيه سعة: مستودع الخرطوم شمال تجاوز 92%</h4>
+              <p class="text-[10px] text-slate-400 mt-1 font-bold lang-text" data-ar="منذ ساعة واحدة" data-en="1 hour ago">منذ ساعة واحدة</p>
+            </div>
+            <span class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0 notif-ping-dot"></span>
+          </div>
+          <!-- Notification 3 -->
+          <div class="glass p-5 rounded-2xl border flex items-start gap-4 hover:border-gold/30 transition-all admin-notif-card">
+            <div class="p-2.5 bg-gold/10 text-gold rounded-xl flex-shrink-0"><span class="material-symbols-outlined">payments</span></div>
+            <div class="flex-grow select-none">
+              <h4 class="font-extrabold text-slate-200 text-sm lang-text" data-ar="تم استلام وتوثيق دفعة $12,400 من شركة النيل العالمية" data-en="Corporate payment $12,400 received from Nile Global Co.">تم استلام وتوثيق دفعة $12,400 من شركة النيل العالمية</h4>
+              <p class="text-[10px] text-slate-400 mt-1 font-bold lang-text" data-ar="منذ 3 ساعات" data-en="3 hours ago">منذ 3 ساعات</p>
+            </div>
+            <span class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0 notif-ping-dot"></span>
+          </div>
+          <!-- Notification 4 -->
+          <div class="glass p-5 rounded-2xl border flex items-start gap-4 hover:border-gold/30 transition-all admin-notif-card">
+            <div class="p-2.5 bg-gold/10 text-gold rounded-xl flex-shrink-0"><span class="material-symbols-outlined">build</span></div>
+            <div class="flex-grow select-none">
+              <h4 class="font-extrabold text-slate-200 text-sm lang-text" data-ar="مجدول صيانة دورية للناقلة TRK-007 صباح الغد" data-en="Maintenance window scheduled for flatbed trailer TRK-007 tomorrow">مجدول صيانة دورية للناقلة TRK-007 صباح الغد</h4>
+              <p class="text-[10px] text-slate-400 mt-1 font-bold lang-text" data-ar="منذ 5 ساعات" data-en="5 hours ago">منذ 5 ساعات</p>
+            </div>
+            <span class="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0 notif-ping-dot"></span>
+          </div>
+        </div>
+
+        <div id="notifications-empty-view" class="hidden p-12 text-center flex flex-col items-center justify-center gap-3">
+          <span class="material-symbols-outlined text-5xl text-gold/30">notifications_off</span>
+          <p class="font-bold text-slate-400 lang-text" data-ar="رائع! لقد قرأت جميع التنبيهات والإشعارات بالكامل." data-en="Perfect! You have checked all active system notifications.">رائع! لقد قرأت جميع التنبيهات والإشعارات بالكامل.</p>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: ADMIN PROFILE ==================== -->
+      <section id="tab-content-profile" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="إعدادات الملف الشخصي والمدير التنفيذي" data-en="Corporate Profile Settings">إعدادات الملف الشخصي والمدير التنفيذي</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="تحديث البيانات الشخصية لحساب المسؤول الموثق، وتغيير كلمة السر بشكل آمن." data-en="Review administrative authorization, change security keys, and configure personal metadata.">تحديث البيانات الشخصية لحساب المسؤول الموثق، وتغيير كلمة السر بشكل آمن.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-4 glass p-8 rounded-2xl border text-center flex flex-col items-center justify-center gap-4">
+            <div class="w-24 h-24 rounded-2xl border-2 border-gold/40 overflow-hidden bg-navy-lighter flex items-center justify-center shadow-lg relative">
+              <span class="material-symbols-outlined text-5xl text-gold font-bold">admin_panel_settings</span>
+            </div>
+            <div>
+              <h3 class="font-black text-base text-gold lang-text" data-ar="المدير التنفيذي العام" data-en="Executive System Director">المدير التنفيذي العام</h3>
+              <p class="text-slate-400 text-xs mt-1 select-all font-mono">admin@sudanil.com</p>
+            </div>
+            <span class="px-3.5 py-1 bg-gold/10 border border-gold/20 text-gold text-xs rounded-full font-bold lang-text" data-ar="حساب سيادي معتمد" data-en="Sovereign Access Verified">حساب سيادي معتمد</span>
+          </div>
+
+          <div class="lg:col-span-8 glass p-6 rounded-2xl border">
+            <h4 class="font-extrabold text-sm text-gold mb-6 border-b border-gold/10 pb-3 lang-text" data-ar="تحديث بيانات حساب المسؤول" data-en="Configure Administrator Profiles">تحديث بيانات حساب المسؤول</h4>
+            <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); showToast('تم حفظ التعديلات بنجاح','Profile parameters updated','success')">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="الاسم الكامل للمدير" data-en="Administrator Full Name">الاسم الكامل للمدير</label>
+                  <input type="text" value="المدير التنفيذي العام" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="البريد الإلكتروني المعتمد" data-en="Registered Corporate Email">البريد الإلكتروني المعتمد</label>
+                  <input type="email" value="admin@sudanil.com" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-xs text-slate-300 font-bold lang-text" data-ar="رقم هاتف الطوارئ والاتصال" data-en="Emergency Support Phone Line">رقم هاتف الطوارئ والاتصال</label>
+                <input type="text" value="+249 912 345 678" style="direction: ltr;" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold text-right" />
+              </div>
+
+              <h4 class="font-extrabold text-sm text-gold mt-6 border-b border-gold/10 pb-3 lang-text" data-ar="تغيير كلمة المرور وتأمين الدخول" data-en="Security Key Authorization Change">تغيير كلمة المرور وتأمين الدخول</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="كلمة السر الحالية" data-en="Current Security Password">كلمة السر الحالية</label>
+                  <input type="password" placeholder="••••••••" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="كلمة السر الجديدة" data-en="New Secret Key">كلمة السر الجديدة</label>
+                  <input type="password" placeholder="••••••••" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="تأكيد كلمة السر" data-en="Confirm New Key">تأكيد كلمة السر</label>
+                  <input type="password" placeholder="••••••••" class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+                </div>
+              </div>
+
+              <div class="flex justify-end mt-4">
+                <button type="submit" class="bg-gradient-to-r from-gold to-yellow-600 text-navy font-black px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer lang-text" data-ar="حفظ إعدادات الملف" data-en="Commit Settings Update">حفظ إعدادات الملف</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: TECHNICAL SUPPORT ==================== -->
+      <section id="tab-content-support" class="tab-panel hidden flex flex-col gap-6">
+        <div class="py-2 border-b border-gold/10">
+          <h2 class="text-xl md:text-2xl font-black text-gold lang-text" data-ar="مكتب الدعم الفني وتذاكر العمليات" data-en="Technical Helpdesk & Support Center">مكتب الدعم الفني وتذاكر العمليات</h2>
+          <p class="text-xs text-slate-400 mt-1 lang-text" data-ar="فتح تذاكر الصيانة للأنظمة، إبلاغ عن مشكلة لوجستية، والتواصل مباشرة مع المطورين المشرفين." data-en="Submit ticket forms directly to platform engineers, search operational help topics, or view phone listings.">فتح تذاكر الصيانة للأنظمة، إبلاغ عن مشكلة لوجستية، والتواصل مباشرة مع المطورين المشرفين.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-8 glass p-6 rounded-2xl border">
+            <h4 class="font-extrabold text-sm text-gold mb-6 border-b border-gold/10 pb-3 lang-text" data-ar="فتح تذكرة دعم فني جديدة" data-en="Submit Operations Trouble Ticket">فتح تذكرة دعم فني جديدة</h4>
+            <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); showToast('تم إرسال تذكرة الدعم ومشاركتها مع المهندسين بنجاح','Support ticket submitted successfully to ops center','success'); this.reset()">
+              <div class="flex flex-col gap-2">
+                <label class="text-xs text-slate-300 font-bold lang-text" data-ar="عنوان المشكلة / الموضوع" data-en="Subject Title">عنوان المشكلة / الموضوع</label>
+                <input type="text" required placeholder="مثال: تعذر مزامنة مخزون بورتسودان..." data-ar-placeholder="مثال: تعذر مزامنة مخزون بورتسودان..." data-en-placeholder="e.g. Failure to download Port Sudan inventory indexes..." class="lang-text w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold" />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-xs text-slate-300 font-bold lang-text" data-ar="وصف المشكلة بالتفصيل" data-en="Detailed Description">وصف المشكلة بالتفصيل</label>
+                <textarea required placeholder="..." class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:ring-1 focus:ring-gold focus:border-gold h-28 resize-none"></textarea>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="درجة الخطورة / الأولوية" data-en="Incident Urgency Score">درجة الخطورة / الأولوية</label>
+                  <select class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-300 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer">
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="عادية - منخفضة الأهمية" data-en="Low Urgency">عادية - منخفضة الأهمية</option>
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="متوسطة الخطورة" data-en="Medium Severity">متوسطة الخطورة</option>
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="عاجلة - توقف تشغيلي" data-en="Urgent Critical Stop">عاجلة - توقف تشغيلي</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs text-slate-300 font-bold lang-text" data-ar="نوع المعاملة والشكوى" data-en="Ticket Categorization">نوع المعاملة والشكوى</label>
+                  <select class="w-full bg-navy-light/50 border border-gold/20 rounded-xl px-4 py-2.5 text-xs text-slate-300 focus:ring-1 focus:ring-gold focus:border-gold cursor-pointer">
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="مشكلة فنية بالمنصة" data-en="Technical Bug">مشكلة فنية بالمنصة</option>
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="مشكلة مزامنة Odoo ERP" data-en="Odoo Interface Error">مشكلة مزامنة Odoo ERP</option>
+                    <option class="bg-navy-light text-slate-200 lang-text" data-ar="استفسار مالي أو جمركي" data-en="Customs/Finance Enquiry">استفسار مالي أو جمركي</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex justify-end mt-2">
+                <button type="submit" class="bg-gradient-to-r from-gold to-yellow-600 text-navy font-black px-6 py-2.5 rounded-xl hover:shadow-lg active:scale-95 transition-all cursor-pointer lang-text" data-ar="إرسال التذكرة للمراجعة" data-en="Submit Helpdesk Ticket">إرسال التذكرة للمراجعة</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="lg:col-span-4 glass p-6 rounded-2xl border flex flex-col gap-6">
+            <h4 class="font-extrabold text-sm text-gold border-b border-gold/10 pb-3 lang-text" data-ar="معلومات الاتصال المباشر" data-en="System Operations Helpdesk">معلومات الاتصال المباشر</h4>
+            <div class="flex flex-col gap-4 text-xs text-slate-300">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined text-lg">mail</span></div>
+                <div>
+                  <p class="font-bold text-[10px] text-slate-400 uppercase">Email Support</p>
+                  <p class="font-bold text-slate-200 mt-0.5">support@sudanil-logistic.com</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined text-lg">call</span></div>
+                <div>
+                  <p class="font-bold text-[10px] text-slate-400 uppercase">Emergency Hotlines</p>
+                  <p class="font-bold text-slate-200 mt-0.5" style="direction: ltr;">+249 183 123 456</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-gold/10 text-gold rounded-lg"><span class="material-symbols-outlined text-lg">schedule</span></div>
+                <div>
+                  <p class="font-bold text-[10px] text-slate-400 uppercase lang-text" data-ar="ساعات عمل المهندسين" data-en="Engineering Working Hours">ساعات عمل المهندسين</p>
+                  <p class="font-bold text-slate-200 mt-0.5 lang-text" data-ar="الأحد - الخميس: 8ص - 5م" data-en="Sun - Thu: 8AM - 5PM">الأحد - الخميس: 8ص - 5م</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -729,6 +1470,9 @@
       const targetPanel = document.getElementById(`tab-content-${tabId}`);
       if (targetPanel) targetPanel.classList.remove('hidden');
 
+      // Scroll main content area to top for new panel
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
       // Update sidebar styling
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('bg-gold', 'text-navy', 'font-bold');
@@ -738,6 +1482,8 @@
       if (activeNav) {
         activeNav.classList.remove('text-slate-300', 'hover:bg-navy-light', 'hover:text-gold');
         activeNav.classList.add('bg-gold', 'text-navy', 'font-bold');
+        // Scroll sidebar to show active nav item (for small screens)
+        activeNav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
       // Re-trigger three.js globe updates if returning to Dashboard
@@ -804,11 +1550,24 @@
           : "Search shipments, client, route...";
       }
 
+      // Retranslate all inputs/textareas with data-ar-placeholder / data-en-placeholder
+      document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+        const ph = el.getAttribute(`data-${newLang}-placeholder`);
+        if (ph) el.placeholder = ph;
+      });
+
+      // Retranslate AI assistant input
+      const aiInput = document.getElementById('ai-user-input');
+      if (aiInput) {
+        aiInput.placeholder = newLang === 'ar' ? 'اكتب استفسارك هنا...' : 'Type your inquiry here...';
+      }
+
       // Re-render components
       renderShipments();
       renderWarehouseSliders();
       renderClientsTable();
       renderLiveLogsFeed();
+      recalculateWidgets();
 
       showToast(
         'تم تغيير لغة الواجهة بنجاح',
@@ -915,6 +1674,34 @@
       // 4. Last Sync
       document.getElementById('widget-last-sync').innerText = localStorage.getItem('sudanil_last_erp_sync');
       document.getElementById('erp-last-sync-time').innerText = localStorage.getItem('sudanil_last_erp_sync');
+
+      // 5. Unread notifications count update for sidebar badge
+      const notifBadge = document.getElementById('nav-notif-badge');
+      if (notifBadge) {
+        const unreadCount = document.querySelectorAll('#admin-notifications-container .notif-ping-dot').length;
+        if (unreadCount > 0) {
+          notifBadge.innerText = unreadCount;
+          notifBadge.classList.remove('hidden');
+        } else {
+          notifBadge.classList.add('hidden');
+        }
+      }
+    }
+
+    // Technical Support & Alarm Helpers
+    function clearSystemNotifications() {
+      const container = document.getElementById('admin-notifications-container');
+      const emptyView = document.getElementById('notifications-empty-view');
+      if (container) container.innerHTML = '';
+      if (emptyView) emptyView.classList.remove('hidden');
+      
+      showToast('تم تعليم جميع الإشعارات كمقروءة بنجاح', 'All alerts and notifications marked as read', 'success');
+      recalculateWidgets();
+      
+      appendOperationalLog(
+        `قام المسؤول بمسح وتصفير لوحة الإشعارات والإنذارات النشطة.`,
+        `Administrator cleared all active alarms and system logs.`
+      );
     }
 
     // ----------------------------------------------------
@@ -1657,7 +2444,7 @@
   </script>
 <!-- Floating AI Assistant Button -->
 <button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#d4af37] to-[#ecc165] text-[#060d1e] shadow-[0_8px_30px_rgba(212,175,55,0.4)] border border-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300">
-  <span class="material-symbols-outlined text-2xl font-bold">smart_toy</span>
+  <span class="material-symbols-outlined text-2xl font-bold">support_agent</span>
   <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#060d1e] animate-pulse"></span>
 </button>
 
@@ -1886,5 +2673,6 @@
   }
 </script>
 
+<script src="../translations.js"></script>
 </body>
 </html>

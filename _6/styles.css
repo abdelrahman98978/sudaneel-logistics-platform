@@ -90,9 +90,9 @@ body{font-family:'Alexandria','Outfit',sans-serif;background:var(--bg);color:var
 .why-item p{font-size:14px;color:var(--muted);line-height:1.7;font-weight:500}
 .globe-visual{position:relative;display:flex;align-items:center;justify-content:center}
 #whyCanvas{width:350px;height:350px;outline:none;touch-action:pan-y;pointer-events:none}
-.globe-center{position:absolute;text-align:center}
-.globe-center .num{font-family:'Outfit';font-size:64px;font-weight:900 !important;color:#000000 !important}
-.globe-center .txt{color:#000000 !important;font-size:14px;font-weight:700 !important}
+.globe-center{position:absolute;text-align:center;background:#ffffff;border-radius:50%;width:180px;height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(212,175,55,0.15);border:1px solid rgba(212,175,55,0.2)}
+.globe-center .num{font-family:'Outfit',sans-serif;font-size:54px;font-weight:900 !important;color:var(--navy,#0b1b3d) !important;line-height:1;margin-bottom:8px}
+.globe-center .txt{color:var(--gold,#d4af37) !important;font-size:14px;font-weight:700 !important}
 
 /* Partners */
 .partners{padding:80px 0;overflow:hidden;background:var(--bg)}
