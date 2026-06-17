@@ -1417,6 +1417,46 @@
     </div>
   </div>
 
+  <!-- Floating Shipment Tracking Modal -->
+  <div id="tracking-modal" class="fixed inset-0 bg-primary-container/60 backdrop-blur-md z-50 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant w-[550px] max-w-[95%] overflow-hidden industrial-shadow transform translate-y-8 transition-transform duration-300">
+      <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+        <div class="flex flex-col">
+          <h4 class="lang-text font-bold text-lg text-primary flex items-center gap-2" data-ar="تفاصيل تتبع الشحنة السيادية" data-en="Sovereign Shipment Tracking Details">تفاصيل تتبع الشحنة السيادية</h4>
+          <span id="track-modal-id" class="text-secondary font-mono text-sm font-bold">#SN-TRK-000000</span>
+        </div>
+        <button onclick="closeTrackingModal()" class="text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-3 bg-surface-container/40 rounded-lg border border-outline-variant/50">
+            <span class="lang-text block text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1" data-ar="نوع الحمولة" data-en="Cargo Type">نوع الحمولة</span>
+            <span id="track-modal-cargo" class="text-xs font-bold text-primary italic">---</span>
+          </div>
+          <div class="p-3 bg-surface-container/40 rounded-lg border border-outline-variant/50">
+            <span class="lang-text block text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1" data-ar="وجهة التسليم" data-en="Delivery Destination">وجهة التسليم</span>
+            <span id="track-modal-dest" class="text-xs font-bold text-primary italic">---</span>
+          </div>
+        </div>
+        
+        <div>
+          <h5 class="lang-text text-xs font-black text-primary uppercase tracking-[2px] mb-4 flex items-center gap-2" data-ar="سجل العمليات والمراحل" data-en="Operation & Milestone History">
+            <span class="material-symbols-outlined text-secondary text-lg">history</span>
+            <span>سجل العمليات والمراحل</span>
+          </h5>
+          <div id="track-modal-history" class="space-y-0 relative">
+            <!-- Dynamic History Content -->
+          </div>
+        </div>
+      </div>
+      <div class="p-4 border-t border-outline-variant bg-surface-container/20 flex justify-end">
+        <button onclick="closeTrackingModal()" class="lang-text px-6 py-2 bg-primary-container text-white rounded-lg text-sm font-bold hover:bg-black transition-colors" data-ar="إغلاق النافذة" data-en="Close Window">إغلاق النافذة</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Micro Interaction Notification Toast -->
   <div id="toast-alert" class="fixed bottom-6 right-6 px-5 py-3 rounded-lg bg-primary-container text-white border border-white/10 z-[100] shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 transform translate-y-8 pointer-events-none">
     <span class="material-symbols-outlined text-secondary-container">task_alt</span>
@@ -1647,10 +1687,39 @@
 
   // Global Shipments Database Array
   let shipments = [
-    { id: '#SD-9021', dest_ar: 'الخرطوم - المنطقة الصناعية', dest_en: 'Khartoum - Industrial Area', cargo_ar: 'معدات إلكترونية', cargo_en: 'Electronic Equipment', progress: 70, status: 'transit', date_ar: '12 نوفمبر، 2024', date_en: 'Nov 12, 2024' },
-    { id: '#SD-8845', dest_ar: 'دبي - جبل علي', dest_en: 'Dubai - Jebel Ali', cargo_ar: 'منتجات زراعية', cargo_en: 'Agricultural Products', progress: 35, status: 'warehouse', date_ar: '15 نوفمبر، 2024', date_en: 'Nov 15, 2024' },
-    { id: '#SD-7712', dest_ar: 'القاهرة - مدينة نصر', dest_en: 'Cairo - Nasr City', cargo_ar: 'حديد وصلب', cargo_en: 'Iron and Steel', progress: 100, status: 'delivered', date_ar: '08 نوفمبر، 2024', date_en: 'Nov 8, 2024' },
-    { id: '#SD-4920', dest_ar: 'بورتسودان - الميناء الرئيسي', dest_en: 'Port Sudan - Main Port', cargo_ar: 'أجهزة طبية', cargo_en: 'Medical Devices', progress: 90, status: 'transit', date_ar: '18 نوفمبر، 2024', date_en: 'Nov 18, 2024' }
+    { 
+      id: '#SD-9021', 
+      dest_ar: 'الخرطوم - المنطقة الصناعية', 
+      dest_en: 'Khartoum - Industrial Area', 
+      cargo_ar: 'معدات إلكترونية', 
+      cargo_en: 'Electronic Equipment', 
+      progress: 70, 
+      status: 'transit', 
+      date_ar: '12 نوفمبر، 2024', 
+      date_en: 'Nov 12, 2024',
+      history: [
+        { time: '2024-11-10T08:30:00', location_ar: 'دبي - جبل علي', location_en: 'Dubai - Jebel Ali', msg_ar: 'تم استلام الشحنة وتغليفها', msg_en: 'Cargo received and packed' },
+        { time: '2024-11-11T14:20:00', location_ar: 'ميناء جبل علي', location_en: 'Jebel Ali Port', msg_ar: 'مغادرة ميناء القيام', msg_en: 'Departed origin port' },
+        { time: '2024-11-12T10:00:00', location_ar: 'في الطريق', location_en: 'In Transit', msg_ar: 'في عرض البحر - متجهة لميناء بورتسودان', msg_en: 'At sea - Heading to Port Sudan' }
+      ]
+    },
+    { 
+      id: '#SD-8845', 
+      dest_ar: 'دبي - جبل علي', 
+      dest_en: 'Dubai - Jebel Ali', 
+      cargo_ar: 'منتجات زراعية', 
+      cargo_en: 'Agricultural Products', 
+      progress: 35, 
+      status: 'warehouse', 
+      date_ar: '15 نوفمبر، 2024', 
+      date_en: 'Nov 15, 2024',
+      history: [
+        { time: '2024-11-14T09:00:00', location_ar: 'بورتسودان', location_en: 'Port Sudan', msg_ar: 'تم استلام المحصول من المورد', msg_en: 'Crop received from supplier' },
+        { time: '2024-11-15T16:45:00', location_ar: 'مستودع بورتسودان', location_en: 'Port Sudan Warehouse', msg_ar: 'تم التخزين في المستودع المبرد', msg_en: 'Stored in cold-chain warehouse' }
+      ]
+    },
+    { id: '#SD-7712', dest_ar: 'القاهرة - مدينة نصر', dest_en: 'Cairo - Nasr City', cargo_ar: 'حديد وصلب', cargo_en: 'Iron and Steel', progress: 100, status: 'delivered', date_ar: '08 نوفمبر، 2024', date_en: 'Nov 8, 2024', history: [] },
+    { id: '#SD-4920', dest_ar: 'بورتسودان - الميناء الرئيسي', dest_en: 'Port Sudan - Main Port', cargo_ar: 'أجهزة طبية', cargo_en: 'Medical Devices', progress: 90, status: 'transit', date_ar: '18 نوفمبر، 2024', date_en: 'Nov 18, 2024', history: [] }
   ];
 
   function renderShipments() {
@@ -1721,9 +1790,9 @@
                   <td class="p-4 font-medium">${lang === 'ar' ? s.date_ar : s.date_en}</td>
                   <td class="p-4">
                       <div class="flex gap-2 justify-end">
-                          <a href="../_12/code.html?tracking_id=${s.id.replace('#','')}" class="text-primary hover:text-secondary p-1 flex items-center" title="${lang === 'ar' ? 'تتبع الشحنة' : 'Track shipment'}">
+                          <button onclick="openTrackingModal('${s.id}')" class="text-primary hover:text-secondary p-1 flex items-center" title="${lang === 'ar' ? 'تتبع الشحنة' : 'Track shipment'}">
                               <span class="material-symbols-outlined text-lg">visibility</span>
-                          </a>
+                          </button>
                           <button onclick="cancelShipment('${s.id}')" class="text-error hover:text-red-700 p-1 flex items-center" title="${lang === 'ar' ? 'إلغاء الشحنة' : 'Cancel shipment'}">
                               <span class="material-symbols-outlined text-lg">cancel</span>
                           </button>
@@ -1790,9 +1859,9 @@
                   <td class="p-4 font-medium">${lang === 'ar' ? s.date_ar : s.date_en}</td>
                   <td class="p-4">
                       <div class="flex gap-2 justify-end">
-                          <a href="../_12/code.html?tracking_id=${s.id.replace('#','')}" class="text-primary hover:text-secondary p-1 flex items-center" title="${lang === 'ar' ? 'تتبع الشحنة' : 'Track shipment'}">
+                          <button onclick="openTrackingModal('${s.id}')" class="text-primary hover:text-secondary p-1 flex items-center" title="${lang === 'ar' ? 'تتبع الشحنة' : 'Track shipment'}">
                               <span class="material-symbols-outlined text-lg">visibility</span>
-                          </a>
+                          </button>
                           <button onclick="cancelShipment('${s.id}')" class="text-error hover:text-red-700 p-1 flex items-center" title="${lang === 'ar' ? 'إلغاء الشحنة' : 'Cancel shipment'}">
                               <span class="material-symbols-outlined text-lg">cancel</span>
                           </button>
@@ -1802,6 +1871,51 @@
               shipTable.appendChild(tr);
           });
       }
+  }
+
+  function openTrackingModal(id) {
+    const ship = shipments.find(s => s.id === id);
+    if (!ship) return;
+
+    const lang = document.documentElement.getAttribute('lang') || 'ar';
+    const modal = document.getElementById('tracking-modal');
+    
+    document.getElementById('track-modal-id').innerText = ship.id;
+    document.getElementById('track-modal-cargo').innerText = lang === 'ar' ? ship.cargo_ar : ship.cargo_en;
+    document.getElementById('track-modal-dest').innerText = lang === 'ar' ? ship.dest_ar : ship.dest_en;
+    
+    const historyList = document.getElementById('track-modal-history');
+    historyList.innerHTML = '';
+    
+    if (ship.history && ship.history.length > 0) {
+      ship.history.slice().reverse().forEach((h, idx) => {
+        const li = document.createElement('div');
+        li.className = `relative pl-8 pb-6 ${idx === 0 ? '' : 'opacity-60'}`;
+        li.innerHTML = `
+          <div class="absolute left-0 top-1 w-3 h-3 rounded-full ${idx === 0 ? 'bg-secondary animate-pulse' : 'bg-outline'} z-10"></div>
+          ${idx !== ship.history.length - 1 ? '<div class="absolute left-[5.5px] top-4 w-px h-full bg-outline-variant"></div>' : ''}
+          <div class="flex flex-col">
+            <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">${new Date(h.time).toLocaleString(lang === 'ar' ? 'ar-SD' : 'en-US')}</span>
+            <span class="text-xs font-black text-primary mt-1">${lang === 'ar' ? h.location_ar : h.location_en}</span>
+            <p class="text-[11px] text-on-surface-variant mt-0.5">${lang === 'ar' ? h.msg_ar : h.msg_en}</p>
+          </div>
+        `;
+        historyList.appendChild(li);
+      });
+    } else {
+      historyList.innerHTML = `<p class="text-xs text-on-surface-variant italic">${lang === 'ar' ? 'لا يوجد سجل تتبع متاح حالياً لهذه الشحنة.' : 'No tracking history available for this shipment yet.'}</p>`;
+    }
+
+    modal.classList.remove('pointer-events-none');
+    modal.classList.add('opacity-100');
+    modal.firstElementChild.style.transform = 'translateY(0)';
+  }
+
+  function closeTrackingModal() {
+    const modal = document.getElementById('tracking-modal');
+    modal.classList.add('pointer-events-none');
+    modal.classList.remove('opacity-100');
+    modal.firstElementChild.style.transform = 'translateY(32px)';
   }
 
   window.cancelShipment = function(id) {
@@ -2419,7 +2533,7 @@
               syncTimeText.setAttribute('data-en', 'Last successful sync: Just now');
           }
 
-          // 1. Insert new shipments from Odoo models
+          // 1. Fetch from Odoo Sovereign API (Simulated Structure)
           const odooShipments = [
               {
                   id: '#SN-TRK-908125',
@@ -2427,10 +2541,14 @@
                   dest_en: 'Khartoum - North Terminal',
                   cargo_ar: 'أدوية ومستلزمات طبية (Odoo)',
                   cargo_en: 'Pharmaceuticals & Medical Supplies (Odoo)',
-                  progress: 45,
+                  progress: 75,
                   status: 'transit',
                   date_ar: '20 نوفمبر، 2024',
-                  date_en: 'Nov 20, 2024'
+                  date_en: 'Nov 20, 2024',
+                  history: [
+                    { time: '2024-11-18T10:00:00', location_ar: 'ميناء بورتسودان', location_en: 'Port Sudan Port', msg_ar: 'تم إنهاء إجراءات الجمارك السيادية', msg_en: 'Sovereign customs cleared' },
+                    { time: '2024-11-20T08:00:00', location_ar: 'طريق التحدي', location_en: 'Challenge Highway', msg_ar: 'الشحنة في طريقها للخرطوم', msg_en: 'In transit to Khartoum' }
+                  ]
               },
               {
                   id: '#SN-TRK-908126',
@@ -2441,15 +2559,23 @@
                   progress: 100,
                   status: 'delivered',
                   date_ar: '19 نوفمبر، 2024',
-                  date_en: 'Nov 19, 2024'
+                  date_en: 'Nov 19, 2024',
+                  history: [
+                    { time: '2024-11-17T09:00:00', location_ar: 'في عرض البحر', location_en: 'At Sea', msg_ar: 'الاقتراب من المياه الإقليمية', msg_en: 'Approaching territorial waters' },
+                    { time: '2024-11-19T14:00:00', location_ar: 'بورتسودان', location_en: 'Port Sudan', msg_ar: 'تم الرسو والتفريغ والوصول النهائي', msg_en: 'Docked, offloaded and delivered' }
+                  ]
               }
           ];
 
           let addedNew = false;
           odooShipments.forEach(item => {
-              if (!shipments.some(s => s.id === item.id)) {
+              const existingIdx = shipments.findIndex(s => s.id === item.id);
+              if (existingIdx === -1) {
                   shipments.unshift(item);
                   addedNew = true;
+              } else {
+                  // Update existing with new progress/history
+                  shipments[existingIdx] = item;
               }
           });
 

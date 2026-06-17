@@ -19,10 +19,11 @@
             <form string="Sovereign Shipment">
                 <header>
                     <button name="action_start_transit" string="Start Transit" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-                    <button name="action_reach_customs" string="Arrived at Customs" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'transit')]}"/>
+                    <button name="action_reach_port" string="Arrived at Port" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'transit')]}"/>
+                    <button name="action_reach_customs" string="Arrived at Customs" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'port')]}"/>
                     <button name="action_release_customs" string="Clear Customs" type="object" class="btn-success" attrs="{'invisible': ['|', ('state', '!=', 'customs'), ('customs_status', '=', 'released')]}"/>
                     <button name="action_deliver" string="Complete Delivery" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'transit')]}"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,transit,customs,delivered"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,transit,port,customs,delivered"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -38,13 +39,29 @@
                             <field name="cargo_weight"/>
                             <field name="route_type"/>
                         </group>
+                        <group string="Route & Transit Tracking">
+                            <field name="origin_id"/>
+                            <field name="destination_id"/>
+                            <field name="current_location_id" readonly="1"/>
+                            <field name="transit_progress" widget="progressbar"/>
+                        </group>
                         <group string="Border & Customs Status">
-                            <field name="origin"/>
-                            <field name="destination"/>
                             <field name="customs_status" readonly="1"/>
                             <field name="customs_declaration_no" placeholder="Sovereign Customs Ref No." attrs="{'readonly': [('customs_status', '=', 'released')]}"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Milestone History" name="history">
+                            <field name="history_ids" readonly="1">
+                                <tree>
+                                    <field name="timestamp"/>
+                                    <field name="state"/>
+                                    <field name="location_id"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>
@@ -66,8 +83,10 @@
                 <field name="cargo_type"/>
                 <field name="cargo_weight" sum="Total Weight"/>
                 <field name="route_type"/>
-                <field name="origin"/>
-                <field name="destination"/>
+                <field name="origin_id"/>
+                <field name="destination_id"/>
+                <field name="current_location_id"/>
+                <field name="transit_progress" widget="progressbar"/>
                 <field name="customs_status" widget="badge" decoration-success="customs_status == 'released'" decoration-warning="customs_status == 'in_progress'" decoration-danger="customs_status == 'failed'"/>
                 <field name="state" widget="badge" decoration-info="state == 'transit'" decoration-success="state == 'delivered'"/>
             </tree>
