@@ -1,2 +1,17 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sudanil_shipment_user,access.sudanil.shipment.user,model_sudanil_shipment,base.group_user,1,1,1,1
+access_sudanil_customer_user,access.sudanil.customer.user,model_sudanil_customer,base.group_user,1,1,1,0
+access_sudanil_customer_manager,access.sudanil.customer.manager,model_sudanil_customer,base.group_system,1,1,1,1
+access_sudanil_opportunity_user,access.sudanil.opportunity.user,model_sudanil_opportunity,base.group_user,1,1,1,0
+access_sudanil_opportunity_manager,access.sudanil.opportunity.manager,model_sudanil_opportunity,base.group_system,1,1,1,1
+access_sudanil_customer_activity_user,access.sudanil.customer.activity.user,model_sudanil_customer_activity,base.group_user,1,1,1,0
+access_sudanil_customer_interaction_user,access.sudanil.customer.interaction.user,model_sudanil_customer_interaction,base.group_user,1,1,1,0
+access_sudanil_opportunity_activity_user,access.sudanil.opportunity.activity.user,model_sudanil_opportunity_activity,base.group_user,1,1,1,0
+access_sudanil_warehouse_user,access.sudanil.warehouse.user,model_stock_warehouse,base.group_user,1,0,0,0
+access_sudanil_warehouse_manager,access.sudanil.warehouse.manager,model_stock_warehouse,base.group_system,1,1,1,0
+access_sudanil_invoice_user,access.sudanil.invoice.user,model_account_move,base.group_user,1,0,0,0
+access_sudanil_invoice_manager,access.sudanil.invoice.manager,model_account_move,base.group_system,1,1,1,0
+access_sudanil_notification_user,access.sudanil.notification.user,model_sudanil_user_notification,base.group_user,1,0,0,0
+access_sudanil_notification_own,access.sudanil.notification.own,model_sudanil_user_notification,base.group_user,1,1,0,0
+access_sudanil_activity_log_user,access.sudanil.activity.log.user,model_sudanil_activity_log,base.group_user,1,0,0,0
+access_sudanil_activity_log_manager,access.sudanil.activity.log.manager,model_sudanil_activity_log,base.group_system,1,1,1,0

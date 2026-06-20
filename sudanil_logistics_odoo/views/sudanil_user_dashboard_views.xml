@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- User Dashboard Portal View -->
+    <record id="view_sudanil_user_dashboard_portal" model="ir.ui.view">
+        <field name="name">sudanil.user.dashboard.portal</field>
+        <field name="model">sudanil.user.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="My Dashboard">
+                <sheet>
+                    <div class="o_user_dashboard_main">
+                        <!-- Welcome Section -->
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Welcome back!</h4>
+                            <p>You have pending activities and shipments to track. Stay on top of your logistics operations.</p>
+                        </div>
+
+                        <!-- Quick Stats Row -->
+                        <div class="row mb-4">
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">My Active Shipments</h6>
+                                        <h3 class="card-text" t-esc="dashboard['my_shipments_active']">0</h3>
+                                        <small class="text-muted">Total: <t t-esc="dashboard['my_shipments_total']"/></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">My Opportunities</h6>
+                                        <h3 class="card-text" t-esc="dashboard.get('my_open_opportunities', 0)">0</h3>
+                                        <small class="text-muted">Value: <t t-esc="dashboard.get('my_opportunities_value', 0)"/> SDG</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">This Month Revenue</h6>
+                                        <h3 class="card-text" t-esc="dashboard.get('total_revenue_month', 0)">0 SDG</h3>
+                                        <small class="text-muted">Invoices: <t t-esc="dashboard.get('total_invoices_month', 0)"/></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">Win Rate</h6>
+                                        <h3 class="card-text"><t t-esc="dashboard.get('my_win_rate', 0)"/>%</h3>
+                                        <small class="text-muted">Won: <t t-esc="dashboard.get('my_won_opportunities', 0)"/></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content Row -->
+                        <div class="row">
+                            <!-- Left Column: My Top Opportunities -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5>Top 5 Opportunities</h5>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <table class="table table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Opportunity</th>
+                                                    <th>Customer</th>
+                                                    <th>Value</th>
+                                                    <th>Stage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="dashboard.get('top_opportunities', [])" t-as="opp">
+                                                    <tr>
+                                                        <td><t t-esc="opp['name']"/></td>
+                                                        <td><t t-esc="opp['customer']"/></td>
+                                                        <td><t t-esc="opp['value']"/> SDG</td>
+                                                        <td><span class="badge badge-info"><t t-esc="opp['stage']"/></span></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: This Week Activities -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header bg-success text-white">
+                                        <h5>This Week Activities</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="col-md-4">
+                                                <h4><t t-esc="dashboard.get('activities_this_week', 0)"/></h4>
+                                                <p class="text-muted">Total Activities</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h4 class="text-warning"><t t-esc="dashboard.get('activities_pending', 0)"/></h4>
+                                                <p class="text-muted">Pending</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h4 class="text-success"><t t-esc="dashboard.get('activities_completed', 0)"/></h4>
+                                                <p class="text-muted">Completed</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <a href="#" class="btn btn-sm btn-primary">View All Activities</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Shipments -->
+                        <div class="card mt-4">
+                            <div class="card-header bg-info text-white">
+                                <h5>Recent Shipments</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Waybill</th>
+                                            <th>Customer</th>
+                                            <th>Status</th>
+                                            <th>Progress</th>
+                                            <th>Created</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="dashboard.get('recent_shipments', [])" t-as="ship">
+                                            <tr>
+                                                <td><strong><t t-esc="ship['name']"/></strong></td>
+                                                <td><t t-esc="ship['customer']"/></td>
+                                                <td>
+                                                    <span t-att-class="'badge badge-' + ('success' if ship['status'] == 'delivered' else 'info' if ship['status'] == 'transit' else 'warning')">
+                                                        <t t-esc="ship['status']"/>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="progress" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" t-att-style="'width: ' + str(ship['progress']) + '%'" t-att-aria-valuenow="ship['progress']" aria-valuemin="0" aria-valuemax="100">
+                                                            <t t-esc="ship['progress']"/>%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><small><t t-esc="ship['created']"/></small></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- User Notifications View -->
+    <record id="view_sudanil_notification_tree" model="ir.ui.view">
+        <field name="name">sudanil.user.notification.tree</field>
+        <field name="model">sudanil.user.notification</field>
+        <field name="arch" type="xml">
+            <tree decoration-warning="priority == 'high'" decoration-danger="priority == 'urgent'" decoration-muted="is_read == True" string="Notifications">
+                <field name="notification_type"/>
+                <field name="title"/>
+                <field name="priority" widget="badge"/>
+                <field name="is_read" widget="boolean_toggle"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- User Notifications Form View -->
+    <record id="view_sudanil_notification_form" model="ir.ui.view">
+        <field name="name">sudanil.user.notification.form</field>
+        <field name="model">sudanil.user.notification</field>
+        <field name="arch" type="xml">
+            <form string="Notification">
+                <header>
+                    <button name="action_mark_as_read" string="Mark as Read" type="object" class="oe_highlight" attrs="{'invisible': [('is_read', '=', True)]}"/>
+                    <button name="action_mark_as_unread" string="Mark as Unread" type="object" attrs="{'invisible': [('is_read', '=', False)]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="notification_type"/>
+                            <field name="priority"/>
+                        </group>
+                        <group>
+                            <field name="is_read" readonly="1"/>
+                            <field name="read_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="title" readonly="1"/>
+                        <field name="message" readonly="1" widget="text"/>
+                    </group>
+                    <group attrs="{'invisible': [('related_model', '=', False)]}">
+                        <group>
+                            <field name="related_model" readonly="1"/>
+                            <field name="related_record_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Activity Log View -->
+    <record id="view_sudanil_activity_log_tree" model="ir.ui.view">
+        <field name="name">sudanil.activity.log.tree</field>
+        <field name="model">sudanil.activity.log</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Log">
+                <field name="user_id"/>
+                <field name="action_type"/>
+                <field name="model"/>
+                <field name="record_name"/>
+                <field name="description"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for User Dashboard -->
+    <record id="action_sudanil_user_dashboard" model="ir.actions.act_window">
+        <field name="name">My Dashboard</field>
+        <field name="res_model">sudanil.user.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!-- Action for User Notifications -->
+    <record id="action_sudanil_notification" model="ir.actions.act_window">
+        <field name="name">My Notifications</field>
+        <field name="res_model">sudanil.user.notification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <!-- Action for Activity Log -->
+    <record id="action_sudanil_activity_log" model="ir.actions.act_window">
+        <field name="name">Activity Log</field>
+        <field name="res_model">sudanil.activity.log</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <!-- User Portal Menu -->
+    <menuitem id="menu_sudanil_user_portal" name="My Portal" parent="menu_sudanil_root" sequence="5"/>
+    <menuitem id="menu_sudanil_user_dashboard" name="My Dashboard" parent="menu_sudanil_user_portal" action="action_sudanil_user_dashboard" sequence="10"/>
+    <menuitem id="menu_sudanil_user_notifications" name="My Notifications" parent="menu_sudanil_user_portal" action="action_sudanil_notification" sequence="20"/>
+    <menuitem id="menu_sudanil_user_activity_log" name="Activity Log" parent="menu_sudanil_user_portal" action="action_sudanil_activity_log" sequence="30"/>
+
+</odoo>
