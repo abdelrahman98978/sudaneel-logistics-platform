@@ -1649,14 +1649,19 @@ function initLogin3D() {
   const nodePoints = new THREE.Points(geo, mat);
   scene.add(nodePoints);
 
-  // Connection lines segments
+  // Connection lines segments (Optimized static buffer allocation)
   const lineMat = new THREE.LineBasicMaterial({
     color: 0xd4af37,
     transparent: true,
     opacity: 0.12
   });
 
-  let lineSegments = new THREE.LineSegments(new THREE.BufferGeometry(), lineMat);
+  const maxLinePoints = 6000;
+  const linePositionsBuffer = new Float32Array(maxLinePoints * 3);
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositionsBuffer, 3));
+  
+  let lineSegments = new THREE.LineSegments(lineGeo, lineMat);
   scene.add(lineSegments);
 
   // Mouse Parallax variables
@@ -1701,8 +1706,9 @@ function initLogin3D() {
     }
     posAttr.needsUpdate = true;
 
-    // Recompute dynamic logistics routes (connections)
-    const linePositions = [];
+    // Recompute dynamic logistics routes (connections) - Optimized direct buffer writing
+    let lineIdx = 0;
+    const positionsArray = lineGeo.getAttribute('position').array;
     for (let i = 0; i < nodeCount; i++) {
       for (let j = i + 1; j < nodeCount; j++) {
         const dx = coords[i * 3] - coords[j * 3];
@@ -1711,16 +1717,21 @@ function initLogin3D() {
         const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
         // Connect nodes within distance threshold
-        if (dist < 3.2) {
-          linePositions.push(coords[i * 3], coords[i * 3 + 1], coords[i * 3 + 2]);
-          linePositions.push(coords[j * 3], coords[j * 3 + 1], coords[j * 3 + 2]);
+        if (dist < 3.2 && lineIdx < maxLinePoints - 2) {
+          positionsArray[lineIdx * 3] = coords[i * 3];
+          positionsArray[lineIdx * 3 + 1] = coords[i * 3 + 1];
+          positionsArray[lineIdx * 3 + 2] = coords[i * 3 + 2];
+          
+          positionsArray[(lineIdx + 1) * 3] = coords[j * 3];
+          positionsArray[(lineIdx + 1) * 3 + 1] = coords[j * 3 + 1];
+          positionsArray[(lineIdx + 1) * 3 + 2] = coords[j * 3 + 2];
+          
+          lineIdx += 2;
         }
       }
     }
-
-    lineSegments.geometry.dispose();
-    lineSegments.geometry = new THREE.BufferGeometry();
-    lineSegments.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    lineGeo.setDrawRange(0, lineIdx);
+    lineGeo.getAttribute('position').needsUpdate = true;
 
     // Slow organic drift rotation
     nodePoints.rotation.y += 0.0006;
