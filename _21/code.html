@@ -354,6 +354,7 @@
                         "on-surface-variant": "#cbd5e1",
                         "primary": "#f8fafc",
                         "secondary": "#d4af37",
+                    "secondary-fixed": "rgba(212, 175, 55, 0.25)",
                     },
                     spacing: {
                         "margin-desktop": "5vw",
@@ -769,6 +770,7 @@
               <th class="lang-text p-4" data-ar="مسار الرحلة والتقدم" data-en="Transit Route & Progress">مسار الرحلة والتقدم</th>
               <th class="lang-text p-4" data-ar="الحالة" data-en="Status">الحالة</th>
               <th class="lang-text p-4" data-ar="تاريخ الوصول" data-en="ETA">تاريخ الوصول</th>
+              <th class="lang-text p-4" data-ar="الإجراءات" data-en="Actions">الإجراءات</th>
             </tr>
           </thead>
           <tbody id="shipments-table-body" class="divide-y divide-outline-variant">
@@ -928,7 +930,7 @@
 
     <!-- Active Catalog Inventory -->
     <section class="bg-surface-container-lowest rounded-xl border border-outline-variant industrial-shadow overflow-hidden">
-      <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+      <div class="p-6 border-b border-outline-variant flex justify-between items-center">
         <h3 class="lang-text font-headline-md text-headline-md text-primary" data-ar="جرد السلع النشطة" data-en="Active Goods Inventory">جرد السلع النشطة</h3>
       </div>
       <div class="overflow-x-auto">
@@ -1043,7 +1045,7 @@
 
     <!-- Documents Listing Grid -->
     <section class="bg-surface-container-lowest rounded-xl border border-outline-variant industrial-shadow overflow-hidden">
-      <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+      <div class="p-6 border-b border-outline-variant flex justify-between items-center">
         <h3 class="lang-text font-headline-md text-headline-md text-primary" data-ar="المستندات الأخيرة المرفوعة" data-en="Recently Uploaded Documents">المستندات الأخيرة المرفوعة</h3>
       </div>
       <div class="overflow-x-auto">
@@ -1372,7 +1374,7 @@
   <!-- Floating New Shipment Modal -->
   <div id="new-shipment-modal" class="fixed inset-0 bg-primary-container/60 backdrop-blur-md z-50 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-xl border border-outline-variant w-[500px] max-w-[90%] overflow-hidden industrial-shadow transform translate-y-8 transition-transform duration-300">
-      <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+      <div class="p-6 border-b border-outline-variant flex justify-between items-center">
         <h4 class="lang-text font-bold text-lg text-primary flex items-center gap-2" data-ar="<span class='material-symbols-outlined text-secondary'>local_shipping</span> إنشاء بوليصة شحن جديدة" data-en="<span class='material-symbols-outlined text-secondary'>local_shipping</span> Create New Bill of Lading">
           <span class="material-symbols-outlined text-secondary">local_shipping</span>
           <span>إنشاء بوليصة شحن جديدة</span>
@@ -1420,7 +1422,7 @@
   <!-- Floating Shipment Tracking Modal -->
   <div id="tracking-modal" class="fixed inset-0 bg-primary-container/60 backdrop-blur-md z-50 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-xl border border-outline-variant w-[550px] max-w-[95%] overflow-hidden industrial-shadow transform translate-y-8 transition-transform duration-300">
-      <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-white">
+      <div class="p-6 border-b border-outline-variant flex justify-between items-center">
         <div class="flex flex-col">
           <h4 class="lang-text font-bold text-lg text-primary flex items-center gap-2" data-ar="تفاصيل تتبع الشحنة السيادية" data-en="Sovereign Shipment Tracking Details">تفاصيل تتبع الشحنة السيادية</h4>
           <span id="track-modal-id" class="text-secondary font-mono text-sm font-bold">#SN-TRK-000000</span>
@@ -1464,7 +1466,7 @@
   </div>
 
 <!-- Footer -->
-<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden mt-12">
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary-container text-white relative overflow-hidden mt-12">
     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
     <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
         <!-- Column 1: Brand & Newsletter -->
@@ -2234,7 +2236,7 @@
       const distance = start.distanceTo(end);
       midPoint.normalize().multiplyScalar(4 + distance * 0.25);
       
-      const curve = new THREE.QuadraticBezierCurve3(start, end, midPoint);
+      const curve = new THREE.QuadraticBezierCurve3(start, midPoint, end);
       const points = curve.getPoints(50);
       const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
       
@@ -2317,6 +2319,7 @@
 
     function animate() {
       requestAnimationFrame(animate);
+      if (isGlobePaused) { return; }
       globe.rotation.y += 0.002;
       
       particles.forEach(p => {

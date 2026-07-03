@@ -1,0 +1,8 @@
+{
+  "name": "sudaneel-logistics-platform",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Build succeeded'"
+  }
+}

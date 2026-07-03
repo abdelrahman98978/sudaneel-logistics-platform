@@ -33,19 +33,19 @@
                         </h1>
                     </div>
                     <group>
-                        <group string="Client & Cargo Details">
+                        <group string="Client &amp; Cargo Details">
                             <field name="partner_id"/>
                             <field name="cargo_type"/>
                             <field name="cargo_weight"/>
                             <field name="route_type"/>
                         </group>
-                        <group string="Route & Transit Tracking">
+                        <group string="Route &amp; Transit Tracking">
                             <field name="origin_id"/>
                             <field name="destination_id"/>
                             <field name="current_location_id" readonly="1"/>
                             <field name="transit_progress" widget="progressbar"/>
                         </group>
-                        <group string="Border & Customs Status">
+                        <group string="Border &amp; Customs Status">
                             <field name="customs_status" readonly="1"/>
                             <field name="customs_declaration_no" placeholder="Sovereign Customs Ref No." attrs="{'readonly': [('customs_status', '=', 'released')]}"/>
                         </group>
