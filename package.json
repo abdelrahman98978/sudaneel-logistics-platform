@@ -3,6 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "build": "mkdir -p public && cp -r _21 _20 translations.js logo.png index.html public/"
+    "build": "mkdir -p public && cp -r _* translations.js logo.png index.html public/"
   }
 }
