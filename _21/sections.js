@@ -539,9 +539,18 @@
       const kpiGrid = document.getElementById('finance-kpi-grid');
       if (kpiGrid) {
         kpiGrid.innerHTML = `
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="إجمالي الإيرادات المجمعة" data-en="Total Revenues">إجمالي الإيرادات المجمعة</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">$${totalRevenue.toLocaleString()}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="المصروفات التشغيلية" data-en="Operating Expenses">المصروفات التشغيلية</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">$${operatingExpenses.toLocaleString()}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="صافي الأرباح المحصلة" data-en="Net Profit">صافي الأرباح المحصلة</h3><p class="font-headline-xl text-headline-xl ${netProfit >= 0 ? 'text-green-500' : 'text-red-500'} mt-1">$${netProfit.toLocaleString()}</p></div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="إجمالي الإيرادات المجمعة" data-en="Total Revenues">${lang === 'ar' ? 'إجمالي الإيرادات المجمعة' : 'Total Revenues'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">$${totalRevenue.toLocaleString()}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="المصروفات التشغيلية" data-en="Operating Expenses">${lang === 'ar' ? 'المصروفات التشغيلية' : 'Operating Expenses'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">$${operatingExpenses.toLocaleString()}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="صافي الأرباح المحصلة" data-en="Net Profit">${lang === 'ar' ? 'صافي الأرباح المحصلة' : 'Net Profit'}</h3>
+            <p class="font-headline-xl text-headline-xl ${netProfit >= 0 ? 'text-green-500' : 'text-red-500'} mt-1">$${netProfit.toLocaleString()}</p>
+          </div>
         `;
       }
 
@@ -586,9 +595,18 @@
       const kpiGrid = document.getElementById('fleet-kpi-grid');
       if (kpiGrid) {
         kpiGrid.innerHTML = `
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="المركبات النشطة بالخدمة" data-en="Active Vehicles">المركبات النشطة بالخدمة</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${activeVehicles}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="قيد الصيانة حالياً" data-en="Under Maintenance">قيد الصيانة حالياً</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${underMaintenance}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="معدل كفاءة الوقود" data-en="Fuel Efficiency">معدل كفاءة الوقود</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${efficiency} <span class="lang-text text-xl font-normal" data-ar="كم/لتر" data-en="km/L">كم/لتر</span></p></div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="المركبات النشطة بالخدمة" data-en="Active Vehicles">${lang === 'ar' ? 'المركبات النشطة بالخدمة' : 'Active Vehicles'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${activeVehicles}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="قيد الصيانة حالياً" data-en="Under Maintenance">${lang === 'ar' ? 'قيد الصيانة حالياً' : 'Under Maintenance'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${underMaintenance}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="معدل كفاءة الوقود" data-en="Fuel Efficiency">${lang === 'ar' ? 'معدل كفاءة الوقود' : 'Fuel Efficiency'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${efficiency} <span class="lang-text text-xl font-normal" data-ar="كم/لتر" data-en="km/L">${lang === 'ar' ? 'كم/لتر' : 'km/L'}</span></p>
+          </div>
         `;
       }
 
@@ -629,9 +647,18 @@
       const kpiGrid = document.getElementById('customers-kpi-grid');
       if (kpiGrid) {
         kpiGrid.innerHTML = `
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="العملاء النشطون بالقائمة" data-en="Active Customers">العملاء النشطون بالقائمة</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${activeCount}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="شركاء الشحن والملاحة" data-en="Shipping Partners">شركاء الشحن والملاحة</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${totalPartners}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="مؤشر رضا العملاء الكلي" data-en="Customer Satisfaction">مؤشر رضا العملاء الكلي</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${satisfaction}%</p></div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="العملاء النشطون بالقائمة" data-en="Active Customers">${lang === 'ar' ? 'العملاء النشطون بالقائمة' : 'Active Customers'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${activeCount}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="شركاء الشحن والملاحة" data-en="Shipping Partners">${lang === 'ar' ? 'شركاء الشحن والملاحة' : 'Shipping Partners'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${totalPartners}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="مؤشر رضا العملاء الكلي" data-en="Customer Satisfaction">${lang === 'ar' ? 'مؤشر رضا العملاء الكلي' : 'Customer Satisfaction'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${satisfaction}%</p>
+          </div>
         `;
       }
 
@@ -668,9 +695,18 @@
       const kpiGrid = document.getElementById('hr-kpi-grid');
       if (kpiGrid) {
         kpiGrid.innerHTML = `
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="إجمالي الموظفين المسجلين" data-en="Total Employees">إجمالي الموظفين المسجلين</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${empCount}</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="معدل الحضور اليومي" data-en="Daily Attendance">معدل الحضور اليومي</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${dailyAttendance}%</p></div>
-          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow"><h3 class="lang-text font-label-md text-on-surface-variant" data-ar="طلبات الإجازات المعلقة" data-en="Pending Leaves">طلبات الإجازات المعلقة</h3><p class="font-headline-xl text-headline-xl text-primary mt-1">${pendingLeaves}</p></div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="إجمالي الموظفين المسجلين" data-en="Total Employees">${lang === 'ar' ? 'إجمالي الموظفين المسجلين' : 'Total Employees'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${empCount}</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="معدل الحضور اليومي" data-en="Daily Attendance">${lang === 'ar' ? 'معدل الحضور اليومي' : 'Daily Attendance'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${dailyAttendance}%</p>
+          </div>
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow">
+            <h3 class="lang-text font-label-md text-on-surface-variant" data-ar="طلبات الإجازات المعلقة" data-en="Pending Leaves">${lang === 'ar' ? 'طلبات الإجازات المعلقة' : 'Pending Leaves'}</h3>
+            <p class="font-headline-xl text-headline-xl text-primary mt-1">${pendingLeaves}</p>
+          </div>
         `;
       }
 

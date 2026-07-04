@@ -2742,9 +2742,27 @@
           }
       });
       
-      // Update dynamic shipment table translations
+      // Update dynamic dashboard translations
       if (typeof renderShipments === 'function') {
           renderShipments();
+      }
+      if (typeof renderInvoices === 'function') {
+          renderInvoices();
+      }
+      if (typeof renderFleetRegistry === 'function') {
+          renderFleetRegistry();
+      }
+      if (typeof renderCustomerRegistry === 'function') {
+          renderCustomerRegistry();
+      }
+      if (typeof renderEmployeeRegistry === 'function') {
+          renderEmployeeRegistry();
+      }
+      if (typeof renderNotifications === 'function') {
+          renderNotifications();
+      }
+      if (typeof renderProfileDetails === 'function') {
+          renderProfileDetails();
       }
   }
 
