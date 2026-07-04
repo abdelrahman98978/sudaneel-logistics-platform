@@ -1253,12 +1253,7 @@ button.w-full.text-right {
 
 <script>
 if(localStorage.getItem('sessionToken')){
-  const token = localStorage.getItem('sessionToken');
-  if(token.includes('admin')){
-    window.location.href='../_20/code.html';
-  } else {
-    window.location.href='code.html';
-  }
+  window.location.href='code.html';
 }
 
 const ADMIN_EMAIL='admin@sudanil.com', ADMIN_PASS='sovereign2024';
@@ -1506,7 +1501,7 @@ function autofillCreds(role) {
   showToast('✏️ تم تعبئة البيانات تلقائياً بنجاح!', '✏️ Credentials filled successfully!');
 }
 
-function handleLogin(e){
+async function handleLogin(e){
   e.preventDefault();
   const email=document.getElementById('loginEmail').value.trim();
   const pass=document.getElementById('loginPassword').value;
@@ -1514,22 +1509,35 @@ function handleLogin(e){
   const err=document.getElementById('errorBanner');
   err.classList.remove('visible');
   btn.classList.add('btn-loading');
-  setTimeout(()=>{
-    if(email===ADMIN_EMAIL && pass===ADMIN_PASS){
-      localStorage.setItem('sessionToken','sovereign_admin_'+Date.now());
-      if(document.getElementById('rememberMe').checked) localStorage.setItem('rememberedEmail',email);
-      window.location.href='../_20/code.html';
-    }else if(email===CLIENT_EMAIL && pass===CLIENT_PASS){
-      localStorage.setItem('sessionToken','sovereign_client_'+Date.now());
-      if(document.getElementById('rememberMe').checked) localStorage.setItem('rememberedEmail',email);
-      window.location.href='code.html';
-    }else{
-      // Fallback redirection for easy debug/flexibility
-      localStorage.setItem('sessionToken','sovereign_client_'+Date.now());
+  
+  if (window.LogisticsAPI) {
+    // Attempt real database login
+    const res = await window.LogisticsAPI.auth.login(email, pass);
+    btn.classList.remove('btn-loading');
+    if (res.error) {
+      err.classList.add('visible');
+      showToast('❌ البريد الإلكتروني أو كلمة المرور غير صحيحة', '❌ Invalid email or password');
+    } else {
       if(document.getElementById('rememberMe').checked) localStorage.setItem('rememberedEmail',email);
       window.location.href='code.html';
     }
-  },1000);
+  } else {
+    // Mock Fallback
+    setTimeout(()=>{
+      btn.classList.remove('btn-loading');
+      if(email===ADMIN_EMAIL && pass===ADMIN_PASS){
+        localStorage.setItem('sessionToken','sovereign_admin_'+Date.now());
+        if(document.getElementById('rememberMe').checked) localStorage.setItem('rememberedEmail',email);
+        window.location.href='code.html';
+      }else if(email===CLIENT_EMAIL && pass===CLIENT_PASS){
+        localStorage.setItem('sessionToken','sovereign_client_'+Date.now());
+        if(document.getElementById('rememberMe').checked) localStorage.setItem('rememberedEmail',email);
+        window.location.href='code.html';
+      }else{
+        err.classList.add('visible');
+      }
+    },1000);
+  }
 }
 
 function handleOTPLogin(e) {
@@ -1778,6 +1786,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="api.js"></script>
 <script src="../translations.js"></script>
+<script>
+// Force Light theme mode default logic on login page
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('sudanil_theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    const icon = document.getElementById('theme-icon-login');
+    if (icon) icon.textContent = 'light_mode';
+  } else {
+    // Default to Light Mode
+    document.body.classList.remove('dark-mode');
+    const icon = document.getElementById('theme-icon-login');
+    if (icon) icon.textContent = 'dark_mode';
+  }
+  if (window.LogisticsAPI) {
+    window.LogisticsAPI.init();
+  }
+});
+</script>
 </body>
 </html>

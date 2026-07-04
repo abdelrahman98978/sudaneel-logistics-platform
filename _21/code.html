@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html dir="rtl" lang="ar"><head>
+<html dir="rtl" lang="ar" class="light-mode"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>بوابة العملاء | سودانيل لوجيستك</title>
@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { scroll-behavior: smooth; }
         body {
@@ -424,8 +425,8 @@
     <div class="flex items-center gap-3">
         <!-- Theme Toggle Button -->
         <button onclick="toggleThemeMode()" class="flex items-center gap-2 font-bold text-secondary hover:text-white transition-all duration-300 bg-secondary/10 hover:bg-secondary/20 px-4 py-2 rounded-full border border-secondary/30 hover:border-secondary shadow-[0_0_15px_rgba(212,175,55,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.25)] active:scale-95 mx-2 group">
-            <span id="themeToggleIcon" class="material-symbols-outlined text-lg text-secondary">light_mode</span>
-            <span id="themeToggleText" class="lang-text text-xs tracking-widest font-black" data-ar="نهاري" data-en="Day">نهاري</span>
+            <span id="themeToggleIcon" class="material-symbols-outlined text-lg text-secondary">dark_mode</span>
+            <span id="themeToggleText" class="lang-text text-xs tracking-widest font-black" data-ar="ليلي" data-en="Night">ليلي</span>
         </button>
         <button onclick="toggleLanguage()" class="flex items-center gap-2 font-bold text-secondary hover:text-white transition-all duration-300 bg-secondary/10 hover:bg-secondary/20 px-4 py-2 rounded-full border border-secondary/30 hover:border-secondary shadow-[0_0_15px_rgba(212,175,55,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.25)] active:scale-95 mx-2 group">
             <span class="material-symbols-outlined text-lg text-secondary transition-transform duration-500 group-hover:rotate-180">language</span>
@@ -1754,7 +1755,7 @@
 </footer>
 </main>
 
-<script src="data.js"></script>
+<script src="api.js"></script>
 <script>
 
 
@@ -3195,6 +3196,51 @@
 
 <script src="sections.js"></script>
 <script src="sections2.js"></script>
-<script>if(!localStorage.getItem('sessionToken')&&!window.location.search.includes('dev')){window.location.href='login.html';}</script>
+<script>
+// Initialize Supabase and check authentication
+(async function() {
+  if (window.LogisticsAPI) {
+    window.LogisticsAPI.init();
+    const session = await window.LogisticsAPI.auth.getSession();
+    if (!session && !window.location.search.includes('dev')) {
+      window.location.href = 'login.html';
+      return;
+    }
+    // Load all data from Supabase into legacy cache
+    if (window.LogisticsData && window.LogisticsData.refreshAll) {
+      await window.LogisticsData.refreshAll();
+      // Re-render dashboard components
+      if (typeof renderShipments === 'function') renderShipments();
+      if (typeof renderInventoryCatalog === 'function') renderInventoryCatalog();
+      if (typeof renderWarehouseGrid === 'function') renderWarehouseGrid();
+      if (typeof renderDashboardCharts === 'function') renderDashboardCharts();
+      if (typeof renderActivitiesFeed === 'function') renderActivitiesFeed();
+      if (typeof renderNotifications === 'function') renderNotifications();
+      if (typeof renderProfileDetails === 'function') renderProfileDetails();
+      // Update KPIs from real data
+      const kpis = await window.LogisticsAPI.dashboard.getKPIs();
+      const kpiActive = document.getElementById('kpi-active-count');
+      const kpiInventory = document.getElementById('kpi-inventory-count');
+      const kpiSpend = document.getElementById('kpi-spend-count');
+      const isAr = document.documentElement.getAttribute('lang') !== 'en';
+      if (kpiActive) kpiActive.textContent = kpis.activeShipments.toLocaleString();
+      if (kpiInventory) kpiInventory.innerHTML = `${kpis.warehouseCapacity.current.toLocaleString()} <span class="lang-text text-xl font-normal" data-ar="وحدة" data-en="Units">${isAr ? 'وحدة' : 'Units'}</span>`;
+      if (kpiSpend) kpiSpend.textContent = `$${(kpis.monthlySpend / 1000).toFixed(1)}k`;
+    }
+  } else if (!localStorage.getItem('sessionToken') && !window.location.search.includes('dev')) {
+    window.location.href = 'login.html';
+  }
+
+  // Apply saved theme preference
+  const savedTheme = localStorage.getItem('preferredTheme');
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.remove('light-mode');
+    const ti = document.getElementById('themeToggleIcon');
+    const tt = document.getElementById('themeToggleText');
+    if (ti) ti.innerText = 'light_mode';
+    if (tt) { tt.setAttribute('data-ar', 'نهاري'); tt.setAttribute('data-en', 'Day'); tt.innerText = document.documentElement.getAttribute('lang') !== 'en' ? 'نهاري' : 'Day'; }
+  }
+})();
+</script>
 <script src="../translations.js"></script>
 </body></html>
