@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تتبع الشحنة | سودانيل لوجيستك</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Noto+Sans+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Noto+Sans+Arabic', 'Be Vietnam Pro', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-depth {
+            box-shadow: 0 10px 30px -5px rgba(0, 27, 42, 0.08), 0 4px 12px -4px rgba(0, 27, 42, 0.04);
+        }
+        .stepper-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            height: 2px;
+            background-color: #e2e2e2;
+            z-index: 0;
+        }
+        .stepper-progress {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            height: 2px;
+            background-color: #795900;
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#6e8799",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-container": "#fdcb5b",
+                        "surface-tint": "#496173",
+                        "surface": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "surface-variant": "#e2e2e2",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "on-primary-fixed": "#021e2d",
+                        "tertiary": "#000000",
+                        "inverse-surface": "#2f3131",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#ffdf9f",
+                        "secondary": "#795900",
+                        "outline": "#73787c",
+                        "on-surface-variant": "#42474c",
+                        "primary-container": "#021e2d",
+                        "on-tertiary-fixed": "#001e2e",
+                        "surface-dim": "#dadada",
+                        "background": "#f9f9f9",
+                        "on-surface": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "outline-variant": "#c3c7cc",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "primary-fixed-dim": "#b0cade",
+                        "on-secondary-container": "#735500",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#261a00",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed-dim": "#f1bf51",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#314a5a",
+                        "primary-fixed": "#cce6fb",
+                        "on-tertiary-container": "#6c879c",
+                        "primary": "#000000",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed": "#cae6fd",
+                        "on-tertiary-fixed-variant": "#2e4a5c",
+                        "inverse-primary": "#b0cade",
+                        "tertiary-container": "#001e2e",
+                        "tertiary-fixed-dim": "#aecae1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "section-gap": "80px",
+                        "max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "headline-lg-mobile": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/95 backdrop-blur-md shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-base">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+</div>
+<nav class="hidden md:flex items-center gap-gutter">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-primary font-bold border-b-2 border-secondary" href="#">Track Shipment</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Contact Us</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md transition-all active:scale-95">Request a Quote</button>
+</header>
+<main class="pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<!-- Hero Tracking Search -->
+<section class="text-center mb-section-gap">
+<h1 class="font-headline-xl text-headline-xl mb-base">تتبع شحنتك بدقة</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-gutter max-w-2xl mx-auto">أدخل رقم التتبع الخاص بك لمعرفة الموقع الحالي وحالة شحنتك في الوقت الفعلي عبر شبكتنا العالمية.</p>
+<div class="max-w-3xl mx-auto relative group">
+<div class="flex flex-col md:flex-row gap-4 p-2 bg-surface-container-lowest border border-outline-variant rounded-xl logistic-depth">
+<div class="flex-grow relative">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pr-12 pl-4 py-4 rounded-lg bg-transparent border-none focus:ring-0 text-on-surface font-body-md" placeholder="رقم التتبع (مثال: SD-123456789)" type="text" value="SD-240522-001"/>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-lg font-headline-md transition-all hover:translate-y-[-2px] active:scale-95 shadow-md">
+                        تتبع الآن
+                    </button>
+</div>
+<div class="mt-4 flex flex-wrap justify-center gap-4 text-label-md text-on-surface-variant">
+<span>عمليات البحث الأخيرة:</span>
+<a class="underline hover:text-secondary" href="#">SD-230911-442</a>
+<a class="underline hover:text-secondary" href="#">SD-240105-881</a>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Tracking Timeline & Details (Main Content) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Visual Stepper -->
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant logistic-depth">
+<div class="flex justify-between items-center mb-section-gap">
+<div>
+<h2 class="font-headline-md text-headline-md">حالة الشحنة</h2>
+<p class="text-on-surface-variant font-body-md">رقم التتبع: SD-240522-001</p>
+</div>
+<div class="bg-secondary-container/20 text-on-secondary-container px-4 py-2 rounded-full font-label-md">
+                            في الطريق
+                        </div>
+</div>
+<div class="relative px-8">
+<div class="absolute top-1/2 left-0 right-0 h-1 bg-surface-variant -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 right-0 h-1 bg-secondary -translate-y-1/2 z-1" style="width: 70%"></div>
+<div class="relative z-10 flex justify-between">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined" data-weight="fill">check_circle</span>
+</div>
+<div class="text-center">
+<p class="font-label-md">تم الاستلام</p>
+<p class="text-[12px] text-on-surface-variant">20 مايو، 09:15 ص</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined" data-weight="fill">inventory_2</span>
+</div>
+<div class="text-center">
+<p class="font-label-md">قيد التجهيز</p>
+<p class="text-[12px] text-on-surface-variant">21 مايو، 08:40 ص</p>
+</div>
+</div>
+<!-- Step 3 (Current) -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-16 h-16 -mt-2 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-lg ring-4 ring-surface">
+<span class="material-symbols-outlined text-[32px]">local_shipping</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-secondary">في الطريق</p>
+<p class="text-[12px] text-on-surface-variant">22 مايو، 10:30 م</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-outline flex items-center justify-center">
+<span class="material-symbols-outlined">home_pin</span>
+</div>
+<div class="text-center">
+<p class="font-label-md text-outline">تم التسليم</p>
+<p class="text-[12px] text-on-surface-variant">متوقع: 24 مايو</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Shipment Info Cards (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant logistic-depth flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md mb-1">المصدر</p>
+<h3 class="font-headline-md">الخرطوم، السودان</h3>
+<p class="text-body-md">مركز التجميع الرئيسي</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant logistic-depth flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">flag</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-md mb-1">الوجهة</p>
+<h3 class="font-headline-md">دبي، الإمارات</h3>
+<p class="text-body-md">جبل علي - المنطقة الحرة</p>
+</div>
+</div>
+</div>
+<!-- Details Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden logistic-depth">
+<div class="bg-primary-container text-on-primary-container px-6 py-4">
+<h3 class="font-headline-md">تفاصيل الشحنة</h3>
+</div>
+<div class="divide-y divide-outline-variant">
+<div class="grid grid-cols-2 p-4">
+<span class="font-label-md text-on-surface-variant">نوع الخدمة</span>
+<span class="font-body-md text-left">شحن جوي سريع</span>
+</div>
+<div class="grid grid-cols-2 p-4">
+<span class="font-label-md text-on-surface-variant">الوزن الإجمالي</span>
+<span class="font-body-md text-left">25.0 كجم</span>
+</div>
+<div class="grid grid-cols-2 p-4">
+<span class="font-label-md text-on-surface-variant">عدد القطع</span>
+<span class="font-body-md text-left">1 قطعة</span>
+</div>
+<div class="grid grid-cols-2 p-4">
+<span class="font-label-md text-on-surface-variant">تاريخ الإرسال</span>
+<span class="font-body-md text-left">20 مايو 2024</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Cards (Support & CTA) -->
+<aside class="lg:col-span-4 space-y-gutter">
+<!-- Map Placeholder Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden logistic-depth group">
+<div class="h-48 bg-surface-container relative overflow-hidden">
+<img alt="Map View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A stylized professional digital map interface showing a global logistics network with glowing golden paths across a navy blue world map. The lighting is sophisticated and low-key, emphasizing the tech-driven nature of modern supply chain management. Fine grid lines and subtle data markers represent tracking points, maintaining the brand's corporate modern and reliable depth aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBujjUYfaUMpJHFBeWcBwc1KMtQCqh1lKzYjjw_SG-h1yMtf0NGGn6RqvGGg9M2rHOKmEq8qz9nfDx77W4tMbpZnAP7dSUcS8H0Cd7CVONFD8R3LNbeazPQN-KKaD_3YJPqJr9x1btIAUEbYFuIg4E8maml2_y_vdXssg91KrAsLCENYsY2QIgRgOmGVe9YZVtXd5MoBIdkD2urlF3FMV9matUm3ynPC3IdRNbYJHTSu1igT9jlGdVSS44twtBjnGK1rRrkm40_Zlo"/>
+<div class="absolute inset-0 bg-primary-container/20"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-surface text-primary p-2 rounded-full shadow-lg ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-[32px]">local_shipping</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md mb-2">تتبع المسار الحي</h3>
+<p class="text-body-md text-on-surface-variant mb-4">تابع حركة شحنتك لحظة بلحظة على الخريطة التفاعلية.</p>
+<button class="w-full border-2 border-primary py-3 rounded-lg font-label-md hover:bg-primary hover:text-on-primary transition-all">فتح الخريطة الكبيرة</button>
+</div>
+</div>
+<!-- Support Card -->
+<div class="bg-secondary-container p-6 rounded-xl logistic-depth">
+<h3 class="font-headline-md text-on-secondary-container mb-2">هل تواجه مشكلة؟</h3>
+<p class="text-on-secondary-container/80 mb-6">فريق الدعم الفني لدينا متاح على مدار الساعة لمساعدتك في أي استفسار حول شحنتك.</p>
+<div class="space-y-3">
+<a class="flex items-center gap-3 bg-surface/20 p-3 rounded-lg hover:bg-surface/40 transition-colors" href="tel:+123456789">
+<span class="material-symbols-outlined">call</span>
+<span class="font-label-md">اتصل بنا: 920000000</span>
+</a>
+<a class="flex items-center gap-3 bg-surface/20 p-3 rounded-lg hover:bg-surface/40 transition-colors" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md">المحادثة المباشرة</span>
+</a>
+<a class="flex items-center gap-3 bg-surface/20 p-3 rounded-lg hover:bg-surface/40 transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md">ارسل بريداً إلكترونياً</span>
+</a>
+</div>
+</div>
+<!-- App Promotion Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant logistic-depth flex flex-col items-center text-center">
+<img alt="Mobile App" class="w-32 h-auto mb-4 rounded-lg shadow-sm" data-alt="A clean product shot of a high-end smartphone displaying the Sudanil Logistic mobile tracking application. The app interface shown on screen is intuitive and clean with navy and amber brand colors. The setting is a minimalist office environment with soft natural lighting and a shallow depth of field, reflecting industrial precision and unwavering reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE-4JAUWb-MRZhy2_w4GNMWiooKsQN97uiybp6_J5Hs1DOqh0Fsv9hp8g5YLbHzHeXoE-kLUmDzzfRB9KRK0U44h77ia94ZoQUWSAt0ylGufJ_bISvSo7LWLTasueeFxKNjzNQkoGJfsFXIysD-qhetG1sCWcc0vPgSJeO6Roam5GP5NGybAkmDOBWFG2fK0rizuaPLCQs44lMCBEVMfDUPmG9VJKsA5VbtEOQ1d-q00rwqjrBB2nc3o82hRaeEz6CND2hD8QGnoQ"/>
+<h3 class="font-label-md mb-2">تطبيق سودانيل لوجيستك</h3>
+<p class="text-body-md text-on-surface-variant mb-6">احصل على إشعارات فورية وتتبع سهل عبر هاتفك.</p>
+<div class="flex gap-2 w-full">
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-lg text-[12px] flex items-center justify-center gap-1">
+                            App Store
+                        </button>
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-lg text-[12px] flex items-center justify-center gap-1">
+                            Google Play
+                        </button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Partnership Strip -->
+<section class="mt-section-gap pt-10 border-t border-outline-variant text-center">
+<p class="text-label-md text-outline uppercase tracking-widest mb-8">شركاؤنا في النجاح</p>
+<div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+<span class="font-headline-md font-bold text-on-surface">MAERSK</span>
+<span class="font-headline-md font-bold text-on-surface">DHL</span>
+<span class="font-headline-md font-bold text-on-surface">FedEx</span>
+<span class="font-headline-md font-bold text-on-surface">ARAMEX</span>
+<span class="font-headline-md font-bold text-on-surface">DP WORLD</span>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-section-gap grid grid-cols-1 md:grid-cols-4 gap-gutter bg-primary-container text-on-primary-container">
+<div class="space-y-4">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"/>
+<p class="font-body-md text-on-primary-container/70">رائدون في مجال الخدمات اللوجستية المتكاملة، نربط العالم بدقة وموثوقية عالية.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-secondary-container">روابط سريعة</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">الرئيسية</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">من نحن</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">خدماتنا</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">تتبع الشحنة</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-secondary-container">خدماتنا</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">الشحن البحري</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">الشحن الجوي</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">النقل البري</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">التخليص الجمركي</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-secondary-container">قانوني</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">سياسة الخصوصية</a></li>
+<li><a class="font-body-md text-on-primary-container/80 hover:text-secondary-container transition-transform hover:translate-x-[-4px] inline-block" href="#">الشروط والأحكام</a></li>
+</ul>
+<div class="pt-4">
+<p class="font-label-md opacity-60">© 2024 Sudanil Logistic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

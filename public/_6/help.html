@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>سودانيل لوجيستك | مركز المساعدة والدعم - Sudanil Logistic</title>
+<meta name="description" content="مركز مساعدة سودانيل لوجيستك - تصفح الأسئلة الشائعة وابحث عن إجابات لاستفسارات الشحن والنقل والجمارك."/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+<div class="loader-bar"></div>
+<div class="loader-text">SUDANIL LOGISTIC</div>
+</div>
+
+<!-- Navigation -->
+<header id="mainNav" class="scrolled">
+<a href="code.html" class="nav-logo" style="display: flex; align-items: center;">
+<img src="logo.png" alt="Sudanil Logistics Logo" style="height: 48px; object-fit: contain;"/>
+</a>
+<nav class="nav-links">
+<a class="lang-text" href="code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+<a class="lang-text" href="../_7/code.html" data-ar="من نحن" data-en="About">من نحن</a>
+<a class="lang-text" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+<a class="lang-text" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+<a class="lang-text" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+</nav>
+<div class="nav-right">
+<button onclick="toggleLanguage()" class="lang-btn">
+<span class="material-symbols-outlined" style="font-size:18px">language</span>
+<span id="langToggleText" class="text-xs">EN</span>
+</button>
+<a href="../_21/code.html" class="portal-btn magnetic lang-text" data-ar="بوابة العملاء" data-en="Client Portal">
+<span class="material-symbols-outlined" style="font-size:18px">login</span>
+بوابة العملاء
+</a>
+</div>
+</header>
+
+<!-- Page Title Header -->
+<section class="page-header">
+  <h1 class="page-title lang-text" data-ar="مركز المساعدة والدعم" data-en="Help & Support Center">مركز المساعدة والدعم</h1>
+  <p class="page-subtitle lang-text" data-ar="كيف يمكننا مساعدتك اليوم؟ ابحث في قاعدة معارفنا أو تصفح الأسئلة الشائعة" data-en="How can we help you today? Search our knowledge base or browse FAQs">كيف يمكننا مساعدتك اليوم؟ ابحث في قاعدة معارفنا أو تصفح الأسئلة الشائعة</p>
+</section>
+
+<!-- Search Container -->
+<div class="help-search-container">
+  <div class="hero-search" style="margin: 0 auto;">
+    <span class="material-symbols-outlined" style="color:var(--gold);padding:0 12px;align-self:center">search</span>
+    <input id="helpSearchInput" class="lang-text" type="text" data-ar="ابحث عن إجابات أو مواضيع..." data-en="Search for answers or topics..." placeholder="ابحث عن إجابات أو مواضيع..."/>
+    <button id="helpSearchBtn" class="lang-text magnetic" data-ar="بحث" data-en="Search">بحث</button>
+  </div>
+</div>
+
+<!-- Help Cards Grid & Accordion Content -->
+<main class="content-section" style="padding-top: 10px;">
+  <!-- Help Grid -->
+  <div class="help-grid">
+    <!-- Card 1: Shipments & Tracking -->
+    <div class="help-card">
+      <div class="help-icon">
+        <span class="material-symbols-outlined" style="font-size: 28px;">local_shipping</span>
+      </div>
+      <h4 class="lang-text" data-ar="شحنات وتتبع" data-en="Shipments & Tracking">شحنات وتتبع</h4>
+      <p class="lang-text" data-ar="تعلم كيفية تتبع شحناتك، وإدارة مواعيد التسليم وتعديل العناوين." data-en="Learn how to track your shipments, manage delivery dates, and edit addresses.">تعلم كيفية تتبع شحناتك، وإدارة مواعيد التسليم وتعديل العناوين.</p>
+    </div>
+    
+    <!-- Card 2: Pricing & Invoices -->
+    <div class="help-card">
+      <div class="help-icon">
+        <span class="material-symbols-outlined" style="font-size: 28px;">payments</span>
+      </div>
+      <h4 class="lang-text" data-ar="الأسعار والفواتير" data-en="Pricing & Invoices">الأسعار والفواتير</h4>
+      <p class="lang-text" data-ar="فهم جداول تسعير الشحن والمدفوعات الإلكترونية والحصول على تقدير التكلفة." data-en="Understand shipping rate tables, electronic invoicing, and cost estimation tools.">فهم جداول تسعير الشحن والمدفوعات الإلكترونية والحصول على تقدير التكلفة.</p>
+    </div>
+    
+    <!-- Card 3: Customs Clearance -->
+    <div class="help-card">
+      <div class="help-icon">
+        <span class="material-symbols-outlined" style="font-size: 28px;">description</span>
+      </div>
+      <h4 class="lang-text" data-ar="الخدمات الجمركية" data-en="Customs Clearance">الخدمات الجمركية</h4>
+      <p class="lang-text" data-ar="المستندات الجمركية المطلوبة، واللوائح، والتعرفات الجمركية للاستيراد والتصدير." data-en="Required customs documentation, rules, and tariffs for import/export in Sudan.">المستندات الجمركية المطلوبة، واللوائح، والتعرفات الجمركية للاستيراد والتصدير.</p>
+    </div>
+    
+    <!-- Card 4: Client Portal Support -->
+    <div class="help-card">
+      <div class="help-icon">
+        <span class="material-symbols-outlined" style="font-size: 28px;">account_circle</span>
+      </div>
+      <h4 class="lang-text" data-ar="بوابة العملاء" data-en="Client Portal Support">بوابة العملاء</h4>
+      <p class="lang-text" data-ar="إدارة حسابك الرقمي، واستعراض طلبات الشحن النشطة وتنزيل الفواتير المعتمدة." data-en="Manage your digital account, review active shipping orders, and download certified invoices.">إدارة حسابك الرقمي، واستعراض طلبات الشحن النشطة وتنزيل الفواتير المعتمدة.</p>
+    </div>
+  </div>
+
+  <!-- FAQ Section Title -->
+  <div class="section-head" style="margin-bottom: 48px;">
+    <div class="eyebrow lang-text" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">الأسئلة الشائعة</div>
+    <h2 class="lang-text" data-ar="أبرز الأسئلة المتكررة" data-en="Commonly Asked Questions">أبرز الأسئلة المتكررة</h2>
+  </div>
+
+  <!-- Accordion List -->
+  <div class="faq-section">
+    <!-- FAQ 1 -->
+    <div class="faq-item">
+      <button class="faq-trigger">
+        <span class="lang-text" data-ar="كيف يمكنني تتبع حالة شحنتي؟" data-en="How can I track the status of my shipment?">كيف يمكنني تتبع حالة شحنتي؟</span>
+        <span class="material-symbols-outlined faq-icon-arrow">keyboard_arrow_down</span>
+      </button>
+      <div class="faq-content">
+        <p class="lang-text" 
+           data-ar="بإمكانك تتبع شحنتك فوراً بإدخال رقم التتبع الفريد الخاص بك (الموجود في بوليصة الشحن) في شريط البحث بالصفحة الرئيسية أو في صفحة تتبع الشحنة المخصصة." 
+           data-en="You can track your shipment instantly by entering your unique tracking number (found on your Bill of Lading) into the search bar on our homepage or on the dedicated tracking page.">
+           بإمكانك تتبع شحنتك فوراً بإدخال رقم التتبع الفريد الخاص بك (الموجود في بوليصة الشحن) في شريط البحث بالصفحة الرئيسية أو في صفحة تتبع الشحنة المخصصة.
+        </p>
+      </div>
+    </div>
+    
+    <!-- FAQ 2 -->
+    <div class="faq-item">
+      <button class="faq-trigger">
+        <span class="lang-text" data-ar="ما هي الوثائق المطلوبة للتخليص الجمركي في السودان؟" data-en="What documents are required for customs clearance in Sudan?">ما هي الوثائق المطلوبة للتخليص الجمركي في السودان؟</span>
+        <span class="material-symbols-outlined faq-icon-arrow">keyboard_arrow_down</span>
+      </button>
+      <div class="faq-content">
+        <p class="lang-text" 
+           data-ar="تشمل الوثائق الأساسية: الفاتورة التجارية الأصلية، قائمة التعبئة، بوليصة الشحن (البحرية أو الجوية)، شهادة المنشأ، وشهادات الفحص والصحة المعنية بحسب نوع البضائع المشحونة." 
+           data-en="Key required documents include: Original Commercial Invoice, Packing List, Bill of Lading or Air Waybill, Certificate of Origin, and specialized health/inspection certificates depending on the shipped goods.">
+           تشمل الوثائق الأساسية: الفاتورة التجارية الأصلية، قائمة التعبئة، بوليصة الشحن (البحرية أو الجوية)، شهادة المنشأ، وشهادات الفحص والصحة المعنية بحسب نوع البضائع المشحونة.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ 3 -->
+    <div class="faq-item">
+      <button class="faq-trigger">
+        <span class="lang-text" data-ar="كيف يمكنني التسجيل في بوابة العملاء الرقمية؟" data-en="How do I register for the digital Client Portal?">كيف يمكنني التسجيل في بوابة العملاء الرقمية؟</span>
+        <span class="material-symbols-outlined faq-icon-arrow">keyboard_arrow_down</span>
+      </button>
+      <div class="faq-content">
+        <p class="lang-text" 
+           data-ar="بإمكانك طلب فتح حساب تجاري من خلال النقر على زر 'بوابة العملاء' بالرئيسية ثم تعبئة نموذج طلب الانضمام، أو التواصل المباشر مع مسؤول الحسابات الخاص بشركتك لتزويدك ببيانات الدخول الآمنة." 
+           data-en="You can request a commercial account by clicking the 'Client Portal' button on the homepage and filling out the onboarding form, or by contacting your dedicated account manager directly for secure credentials.">
+           بإمكانك طلب فتح حساب تجاري من خلال النقر على زر 'بوابة العملاء' بالرئيسية ثم تعبئة نموذج طلب الانضمام، أو التواصل المباشر مع مسؤول الحسابات الخاص بشركتك لتزويدك ببيانات الدخول الآمنة.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ 4 -->
+    <div class="faq-item">
+      <button class="faq-trigger">
+        <span class="lang-text" data-ar="هل توفر سودانيل لوجيستك خدمات تغطية تأمينية للشحنات؟" data-en="Does Sudanil Logistic offer shipment insurance coverage?">هل توفر سودانيل لوجيستك خدمات تغطية تأمينية للشحنات؟</span>
+        <span class="material-symbols-outlined faq-icon-arrow">keyboard_arrow_down</span>
+      </button>
+      <div class="faq-content">
+        <p class="lang-text" 
+           data-ar="نعم، نوفر خيارات تغطية تأمينية متكاملة وشاملة لكافة أنواع السلع والبضائع المنقولة بحراً أو براً أو جواً بالتعاون مع كبرى شركات التأمين الإقليمية والعالمية لحماية استثماراتك." 
+           data-en="Yes, we offer comprehensive all-risk transit insurance options for ocean, land, and air freight cargo, in partnership with major regional and international underwriters to secure your investment.">
+           نعم، نوفر خيارات تغطية تأمينية متكاملة وشاملة لكافة أنواع السلع والبضائع المنقولة بحراً أو براً أو جواً بالتعاون مع كبرى شركات التأمين الإقليمية والعالمية لحماية استثماراتك.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <!-- Brand Column -->
+    <div class="footer-col footer-brand">
+      <a href="code.html" class="nav-logo-footer" style="margin-bottom:20px; display: flex; align-items: center;">
+        <img src="logo.png" alt="Sudanil Logistics Logo" style="height: 54px; object-fit: contain; background: rgba(255,255,255,0.08); padding: 6px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);"/>
+      </a>
+      <p class="lang-text" data-ar="الشركة الرائدة في تقديم الخدمات اللوجستية وسلاسل الإمداد المتكاملة في السودان والمنطقة. نربط أعمالك بالعالم بأعلى معايير الأمان والدقة." data-en="The leading provider of integrated logistics and supply chain solutions in Sudan and the region. Connecting your business globally with the highest safety and precision.">الشركة الرائدة في تقديم الخدمات اللوجستية وسلاسل الإمداد المتكاملة في السودان والمنطقة. نربط أعمالك بالعالم بأعلى معايير الأمان والدقة.</p>
+      
+      <!-- Newsletter / Tracking Mini Form -->
+      <div class="footer-newsletter">
+        <h6 class="lang-text" data-ar="اشترك في النشرة البريدية" data-en="Subscribe to Newsletter">اشترك في النشرة البريدية</h6>
+        <div class="footer-input-group">
+          <input type="email" class="lang-text" data-ar="البريد الإلكتروني..." data-en="Your email..." placeholder="البريد الإلكتروني...">
+          <button class="footer-btn"><span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">send</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services Column -->
+    <div class="footer-col">
+      <h5 class="lang-text" data-ar="خدماتنا" data-en="Our Services">خدماتنا</h5>
+      <ul class="footer-links">
+        <li><a class="lang-text" href="../_8/code.html" data-ar="الشحن البري الدولي والمحلي" data-en="International & Domestic Land Freight">الشحن البري الدولي والمحلي</a></li>
+        <li><a class="lang-text" href="../_8/code.html" data-ar="الشحن البحري وحلول الحاويات" data-en="Ocean Freight & Container Solutions">الشحن البحري وحلول الحاويات</a></li>
+        <li><a class="lang-text" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a></li>
+        <li><a class="lang-text" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a></li>
+        <li><a class="lang-text" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Advisory">التخليص الجمركي والاستشارات</a></li>
+      </ul>
+    </div>
+
+    <!-- Company Column -->
+    <div class="footer-col">
+      <h5 class="lang-text" data-ar="الشركة" data-en="Company">الشركة</h5>
+      <ul class="footer-links">
+        <li><a class="lang-text" href="../_7/code.html" data-ar="من نحن ورؤيتنا" data-en="About Us & Vision">من نحن ورؤيتنا</a></li>
+        <li><a class="lang-text" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</a></li>
+        <li><a class="lang-text" href="../_12/code.html" data-ar="تتبع الشحنات" data-en="Track Shipments">تتبع الشحنات</a></li>
+        <li><a class="lang-text" href="../_21/code.html" data-ar="بوابة العملاء الرقمية" data-en="Digital Client Portal">بوابة العملاء الرقمية</a></li>
+        <li><a class="lang-text" href="#" data-ar="شبكتنا ووكلاؤنا" data-en="Our Global Network">شبكتنا ووكلاؤنا</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Column -->
+    <div class="footer-col footer-contact-col">
+      <h5 class="lang-text" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="material-symbols-outlined contact-icon">location_on</span>
+          <div>
+            <p class="lang-text" data-ar="المقر الرئيسي: الخرطوم، السودان" data-en="HQ: Khartoum, Sudan">المقر الرئيسي: الخرطوم، السودان</p>
+            <p class="lang-text font-small" data-ar="المكتب الإقليمي: بورتسودان" data-en="Regional: Port Sudan">المكتب الإقليمي: بورتسودان</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="material-symbols-outlined contact-icon">phone_in_talk</span>
+          <div>
+            <p class="en-font" style="direction: ltr; text-align: right; margin: 0;">+249 123 456 789</p>
+            <p class="en-font" style="direction: ltr; text-align: right; margin: 0;">+249 912 345 678</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="material-symbols-outlined contact-icon">mail</span>
+          <p class="en-font" style="margin: 0;">info@sudanil-logistic.com</p>
+        </div>
+      </div>
+      
+      <!-- Social Buttons -->
+      <div class="footer-social" style="margin-top: 24px;">
+        <a href="#" class="social-link" title="LinkedIn"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+        <a href="#" class="social-link" title="Twitter"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" class="social-link" title="Facebook"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+    </div>
+    
+    <!-- Badges / Certifications -->
+    <div class="footer-badges">
+      <span class="badge-item lang-text" data-ar="حاصل على شهادة ISO 9001" data-en="ISO 9001 Certified">حاصل على شهادة ISO 9001</span>
+      <span class="badge-item lang-text" data-ar="عضو شريك FIATA" data-en="FIATA Associate Member">عضو شريك FIATA</span>
+    </div>
+
+    <div class="footer-bottom-right">
+      <a class="lang-text" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+      <span class="divider">|</span>
+      <a class="lang-text" href="terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+      <span class="divider">|</span>
+      <a class="lang-text active" href="help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+      <span class="divider">|</span>
+      <span class="secure-tag">
+        <span class="material-symbols-outlined" style="font-size:14px; vertical-align: middle;">lock</span>
+        <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+// Language Toggle
+function toggleLanguage(){
+const html=document.documentElement;
+const cur=html.getAttribute('lang')||'ar';
+const nw=cur==='ar'?'en':'ar';
+html.setAttribute('lang',nw);
+html.setAttribute('dir',nw==='ar'?'rtl':'ltr');
+localStorage.setItem('preferredLang',nw);
+document.getElementById('langToggleText').innerText=nw==='ar'?'EN':'عربي';
+document.querySelectorAll('.lang-text').forEach(el=>{
+if(el.tagName==='INPUT'&&el.hasAttribute('placeholder')){
+el.setAttribute('placeholder',el.getAttribute('data-'+nw));
+}else if(el.getAttribute('data-'+nw)){
+el.innerHTML=el.getAttribute('data-'+nw);
+}
+});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+// Preloader
+setTimeout(() => {
+  const loader = document.getElementById('preloader');
+  if(loader) loader.style.display = 'none';
+}, 400);
+
+// Restore language
+const saved=localStorage.getItem('preferredLang');
+if(saved==='en'){document.documentElement.setAttribute('lang','ar');toggleLanguage();}
+
+// FAQ Accordion interaction
+document.querySelectorAll('.faq-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.closest('.faq-item');
+    const isActive = item.classList.contains('active');
+    
+    // Close all items
+    document.querySelectorAll('.faq-item').forEach(el => {
+      el.classList.remove('active');
+      el.querySelector('.faq-content').style.maxHeight = null;
+    });
+    
+    // Toggle current item
+    if (!isActive) {
+      item.classList.add('active');
+      const content = item.querySelector('.faq-content');
+      content.style.maxHeight = content.scrollHeight + 20 + "px";
+    }
+  });
+});
+
+// Search filter behavior
+const searchInput = document.getElementById('helpSearchInput');
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const triggerText = item.querySelector('.faq-trigger').innerText.toLowerCase();
+    const contentText = item.querySelector('.faq-content').innerText.toLowerCase();
+    if (triggerText.includes(query) || contentText.includes(query)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+});
+});
+</script>
+</body>
+</html>

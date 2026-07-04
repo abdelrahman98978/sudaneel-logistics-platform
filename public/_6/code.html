@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>سودانيل لوجيستك | Sudanil Logistic - حلول لوجستية عالمية</title>
+<meta name="description" content="سودانيل لوجيستك - الشركة الرائدة في حلول الشحن والنقل واللوجستيات في السودان والمنطقة."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "100px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+    /* ===== PREMIUM DARK MODE OVERRIDES (MIDNIGHT NAVY & GOLD) ===== */
+    body.dark-mode {
+        --bg: #060d1e;
+        --surface: #0b1b3d;
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        background: var(--bg) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode #preloader {
+        background: var(--bg) !important;
+    }
+    body.dark-mode .loader-text {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled {
+        background: rgba(6, 13, 30, 0.92) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled a {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-mainNav.scrolled a.active {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .legacy-nav-logo span {
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-nav-links a {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .legacy-nav-links a:hover,
+    body.dark-mode .legacy-nav-links a.active {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .legacy-lang-btn {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode .legacy-lang-btn:hover {
+        border-color: var(--gold) !important;
+        color: var(--gold) !important;
+    }
+    body.dark-mode #theme-toggle-btn {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode #theme-toggle-btn:hover {
+        border-color: var(--gold) !important;
+        color: var(--gold) !important;
+    }
+    body.dark-mode .hero-overlay {
+        background: radial-gradient(ellipse at 30% 50%, rgba(6, 13, 30, 0.75), rgba(6, 13, 30, 0.97)) !important;
+    }
+    body.dark-mode .hero-badge {
+        background: rgba(212, 175, 55, 0.15) !important;
+        border-color: rgba(212, 175, 55, 0.3) !important;
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-title {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-sub {
+        color: var(--text) !important;
+    }
+    body.dark-mode .scroll-hint {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-stat {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    body.dark-mode .hero-stat .num {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-stat .label {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .hero-search {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.25) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+    }
+    body.dark-mode .hero-search input {
+        color: var(--text) !important;
+    }
+    body.dark-mode .hero-search input::placeholder {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .section-head h2 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .section-head p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .svc-card {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    body.dark-mode .svc-card:hover {
+        border-color: var(--gold) !important;
+        box-shadow: 0 20px 50px rgba(212, 175, 55, 0.1) !important;
+    }
+    body.dark-mode .svc-card h3 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .svc-card p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .svc-card .card-img::after {
+        background: linear-gradient(to bottom, transparent, var(--surface)) !important;
+    }
+    body.dark-mode .why-section {
+        background: var(--bg) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+    }
+    body.dark-mode .why-item h4 {
+        color: var(--text) !important;
+    }
+    body.dark-mode .why-item p {
+        color: var(--muted) !important;
+    }
+    body.dark-mode .globe-center {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.25) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+    body.dark-mode .globe-center .num {
+        color: var(--text) !important;
+    }
+    body.dark-mode .partner-item {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+        color: var(--muted) !important;
+    }
+    body.dark-mode .partner-item:hover {
+        color: var(--gold) !important;
+        border-color: var(--gold) !important;
+    }
+    body.dark-mode .partners {
+        background: var(--bg) !important;
+    }
+    body.dark-mode .faq-item {
+        background: var(--surface) !important;
+        border-color: rgba(212, 175, 55, 0.15) !important;
+    }
+    body.dark-mode .faq-trigger {
+        color: var(--text) !important;
+    }
+    body.dark-mode .faq-trigger:hover {
+        color: var(--gold) !important;
+    }
+    body.dark-mode .faq-content {
+        color: var(--muted) !important;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+<div class="loader-bar"></div>
+<div class="loader-text">SUDANIL LOGISTIC</div>
+</div>
+
+<!-- Navigation -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all duration-300">
+    <div class="flex items-center gap-10">
+        <a href="#" class="font-headline text-xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-6 items-center text-sm">
+            <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_7/code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleTheme()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-1 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50" title="تغيير المظهر / Toggle Theme" id="theme-toggle-btn">
+            <span class="material-symbols-outlined text-lg" id="theme-icon">dark_mode</span>
+        </button>
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-1 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50">
+            <span class="material-symbols-outlined text-lg">language</span>
+            <span id="langToggleText" class="text-xs">EN</span>
+        </button>
+        <a href="../_21/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            تسجيل الدخول
+        </a>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-section">
+<canvas id="heroCanvas"></canvas>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<div class="hero-badge lang-text" data-ar="<span class='dot'></span> سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً" data-en="<span class='dot'></span> Sudanil Logistics.. The Leading Logistics Company Globally">
+<span class="dot"></span>
+<span class="lang-text" data-ar="سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً" data-en="Sudanil Logistics.. The Leading Logistics Company Globally">سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً</span>
+</div>
+<h1 class="hero-title">
+<span class="line"><span class="lang-text" data-ar="نقل بثقة.." data-en="Ship with Trust..">نقل بثقة..</span></span>
+<span class="line"><span class="gold-text lang-text" data-ar="نوصل باحتراف" data-en="Deliver with Excellence">نوصل باحتراف</span></span>
+</h1>
+<p class="hero-sub lang-text" data-ar="رائدون في مجال الخدمات اللوجستية المتكاملة، نضمن وصول شحناتكم بأمان ودقة عالية عبر شبكتنا العالمية المتميزة." data-en="Pioneers in integrated logistics, ensuring your shipments arrive safely and accurately through our premium global network.">رائدون في مجال الخدمات اللوجستية المتكاملة، نضمن وصول شحناتكم بأمان ودقة عالية عبر شبكتنا العالمية المتميزة.</p>
+<div class="hero-search">
+<span class="material-symbols-outlined" style="color:var(--gold);padding:0 12px;align-self:center">search</span>
+<input id="trackingInput" class="lang-text" type="text" data-ar="أدخل رقم التتبع..." data-en="Enter tracking number..." placeholder="أدخل رقم التتبع..."/>
+<button id="trackBtn" class="lang-text magnetic" data-ar="تتبع الآن" data-en="Track Now">تتبع الآن</button>
+</div>
+<div class="hero-stats">
+<div class="hero-stat"><div><div class="num" data-count="1284">0</div><div class="label lang-text" data-ar="شحنة نشطة" data-en="Active Shipments">شحنة نشطة</div></div></div>
+<div class="hero-stat"><div><div class="num" data-count="150">0</div><div class="label lang-text" data-ar="وجهة عالمية" data-en="Destinations">وجهة عالمية</div></div></div>
+<div class="hero-stat"><div><div class="num">99.8%</div><div class="label lang-text" data-ar="معدل الموثوقية" data-en="Reliability">معدل الموثوقية</div></div></div>
+</div>
+</div>
+<div class="scroll-hint">
+<span class="lang-text" data-ar="اكتشف المزيد" data-en="Discover More">اكتشف المزيد</span>
+<span class="material-symbols-outlined">keyboard_arrow_down</span>
+</div>
+</section>
+
+<!-- Services -->
+<section class="section">
+<div class="section-head">
+<div class="eyebrow lang-text" data-ar="ما نقدمه لكم" data-en="What We Offer">ما نقدمه لكم</div>
+<h2 class="lang-text" data-ar="خدماتنا اللوجستية المتكاملة" data-en="Integrated Logistics Services">خدماتنا اللوجستية المتكاملة</h2>
+<p class="lang-text" data-ar="حلول شحن شاملة تلبي احتياجاتكم بأعلى معايير الجودة" data-en="Comprehensive shipping solutions with the highest quality standards">حلول شحن شاملة تلبي احتياجاتكم بأعلى معايير الجودة</p>
+</div>
+<div class="svc-grid">
+<div class="svc-card">
+<div class="card-img"><img alt="Land Freight" src="./ChatGPT%20Image%20May%2018,%202026,%2004_27_49%20AM.png"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">local_shipping</span></div>
+<h3 class="lang-text" data-ar="نقل بري" data-en="Land Freight">نقل بري</h3>
+<p class="lang-text" data-ar="داخل وخارج السودان بأسطول مجهز وآمن." data-en="Inside and outside Sudan with a modern and secure fleet.">داخل وخارج السودان بأسطول مجهز وآمن.</p>
+</div>
+</div>
+<div class="svc-card">
+<div class="card-img"><img alt="Sea Freight" src="./ChatGPT%20Image%20May%2018,%202026,%2004_28_45%20AM.png"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">directions_boat</span></div>
+<h3 class="lang-text" data-ar="شحن بحري" data-en="Sea Freight">شحن بحري</h3>
+<p class="lang-text" data-ar="حلول شحن آمنة واقتصادية للحاويات والبضائع." data-en="Secure and economic shipping solutions for containers and cargo.">حلول شحن آمنة واقتصادية للحاويات والبضائع.</p>
+</div>
+</div>
+<div class="svc-card">
+<div class="card-img"><img alt="Air Freight" src="./ChatGPT%20Image%20May%2018,%202026,%2004_29_21%20AM.png"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">flight</span></div>
+<h3 class="lang-text" data-ar="شحن جوي" data-en="Air Freight">شحن جوي</h3>
+<p class="lang-text" data-ar="سرعة ودقة في الوصول لشحناتكم العاجلة." data-en="Speed and precision in delivery for your urgent shipments.">سرعة ودقة في الوصول لشحناتكم العاجلة.</p>
+</div>
+</div>
+<div class="svc-card">
+<div class="card-img"><img alt="Warehousing" src="./ChatGPT%20Image%20May%2017,%202026,%2008_11_23%20AM.png"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">warehouse</span></div>
+<h3 class="lang-text" data-ar="تخزين" data-en="Warehousing">تخزين</h3>
+<p class="lang-text" data-ar="مستودعات حديثة وآمنة ومجهزة بأعلى التقنيات." data-en="Modern and secure warehouses equipped with the latest technologies.">مستودعات حديثة وآمنة ومجهزة بأعلى التقنيات.</p>
+</div>
+</div>
+<div class="svc-card">
+<div class="card-img"><img alt="Distribution" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">airport_shuttle</span></div>
+<h3 class="lang-text" data-ar="التوصيل والتوزيع" data-en="Delivery & Distribution">التوصيل والتوزيع</h3>
+<p class="lang-text" data-ar="شبكة توزيع واسعة وفعالة تضمن وصول بضائعكم بسرعة." data-en="A wide and efficient distribution network ensuring fast delivery.">شبكة توزيع واسعة وفعالة تضمن وصول بضائعكم بسرعة.</p>
+</div>
+</div>
+<div class="svc-card">
+<div class="card-img"><img alt="Customs" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"/></div>
+<div class="card-body">
+<div class="card-icon"><span class="material-symbols-outlined">verified</span></div>
+<h3 class="lang-text" data-ar="التخليص الجمركي" data-en="Customs Clearance">التخليص الجمركي</h3>
+<p class="lang-text" data-ar="إجراءات سريعة ودقيقة وتخليص خالي من التعقيدات." data-en="Fast, accurate, and hassle-free clearance procedures.">إجراءات سريعة ودقيقة وتخليص خالي من التعقيدات.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-section">
+<div class="section" style="padding-top:120px;padding-bottom:120px">
+<div class="why-grid">
+<div>
+<div class="section-head" style="text-align:start;margin-bottom:48px">
+<div class="eyebrow lang-text" data-ar="لماذا نحن" data-en="Why Us">لماذا نحن</div>
+<h2 class="lang-text" data-ar="لماذا يختارنا الشركاء؟" data-en="Why Do Partners Choose Us?">لماذا يختارنا الشركاء؟</h2>
+</div>
+<div class="why-item"><div class="why-icon"><span class="material-symbols-outlined">verified_user</span></div><div><h4 class="lang-text" data-ar="أمان وموثوقية عالية" data-en="High Security & Reliability">أمان وموثوقية عالية</h4><p class="lang-text" data-ar="نطبق أعلى معايير السلامة العالمية في كافة مراحل النقل والتخزين." data-en="We apply the highest global safety standards across all transport stages.">نطبق أعلى معايير السلامة العالمية في كافة مراحل النقل والتخزين.</p></div></div>
+<div class="why-item"><div class="why-icon"><span class="material-symbols-outlined">language</span></div><div><h4 class="lang-text" data-ar="شبكة عالمية واسعة" data-en="Extensive Global Network">شبكة عالمية واسعة</h4><p class="lang-text" data-ar="شركاؤنا في كل قارات العالم يضمنون تغطية شاملة ومرونة." data-en="Our partners across all continents guarantee comprehensive coverage.">شركاؤنا في كل قارات العالم يضمنون تغطية شاملة ومرونة.</p></div></div>
+<div class="why-item"><div class="why-icon"><span class="material-symbols-outlined">schedule</span></div><div><h4 class="lang-text" data-ar="دقة في المواعيد" data-en="Punctuality">دقة في المواعيد</h4><p class="lang-text" data-ar="نلتزم بجداول زمنية صارمة لضمان سير أعمالكم دون تأخير." data-en="We adhere to strict schedules ensuring your operations run without delay.">نلتزم بجداول زمنية صارمة لضمان سير أعمالكم دون تأخير.</p></div></div>
+</div>
+<div class="globe-visual">
+<canvas id="whyCanvas"></canvas>
+<div class="globe-center">
+<div class="num">150+</div>
+<div class="txt lang-text" data-ar="وجهة حول العالم" data-en="Global Destinations">وجهة حول العالم</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Partners -->
+<section class="partners">
+<h3 class="lang-text" data-ar="شركاء النجاح" data-en="Partners of Success">شركاء النجاح</h3>
+<div class="marquee">
+<div class="marquee-inner">
+<div class="partner-item">LOGISTIC A</div>
+<div class="partner-item">GLOBAL-X</div>
+<div class="partner-item">SEA-CORE</div>
+<div class="partner-item">AIR-PORT</div>
+<div class="partner-item">FREIGHT-CO</div>
+<div class="partner-item">TRANS-LINK</div>
+<div class="partner-item">CARGO-NET</div>
+<div class="partner-item">LOGISTIC A</div>
+<div class="partner-item">GLOBAL-X</div>
+<div class="partner-item">SEA-CORE</div>
+<div class="partner-item">AIR-PORT</div>
+<div class="partner-item">FREIGHT-CO</div>
+<div class="partner-item">TRANS-LINK</div>
+<div class="partner-item">CARGO-NET</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="#" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_7/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تسجيل الدخول" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Login"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="../_7/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="scene.js"></script>
+<script src="animations.js"></script>
+<script>
+// Language Toggle
+function toggleLanguage() {
+    const html = document.documentElement;
+    const currentLang = html.getAttribute('lang') || 'ar';
+    const newLang = currentLang === 'ar' ? 'en' : 'ar';
+    const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+    
+    html.setAttribute('lang', newLang);
+    html.setAttribute('dir', newDir);
+    localStorage.setItem('preferredLang', newLang);
+    
+    document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+    
+    document.querySelectorAll('.lang-text').forEach(el => {
+        if(el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+            el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+        } else if (el.getAttribute(`data-${newLang}`)) {
+            el.innerHTML = el.getAttribute(`data-${newLang}`);
+        }
+    });
+    
+    // Fix icon alignment for LTR
+    document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+        if(newLang === 'en') {
+            if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                icon.parentElement.classList.remove('flex-row-reverse');
+                icon.parentElement.dataset.reversed = "true";
+            }
+        } else {
+            if (icon.parentElement.dataset.reversed === "true") {
+                icon.parentElement.classList.add('flex-row-reverse');
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Restore language
+    const saved = localStorage.getItem('preferredLang');
+    if (saved && saved === 'en') {
+        document.documentElement.setAttribute('lang', 'ar'); 
+        toggleLanguage();
+    }
+
+    // Init Three.js & GSAP
+    initScene();
+    initAnimations();
+
+    // Tracking
+    document.getElementById('trackBtn').addEventListener('click', () => {
+        const id = document.getElementById('trackingInput').value.trim();
+        if (id) window.location.href = '../_12/code.html?tracking_id=' + encodeURIComponent(id);
+    });
+    document.getElementById('trackingInput').addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+            const id = e.target.value.trim();
+            if (id) window.location.href = '../_12/code.html?tracking_id=' + encodeURIComponent(id);
+        }
+    });
+
+    initAssistant3D();
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+});
+</script>
+<!-- Floating AI Assistant Button -->
+<button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#d4af37] to-[#ecc165] text-[#060d1e] shadow-[0_8px_30px_rgba(212,175,55,0.4)] border border-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300">
+  <span class="material-symbols-outlined text-2xl font-bold">support_agent</span>
+  <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#060d1e] animate-pulse"></span>
+</button>
+
+<!-- AI Assistant Chat Panel -->
+<div id="ai-chat-panel" class="fixed bottom-24 z-[999] w-[380px] h-[520px] rounded-2xl industrial-shadow flex flex-col opacity-0 translate-y-10 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+  <div class="flex items-center justify-between px-4 py-3 border-b border-[#d4af37]/20 bg-gradient-to-r from-[#060d1e]/90 to-[#0b1b3d]/90 rounded-t-2xl">
+    <div class="flex items-center gap-3">
+      <div class="relative w-12 h-12 bg-[#060d1e] border border-[#d4af37]/30 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+        <canvas id="assistant3DCanvas" class="w-full h-full"></canvas>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-[#d4af37] lang-text" data-ar="المساعد الذكي الموحد" data-en="Smart AI Assistant">المساعد الذكي الموحد</h4>
+        <span class="text-[10px] text-green-400 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping"></span>
+          <span class="lang-text" data-ar="متصل ونشط" data-en="Online & Active">متصل ونشط</span>
+        </span>
+      </div>
+    </div>
+    <button id="close-ai-chat" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+      <span class="material-symbols-outlined text-lg">close</span>
+    </button>
+  </div>
+
+  <div id="ai-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/40 backdrop-blur-md">
+    <div class="flex gap-2.5 items-start">
+      <div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>
+      <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]">
+        <p class="lang-text" data-ar="مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟" data-en="Welcome to Sudanil Integrated Logistics Portal. I am your intelligent assistant. I can help you track shipments, calculate customs clearances, check warehouse capacities, and facilitate all your operations. How can I assist you today?">مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟</p>
+        <div class="mt-2.5 flex flex-wrap gap-1.5">
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="أين شحنتي #SN-TRK-908125؟" data-en="Where is my shipment #SN-TRK-908125?">أين شحنتي #SN-TRK-908125؟</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حساب تكلفة الجمارك" data-en="Calculate customs fees">حساب تكلفة الجمارك</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حالة مستودع الخرطوم" data-en="Khartoum Warehouse status">حالة مستودع الخرطوم</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="ai-chat-form" class="p-3 border-t border-[#d4af37]/20 bg-[#060d1e]/90 flex gap-2 rounded-b-2xl">
+    <input id="ai-user-input" type="text" autocomplete="off" placeholder="اكتب استفسارك هنا..." class="flex-1 bg-slate-900/60 border border-slate-700/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all" data-ar-placeholder="اكتب استفسارك هنا..." data-en-placeholder="Type your inquiry here...">
+    <button type="submit" class="w-9 h-9 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center text-[#060d1e] hover:scale-105 active:scale-95 transition-all shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+      <span class="material-symbols-outlined text-lg font-bold">send</span>
+    </button>
+  </form>
+</div>
+
+<style>
+  html[dir="rtl"] #ai-assistant-btn { left: 24px; right: auto; }
+  html[dir="ltr"] #ai-assistant-btn { right: 24px; left: auto; }
+  html[dir="rtl"] #ai-chat-panel { left: 24px; right: auto; }
+  html[dir="ltr"] #ai-chat-panel { right: 24px; left: auto; }
+</style>
+
+<script>
+  let assistant3DScene, assistant3DCamera, assistant3DRenderer, assistant3DOrb, assistant3DCore;
+  let aiThinkingState = false;
+
+  function initAssistant3D() {
+      const canvas = document.getElementById('assistant3DCanvas');
+      if (!canvas) return;
+      
+      assistant3DScene = new THREE.Scene();
+      assistant3DCamera = new THREE.PerspectiveCamera(50, 1, 0.1, 10);
+      assistant3DCamera.position.z = 3.5;
+      
+      try {
+          assistant3DRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      } catch (e) {
+          canvas.style.display = 'none';
+          return;
+      }
+      
+      assistant3DRenderer.setSize(48, 48);
+      assistant3DRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      
+      const geo = new THREE.IcosahedronGeometry(1.2, 2);
+      const mat = new THREE.MeshBasicMaterial({
+          color: 0xd4af37,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.65
+      });
+      assistant3DOrb = new THREE.Mesh(geo, mat);
+      assistant3DScene.add(assistant3DOrb);
+      
+      const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
+      const coreMat = new THREE.PointsMaterial({
+          color: 0x6e8799,
+          size: 0.08,
+          transparent: true,
+          opacity: 0.85
+      });
+      assistant3DCore = new THREE.Points(coreGeo, coreMat);
+      assistant3DScene.add(assistant3DCore);
+      
+      function animateAssistant() {
+          requestAnimationFrame(animateAssistant);
+          
+          const speedFactor = aiThinkingState ? 5 : 1;
+          assistant3DOrb.rotation.y += 0.015 * speedFactor;
+          assistant3DOrb.rotation.z += 0.005 * speedFactor;
+          assistant3DCore.rotation.x -= 0.01 * speedFactor;
+          
+          if (aiThinkingState) {
+              const scale = 1.0 + Math.sin(Date.now() * 0.012) * 0.12;
+              assistant3DOrb.scale.setScalar(scale);
+              assistant3DCore.scale.setScalar(scale * 0.8);
+          } else {
+              assistant3DOrb.scale.setScalar(1.0);
+              assistant3DCore.scale.setScalar(1.0);
+          }
+          
+          assistant3DRenderer.render(assistant3DScene, assistant3DCamera);
+      }
+      animateAssistant();
+  }
+
+  // Toggle Panel
+  const aiBtn = document.getElementById('ai-assistant-btn');
+  const aiPanel = document.getElementById('ai-chat-panel');
+  const aiClose = document.getElementById('close-ai-chat');
+  const aiForm = document.getElementById('ai-chat-form');
+  const aiInput = document.getElementById('ai-user-input');
+  const aiMessages = document.getElementById('ai-messages');
+
+  if (aiBtn && aiPanel && aiClose) {
+      aiBtn.addEventListener('click', () => {
+          aiPanel.classList.toggle('opacity-0');
+          aiPanel.classList.toggle('translate-y-10');
+          aiPanel.classList.toggle('pointer-events-none');
+          const badge = aiBtn.querySelector('.animate-pulse');
+          if (badge) badge.classList.add('hidden');
+      });
+      
+      aiClose.addEventListener('click', () => {
+          aiPanel.classList.add('opacity-0');
+          aiPanel.classList.add('translate-y-10');
+          aiPanel.classList.add('pointer-events-none');
+      });
+  }
+
+  if (aiForm) {
+      aiForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const text = aiInput.value.trim();
+          if (!text) return;
+          
+          aiInput.value = '';
+          appendMessage(text, true);
+          processAIResponse(text);
+      });
+  }
+
+  function appendMessage(text, isUser) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex gap-2.5 items-start ' + (isUser ? 'justify-end' : '');
+      
+      const avatarHTML = isUser 
+          ? `<div class="w-8 h-8 rounded-lg bg-[#0b1b3d] border border-slate-700 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs">U</div>`
+          : `<div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>`;
+          
+      const bubbleClass = isUser
+          ? 'bg-gradient-to-br from-[#d4af37]/20 to-[#ecc165]/10 border border-[#d4af37]/20 p-3 rounded-2xl rounded-tl-none text-xs text-white leading-relaxed max-w-[80%]'
+          : 'bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]';
+          
+      msgDiv.innerHTML = isUser 
+          ? `<div class="${bubbleClass}">${text}</div>${avatarHTML}`
+          : `${avatarHTML}<div class="${bubbleClass}">${text}</div>`;
+          
+      aiMessages.appendChild(msgDiv);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+  }
+
+  function sendQuickReply(btn) {
+      const text = btn.innerText;
+      appendMessage(text, true);
+      processAIResponse(text);
+  }
+
+  function processAIResponse(query) {
+      aiThinkingState = true;
+      
+      const loaderDiv = document.createElement('div');
+      loaderDiv.className = 'flex gap-2.5 items-start temp-loader';
+      loaderDiv.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center flex-shrink-0 text-[#060d1e] font-bold text-sm">SL</div>
+          <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-400 leading-relaxed flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 0ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 150ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 300ms"></span>
+          </div>
+      `;
+      aiMessages.appendChild(loaderDiv);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+      
+      const isArabic = document.documentElement.getAttribute('lang') === 'ar';
+      
+      setTimeout(() => {
+          const loader = aiMessages.querySelector('.temp-loader');
+          if (loader) loader.remove();
+          
+          aiThinkingState = false;
+          
+          let response = '';
+          const q = query.toLowerCase();
+          
+          if (q.includes('trk') || q.includes('شحن') || q.includes('908125')) {
+              response = isArabic
+                  ? 'تم الاستعلام في سجلات Odoo لتقصي الشحنة **#SN-TRK-908125**: الشحنة في طريقها حالياً (ترانزيت) إلى **الخرطوم - مستودع الشمال** بنسبة تقدم **45%**. متوقع وصولها وجاهزيتها للاستلام خلال 48 ساعة.'
+                  : 'Queried Odoo records for shipment **#SN-TRK-908125**: It is currently **In Transit** to **Khartoum - North Terminal** with a progress of **45%**. Expected delivery within 48 hours.';
+          } else if (q.includes('جمارك') || q.includes('custom') || q.includes('fee') || q.includes('تكلفة')) {
+              response = isArabic
+                  ? 'بناءً على نظام التخليص الجمركي المدمج لدينا، تبلغ الرسوم الجمركية المبدئية للبضائع القياسية 5% من القيمة الإجمالية المصرح عنها للسلعة، بالإضافة إلى 10% ضريبة القيمة المضافة. يمكنك استخدام حاسبة الجمارك التفاعلية من لوحة التحكم للتفاصيل الدقيقة.'
+                  : 'Based on our integrated customs system, basic customs clearance fees are calculated at 5% of the total declared value + 10% VAT. You can use the Interactive Customs Calculator in the dashboard for exact declarations.';
+          } else if (q.includes('خرطوم') || q.includes('مستودع') || q.includes('warehouse') || q.includes('stock')) {
+              response = isArabic
+                  ? 'مؤشرات المزامنة الحالية مع Odoo تشير إلى أن **مستودع الخرطوم** ممتلئ بنسبة **94%** (المساحة المستخدمة 4,700 م²). ننصح بحجز سعة شحنك في **مستودع مدني** المتوفر بسعة ممتازة (معدل إشغال 48% فقط).'
+                  : 'Odoo sync indicates **Khartoum Terminal** occupancy is currently at **94%** (4,700 m² filled). We highly recommend reserving capacity in **Madani Terminal** which has excellent availability (only 48% occupied).';
+          } else {
+              response = isArabic
+                  ? 'مرحباً بك! أنا مساعد سودانيل اللوجستي الموحد. يمكنني مساعدتك في تتبع شحناتك، حساب رسوم التخليص الجمركي المبدئية، أو الاستفسار عن مخزونات المستودعات المزامنة مع Odoo. كيف يمكنني خدمتك اليوم؟'
+                  : 'Hello! I am the Sudanil Unified Logistics Assistant. I can assist you with real-time shipment tracking, initial customs clearance estimates, or checking warehouse capacities synced with Odoo. How can I help you today?';
+          }
+          
+          appendMessage(response, false);
+      }, 1200);
+  }
+
+  // --- Premium Dark Mode Toggle Logic for Homepage ---
+  window.toggleTheme = function() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      if (body.classList.contains('dark-mode')) {
+          body.classList.remove('dark-mode');
+          if (icon) icon.textContent = 'dark_mode';
+          localStorage.setItem('sudanil_theme', 'light');
+      } else {
+          body.classList.add('dark-mode');
+          if (icon) icon.textContent = 'light_mode';
+          localStorage.setItem('sudanil_theme', 'dark');
+      }
+  };
+
+  // Restore saved theme preference immediately
+  const savedTheme = localStorage.getItem('sudanil_theme');
+  if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = 'light_mode';
+  }
+</script>
+
+<!-- Floating WhatsApp Widget -->
+<a href="https://wa.me/966543389314" target="_blank" id="whatsapp-chat-btn" class="fixed bottom-6 z-[998] w-14 h-14 rounded-full flex items-center justify-center bg-[#25D366] text-white shadow-[0_8px_30px_rgba(37,211,102,0.4)] border border-[#1ebd5a] hover:scale-110 active:scale-95 transition-all duration-300">
+  <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+    <path d="M12.031 0C5.405 0 .015 5.39 .015 12.015c0 2.115.548 4.17 1.583 5.986L.01 24l6.155-1.614a11.94 11.94 0 0 0 5.866 1.527h.005c6.626 0 12.015-5.39 12.015-12.015C24.051 5.39 18.662 0 12.031 0zm0 21.916c-1.782 0-3.535-.48-5.074-1.39l-.364-.216-3.766.988.998-3.673-.238-.378a9.98 9.98 0 0 1-1.528-5.234c0-5.522 4.492-10.015 10.015-10.015 5.522 0 10.015 4.493 10.015 10.015 0 5.522-4.493 10.015-10.015 10.015zM17.525 14.4c-.302-.152-1.788-.882-2.064-.982-.275-.1-.475-.152-.676.152-.2.302-.782.982-.958 1.182-.175.2-.35.226-.652.076-1.554-.78-2.673-1.616-3.682-3.32-.202-.34.202-.315.495-.904.075-.152.037-.286-.02-.438-.057-.152-.676-1.636-.926-2.242-.243-.59-.49-.51-.676-.52-.175-.01-.375-.01-.575-.01-.2 0-.526.076-.8.378-.275.302-1.05 1.026-1.05 2.5 0 1.474 1.075 2.9 1.226 3.1.152.202 2.115 3.226 5.12 4.526 1.83.792 2.502.852 3.427.712.924-.14 2.18-.89 2.484-1.752.304-.862.304-1.602.213-1.752-.09-.152-.34-.243-.642-.394z"/>
+  </svg>
+  <span class="absolute inset-0 rounded-full border-2 border-[#25D366] animate-pulse opacity-50 scale-[1.2]"></span>
+</a>
+<style>
+  html[dir="rtl"] #whatsapp-chat-btn { left: 96px; right: auto; }
+  html[dir="ltr"] #whatsapp-chat-btn { right: 96px; left: auto; }
+</style>
+
+<script src="../translations.js"></script>
+</body>
+</html>

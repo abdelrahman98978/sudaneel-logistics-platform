@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sudanil Logistic - لوحة التحكم</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Noto+Sans+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#6e8799",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1a1c1c",
+                    "secondary": "#795900",
+                    "surface-bright": "#f9f9f9",
+                    "surface-variant": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "tertiary": "#010101",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary-fixed": "#e2e2e2",
+                    "inverse-primary": "#b0cade",
+                    "surface": "#f9f9f9",
+                    "primary": "#000000",
+                    "on-secondary-container": "#785800",
+                    "primary-fixed": "#cce6fb",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "inverse-surface": "#2f3131",
+                    "primary-container": "#021e2d",
+                    "surface-container": "#eeeeee",
+                    "background": "#f9f9f9",
+                    "on-primary-fixed": "#021e2d",
+                    "on-surface-variant": "#42474c",
+                    "on-background": "#1a1c1c",
+                    "primary-fixed-dim": "#b0cade",
+                    "secondary-fixed": "#ffdfa0",
+                    "secondary-container": "#fdcb5b",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-dim": "#dadada",
+                    "on-primary-fixed-variant": "#314a5a",
+                    "secondary-fixed-dim": "#ecc165",
+                    "outline-variant": "#c3c7cc",
+                    "on-secondary-fixed": "#261a00",
+                    "surface-tint": "#496173",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#1c1c1c",
+                    "outline": "#73787c",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-low": "#f3f3f3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "max-width": "1280px",
+                    "section-gap": "80px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-md": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "headline-xl": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "body-md": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "body-lg": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "headline-md": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "headline-lg-mobile": ["Noto Sans Arabic", "Be Vietnam Pro"],
+                    "headline-lg": ["Noto Sans Arabic", "Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans Arabic', 'Be Vietnam Pro', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-shadow {
+            box-shadow: 4px 0 24px rgba(0, 27, 42, 0.08);
+        }
+        .industrial-shadow {
+            box-shadow: 0 8px 30px rgba(0, 27, 42, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant shadow-sm h-16 flex justify-between items-center px-margin-desktop max-w-max-width mx-auto left-0 right-0">
+<div class="flex items-center gap-8">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Solutions</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Fleet</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Network</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1 transition-transform active:scale-90">Client Portal</button>
+<div class="md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed right-0 top-0 h-full w-64 bg-primary-container z-40 sidebar-shadow hidden md:flex flex-col p-4 gap-2">
+<div class="mt-20 mb-8 px-2">
+<div class="mb-2"><img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/></div>
+<p class="text-on-primary-container text-xs opacity-70">Enterprise Logistics</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200 hover:translate-x-[-4px]" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Shipments</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200 hover:translate-x-[-4px]" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200 hover:translate-x-[-4px]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200 hover:translate-x-[-4px]" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-white/10">
+<button class="w-full mb-4 bg-secondary-container text-on-secondary-container py-3 rounded-lg font-bold active:scale-95 transition-transform flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+                New Shipment
+            </button>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 pr-0 md:pr-64 min-h-screen">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">أهلاً بك، شركة النيل العالمية</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">نظرة شاملة على عملياتك اللوجستية لهذا اليوم.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-3 bg-primary-container text-white rounded-lg industrial-shadow transition-transform hover:-translate-y-1 active:scale-95">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-label-md">رفع الشحنات بالجملة</span>
+</button>
+</div>
+</div>
+<!-- Analytics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-section-gap">
+<!-- Active Shipments Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-fixed rounded-lg text-secondary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="text-success text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12%
+                        </span>
+</div>
+<h3 class="font-label-md text-on-surface-variant">الشحنات النشطة</h3>
+<p class="font-headline-xl text-headline-xl text-primary mt-1">1,284</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">42 شحنة قيد التوصيل الآن</p>
+</div>
+<!-- Inventory Volume Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-fixed rounded-lg text-secondary">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+<span class="text-on-surface-variant text-sm font-bold">85% سعة</span>
+</div>
+<h3 class="font-label-md text-on-surface-variant">حجم المخزون</h3>
+<p class="font-headline-xl text-headline-xl text-primary mt-1">8,420 <span class="text-xl font-normal">وحدة</span></p>
+<div class="w-full bg-surface-container h-2 rounded-full mt-4">
+<div class="bg-secondary h-full rounded-full w-[85%]"></div>
+</div>
+</div>
+<!-- Monthly Spend Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant industrial-shadow transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-fixed rounded-lg text-secondary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-error text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +5.4%
+                        </span>
+</div>
+<h3 class="font-label-md text-on-surface-variant">الإنفاق الشهري</h3>
+<p class="font-headline-xl text-headline-xl text-primary mt-1">$42.8k</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">توقعات الإنفاق: $50k</p>
+</div>
+</div>
+<!-- Secondary Layout: Bento Grid for Warehouse and Account Manager -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-section-gap">
+<!-- Warehouse Management Overview -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl border border-outline-variant industrial-shadow overflow-hidden group">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">نظرة عامة على المستودعات</h3>
+<button class="text-secondary font-label-md flex items-center gap-1 hover:underline">
+                            عرض التفاصيل
+                            <span class="material-symbols-outlined rotate-180">arrow_forward</span>
+</button>
+</div>
+<div class="relative h-[300px] w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 mix-blend-multiply group-hover:scale-105 transition-transform duration-700" data-alt="A vast, high-tech automated warehouse seen from an aerial perspective. The lighting is cool and professional, with blue and amber accents reflecting off polished concrete floors. Thousands of organized shelving units stretch into the distance, with robotic arms and conveyor belts creating a scene of futuristic industrial efficiency. The atmosphere is clean, structured, and evokes corporate reliability and massive scale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEfrpR2zcdj6d1g8eU3KstABAd85bpb8tKchpMHeSte2DmmcBPkUsIh16ko4B4Ha-tqX4llRSGbPGmTBFKwfuocJtDC0ODJ4vYgWfjnWe9-vvyZNDqTY7a8BnzduaVwkJkgY25oknYyo-OBcA8Gm_lSBvhAyn6FkRYh5hyVd3_GKMrkgKfH6RyaeU26XXcqS4-sUuViN3xV4NXBYDSPwoOTOShmYjmOF2nJaZNFkqPgWkewvf0u0eEdgbBixH76j3_7I4x2gdEfQc"/>
+<div class="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-primary-container/80 to-transparent">
+<div class="grid grid-cols-3 gap-4 text-white">
+<div>
+<p class="text-xs opacity-80">الخرطوم شمال</p>
+<p class="font-bold text-lg">92% مشغول</p>
+</div>
+<div>
+<p class="text-xs opacity-80">بورتسودان</p>
+<p class="font-bold text-lg">64% مشغول</p>
+</div>
+<div>
+<p class="text-xs opacity-80">مدني</p>
+<p class="font-bold text-lg">45% مشغول</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Account Manager & Support -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Manager Card -->
+<div class="bg-primary-container text-on-primary p-6 rounded-xl industrial-shadow flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full border-4 border-secondary-container mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional male corporate executive portrait in a modern glass office setting. The individual is wearing a sharp charcoal suit with a friendly and confident expression. The lighting is soft and natural, emphasizing trust and executive presence. The background is slightly blurred, showing a high-end office interior with warm wooden accents and professional corporate decor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC1dqINOSMk1gUNU0yIVNSrO_mu9Lk4VCAmLB4IG9Hz6HqNoM0afQ6IcIISyoOVK3IEwvDkgBVuT3-b-yFNWp8SISrV5xNDVcLhyYZwYr4bzsjNhn9NKHpKTzSLsnoBwKvh_KPd4lEDWGysJHDAxkWjFc8RFX2QosIDhhAM_kuyYqkPTCDdGDY-l0TGy-RfAhVrO89c6Xr1LySllkaIdytj1wYGE-huYdmaUKgdFcK9d6NGLFUl1AG29l7l5KY6qkZWsbvSWCkGqc"/>
+</div>
+<h4 class="font-headline-md text-on-primary">أحمد كمال</h4>
+<p class="text-on-primary-container text-sm mb-4">مدير الحساب المخصص</p>
+<div class="w-full flex flex-col gap-2">
+<button class="w-full py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:bg-secondary-fixed transition-colors">
+                                تواصل الآن
+                            </button>
+<button class="w-full py-2 border border-white/20 rounded-lg hover:bg-white/10 transition-colors">
+                                حجز اجتماع
+                            </button>
+</div>
+</div>
+<!-- Notification Area -->
+<div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant flex-grow">
+<h4 class="font-label-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+                            تنبيهات هامة
+                        </h4>
+<ul class="space-y-3">
+<li class="text-sm p-3 bg-white rounded-lg border-r-4 border-secondary shadow-sm">
+<p class="font-bold">تحديث الشحنة #4920</p>
+<p class="text-xs text-on-surface-variant">وصلت إلى ميناء بورتسودان</p>
+</li>
+<li class="text-sm p-3 bg-white rounded-lg border-r-4 border-outline-variant">
+<p class="font-bold">تذكير بالفاتورة</p>
+<p class="text-xs text-on-surface-variant">تستحق غداً: $1,240</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Recent Shipments Table -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant industrial-shadow overflow-hidden mb-section-gap">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">آخر الشحنات</h3>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
+<input class="pr-10 pl-4 py-2 bg-surface-container border-none rounded-lg text-sm w-64 focus:ring-2 focus:ring-secondary" placeholder="بحث عن شحنة..." type="text"/>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-right border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md border-b border-outline-variant">
+<th class="p-4">رقم الشحنة</th>
+<th class="p-4">الوجهة</th>
+<th class="p-4">الحالة</th>
+<th class="p-4">تاريخ الوصول المتوقع</th>
+<th class="p-4">الإجراءات</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">#SD-9021</td>
+<td class="p-4">الخرطوم - المنطقة الصناعية</td>
+<td class="p-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold">قيد التوصيل</span>
+</td>
+<td class="p-4">12 نوفمبر، 2024</td>
+<td class="p-4">
+<button class="text-primary hover:text-secondary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">#SD-8845</td>
+<td class="p-4">دبي - جبل علي</td>
+<td class="p-4">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant text-xs rounded-full font-bold">في المستودع</span>
+</td>
+<td class="p-4">15 نوفمبر، 2024</td>
+<td class="p-4">
+<button class="text-primary hover:text-secondary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">#SD-7712</td>
+<td class="p-4">القاهرة - مدينة نصر</td>
+<td class="p-4">
+<span class="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-bold">تم التسليم</span>
+</td>
+<td class="p-4">08 نوفمبر، 2024</td>
+<td class="p-4">
+<button class="text-primary hover:text-secondary"><span class="material-symbols-outlined">visibility</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 text-center border-t border-outline-variant bg-surface-container-low">
+<button class="text-secondary font-label-md hover:underline">مشاهدة جميع الشحنات</button>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container-high">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop gap-gutter w-full max-w-max-width mx-auto">
+<div class="flex flex-col items-center md:items-start">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">© 2024 Sudanil Logistic. All rights reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Global Compliance</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

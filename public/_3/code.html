@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>تواصل معنا | سودانيل لوجيستك</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Alexandria', 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .logistic-shadow {
+            box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.08), 0 4px 10px -3px rgba(11, 27, 61, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .logistic-depth { 
+            box-shadow: 0 12px 35px -8px rgba(11, 27, 61, 0.06), 0 4px 12px -3px rgba(11, 27, 61, 0.03); 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+        }
+        .logistic-depth-hover { 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .logistic-depth-hover:hover { 
+            transform: translateY(-6px); 
+            box-shadow: 0 25px 45px -10px rgba(11, 27, 61, 0.12), 0 12px 18px -5px rgba(11, 27, 61, 0.04); 
+            border-color: #d4af37; 
+        }
+        .bg-gradient-navy { background: linear-gradient(145deg, #0b1b3d 0%, #1a365d 100%); }
+        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.92) 0%, rgba(26,54,93,0.7) 60%, rgba(212,175,55,0.3) 100%); }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            background-size: 200% auto;
+        }
+        @keyframes shimmer { to { background-position: -200% center; } }
+        
+        /* Bulletproof Bilingual Input Styling with Material Icons */
+        .input-group {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            transition: color 0.3s ease;
+            pointer-events: none;
+        }
+        .input-field {
+            width: 100%;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .input-field:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+        .input-field:focus + .input-icon {
+            color: #d4af37;
+        }
+        
+        .textarea-group {
+            position: relative;
+        }
+        .textarea-icon {
+            position: absolute;
+            top: 18px;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+            pointer-events: none;
+        }
+        .textarea-field {
+            width: 100%;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .textarea-field:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+        .textarea-field:focus + .textarea-icon {
+            color: #d4af37;
+        }
+
+        html[dir="rtl"] .input-icon { right: 16px; left: auto; }
+        html[dir="rtl"] .input-field { padding-right: 48px; padding-left: 16px; }
+        html[dir="ltr"] .input-icon { left: 16px; right: auto; }
+        html[dir="ltr"] .input-field { padding-left: 48px; padding-right: 16px; }
+
+        html[dir="rtl"] .textarea-icon { right: 16px; left: auto; }
+        html[dir="rtl"] .textarea-field { padding-right: 48px; padding-left: 16px; }
+        html[dir="ltr"] .textarea-icon { left: 16px; right: auto; }
+        html[dir="ltr"] .textarea-field { padding-left: 48px; padding-right: 16px; }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "100px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container selection:text-primary">
+
+<!-- Top Navigation Bar -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all">
+    <div class="flex items-center gap-10">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-6 items-center text-sm">
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_7/code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200">
+            <span class="material-symbols-outlined text-lg">language</span>
+            <span id="langToggleText" class="text-xs">EN</span>
+        </button>
+        <a href="../_21/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            تسجيل الدخول
+        </a>
+    </div>
+</header>
+
+<main class="pt-24">
+    <!-- Cinematic Hero Section -->
+    <section class="relative h-[420px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img alt="Logistics Background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80"/>
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 px-margin-desktop w-full text-white" data-aos="fade-up" data-aos-duration="1000">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-5 py-2 rounded-full mb-6">
+                    <span class="w-2 h-2 bg-secondary-container rounded-full animate-pulse"></span>
+                    <span class="lang-text" data-ar="دعم متكامل على مدار الساعة" data-en="24/7 Premium Logistics Support">دعم متكامل على مدار الساعة</span>
+                </span>
+                <h1 class="lang-text text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight" data-ar="نحن هنا لخدمتك <span class='text-gradient-gold'>دائماً</span>" data-en="We are here to serve you <span class='text-gradient-gold'>Always</span>">نحن هنا لخدمتك <span class="text-gradient-gold">دائماً</span></h1>
+                <p class="lang-text text-lg text-white/95 max-w-xl leading-relaxed" data-ar="تواصل مع خبراء اللوجستيك لدينا للحصول على حلول مخصصة تدعم نمو أعمالك وتضمن وصول شحناتك بأمان واحترافية." data-en="Connect with our logistics experts to get customized solutions that support your business growth and ensure your shipments arrive safely and professionally.">تواصل مع خبراء اللوجستيك لدينا للحصول على حلول مخصصة تدعم نمو أعمالك وتضمن وصول شحناتك بأمان واحترافية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Contact Grid -->
+    <section class="px-margin-desktop py-section-gap max-w-max-width mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            
+            <!-- Contact Form Card -->
+            <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden flex flex-col justify-between">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="w-1.5 h-7 bg-secondary rounded-full"></span>
+                        <h2 class="lang-text text-2xl font-bold text-primary" data-ar="أرسل لنا رسالة" data-en="Send Us a Message">أرسل لنا رسالة</h2>
+                    </div>
+                    
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="space-y-2">
+                                <label class="lang-text text-sm font-semibold text-slate-700 block" data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
+                                <div class="input-group">
+                                    <input required class="input-field lang-text" data-ar="أدخل اسمك الكامل" data-en="Enter your full name" placeholder="أدخل اسمك الكامل" type="text" id="formName"/>
+                                    <span class="material-symbols-outlined input-icon">person</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label class="lang-text text-sm font-semibold text-slate-700 block" data-ar="البريد الإلكتروني" data-en="Email Address">البريد الإلكتروني</label>
+                                <div class="input-group">
+                                    <input required class="input-field" placeholder="example@domain.com" type="email" id="formEmail"/>
+                                    <span class="material-symbols-outlined input-icon">mail</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Phone -->
+                            <div class="space-y-2">
+                                <label class="lang-text text-sm font-semibold text-slate-700 block" data-ar="رقم الهاتف" data-en="Phone Number">رقم الهاتف</label>
+                                <div class="input-group">
+                                    <input required class="input-field" placeholder="+249 9X XXX XXX" type="tel" id="formPhone"/>
+                                    <span class="material-symbols-outlined input-icon">call</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Subject -->
+                            <div class="space-y-2">
+                                <label class="lang-text text-sm font-semibold text-slate-700 block" data-ar="الموضوع" data-en="Subject">الموضوع</label>
+                                <div class="input-group">
+                                    <select required class="input-field text-slate-700" id="formSubject">
+                                        <option class="lang-text" value="general" data-ar="استفسار عام" data-en="General Inquiry">استفسار عام</option>
+                                        <option class="lang-text" value="quote" data-ar="طلب عرض سعر" data-en="Request a Quote">طلب عرض سعر</option>
+                                        <option class="lang-text" value="tracking" data-ar="تتبع شحنة" data-en="Shipment Tracking">تتبع شحنة</option>
+                                        <option class="lang-text" value="complaints" data-ar="شكاوى واقتراحات" data-en="Suggestions & Complaints">شكاوى واقتراحات</option>
+                                    </select>
+                                    <span class="material-symbols-outlined input-icon">subject</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="space-y-2">
+                            <label class="lang-text text-sm font-semibold text-slate-700 block" data-ar="رسالتك" data-en="Your Message">رسالتك</label>
+                            <div class="textarea-group">
+                                <textarea required class="textarea-field lang-text" data-ar="كيف يمكننا مساعدتك اليوم؟" data-en="How can we help you today?" placeholder="كيف يمكننا مساعدتك اليوم؟" rows="5" id="formMessage"></textarea>
+                                <span class="material-symbols-outlined textarea-icon">chat</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button class="lang-text w-full md:w-auto px-10 py-4 bg-gradient-to-r from-secondary to-secondary-light hover:from-secondary-light hover:to-secondary text-primary-container font-extrabold rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300 flex items-center justify-center gap-2" type="submit" data-ar="إرسال الرسالة" data-en="Send Message">
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Contact Info Side & Hours -->
+            <div class="lg:col-span-5 space-y-gutter">
+                <!-- Phone & Email Container -->
+                <div class="bg-primary-container text-white p-8 rounded-2xl border border-white/5 relative overflow-hidden group shadow-lg">
+                    <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
+                        <span class="material-symbols-outlined text-[160px]">headset_mic</span>
+                    </div>
+                    
+                    <h3 class="lang-text font-headline text-lg font-bold mb-6 flex items-center gap-3" data-ar="بيانات التواصل المباشر" data-en="Direct Contact Information">
+                        <span class="material-symbols-outlined text-secondary">support_agent</span>
+                        بيانات التواصل المباشر
+                    </h3>
+                    
+                    <div class="space-y-6 relative z-10">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-secondary">call</span>
+                            </div>
+                            <div>
+                                <p class="lang-text text-xs font-semibold text-slate-400 mb-1" data-ar="أرقام الهاتف" data-en="Phone Numbers">أرقام الهاتف</p>
+                                <a href="tel:+249123456789" class="block font-bold text-base hover:text-secondary-container transition-colors" style="direction: ltr; text-align: right;">+249 123 456 789</a>
+                                <a href="tel:+249912345678" class="block font-bold text-base hover:text-secondary-container transition-colors" style="direction: ltr; text-align: right;">+249 912 345 678</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/10 p-3.5 rounded-xl border border-white/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-secondary">mail</span>
+                            </div>
+                            <div>
+                                <p class="lang-text text-xs font-semibold text-slate-400 mb-1" data-ar="البريد الإلكتروني" data-en="Email Addresses">البريد الإلكتروني</p>
+                                <a href="mailto:info@sudanil-logistic.com" class="block font-semibold hover:text-secondary-container transition-colors text-slate-200">info@sudanil-logistic.com</a>
+                                <a href="mailto:sales@sudanil-logistic.com" class="block font-semibold hover:text-secondary-container transition-colors text-slate-200">sales@sudanil-logistic.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-white/10 flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-300 text-white" title="LinkedIn">
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-300 text-white" title="Twitter/X">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-300 text-white" title="Facebook">
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-300 text-white" title="Instagram">
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Office Hours Card -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden">
+                    <h3 class="lang-text font-headline text-lg font-bold mb-6 text-primary flex items-center gap-2" data-ar="ساعات العمل الرسمية" data-en="Official Working Hours">
+                        <span class="material-symbols-outlined text-secondary">schedule</span>
+                        ساعات العمل الرسمية
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-2 border-b border-slate-100">
+                            <span class="lang-text text-sm font-semibold text-slate-600" data-ar="السبت - الخميس" data-en="Saturday - Thursday">السبت - الخميس</span>
+                            <span class="lang-text font-bold text-sm text-primary" data-ar="08:00 ص - 05:00 م" data-en="08:00 AM - 05:00 PM">08:00 ص - 05:00 م</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="lang-text text-sm font-semibold text-slate-500" data-ar="الجمعة" data-en="Friday">الجمعة</span>
+                            <span class="lang-text font-bold text-sm text-secondary bg-secondary/10 px-3 py-1 rounded-lg" data-ar="عطلة رسمية" data-en="Official Holiday">عطلة رسمية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branch Locations -->
+    <section class="px-margin-desktop py-section-gap bg-slate-50 border-t border-b border-slate-200/50">
+        <div class="max-w-max-width mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="lang-text font-headline text-3xl font-extrabold text-primary mb-4" data-ar="فروعنا ومنشآتنا الاستراتيجية" data-en="Our Strategic Branches & Facilities">فروعنا ومنشآتنا الاستراتيجية</h2>
+                <p class="lang-text text-slate-600 max-w-2xl mx-auto text-sm leading-relaxed" data-ar="ننتشر في المواقع الاستراتيجية الكبرى لنضمن تقديم أسرع الخدمات اللوجستية المتكاملة في جميع أنحاء السودان والإقليم." data-en="We operate in major strategic hubs to ensure fast, integrated logistics solutions throughout Sudan and the surrounding region.">ننتشر في المواقع الاستراتيجية الكبرى لنضمن تقديم أسرع الخدمات اللوجستية المتكاملة في جميع أنحاء السودان والإقليم.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <!-- Khartoum Branch -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm logistic-depth-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 relative overflow-hidden">
+                            <img alt="Khartoum Branch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"/>
+                            <div class="absolute top-4 left-4 bg-secondary text-primary-container text-[10px] font-bold tracking-wider px-3.5 py-1.5 rounded-full uppercase shadow">
+                                <span class="lang-text" data-ar="الفرع الرئيسي" data-en="Headquarters">الفرع الرئيسي</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h4 class="lang-text font-headline text-lg font-bold text-primary mb-3" data-ar="فرع الخرطوم" data-en="Khartoum Branch">فرع الخرطوم</h4>
+                            <p class="lang-text text-slate-500 text-sm leading-relaxed mb-6" data-ar="شارع المطار، مجمع الصناعات، مبنى سودانيل، الخرطوم - السودان." data-en="Airport Street, Industrial Zone, Sudanil Building, Khartoum - Sudan.">شارع المطار، مجمع الصناعات، مبنى سودانيل، الخرطوم - السودان.</p>
+                            <div class="flex items-center gap-2 text-secondary font-semibold text-sm">
+                                <span class="material-symbols-outlined text-lg">location_on</span>
+                                <a target="_blank" class="lang-text underline hover:text-secondary-fixed transition-colors" href="https://maps.google.com" data-ar="عرض على خرائط جوجل" data-en="View on Google Maps">عرض على خرائط جوجل</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-8 pb-8">
+                        <a href="tel:+249123456789" class="lang-text w-full py-3.5 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2 active:scale-95" data-ar="اتصال مباشر بالفرع" data-en="Direct Call to Branch">اتصال مباشر بالفرع</a>
+                    </div>
+                </div>
+
+                <!-- Port Sudan Branch -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm logistic-depth-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="h-52 relative overflow-hidden">
+                            <img alt="Port Sudan Branch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyIHaFDs_wiGmSjr8qij9rQw95BvR0DQyKDLte4_weRg3nwRotzVVaHXM2vEtI0LW83OC4nfx8_zY1kkJjrgiVrCclxLOMSH3Oy6M0ULCCZyZw8k62OgMKA8Y5qSzhAz3pxb4EdG-9SvUOvB-uu9qSTHAM85EXTnI2Sgpc98lJDOeN8whUrOdajeOvuk0hKM2LbkHkThHFEZt7GEMra_Tls63iF-0PJGTCfCqSucBkwH0skz7zkpD95M490P-Yi3_jfEDXuxo2aJ4"/>
+                            <div class="absolute top-4 left-4 bg-emerald-500 text-white text-[10px] font-bold tracking-wider px-3.5 py-1.5 rounded-full uppercase shadow">
+                                <span class="lang-text" data-ar="ميناء بحري" data-en="Seaport Branch">ميناء بحري</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h4 class="lang-text font-headline text-lg font-bold text-primary mb-3" data-ar="فرع بورتسودان" data-en="Port Sudan Branch">فرع بورتسودان</h4>
+                            <p class="lang-text text-slate-500 text-sm leading-relaxed mb-6" data-ar="منطقة الميناء الجنوبي، مربع 12، بورتسودان - البحر الأحمر." data-en="Southern Port Area, Block 12, Port Sudan - Red Sea State.">منطقة الميناء الجنوبي، مربع 12، بورتسودان - البحر الأحمر.</p>
+                            <div class="flex items-center gap-2 text-secondary font-semibold text-sm">
+                                <span class="material-symbols-outlined text-lg">location_on</span>
+                                <a target="_blank" class="lang-text underline hover:text-secondary-fixed transition-colors" href="https://maps.google.com" data-ar="عرض على خرائط جوجل" data-en="View on Google Maps">عرض على خرائط جوجل</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-8 pb-8">
+                        <a href="tel:+249912345678" class="lang-text w-full py-3.5 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2 active:scale-95" data-ar="اتصال مباشر بالفرع" data-en="Direct Call to Branch">اتصال مباشر بالفرع</a>
+                    </div>
+                </div>
+
+                <!-- Stylized Interactive Map Bento -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm flex flex-col justify-between relative group min-h-[380px]">
+                    <div class="absolute inset-0 z-0">
+                        <img alt="Map Texture" class="w-full h-full object-cover opacity-15 grayscale group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT3gTZuP2gjlMgOA22fFP6rGdT5XplJT_FOv4onz4nMgy9fZjuR4Sc1u2RQCGreRsZW68BQDUTyp4zR4JjaJcQDFGQKH9XPVDsr4dr3XRAQdPBgLDtYYhkAn82Xqz42jff9MOs8qDzd-y-DcBCn5g58XlrSdqMKwGV-lrZEWVv-Qb-es267aqigB33KMhTxv8o2xQ3V3K0rgG40vZ1Owh7_vws6I3n596iCsk3RfBUuFPInBK6JyeGLIY5RrdiHwq10p9o9jbg-UE"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+                    </div>
+                    
+                    <div class="p-8 relative z-10 flex flex-col justify-between h-full">
+                        <div>
+                            <div class="w-14 h-14 bg-secondary/15 rounded-2xl flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-3xl text-secondary">map</span>
+                            </div>
+                            <h4 class="lang-text font-headline text-lg font-bold text-primary mb-3" data-ar="خريطة التغطية الشاملة" data-en="Comprehensive Coverage Map">خريطة التغطية الشاملة</h4>
+                            <p class="lang-text text-slate-500 text-sm leading-relaxed mb-6" data-ar="استكشف شبكة طرقنا المتكاملة، مراكز التوزيع اللوجستي، ونقاط الشحن البري والجوي والبحري الموزعة في المنطقة." data-en="Explore our integrated road networks, warehousing hubs, and custom cargo transfer points distributed across the region.">استكشف شبكة طرقنا المتكاملة، مراكز التوزيع اللوجستي، ونقاط الشحن البري والجوي والبحري الموزعة في المنطقة.</p>
+                        </div>
+                        
+                        <div>
+                            <a target="_blank" href="https://maps.google.com" class="lang-text w-full py-4 bg-primary hover:bg-primary-light text-white font-bold rounded-xl shadow hover:shadow-lg active:scale-95 transition-all duration-300 flex items-center justify-center gap-2" data-ar="تصفح الخريطة التفاعلية" data-en="Browse Interactive Map">تصفح الخريطة التفاعلية</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Call to Action -->
+    <section class="px-margin-desktop py-20 bg-primary-container relative overflow-hidden text-white">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-secondary/5 skew-x-[-15deg] translate-x-1/3"></div>
+        <div class="relative z-10 max-w-max-width mx-auto flex flex-col md:flex-row items-center justify-between gap-gutter">
+            <div>
+                <h2 class="lang-text font-headline text-2xl md:text-3xl font-extrabold mb-2" data-ar="هل تبحث عن حلول شحن مخصصة؟" data-en="Looking for Custom Shipping Solutions?">هل تبحث عن حلول شحن مخصصة؟</h2>
+                <p class="lang-text opacity-80 text-sm md:text-base leading-relaxed" data-ar="فريق الخبراء لدينا جاهز لمساعدتك في تخطيط وتنفيذ وإدارة عملياتك اللوجستية بكفاءة عالية." data-en="Our team of dedicated experts is ready to help you plan, execute, and monitor your logistics chains with high efficiency.">فريق الخبراء لدينا جاهز لمساعدتك في تخطيط وتنفيذ وإدارة عملياتك اللوجستية بكفاءة عالية.</p>
+            </div>
+            <div class="flex flex-wrap gap-4 shrink-0">
+                <a href="#contactForm" class="lang-text px-8 py-4 bg-secondary text-primary-container font-extrabold rounded-xl shadow-lg active:scale-95 hover:bg-secondary-light transition-all duration-300" data-ar="تواصل معنا الآن" data-en="Contact Us Now">تواصل معنا الآن</a>
+                <a href="../_8/code.html" class="lang-text px-8 py-4 border-2 border-white/20 hover:border-white text-white font-extrabold rounded-xl hover:bg-white/10 transition-all duration-300 active:scale-95" data-ar="تصفح دليل الخدمات" data-en="View Services Guide">تصفح دليل الخدمات</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none outline-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_7/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links (Mapped to _7/ subpages) -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="../_7/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<!-- Glassmorphic Form Submission Success Modal -->
+<div id="successModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-primary-container/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full border border-slate-200 shadow-2xl transform scale-95 transition-all duration-300 relative text-center">
+        <div class="w-20 h-20 bg-secondary/15 text-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-4xl font-bold">check_circle</span>
+        </div>
+        <h3 class="lang-text text-2xl font-bold text-primary mb-3" data-ar="تم الإرسال بنجاح!" data-en="Message Sent Successfully!">تم الإرسال بنجاح!</h3>
+        <p class="lang-text text-slate-600 mb-6 text-sm leading-relaxed" data-ar="نشكرك على تواصلك معنا. ستقوم فرق الدعم والعمليات لدينا بمراجعة رسالتك والتواصل معك في أقرب وقت ممكن." data-en="Thank you for contacting us. Our operations and support teams will review your message and reach out to you shortly.">نشكرك على تواصلك معنا. ستقوم فرق الدعم والعمليات لدينا بمراجعة رسالتك والتواصل معك في أقرب وقت ممكن.</p>
+        <button onclick="closeSuccessModal()" class="lang-text w-full py-3.5 bg-primary hover:bg-primary-light text-white font-bold rounded-xl shadow-lg active:scale-95 transition-all duration-300" data-ar="إغلاق النافذة" data-en="Close Window">إغلاق النافذة</button>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Robust Language Toggle Engine supporting select options and textarea placeholders
+    function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute('lang') || 'ar';
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+        const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+        
+        html.setAttribute('lang', newLang);
+        html.setAttribute('dir', newDir);
+        localStorage.setItem('preferredLang', newLang);
+        
+        document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+        
+        document.querySelectorAll('.lang-text').forEach(el => {
+            const tagName = el.tagName.toLowerCase();
+            if((tagName === 'input' || tagName === 'textarea') && el.hasAttribute('placeholder')) {
+                el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+            } else {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            }
+        });
+        
+        // Handle icons parent alignment
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(newLang === 'en') {
+                if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                    icon.parentElement.classList.remove('flex-row-reverse');
+                    icon.parentElement.dataset.reversed = "true";
+                }
+            } else {
+                if (icon.parentElement.dataset.reversed === "true") {
+                    icon.parentElement.classList.add('flex-row-reverse');
+                }
+            }
+        });
+    }
+
+    // Dynamic Form Submission Handling
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        
+        // Display premium glassmorphic toast/modal
+        const modal = document.getElementById('successModal');
+        const modalContent = modal.querySelector('div');
+        
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modalContent.classList.remove('scale-95');
+        
+        // Reset the form values
+        document.getElementById('contactForm').reset();
+    }
+
+    function closeSuccessModal() {
+        const modal = document.getElementById('successModal');
+        const modalContent = modal.querySelector('div');
+        
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modalContent.classList.add('scale-95');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && savedLang === 'en') {
+            document.documentElement.setAttribute('lang', 'ar'); 
+            toggleLanguage();
+        }
+    });
+
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+    
+    // Sticky Header Scroll Styling
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { 
+        if (window.scrollY > 60) {
+            nav.classList.add('bg-white/95', 'shadow-md', 'h-20');
+            nav.classList.remove('bg-white/90', 'shadow-[0_4px_30px_rgba(0,0,0,0.03)]', 'h-24');
+        } else {
+            nav.classList.add('bg-white/90', 'shadow-[0_4px_30px_rgba(0,0,0,0.03)]', 'h-24');
+            nav.classList.remove('bg-white/95', 'shadow-md', 'h-20');
+        }
+    });
+</script>
+<script src="../translations.js"></script>
+</body>
+</html>

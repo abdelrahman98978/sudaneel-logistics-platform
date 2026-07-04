@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us - Sudanil Logistic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "primary-container": "#021e2d",
+                        "secondary-container": "#fdcb5b",
+                        "surface-container": "#eeeeee",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#6e8799",
+                        "secondary-fixed": "#ffdfa0",
+                        "surface-dim": "#dadada",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "primary-fixed": "#cce6fb",
+                        "inverse-surface": "#2f3131",
+                        "on-secondary": "#ffffff",
+                        "outline": "#73787c",
+                        "on-background": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c7cc",
+                        "surface-variant": "#e2e2e2",
+                        "secondary-fixed-dim": "#ecc165",
+                        "inverse-primary": "#b0cade",
+                        "background": "#f9f9f9",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary-container": "#735500",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary-fixed-dim": "#b0cade",
+                        "secondary": "#795900",
+                        "surface-tint": "#496173",
+                        "on-secondary-fixed": "#261a00",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#021e2d",
+                        "surface": "#f9f9f9",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-surface-variant": "#42474c",
+                        "on-primary-fixed-variant": "#314a5a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#848484",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#010101",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-low": "#f3f3f3",
+                        "tertiary-container": "#1c1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "max-width": "1280px",
+                        "section-gap": "80px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 27, 42, 0.08);
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 27, 42, 0.12);
+        }
+        .active-nav-border {
+            border-bottom: 2px solid #fdcb5b;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-20 bg-surface/95 backdrop-blur-md border-b border-outline-variant shadow-sm">
+<div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">
+            Sudanil Logistic
+        </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-headline-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Services</a>
+<a class="font-headline-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Tracking</a>
+<a class="font-headline-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Fleet</a>
+<a class="font-headline-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">About Us</a>
+<a class="font-headline-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Network</a>
+</div>
+<button class="bg-secondary-container text-on-secondary-container font-label-md text-label-md px-6 py-3 rounded-lg active:scale-95 transition-transform duration-200">
+            Request a Quote
+        </button>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[400px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A professional aerial view of a bustling container terminal at sunset, showing rows of colorful shipping containers and a large cargo ship being loaded. The lighting is warm and dramatic, reflecting the amber and navy tones of the Sudanil Logistic brand. The overall mood is one of industrial reliability and global connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7eyvX_fShmlJBIa7Ti0y0B02KombjiFgLJ7C-3bno5T1Xo_yZ5jBFC8zfgbI6V9XRBs8DGwRN-UC35Otwesr7_eOq5u-nKa6KwjhtRwljjjbFn57ZSLrXmKLA7KbqEiQqcJui6yaubJ8RSPF1HNj6ANL2eeaRewk9Hm9X3nnpQxxwB5d0zhTOISyNA-wVd8BYbK0j4AuLRsGuer2O9Gj62UuAIOypAWt0o0f4LBWURwhiMshzpwvccx_v7EV0oEdxBd1cVw48RUA"/>
+<div class="absolute inset-0 bg-primary-container/60 backdrop-blur-[2px]"></div>
+</div>
+<div class="relative z-10 max-w-max-width mx-auto px-margin-desktop w-full text-white">
+<span class="inline-block py-1 px-4 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-full mb-4">Support 24/7</span>
+<h1 class="font-headline-xl text-headline-xl mb-4">Contact Our Logistics Experts</h1>
+<p class="font-body-lg text-body-lg text-surface-container max-w-2xl">Sudanil Logistic is committed to precision in motion. Whether you're moving freight across borders or need warehousing solutions, we're here to assist.</p>
+</div>
+</section>
+<!-- Contact Content -->
+<section class="max-w-max-width mx-auto px-margin-desktop py-section-gap grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Contact Form -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-10 rounded-xl logistic-shadow border border-outline-variant">
+<div class="mb-10">
+<h2 class="font-headline-lg text-headline-lg text-primary-container mb-2">Send us a Message</h2>
+<p class="text-on-surface-variant">We typically respond within 2 business hours for urgent logistics inquiries.</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
+<input class="h-12 px-4 rounded-lg border border-outline-variant bg-surface focus:border-secondary-container focus:ring-2 focus:ring-secondary-container/20 transition-all outline-none" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Email Address</label>
+<input class="h-12 px-4 rounded-lg border border-outline-variant bg-surface focus:border-secondary-container focus:ring-2 focus:ring-secondary-container/20 transition-all outline-none" placeholder="j.doe@enterprise.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Service Interest</label>
+<select class="h-12 px-4 rounded-lg border border-outline-variant bg-surface focus:border-secondary-container focus:ring-2 focus:ring-secondary-container/20 transition-all outline-none appearance-none">
+<option>International Freight</option>
+<option>Warehousing &amp; Inventory</option>
+<option>Domestic Distribution</option>
+<option>Customs Brokerage</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Tracking Number (Optional)</label>
+<input class="h-12 px-4 rounded-lg border border-outline-variant bg-surface focus:border-secondary-container focus:ring-2 focus:ring-secondary-container/20 transition-all outline-none" placeholder="SU-XXXXXXXXX" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Your Inquiry</label>
+<textarea class="p-4 rounded-lg border border-outline-variant bg-surface focus:border-secondary-container focus:ring-2 focus:ring-secondary-container/20 transition-all outline-none resize-none" placeholder="How can our logistics team help you today?" rows="5"></textarea>
+</div>
+<button class="w-full h-14 bg-primary-container text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-black active:scale-95 transition-all" type="submit">
+<span>Send Logistics Inquiry</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+<!-- Right: Contact Info & Map -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Information Cards -->
+<div class="bg-primary-container text-on-primary p-8 rounded-xl logistic-shadow">
+<h3 class="font-headline-md text-headline-md text-secondary-container mb-6">Headquarters</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div>
+<p class="font-label-md text-label-md text-white">Khartoum Office</p>
+<p class="text-on-primary-container text-sm">Industrial Area, Block 4, Street 15<br/>Khartoum, Sudan</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">call</span>
+<div>
+<p class="font-label-md text-label-md text-white">Direct Line</p>
+<p class="text-on-primary-container text-sm">+249 183 456 789</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">mail</span>
+<div>
+<p class="font-label-md text-label-md text-white">Enterprise Solutions</p>
+<p class="text-on-primary-container text-sm">solutions@sudanil-logistic.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Section -->
+<div class="bg-surface-container-high rounded-xl overflow-hidden logistic-shadow border border-outline-variant relative group h-[340px]">
+<div class="absolute inset-0 bg-secondary-container/5 pointer-events-none z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist vector-style map showing North Africa with Sudan highlighted. The aesthetic is corporate and modern, using deep navy blues for the landmass and golden markers to indicate regional office locations in Khartoum and Port Sudan. Subtle topographic lines add a technical, professional depth to the visual." data-location="Sudan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCvCc8dCsD_qK9CBXNQljla-bR7d_RXqTz-118e18TymefXF0TAArHh-7tMNZ97cdNyLNn6XzdGJOLyO18XjddToNOQx9oic1Xrsn4EDx3K3YzhetKvc1ZqtM8Zx6G7Hb-lbpEpJymaO2kcCl0RnxE7XAmcQrCWHpnng9cSLq46HChb9afnDoeuVTtpyUQwRp0ojhPDNlnGw4aghUTHK6VLXecD2aIIS3MRntcDZHzjC2GkD3yOA9H0gF8v_9XTstCTbhC1w4nsWA"/>
+<div class="absolute bottom-4 left-4 right-4 bg-surface/90 backdrop-blur-md p-4 rounded-lg flex items-center justify-between border border-outline-variant">
+<div>
+<p class="font-label-md text-label-md text-primary">Regional Offices</p>
+<p class="text-xs text-on-surface-variant">Khartoum • Port Sudan • Juba</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">explore</span>
+</button>
+</div>
+</div>
+<!-- Emergency Support -->
+<div class="bg-white border-l-4 border-secondary-container p-6 rounded-r-xl logistic-shadow flex items-center gap-4">
+<div class="bg-secondary-container/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">24/7 Operations Desk</p>
+<p class="text-sm text-on-surface-variant">Urgent shipment issues? Call +249 912 345 678</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Service Features Bento -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-max-width mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Operational Excellence</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Connecting your business to the world with industry-leading transit times and unparalleled security.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 bg-surface-container-lowest p-10 rounded-xl border border-outline-variant hover-lift">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">local_shipping</span>
+<h3 class="font-headline-md text-headline-md mb-4">Smart Fleet Management</h3>
+<p class="text-on-surface-variant mb-6">Our trucks are equipped with real-time GPS tracking and temperature sensors, ensuring your cargo remains in optimal condition from departure to delivery.</p>
+<div class="flex gap-4">
+<div class="bg-surface-container p-4 rounded-lg flex-1">
+<p class="font-headline-md text-headline-md text-primary">99.8%</p>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">On-Time Rate</p>
+</div>
+<div class="bg-surface-container p-4 rounded-lg flex-1">
+<p class="font-headline-md text-headline-md text-primary">2,400+</p>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Active Units</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 bg-primary-container text-on-primary p-10 rounded-xl border border-outline-variant hover-lift flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary-container text-4xl mb-6">verified_user</span>
+<h3 class="font-headline-md text-headline-md mb-4 text-white">Full Customs Compliance</h3>
+<p class="text-on-primary-container">Navigating regional regulations with zero-delay processing for all international shipments.</p>
+</div>
+<a class="mt-8 flex items-center gap-2 text-secondary-container font-label-md hover:underline" href="#">
+                            View Documentation <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="md:col-span-4 bg-white p-10 rounded-xl border border-outline-variant hover-lift">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">hub</span>
+<h3 class="font-headline-md text-headline-md mb-2">Global Network</h3>
+<p class="text-on-surface-variant">Integrated logistics hubs connecting Sudan to key global markets.</p>
+</div>
+<div class="md:col-span-4 bg-white p-10 rounded-xl border border-outline-variant hover-lift">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">inventory_2</span>
+<h3 class="font-headline-md text-headline-md mb-2">Safe Storage</h3>
+<p class="text-on-surface-variant">A-Grade warehousing facilities with 24/7 security monitoring.</p>
+</div>
+<div class="md:col-span-4 bg-white p-10 rounded-xl border border-outline-variant hover-lift">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">speed</span>
+<h3 class="font-headline-md text-headline-md mb-2">Express Delivery</h3>
+<p class="text-on-surface-variant">Priority handling for time-critical industrial components.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-margin-desktop flex flex-col gap-8 bg-primary-container text-on-primary border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-sm">
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"/>
+<p class="text-on-primary-container font-body-md">Empowering trade and connecting markets across the region with precision, reliability, and modern technological solutions.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-4">
+<p class="font-label-md text-white uppercase tracking-widest text-xs">Navigation</p>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">Services</a>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">Tracking</a>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">About Us</a>
+</div>
+<div class="flex flex-col gap-4">
+<p class="font-label-md text-white uppercase tracking-widest text-xs">Legal</p>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4">
+<p class="font-label-md text-white uppercase tracking-widest text-xs">Connect</p>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">LinkedIn</a>
+<a class="text-tertiary-fixed-dim hover:text-on-primary transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-tertiary-fixed-dim text-label-md">© 2024 Sudanil Logistic. Precision in Motion.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-on-primary-container hover:text-secondary-container cursor-pointer transition-colors">public</span>
+<span class="material-symbols-outlined text-on-primary-container hover:text-secondary-container cursor-pointer transition-colors">mail</span>
+<span class="material-symbols-outlined text-on-primary-container hover:text-secondary-container cursor-pointer transition-colors">settings</span>
+</div>
+</div>
+</footer>
+</body></html>
