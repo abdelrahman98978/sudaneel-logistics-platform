@@ -24,3 +24,11 @@ This skill enables AI agents to query and execute logistics workflows directly v
 ### 4. `verify_customs_document`
 - **Parameters**: `docNumber` (e.g. `SNL-INV-882041`, `SNL-BL-774920`).
 - **Returns**: Official verification hash, customs clearance approval status, and release metadata.
+
+### 5. `vercel_get_project_status`
+- **Parameters**: `projectSlug` (defaults to `sudaneel-logistics-platform`).
+- **Returns**: Production Vercel domain, GitHub repository link, build commands, and live feature routes.
+
+### 6. `vercel_check_env_requirements`
+- **Parameters**: None.
+- **Returns**: List of all required environment variables and Vercel dashboard security checklist.

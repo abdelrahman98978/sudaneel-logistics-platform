@@ -6,6 +6,13 @@
       "env": {
         "NODE_ENV": "production"
       }
+    },
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vercel"],
+      "env": {
+        "VERCEL_API_TOKEN": ""
+      }
     }
   }
 }

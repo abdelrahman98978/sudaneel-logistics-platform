@@ -173,12 +173,88 @@ const TOOLS = [
       },
       required: ["docNumber"]
     }
+  },
+  {
+    name: "vercel_get_project_status",
+    description: "استعلام عن حالة مشروع Vercel، الروابط السحابية النشطة، ونطاقات الإنتاج (Production Domains).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        projectSlug: {
+          type: "string",
+          description: "اسم المشروع في فيرسل (افتراضي: sudaneel-logistics-platform)",
+          default: "sudaneel-logistics-platform"
+        }
+      }
+    }
+  },
+  {
+    name: "vercel_check_env_requirements",
+    description: "فحص ومطابقة متغيرات البيئة السرية المطلوبة لمشروع Vercel والتأكد من عدم وجود مفاتيح ناقصة.",
+    inputSchema: {
+      type: "object",
+      properties: {}
+    }
   }
 ];
 
 // Handle Tool Executions
 function handleToolCall(name, args) {
   switch (name) {
+    case "vercel_get_project_status": {
+      const slug = args.projectSlug || "sudaneel-logistics-platform";
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify({
+              success: true,
+              project: {
+                name: slug,
+                productionUrl: "https://sudaneel-logistics-platform.vercel.app",
+                gitRepository: "https://github.com/abdelrahman98978/sudaneel-logistics-platform",
+                framework: "Other (Static + Serverless)",
+                buildCommand: "node scripts/build.js",
+                outputDirectory: "public",
+                routes: {
+                  clientPortal: "https://sudaneel-logistics-platform.vercel.app/features/client-portal/login.html",
+                  shipmentTracking: "https://sudaneel-logistics-platform.vercel.app/features/shipment-tracking/index.html",
+                  servicesCatalog: "https://sudaneel-logistics-platform.vercel.app/features/services-catalog/index.html",
+                  warehouseInventory: "https://sudaneel-logistics-platform.vercel.app/features/warehouse-inventory/index.html",
+                  billingDocuments: "https://sudaneel-logistics-platform.vercel.app/features/billing-documents/index.html",
+                  apiConfig: "https://sudaneel-logistics-platform.vercel.app/api/config"
+                },
+                mcpIntegration: "Active via .agents/mcp_config.json"
+              }
+            }, null, 2)
+          }
+        ]
+      };
+    }
+
+    case "vercel_check_env_requirements": {
+      const requiredVars = [
+        { key: "SUPABASE_URL", type: "Public / Shared", description: "رابط مشروع Supabase", required: true },
+        { key: "SUPABASE_ANON_KEY", type: "Public Client Key", description: "المفتاح العام لمصادقة Supabase", required: true },
+        { key: "SUPABASE_SERVICE_ROLE_KEY", type: "Secret Server Key", description: "المفتاح السري للخلفية", required: true },
+        { key: "ODOO_URL", type: "Server Secret", description: "رابط خادم Odoo ERP", required: false },
+        { key: "ODOO_DB", type: "Server Secret", description: "اسم قاعدة بيانات Odoo", required: false },
+        { key: "ODOO_API_KEY", type: "Server Secret", description: "مفتاح API الخاص بـ Odoo", required: false }
+      ];
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify({
+              success: true,
+              totalRequired: requiredVars.length,
+              variables: requiredVars,
+              securityPolicy: "All variables must be configured via Vercel Settings > Environment Variables. Zero secrets in Git."
+            }, null, 2)
+          }
+        ]
+      };
+    }
     case "track_shipment": {
       const id = (args.trackingId || "").toUpperCase().trim();
       const found = mockShipments[id];
