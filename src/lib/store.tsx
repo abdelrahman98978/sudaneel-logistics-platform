@@ -6,6 +6,7 @@ import {
   Language,
   ThemeMode,
   Shipment,
+  ShipmentStatus,
   Vehicle,
   Carrier,
   Driver,
@@ -64,7 +65,7 @@ interface AppContextType {
   setIsAiCopilotOpen: (open: boolean) => void;
   isCommandPaletteOpen: boolean;
   setIsCommandPaletteOpen: (open: boolean) => void;
-  updateShipmentStatus: (id: string, newStatus: any) => void;
+  updateShipmentStatus: (id: string, newStatus: ShipmentStatus) => void;
   assignVehicleToShipment: (shipmentId: string, vehicleId: string, driverId: string) => void;
   addShipment: (shipment: Shipment) => void;
 }
@@ -131,7 +132,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return () => clearInterval(interval);
   }, []);
 
-  const updateShipmentStatus = (id: string, newStatus: any) => {
+  const updateShipmentStatus = (id: string, newStatus: ShipmentStatus) => {
     setShipments((prev) =>
       prev.map((s) => (s.id === id ? { ...s, status: newStatus } : s))
     );
