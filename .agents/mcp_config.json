@@ -1,17 +1,13 @@
 {
   "mcpServers": {
+    "vercel": {
+      "url": "https://mcp.vercel.com"
+    },
     "sudanil-logistics": {
       "command": "node",
       "args": ["backend/mcp/logistics-mcp-server.js"],
       "env": {
         "NODE_ENV": "production"
-      }
-    },
-    "vercel": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-vercel"],
-      "env": {
-        "VERCEL_API_TOKEN": ""
       }
     }
   }

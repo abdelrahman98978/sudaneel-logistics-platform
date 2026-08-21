@@ -32,3 +32,30 @@ This skill enables AI agents to query and execute logistics workflows directly v
 ### 6. `vercel_check_env_requirements`
 - **Parameters**: None.
 - **Returns**: List of all required environment variables and Vercel dashboard security checklist.
+
+---
+
+## ⚡ Official Vercel Remote MCP Server (`https://mcp.vercel.com`)
+
+According to [Vercel MCP Documentation](https://vercel.com/docs/mcp):
+
+### 1. One-Command Setup
+```bash
+npx -y add-mcp https://mcp.vercel.com -g
+```
+
+### 2. Standard MCP Host Config (`.agents/mcp_config.json`, `.cursor/mcp.json`, `.vscode/mcp.json`)
+```json
+{
+  "mcpServers": {
+    "vercel": {
+      "url": "https://mcp.vercel.com"
+    }
+  }
+}
+```
+
+### 3. Claude Code Setup
+```bash
+claude mcp add --transport http vercel https://mcp.vercel.com
+```
