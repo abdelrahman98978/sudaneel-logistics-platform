@@ -41,6 +41,6 @@ node_modules/
 # Vercel & Next.js artifacts
 .vercel
 .next/
-app/.next/
-app/node_modules/
+*.tsbuildinfo
 .env*
+
