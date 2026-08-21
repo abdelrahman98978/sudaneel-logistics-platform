@@ -38,8 +38,9 @@ node_modules/
 *.sln
 *.sw?
 
-# Vercel artifacts
+# Vercel & Next.js artifacts
 .vercel
-
-.vercel
+.next/
+app/.next/
+app/node_modules/
 .env*
