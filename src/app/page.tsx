@@ -7,19 +7,32 @@ import { Header } from '@/components/common/Header';
 import { CommandPalette } from '@/components/common/CommandPalette';
 import { AiCopilotDrawer } from '@/components/common/AiCopilotDrawer';
 
-// View Components
+// Operations & Core Views
 import { ControlTowerView } from '@/components/control-tower/ControlTowerView';
 import { MarketplaceView } from '@/components/marketplace/MarketplaceView';
 import { SmartDispatchView } from '@/components/dispatch/SmartDispatchView';
 import { ShipmentsListView } from '@/components/shipments/ShipmentsListView';
 import { CreateShipmentWizard } from '@/components/shipments/CreateShipmentWizard';
+import { BulkOrdersView } from '@/components/shipments/BulkOrdersView';
 import { ShipmentTrackingPassport } from '@/components/shipments/ShipmentTrackingPassport';
+import { PublicTrackingView } from '@/components/public-tracking/PublicTrackingView';
 import { FleetView } from '@/components/fleet/FleetView';
 import { CarrierPortalView } from '@/components/carrier-portal/CarrierPortalView';
 import { DriverAppView } from '@/components/driver-app/DriverAppView';
+
+// Infrastructure & Ecosystem Views
+import { WarehouseView } from '@/components/warehousing/WarehouseView';
+import { PortSudanView } from '@/components/port-sudan/PortSudanView';
+import { CrossBorderView } from '@/components/cross-border/CrossBorderView';
+
+// Finance, Risk & Intelligence Views
 import { IncidentCenterView } from '@/components/incidents/IncidentCenterView';
+import { ClaimsView } from '@/components/claims/ClaimsView';
 import { FinanceView } from '@/components/finance/FinanceView';
+import { ContractsCrmView } from '@/components/crm-contracts/ContractsCrmView';
 import { AnalyticsView } from '@/components/analytics/AnalyticsView';
+import { AiCenterView } from '@/components/ai-center/AiCenterView';
+import { ReportsView } from '@/components/reports/ReportsView';
 import { LandingView } from '@/components/landing/LandingView';
 
 export default function Home() {
@@ -48,20 +61,39 @@ export default function Home() {
         return <ShipmentsListView />;
       case 'create_shipment':
         return <CreateShipmentWizard />;
+      case 'bulk_orders':
+        return <BulkOrdersView />;
       case 'tracking_detail':
         return <ShipmentTrackingPassport />;
+      case 'public_track':
+        return <PublicTrackingView />;
       case 'fleet':
         return <FleetView />;
       case 'carrier_portal':
         return <CarrierPortalView />;
       case 'driver_app':
+      case 'driver_safety':
         return <DriverAppView />;
+      case 'warehousing':
+        return <WarehouseView />;
+      case 'port_sudan':
+        return <PortSudanView />;
+      case 'cross_border':
+        return <CrossBorderView />;
       case 'incidents':
         return <IncidentCenterView />;
+      case 'claims':
+        return <ClaimsView />;
       case 'finance':
         return <FinanceView />;
+      case 'contracts_crm':
+        return <ContractsCrmView />;
       case 'analytics':
         return <AnalyticsView />;
+      case 'ai_center':
+        return <AiCenterView />;
+      case 'reports':
+        return <ReportsView />;
       default:
         return <ControlTowerView />;
     }

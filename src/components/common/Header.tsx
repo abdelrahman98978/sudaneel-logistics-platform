@@ -13,6 +13,7 @@ import {
   Layers,
   Moon,
   Sun,
+  ShieldAlert,
 } from 'lucide-react';
 
 export function Header() {
@@ -28,15 +29,21 @@ export function Header() {
     setIsCommandPaletteOpen,
     incidents,
     backhauls,
+    claims,
   } = useApp();
 
   const rolesList: { key: UserRole; label: string }[] = [
     { key: 'super_admin', label: t.roleSuperAdmin },
-    { key: 'dispatcher', label: t.roleDispatcher },
     { key: 'operations_manager', label: t.roleOperations },
+    { key: 'dispatcher', label: t.roleDispatcher },
+    { key: 'fleet_manager', label: t.roleFleetManager },
+    { key: 'finance_manager', label: t.roleFinance },
     { key: 'carrier_admin', label: t.roleCarrier },
     { key: 'driver', label: t.roleDriver },
     { key: 'shipper_customer', label: t.roleCustomer },
+    { key: 'warehouse_manager', label: t.roleWarehouseManager },
+    { key: 'customs_agent', label: t.roleCustomsAgent },
+    { key: 'risk_auditor', label: t.roleRiskAuditor },
   ];
 
   return (
@@ -45,9 +52,9 @@ export function Header() {
       <div className="flex items-center gap-3 flex-1 max-w-xl">
         <button
           onClick={() => setIsCommandPaletteOpen(true)}
-          className="flex items-center gap-3 w-full bg-navy-800/80 hover:bg-navy-800 border border-gold/20 hover:border-gold/40 text-gray-300 px-3.5 py-2 rounded-xl text-sm transition-all shadow-inner group"
+          className="flex items-center gap-3 w-full bg-navy-800/80 hover:bg-navy-800 border border-gold/20 hover:border-gold/40 text-gray-300 px-3.5 py-2 rounded-xl text-sm transition-all shadow-inner group cursor-pointer"
         >
-          <Search className="w-4 h-4 text-gold group-hover:scale-110 transition-transform" />
+          <Search className="w-4 h-4 text-gold group-hover:scale-110 transition-transform flex-shrink-0" />
           <span className="text-gray-400 text-xs sm:text-sm truncate">
             {t.searchPlaceholder}
           </span>
@@ -61,7 +68,7 @@ export function Header() {
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Active Backhaul Badge */}
         {backhauls.length > 0 && (
-          <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium animate-pulse">
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium animate-pulse">
             <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
             <span>{backhauls.length} {t.emptyTrucksTracked}</span>
           </div>
@@ -80,7 +87,7 @@ export function Header() {
         {/* Role Selector (Simulate RBAC views) */}
         <div className="relative group">
           <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-navy-800/90 border border-gold/20 text-xs text-gray-200 cursor-pointer hover:border-gold/40 transition-colors">
-            <Shield className="w-3.5 h-3.5 text-gold" />
+            <Shield className="w-3.5 h-3.5 text-gold flex-shrink-0" />
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as UserRole)}
@@ -98,7 +105,7 @@ export function Header() {
         {/* Language Switcher */}
         <button
           onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-xs font-semibold text-gray-200 transition-colors"
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-xs font-semibold text-gray-200 transition-colors cursor-pointer"
           title="Toggle Language"
         >
           <Globe className="w-3.5 h-3.5 text-gold" />
@@ -107,7 +114,10 @@ export function Header() {
 
         {/* Notification Bell */}
         <div className="relative">
-          <button className="p-2 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-gray-300 hover:text-gold transition-colors relative">
+          <button
+            onClick={() => alert(`Notifications: ${incidents.length} active emergency incidents, ${claims.length} pending claims`)}
+            className="p-2 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-gray-300 hover:text-gold transition-colors relative cursor-pointer"
+          >
             <Bell className="w-4 h-4" />
             {incidents.length > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] text-white flex items-center justify-center font-bold">

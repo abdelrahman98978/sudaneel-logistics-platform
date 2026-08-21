@@ -1,5 +1,5 @@
 // ============================================================
-// Sudaneel Logistics Intelligence Platform — Core Types
+// Sudaneel Logistics Intelligence Platform — Core Enterprise Types
 // ============================================================
 
 export type UserRole =
@@ -10,7 +10,10 @@ export type UserRole =
   | 'finance_manager'
   | 'carrier_admin'
   | 'driver'
-  | 'shipper_customer';
+  | 'shipper_customer'
+  | 'warehouse_manager'
+  | 'customs_agent'
+  | 'risk_auditor';
 
 export type Language = 'ar' | 'en';
 export type ThemeMode = 'dark' | 'light';
@@ -65,7 +68,8 @@ export type VehicleStatus =
   | 'in_transit'
   | 'maintenance'
   | 'offline'
-  | 'returning_empty';
+  | 'returning_empty'
+  | 'blocked';
 
 export type DriverStatus = 'available' | 'on_trip' | 'offline' | 'on_break' | 'suspended';
 
@@ -258,7 +262,7 @@ export interface Incident {
 
 export interface WalletTransaction {
   id: string;
-  type: 'credit' | 'debit' | 'settlement' | 'fee' | 'payout';
+  type: 'credit' | 'debit' | 'settlement' | 'fee' | 'payout' | 'escrow_lock' | 'escrow_release';
   amount: number;
   currency: string;
   status: 'completed' | 'pending' | 'failed';
@@ -283,4 +287,238 @@ export interface Invoice {
   issueDate: string;
   dueDate: string;
   paidAt?: string;
+}
+
+// ============================================================
+// 1. WAREHOUSING & WMS TYPES
+// ============================================================
+
+export type StorageType = 'dry' | 'reefer' | 'bonded' | 'open_yard' | 'hazardous' | 'silo';
+
+export interface Warehouse {
+  id: string;
+  name: string;
+  nameAr: string;
+  city: string;
+  address: string;
+  totalAreaM2: number;
+  availableAreaM2: number;
+  storageType: StorageType;
+  temperatureCelsius?: string;
+  securityLevel: '24/7 CCTV & Guards' | 'Biometric Restricted' | 'Standard Gated';
+  loadingDocksCount: number;
+  ratePerM2Monthly: number;
+  currency: string;
+  isBondedCustoms: boolean;
+  occupancyPercent: number;
+  managerName: string;
+  managerPhone: string;
+  lat: number;
+  lng: number;
+}
+
+export interface WarehouseItem {
+  id: string;
+  warehouseId: string;
+  sku: string;
+  name: string;
+  nameAr: string;
+  clientName: string;
+  quantity: number;
+  unit: string;
+  batchNumber: string;
+  expiryDate?: string;
+  locationBin: string;
+  status: 'in_stock' | 'allocated' | 'damaged' | 'in_transit';
+}
+
+export interface WarehouseReservation {
+  id: string;
+  warehouseId: string;
+  warehouseName: string;
+  clientName: string;
+  reservedAreaM2: number;
+  storageType: StorageType;
+  startDate: string;
+  endDate: string;
+  monthlyCost: number;
+  status: 'confirmed' | 'pending' | 'active' | 'expired';
+}
+
+// ============================================================
+// 2. PORT SUDAN & CUSTOMS TYPES
+// ============================================================
+
+export type PortCustomsStatus = 'manifest_received' | 'under_inspection' | 'duty_assessed' | 'cleared' | 'demurrage_warning' | 'released';
+
+export interface PortContainer {
+  id: string;
+  containerNumber: string;
+  isoCode: '40HC' | '20GP' | '40RF' | '40OT';
+  shippingLine: 'Maersk' | 'MSC' | 'CMA CGM' | 'Hapag-Lloyd' | 'Cosco';
+  vesselName: string;
+  voyageNumber: string;
+  arrivalDate: string;
+  freeDaysRemaining: number;
+  demurrageRatePerDayUSD: number;
+  demurrageAccruedUSD: number;
+  customsStatus: PortCustomsStatus;
+  consignee: string;
+  cargoDescription: string;
+  gateStatus: 'in_yard' | 'gate_in' | 'loading_truck' | 'gate_out';
+  assignedTruckPlate?: string;
+  assignedDriverPhone?: string;
+  sealNumber: string;
+}
+
+// ============================================================
+// 3. CROSS-BORDER LOGISTICS TYPES
+// ============================================================
+
+export interface BorderCrossing {
+  id: string;
+  name: string;
+  nameAr: string;
+  countryTo: 'Egypt' | 'Ethiopia' | 'Chad' | 'South Sudan' | 'Saudi Arabia';
+  portOrBorderPost: string;
+  averageClearanceHours: number;
+  currentQueueTrucks: number;
+  operatingStatus: 'normal' | 'congested' | 'restricted' | 'closed';
+  customsAgentName: string;
+  customsAgentPhone: string;
+  requiredDocuments: string[];
+  activeConvoysCount: number;
+}
+
+// ============================================================
+// 4. CLAIMS & DISPUTES TYPES
+// ============================================================
+
+export type ClaimType = 'cargo_damage' | 'cargo_loss' | 'delay_compensation' | 'missing_quantity' | 'temp_violation';
+export type ClaimStatus = 'open' | 'evidence_review' | 'carrier_investigation' | 'approved_payout' | 'rejected' | 'closed';
+
+export interface Claim {
+  id: string;
+  claimNumber: string;
+  shipmentId: string;
+  trackingNumber: string;
+  customerName: string;
+  carrierName: string;
+  claimType: ClaimType;
+  amountRequested: number;
+  currency: string;
+  description: string;
+  status: ClaimStatus;
+  createdAt: string;
+  evidencePhotosCount: number;
+  compensationOffered?: number;
+  resolutionNotes?: string;
+}
+
+// ============================================================
+// 5. CRM & ENTERPRISE CONTRACTS TYPES
+// ============================================================
+
+export interface EnterpriseContract {
+  id: string;
+  contractNumber: string;
+  customerName: string;
+  customerNameAr: string;
+  startDate: string;
+  endDate: string;
+  volumeTier: 'Tier 1 (500+ Tons/mo)' | 'Tier 2 (200+ Tons/mo)' | 'Tier 3 (50+ Tons/mo)';
+  committedMonthlySpend: number;
+  discountRatePercent: number;
+  slaOnTimeTarget: number; // e.g. 98%
+  currentSlaAchievement: number; // e.g. 97.8%
+  status: 'active' | 'renewal_due' | 'pending_signature' | 'expired';
+  designatedCorridors: string[];
+  penaltyRatePercent: number;
+}
+
+export interface CrmOpportunity {
+  id: string;
+  opportunityCode: string;
+  clientName: string;
+  stage: 'lead' | 'qualification' | 'proposal_sent' | 'negotiation' | 'won' | 'lost';
+  expectedVolumeTons: number;
+  estimatedAnnualValue: number;
+  primaryCorridor: string;
+  assignedSalesRep: string;
+  probabilityPercent: number;
+  nextFollowUpDate: string;
+}
+
+// ============================================================
+// 6. AI CENTER & DIGITAL TWIN TYPES
+// ============================================================
+
+export interface DigitalTwinScenario {
+  id: string;
+  titleAr: string;
+  titleEn: string;
+  descriptionAr: string;
+  descriptionEn: string;
+  parameterChanged: string;
+  parameterValue: string;
+  simulatedDemandChangePercent: number;
+  simulatedFleetUtilization: number;
+  simulatedEmptyKmPercent: number;
+  simulatedProfitMarginChange: string;
+  recommendationAr: string;
+  recommendationEn: string;
+}
+
+export interface AnomalyAlert {
+  id: string;
+  type: 'fake_gps' | 'fuel_siphon' | 'route_deviation' | 'duplicate_pod' | 'speed_anomaly';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  titleAr: string;
+  titleEn: string;
+  assetPlate: string;
+  driverName: string;
+  location: string;
+  detectedAt: string;
+  explanationAr: string;
+  explanationEn: string;
+  confidenceScore: number;
+  status: 'pending_review' | 'confirmed_fraud' | 'false_alarm' | 'cleared';
+}
+
+// ============================================================
+// 7. FREIGHT NEGOTIATION TYPES
+// ============================================================
+
+export interface NegotiationOffer {
+  id: string;
+  shipmentId: string;
+  trackingNumber: string;
+  carrierId: string;
+  carrierName: string;
+  carrierTrustScore: number;
+  originalPrice: number;
+  carrierOfferPrice: number;
+  customerCounterPrice?: number;
+  currentStatus: 'carrier_offered' | 'customer_countered' | 'accepted' | 'declined' | 'expired';
+  savingsAmount: number;
+  savingsPercent: number;
+  expiresInMinutes: number;
+  createdAt: string;
+}
+
+// ============================================================
+// 8. BULK SHIPMENTS & REPORTING
+// ============================================================
+
+export interface BulkShipmentRow {
+  rowId: number;
+  pickupCity: string;
+  destCity: string;
+  cargoDesc: string;
+  weightTons: number;
+  vehicleType: VehicleType;
+  pickupDate: string;
+  priceEstimate: number;
+  validationStatus: 'valid' | 'duplicate' | 'invalid_address' | 'weight_exceeded';
+  errorMessage?: string;
 }

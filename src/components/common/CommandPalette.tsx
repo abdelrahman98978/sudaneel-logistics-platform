@@ -11,8 +11,18 @@ import {
   ShieldAlert,
   Cpu,
   Truck,
+  Warehouse,
+  Anchor,
+  Globe2,
+  FileCheck2,
+  Wallet,
+  FileText,
+  BarChart3,
+  Sparkles,
+  FileDown,
   ArrowRight,
   X,
+  FileSpreadsheet,
 } from 'lucide-react';
 
 export function CommandPalette() {
@@ -36,12 +46,27 @@ export function CommandPalette() {
     category: string;
   }[] = [
     { title: t.createShipment, icon: PlusCircle, view: 'create_shipment', category: 'Actions' },
-    { title: t.controlTower, icon: Compass, view: 'control_tower', category: 'Views' },
-    { title: t.marketplace, icon: Repeat, view: 'marketplace', category: 'Views' },
-    { title: t.smartDispatch, icon: Cpu, view: 'smart_dispatch', category: 'Views' },
-    { title: t.incidentCenter, icon: ShieldAlert, view: 'incidents', category: 'Emergency' },
-    { title: t.fleetManagement, icon: Truck, view: 'fleet', category: 'Views' },
+    { title: t.bulkOrders, icon: FileSpreadsheet, view: 'bulk_orders', category: 'Actions' },
+    { title: t.controlTower, icon: Compass, view: 'control_tower', category: 'Operations' },
+    { title: t.marketplace, icon: Repeat, view: 'marketplace', category: 'Operations' },
+    { title: t.smartDispatch, icon: Cpu, view: 'smart_dispatch', category: 'Operations' },
+    { title: t.warehousing, icon: Warehouse, view: 'warehousing', category: 'Infrastructure' },
+    { title: t.portSudan, icon: Anchor, view: 'port_sudan', category: 'Infrastructure' },
+    { title: t.crossBorder, icon: Globe2, view: 'cross_border', category: 'Infrastructure' },
+    { title: t.fleetManagement, icon: Truck, view: 'fleet', category: 'Infrastructure' },
+    { title: t.incidentCenter, icon: ShieldAlert, view: 'incidents', category: 'Risk & Finance' },
+    { title: t.claimsCenter, icon: FileCheck2, view: 'claims', category: 'Risk & Finance' },
+    { title: t.financeWallets, icon: Wallet, view: 'finance', category: 'Risk & Finance' },
+    { title: t.contractsCrm, icon: FileText, view: 'contracts_crm', category: 'Intelligence' },
+    { title: t.analytics, icon: BarChart3, view: 'analytics', category: 'Intelligence' },
+    { title: t.aiCenter, icon: Sparkles, view: 'ai_center', category: 'Intelligence' },
+    { title: t.reportsCenter, icon: FileDown, view: 'reports', category: 'Intelligence' },
+    { title: t.publicTrack, icon: Search, view: 'public_track', category: 'Public' },
   ];
+
+  const filteredActions = quickActions.filter(
+    (a) => a.title.toLowerCase().includes(query.toLowerCase()) || a.category.toLowerCase().includes(query.toLowerCase())
+  );
 
   const filteredShipments = shipments.filter(
     (s) =>
@@ -77,10 +102,10 @@ export function CommandPalette() {
           {/* Quick Actions */}
           <div>
             <div className="text-[10px] font-semibold uppercase text-gold/60 px-3 py-1">
-              Quick Navigation
+              Modules & Quick Navigation ({filteredActions.length})
             </div>
             <div className="space-y-1">
-              {quickActions.map((action, idx) => {
+              {filteredActions.map((action, idx) => {
                 const Icon = action.icon;
                 return (
                   <button
@@ -89,13 +114,15 @@ export function CommandPalette() {
                       setCurrentView(action.view);
                       setIsCommandPaletteOpen(false);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm text-gray-200 hover:bg-navy-800 hover:text-gold transition-colors text-start"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs sm:text-sm text-gray-200 hover:bg-navy-800 hover:text-gold transition-colors text-start cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <Icon className="w-4 h-4 text-gold" />
+                      <Icon className="w-4 h-4 text-gold flex-shrink-0" />
                       <span>{action.title}</span>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 opacity-50" />
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-navy-950 text-gray-400 border border-navy-800">
+                      {action.category}
+                    </span>
                   </button>
                 );
               })}
@@ -117,7 +144,7 @@ export function CommandPalette() {
                       setCurrentView('tracking_detail');
                       setIsCommandPaletteOpen(false);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm bg-navy-950/60 hover:bg-navy-800 text-gray-200 border border-gold/10 hover:border-gold/30 transition-all text-start"
+                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm bg-navy-950/60 hover:bg-navy-800 text-gray-200 border border-gold/10 hover:border-gold/30 transition-all text-start cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <Package className="w-4 h-4 text-amber-400" />
