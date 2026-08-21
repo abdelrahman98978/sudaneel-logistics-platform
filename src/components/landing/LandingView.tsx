@@ -33,6 +33,9 @@ import {
   DollarSign,
   Radio,
   Users,
+  Headphones,
+  BarChart3,
+  Check,
 } from 'lucide-react';
 
 export function LandingView() {
@@ -41,7 +44,7 @@ export function LandingView() {
   const [trackingInput, setTrackingInput] = useState('');
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCountry, setSelectedCountry] = useState('SD');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [pricingCycle, setPricingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
   const handleTrackSubmit = (e: React.FormEvent) => {
@@ -58,247 +61,263 @@ export function LandingView() {
     }
   };
 
-  // 6 Services matching Screenshot 3
+  // 6 Services matching Screenshot 3 & 2 (Right-to-Left order in Arabic)
   const coreServices = [
     {
       id: 'road',
       title: 'النقل البري',
-      desc: 'حلول نقل بري موثوقة عبر كافة الولايات والمنافذ الحدودية',
+      desc: 'حلول نقل بري موثوقة',
       icon: Truck,
       color: 'text-blue-600',
-      bg: 'bg-blue-500/10',
+      bg: 'bg-blue-50',
     },
     {
       id: 'sea',
       title: 'الشحن البحري',
-      desc: 'ربط السودان بالأسواق العالمية عبر ميناء بورتسودان',
+      desc: 'ربط السودان بالأسواق العالمية',
       icon: Ship,
-      color: 'text-sky-500',
-      bg: 'bg-sky-500/10',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
     {
       id: 'air',
       title: 'الشحن الجوي',
-      desc: 'سرعة وكفاءة أعلى للشحنات الحساسة والطبية العاجلة',
+      desc: 'سرعة وكفاءة أعلى',
       icon: Plane,
-      color: 'text-amber-500',
-      bg: 'bg-amber-500/10',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
     {
       id: 'warehousing',
       title: 'المستودعات',
-      desc: 'إدارة مخزون ذكية وتخزين جاف ومبرد ومستودعات جمركية',
+      desc: 'إدارة مخزون ذكية',
       icon: Warehouse,
-      color: 'text-emerald-500',
-      bg: 'bg-emerald-500/10',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
     {
       id: 'city_distribution',
       title: 'التوزيع داخل المدن',
-      desc: 'توصيل سريع وآمن للميل الأخير وإدارة شبكات التوزيع',
+      desc: 'توصيل سريع وآمن',
       icon: Package,
-      color: 'text-indigo-500',
-      bg: 'bg-indigo-500/10',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
     {
       id: 'customs',
       title: 'التخليص الجمركي',
-      desc: 'إجراءات سلسة ومتوافقة وتخليص رقمي فوري في المنافذ',
+      desc: 'إجراءات سلسة ومتوافقة',
       icon: FileCheck,
-      color: 'text-purple-500',
-      bg: 'bg-purple-500/10',
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
   ];
 
   return (
-    <div className="space-y-12 pb-20 font-sans text-gray-100 selection:bg-gold selection:text-navy-950">
-      {/* Top Navbar (Matching Screenshot 3) */}
-      <header className="sticky top-3 z-50 rounded-2xl bg-navy-900/95 border border-sky-500/30 p-3 sm:p-4 shadow-2xl flex items-center justify-between backdrop-blur-xl transition-all">
-        {/* Brand Logo on Right (in Arabic RTL) */}
-        <div onClick={() => setActiveTab('home')} className="flex items-center gap-3 cursor-pointer">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/30 to-amber-500/20 border border-gold/50 flex items-center justify-center text-gold shadow-lg shadow-gold/10">
-            <Radio className="w-5 h-5 text-gold animate-pulse" />
+    <div className="space-y-6 pb-16 font-sans text-gray-900 selection:bg-blue-600 selection:text-white" dir="rtl">
+      {/* 1. Top Navbar Capsule (Pixel-Perfect Match to Screenshot 3) */}
+      <header className="rounded-full bg-white border border-gray-200 px-4 sm:px-6 py-2.5 shadow-sm flex items-center justify-between transition-all">
+        {/* Brand Logo on Right (Arabic RTL) */}
+        <div onClick={() => setActiveTab('home')} className="flex items-center gap-2.5 cursor-pointer">
+          {/* S-Shield Brand Mark */}
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-navy-900 to-blue-900 border border-gold/60 flex items-center justify-center text-gold shadow-md">
+            <span className="font-black text-sm tracking-tighter text-gold">S</span>
           </div>
           <div>
-            <h1 className="font-black text-base text-white tracking-tight flex items-center gap-1.5">
-              <span>منصة سودانيل اللوجستية</span>
+            <h1 className="font-black text-sm text-[#0A1B39] tracking-tight leading-tight">
+              منصة سودانيل اللوجستية
             </h1>
-            <p className="text-[10px] text-gray-400">حلول لوجستية ذكية - لسلسلة إمداد أقوى</p>
+            <p className="text-[9px] text-gray-500 font-medium">حلول لوجستية ذكية — لسلسلة إمداد أقوى</p>
           </div>
         </div>
 
         {/* Center Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-navy-950/90 p-1.5 rounded-xl border border-sky-500/20 text-xs font-bold">
+        <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-gray-700">
           <button
             onClick={() => setActiveTab('home')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeTab === 'home' ? 'bg-sky-600 text-white shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
+            className={`pb-1 transition-all cursor-pointer ${
+              activeTab === 'home'
+                ? 'text-blue-700 border-b-2 border-blue-600 font-black'
+                : 'hover:text-blue-600 text-gray-700'
             }`}
           >
             الرئيسية
           </button>
           <button
             onClick={() => setActiveTab('services')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer flex items-center gap-1 ${
-              activeTab === 'services' ? 'bg-sky-600 text-white shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
+            className={`pb-1 transition-all cursor-pointer flex items-center gap-1 ${
+              activeTab === 'services'
+                ? 'text-blue-700 border-b-2 border-blue-600 font-black'
+                : 'hover:text-blue-600 text-gray-700'
             }`}
           >
             <span>الخدمات</span>
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className="w-3 h-3 text-gray-500" />
           </button>
           <button
             onClick={() => setCurrentView('carrier_portal')}
-            className="px-4 py-2 rounded-lg transition-all cursor-pointer text-gray-300 hover:text-white"
+            className="pb-1 hover:text-blue-600 text-gray-700 cursor-pointer"
           >
             الشركات
           </button>
           <button
             onClick={() => setActiveTab('pricing')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeTab === 'pricing' ? 'bg-sky-600 text-white shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
+            className={`pb-1 transition-all cursor-pointer ${
+              activeTab === 'pricing'
+                ? 'text-blue-700 border-b-2 border-blue-600 font-black'
+                : 'hover:text-blue-600 text-gray-700'
             }`}
           >
-            الأسعار
-          </button>
-          <button
-            onClick={() => setCurrentView('public_track')}
-            className="px-4 py-2 rounded-lg transition-all cursor-pointer text-gray-300 hover:text-white"
-          >
-            تتبع الشحنة
+            المعلومات
           </button>
           <button
             onClick={() => setActiveTab('support')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeTab === 'support' ? 'bg-sky-600 text-white shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
+            className={`pb-1 transition-all cursor-pointer ${
+              activeTab === 'support'
+                ? 'text-blue-700 border-b-2 border-blue-600 font-black'
+                : 'hover:text-blue-600 text-gray-700'
             }`}
           >
             الدعم والمساعدة
           </button>
         </nav>
 
-        {/* Right Controls (Country Selector, Notifications, Auth) */}
+        {/* Left Controls (Country Selector, Notifications, Dark Mode, Auth) */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Country Selector */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-navy-950 border border-sky-500/20 text-xs font-semibold text-gray-200">
-            <span>🇸🇩</span>
-            <span>السودان</span>
-          </div>
-
-          {/* Dark / Light Toggle */}
+          {/* Register Button (Electric Blue Pill) */}
           <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-xl bg-navy-800 border border-sky-500/20 text-gray-300 hover:text-white transition-colors cursor-pointer"
-            title="تبديل المظهر"
+            onClick={() => setCurrentView('create_shipment')}
+            className="px-4 py-1.5 rounded-full bg-[#1E60FF] hover:bg-blue-700 text-white font-black text-xs shadow-md transition-transform hover:scale-105 active:scale-95 cursor-pointer"
           >
-            {isDarkMode ? <Moon className="w-4 h-4 text-sky-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
+            إنشاء حساب
           </button>
 
-          {/* Notifications with Badge 3 */}
+          {/* Login Button (White Pill with Blue Border) */}
+          <button
+            onClick={() => setCurrentView('control_tower')}
+            className="px-3.5 py-1.5 rounded-full bg-white border border-[#1E60FF] text-[#1E60FF] hover:bg-blue-50 text-xs font-black transition-colors cursor-pointer"
+          >
+            تسجيل دخول
+          </button>
+
+          {/* Notifications Bell with Badge 3 */}
           <div className="relative">
-            <button className="p-2 rounded-xl bg-navy-800 border border-sky-500/20 text-gray-300 hover:text-white transition-colors">
+            <button className="p-1.5 text-gray-600 hover:text-blue-600 transition-colors">
               <Bell className="w-4 h-4" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] text-white flex items-center justify-center font-bold">
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-rose-500 text-[8px] text-white flex items-center justify-center font-bold">
                 3
               </span>
             </button>
           </div>
 
-          {/* Login Button */}
-          <button
-            onClick={() => setCurrentView('control_tower')}
-            className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 border border-sky-500/30 text-xs font-bold text-gray-200 transition-colors cursor-pointer"
+          {/* Dark Mode Switcher */}
+          <div
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="w-9 h-5 rounded-full bg-gray-200 flex items-center p-0.5 cursor-pointer transition-colors"
           >
-            <LogIn className="w-3.5 h-3.5 text-sky-400" />
-            <span>تسجيل دخول</span>
-          </button>
+            <div className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${isDarkMode ? 'translate-x-4 bg-blue-600' : 'translate-x-0'}`}></div>
+          </div>
 
-          {/* Register Button (Electric Blue Pill) */}
-          <button
-            onClick={() => setCurrentView('create_shipment')}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-blue-500/20 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-          >
-            <UserPlus className="w-3.5 h-3.5" />
-            <span>إنشاء حساب</span>
-          </button>
+          {/* Country Selector */}
+          <div className="flex items-center gap-1 text-xs font-bold text-gray-700 cursor-pointer">
+            <span>🇸🇩</span>
+            <span className="hidden sm:inline text-gray-800">السودان</span>
+            <ChevronDown className="w-3 h-3 text-gray-400" />
+          </div>
         </div>
       </header>
 
-      {/* Hero Section (Matching Screenshot 3) */}
-      <section className="relative rounded-3xl bg-gradient-to-b from-navy-900 via-navy-950 to-[#030712] border border-sky-500/30 p-6 sm:p-12 lg:p-16 shadow-2xl overflow-hidden text-center space-y-8">
-        {/* Background Radial Dots */}
-        <div className="absolute inset-0 bg-[radial-gradient(#1e60ff_1px,transparent_1px)] [background-size:32px_32px] opacity-15 pointer-events-none"></div>
-
-        {/* Top Tagline Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/40 text-sky-300 text-xs font-bold shadow-lg">
-          <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-          <span>منصة سودانيل اللوجستية .. شريكك الذكي في سلسلة الإمداد والنقل</span>
+      {/* 2. Hero Section (Pixel-Perfect Match to Screenshot 3 with Real Truck & Port) */}
+      <section className="relative rounded-3xl overflow-hidden shadow-2xl min-h-[480px] sm:min-h-[520px] border border-blue-900/30 flex flex-col justify-between">
+        {/* Background Image Container with Gradient Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+        >
+          {/* Subtle Deep Navy Gradient on Left for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#030e2a]/60 to-[#030a1c]/95"></div>
         </div>
 
-        {/* Main Hero Headline */}
-        <div className="space-y-3 max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-            <span>منصة سودانيل اللوجستية</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            شريكك الذكي في سلسلة الإمداد والنقل والخدمات اللوجستية — نربط السودان بالعالم بكفاءة .. أمان .. واستدامة.
-          </p>
+        {/* Content Container (Top-Center aligned) */}
+        <div className="relative z-10 p-6 sm:p-10 lg:p-12 space-y-6 text-center max-w-4xl mx-auto">
+          {/* Main Hero Headline */}
+          <div className="space-y-2 pt-2">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+              منصة سودانيل اللوجستية
+            </h1>
+            <p className="text-sm sm:text-lg font-extrabold text-sky-200 drop-shadow">
+              شريكك الذكي في سلسلة الإمداد والنقل والخدمات اللوجستية
+            </p>
+            <p className="text-xs sm:text-sm text-gray-300 font-medium">
+              نربط السودان بالعالم بكفاءة .. أمان .. واستدامة
+            </p>
+          </div>
+
+          {/* 3 Pill Badges beneath Title */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-white bg-navy-950/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <div className="w-5 h-5 rounded-full border border-white/60 flex items-center justify-center">
+                <ShieldCheck className="w-3 h-3 text-white" />
+              </div>
+              <span>موثوقية وأمان</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-bold text-white bg-navy-950/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <div className="w-5 h-5 rounded-full border border-white/60 flex items-center justify-center">
+                <Clock className="w-3 h-3 text-white" />
+              </div>
+              <span>سرعة في التنفيذ</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-bold text-white bg-navy-950/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <div className="w-5 h-5 rounded-full border border-white/60 flex items-center justify-center">
+                <Package className="w-3 h-3 text-white" />
+              </div>
+              <span>حلول لوجستية متكاملة</span>
+            </div>
+          </div>
         </div>
 
-        {/* 4 Benefit Pill Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 pt-1">
-          <span className="px-3 py-1.5 rounded-full bg-navy-900/90 border border-sky-500/20 text-xs font-bold text-gray-200 flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>حلول لوجستية متكاملة</span>
-          </span>
-          <span className="px-3 py-1.5 rounded-full bg-navy-900/90 border border-sky-500/20 text-xs font-bold text-gray-200 flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-sky-400" />
-            <span>سرعة في التنفيذ</span>
-          </span>
-          <span className="px-3 py-1.5 rounded-full bg-navy-900/90 border border-sky-500/20 text-xs font-bold text-gray-200 flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-gold" />
-            <span>موثوقية وأمان</span>
-          </span>
-          <span className="px-3 py-1.5 rounded-full bg-navy-900/90 border border-sky-500/20 text-xs font-bold text-gray-200 flex items-center gap-1.5">
-            <TrendingUp className="w-3.5 h-3.5 text-purple-400" />
-            <span>كفاءة أعلى وتكاليف أقل</span>
-          </span>
-        </div>
-
-        {/* Floating Dual Track & Search Capsule Bar (Matching Screenshot 3) */}
-        <div className="max-w-3xl mx-auto pt-4">
+        {/* Floating Search & Track Capsule Bar (Matching Screenshot 3) */}
+        <div className="relative z-20 max-w-3xl w-full mx-auto px-4 pb-12 sm:pb-16">
           <form
             onSubmit={handleTrackSubmit}
-            className="p-2 rounded-2xl bg-white text-navy-950 shadow-2xl flex items-center gap-2 border-2 border-sky-400/50"
+            className="p-1.5 rounded-full bg-white shadow-2xl flex items-center gap-2 border border-gray-200"
           >
+            {/* Action 1: Blue Track Capsule Button on Right (RTL) */}
             <button
               type="button"
               onClick={() => setCurrentView('public_track')}
-              className="px-4 py-2.5 rounded-xl bg-navy-900 text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow hover:bg-navy-800 cursor-pointer"
+              className="px-4 py-2.5 rounded-full bg-[#0E1E3F] text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow hover:bg-navy-900 cursor-pointer flex-shrink-0"
             >
               <MapPin className="w-4 h-4 text-sky-400" />
               <span>تتبع شحنتك</span>
             </button>
 
+            {/* Input Field */}
             <input
               type="text"
               value={trackingInput}
               onChange={(e) => setTrackingInput(e.target.value)}
-              placeholder="أدخل رقم الشحنة أو رقم التتبع (مثال: SDN-88419)..."
-              className="flex-1 bg-transparent text-navy-950 placeholder-gray-500 outline-none text-xs sm:text-sm font-semibold px-3 text-start"
+              placeholder="أدخل رقم الشحنة أو رقم التتبع..."
+              className="flex-1 bg-transparent text-gray-800 placeholder-gray-400 outline-none text-xs sm:text-sm font-semibold px-2 text-start"
             />
 
+            {/* Action 2: Electric Blue Search Button on Left (RTL) */}
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs sm:text-sm shadow-lg flex items-center gap-1.5 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-[#1E60FF] hover:bg-blue-700 text-white font-black text-xs sm:text-sm shadow-md flex items-center gap-1.5 transition-transform hover:scale-105 active:scale-95 cursor-pointer flex-shrink-0"
             >
               <Search className="w-4 h-4" />
               <span>بحث</span>
             </button>
           </form>
         </div>
+      </section>
 
-        {/* 6 Floating Service Quick Cards (White Cards with Blue Icons - Matching Screenshot 3) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-6 max-w-6xl mx-auto">
+      {/* 3. Six Floating Service Cards (Overlapping Hero bottom - Matching Screenshot 3) */}
+      <section className="relative z-30 max-w-6xl mx-auto px-2 -mt-10 sm:-mt-14">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {coreServices.map((srv) => {
             const Icon = srv.icon;
             return (
@@ -310,334 +329,237 @@ export function LandingView() {
                   else if (srv.id === 'customs') setCurrentView('port_sudan');
                   else setCurrentView('create_shipment');
                 }}
-                className="p-4 rounded-2xl bg-white text-navy-950 shadow-xl hover:shadow-2xl space-y-2 text-center transition-all hover:-translate-y-1.5 cursor-pointer group border border-gray-100"
+                className="p-4 rounded-2xl bg-white text-navy-950 shadow-lg hover:shadow-xl space-y-2 text-center transition-all hover:-translate-y-1.5 cursor-pointer group border border-gray-100"
               >
-                <div className={`w-10 h-10 rounded-xl ${srv.bg} ${srv.color} flex items-center justify-center mx-auto group-hover:scale-110 transition-transform`}>
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="font-extrabold text-xs sm:text-sm text-navy-950">{srv.title}</h3>
-                <p className="text-[10px] text-gray-500 leading-snug line-clamp-2">{srv.desc}</p>
+                <h3 className="font-black text-xs sm:text-sm text-[#0A1B39]">{srv.title}</h3>
+                <p className="text-[10px] text-gray-500 font-medium leading-snug line-clamp-1">{srv.desc}</p>
               </div>
             );
           })}
         </div>
+      </section>
 
-        {/* Live Metric Impact Counters Bar (White Card with 5 Metrics - Matching Screenshot 3) */}
-        <div className="p-4 sm:p-6 rounded-2xl bg-white text-navy-950 shadow-xl max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-5 gap-4 text-center divide-x divide-x-reverse divide-gray-100 border border-gray-100">
-          <div className="p-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-1">
+      {/* 4. Live Impact Counters Ribbon (Light Sky-Blue Capsule - Matching Screenshot 3) */}
+      <section className="max-w-6xl mx-auto px-2">
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-full bg-[#EBF3FE] border border-blue-100 shadow-sm flex flex-wrap items-center justify-around gap-4 text-center">
+          {/* Counter 1: +1200 شحنة شهرية */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100/80 text-blue-600 flex items-center justify-center">
               <Ship className="w-4 h-4" />
             </div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-navy-950">+1200</div>
-            <div className="text-xs font-bold text-gray-600 mt-0.5">شحنة شهرية</div>
+            <div className="text-start">
+              <div className="text-lg sm:text-xl font-black font-mono text-[#0A1B39] leading-none">+1200</div>
+              <div className="text-[11px] font-bold text-gray-600 mt-0.5">شحنة شهرية</div>
+            </div>
           </div>
 
-          <div className="p-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-1">
+          {/* Counter 2: +450 مركبة لوجستية */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100/80 text-blue-600 flex items-center justify-center">
               <Truck className="w-4 h-4" />
             </div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-navy-950">+450</div>
-            <div className="text-xs font-bold text-gray-600 mt-0.5">مركبة لوجستية</div>
+            <div className="text-start">
+              <div className="text-lg sm:text-xl font-black font-mono text-[#0A1B39] leading-none">+450</div>
+              <div className="text-[11px] font-bold text-gray-600 mt-0.5">مركبة لوجستية</div>
+            </div>
           </div>
 
-          <div className="p-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-1">
+          {/* Counter 3: +85 مستودع وشريك */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100/80 text-blue-600 flex items-center justify-center">
               <Warehouse className="w-4 h-4" />
             </div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-navy-950">+85</div>
-            <div className="text-xs font-bold text-gray-600 mt-0.5">مستودع وشريك</div>
+            <div className="text-start">
+              <div className="text-lg sm:text-xl font-black font-mono text-[#0A1B39] leading-none">+85</div>
+              <div className="text-[11px] font-bold text-gray-600 mt-0.5">مستودع وشريك</div>
+            </div>
           </div>
 
-          <div className="p-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-1">
+          {/* Counter 4: 12 مركز لوجستي */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100/80 text-blue-600 flex items-center justify-center">
               <MapPin className="w-4 h-4" />
             </div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-navy-950">12</div>
-            <div className="text-xs font-bold text-gray-600 mt-0.5">مركز لوجستي</div>
+            <div className="text-start">
+              <div className="text-lg sm:text-xl font-black font-mono text-[#0A1B39] leading-none">12</div>
+              <div className="text-[11px] font-bold text-gray-600 mt-0.5">مركز لوجستي</div>
+            </div>
           </div>
 
-          <div className="p-2 col-span-2 sm:col-span-1">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-1">
+          {/* Counter 5: +320 عميل وثيق الثقة */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100/80 text-blue-600 flex items-center justify-center">
               <Users className="w-4 h-4" />
             </div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-navy-950">+320</div>
-            <div className="text-xs font-bold text-gray-600 mt-0.5">عميل وثيق الثقة</div>
+            <div className="text-start">
+              <div className="text-lg sm:text-xl font-black font-mono text-[#0A1B39] leading-none">+320</div>
+              <div className="text-[11px] font-bold text-gray-600 mt-0.5">عميل وثيق الثقة</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Bottom Section: Integrated Sudan Network Map + Services Grid + Latest News (Matching Screenshot 3) */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Card: شبكة لوجستية متكاملة في السودان (4.5 cols) */}
-        <div className="lg:col-span-5 p-6 rounded-3xl bg-navy-900/90 border border-sky-500/25 shadow-2xl space-y-4 flex flex-col justify-between">
-          <div className="space-y-2">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">
-              تغطية سيادية
-            </span>
-            <h3 className="text-lg sm:text-xl font-bold text-white">شبكة لوجستية متكاملة في السودان</h3>
-            <p className="text-xs text-gray-300">
-              نربط الموانئ البحرية والمعابر الحدودية بجميع الولايات والمراكز الصناعية.
-            </p>
-          </div>
-
-          {/* Interactive Sudan Glow Network Illustration */}
-          <div className="relative h-44 rounded-2xl bg-[#040b20] border border-sky-500/20 overflow-hidden flex items-center justify-center">
-            <svg className="w-full h-full opacity-60" viewBox="0 0 200 120">
-              {/* Grid dots */}
-              <circle cx="50" cy="40" r="3" fill="#1e60ff" className="animate-pulse" />
-              <circle cx="110" cy="30" r="4" fill="#60a5fa" />
-              <circle cx="160" cy="20" r="4" fill="#10b981" />
-              <circle cx="90" cy="70" r="4" fill="#3b82f6" />
-              <circle cx="140" cy="65" r="3" fill="#f59e0b" />
-              <circle cx="60" cy="90" r="3" fill="#ef4444" />
-              {/* Connection Lines */}
-              <line x1="160" y1="20" x2="110" y2="30" stroke="#60a5fa" strokeWidth="1.5" />
-              <line x1="110" y1="30" x2="90" y2="70" stroke="#3b82f6" strokeWidth="1.5" />
-              <line x1="90" y1="70" x2="140" y2="65" stroke="#f59e0b" strokeWidth="1" />
-              <line x1="90" y1="70" x2="60" y2="90" stroke="#ef4444" strokeWidth="1" />
-              <line x1="50" y1="40" x2="110" y2="30" stroke="#1e60ff" strokeWidth="1" />
-            </svg>
-            <div className="absolute text-center">
-              <span className="text-xs font-bold text-sky-300 font-mono">18 ولاية • 150+ محطة</span>
-            </div>
-          </div>
-
-          <div className="space-y-1.5 text-xs text-gray-300">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>تغطية شاملة لجميع الولايات والمنافذ</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>ربط الموانئ والمطارات والمراكز اللوجستية</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>حلول نقل وتوزيع ذكية وتفريغ فوري</span>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setCurrentView('control_tower')}
-            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-lg transition-transform hover:scale-105 cursor-pointer"
-          >
-            اكتشف شبكة الممرات والأسطول
-          </button>
-        </div>
-
-        {/* Center: خدماتنا Quick Overview (4 cols) */}
-        <div className="lg:col-span-4 p-6 rounded-3xl bg-navy-900/90 border border-sky-500/25 shadow-2xl space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-sky-500/10">
-            <h3 className="font-bold text-base text-white">خدماتنا اللوجستية</h3>
-            <button onClick={() => setActiveTab('services')} className="text-xs text-sky-400 hover:text-white">
-              عرض جميع الخدمات &gt;
-            </button>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2.5">
-            <div className="p-3 rounded-xl bg-navy-950 border border-navy-800 text-center space-y-1 hover:border-sky-500/40 transition-colors">
-              <Truck className="w-5 h-5 text-blue-500 mx-auto" />
-              <div className="font-bold text-xs text-white">النقل البري</div>
-              <div className="text-[10px] text-gray-400">أسطول متكامل</div>
+      {/* 5. Three-Column Integrated Section (Matching Screenshot 3) */}
+      <section className="max-w-6xl mx-auto px-2">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+          {/* Card 1: شبكة لوجستية متكاملة في السودان (Left 4 cols) */}
+          <div className="lg:col-span-4 p-5 rounded-2xl bg-[#040C24] text-white shadow-xl border border-blue-900/40 flex flex-col justify-between space-y-4">
+            <div className="space-y-2">
+              <h3 className="font-black text-base text-white">شبكة لوجستية متكاملة في السودان</h3>
+              <div className="space-y-1.5 text-xs text-gray-300">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px]">✓</div>
+                  <span>تغطية شاملة لجميع الولايات</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px]">✓</div>
+                  <span>ربط الموانئ والمطارات والمراكز اللوجستية</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px]">✓</div>
+                  <span>حلول نقل وتوزيع ذكية</span>
+                </div>
+              </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-navy-950 border border-navy-800 text-center space-y-1 hover:border-sky-500/40 transition-colors">
-              <Ship className="w-5 h-5 text-sky-400 mx-auto" />
-              <div className="font-bold text-xs text-white">الشحن البحري</div>
-              <div className="text-[10px] text-gray-400">بورتسودان الدولي</div>
+            {/* Glowing Sudan Network Map Illustration */}
+            <div className="relative h-28 rounded-xl bg-[#071333] border border-blue-500/20 overflow-hidden flex items-center justify-center">
+              <svg className="w-full h-full opacity-70" viewBox="0 0 200 100">
+                <circle cx="40" cy="30" r="3" fill="#1e60ff" />
+                <circle cx="100" cy="25" r="4" fill="#60a5fa" />
+                <circle cx="160" cy="20" r="4" fill="#10b981" />
+                <circle cx="80" cy="65" r="4" fill="#3b82f6" />
+                <circle cx="140" cy="60" r="3" fill="#f59e0b" />
+                <line x1="160" y1="20" x2="100" y2="25" stroke="#60a5fa" strokeWidth="1.5" />
+                <line x1="100" y1="25" x2="80" y2="65" stroke="#3b82f6" strokeWidth="1.5" />
+                <line x1="80" y1="65" x2="140" y2="60" stroke="#f59e0b" strokeWidth="1" />
+                <line x1="40" y1="30" x2="100" y2="25" stroke="#1e60ff" strokeWidth="1" />
+              </svg>
+              <span className="absolute text-[11px] font-bold text-sky-300">18 ولاية • 150+ محطة</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-navy-950 border border-navy-800 text-center space-y-1 hover:border-sky-500/40 transition-colors">
-              <Plane className="w-5 h-5 text-amber-400 mx-auto" />
-              <div className="font-bold text-xs text-white">الشحن الجوي</div>
-              <div className="text-[10px] text-gray-400">تسليم فوري</div>
-            </div>
-
-            <div className="p-3 rounded-xl bg-navy-950 border border-navy-800 text-center space-y-1 hover:border-sky-500/40 transition-colors">
-              <Warehouse className="w-5 h-5 text-emerald-400 mx-auto" />
-              <div className="font-bold text-xs text-white">المستودعات</div>
-              <div className="text-[10px] text-gray-400">تخزين ذكي WMS</div>
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-950 to-navy-950 border border-blue-500/30 text-xs flex items-center justify-between">
-            <span className="text-gray-300">وفّر 28% عبر الشاحنات العائدة:</span>
             <button
-              onClick={() => setCurrentView('marketplace')}
-              className="px-3 py-1 rounded-lg bg-emerald-500 text-navy-950 font-bold text-xs"
+              onClick={() => setCurrentView('control_tower')}
+              className="w-full py-2.5 rounded-xl bg-[#1E60FF] hover:bg-blue-700 text-white font-extrabold text-xs shadow-md cursor-pointer transition-transform hover:scale-105"
             >
-              بورصة الشحن
+              اكتشف الشبكة
             </button>
           </div>
-        </div>
 
-        {/* Right: آخر المستجدات (3.5 cols - Matching Screenshot 3) */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-navy-900/90 border border-sky-500/25 shadow-2xl space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-sky-500/10">
-            <h3 className="font-bold text-base text-white">آخر المستجدات</h3>
-            <button className="text-xs text-sky-400 hover:text-white">عرض الكل &gt;</button>
-          </div>
+          {/* Card 2: خدماتنا Quick Grid (Center 4 cols) */}
+          <div className="lg:col-span-4 p-5 rounded-2xl bg-white text-navy-950 shadow-xl border border-gray-100 flex flex-col justify-between space-y-3">
+            <h3 className="font-black text-base text-[#0A1B39]">خدماتنا</h3>
 
-          <div className="space-y-3">
-            <div className="p-3 rounded-2xl bg-navy-950 border border-navy-800 space-y-1.5 hover:border-sky-500/40 transition-colors">
-              <span className="text-[10px] text-sky-400 font-mono">12 أغسطس 2024</span>
-              <h4 className="font-bold text-xs text-white leading-snug">إطلاق منصة تتبع الشحنات الذكية الجديدة</h4>
-              <p className="text-[10px] text-gray-400">نظام فوري لتتبع حاويات ميناء بورتسودان عبر الأقمار الصناعية.</p>
+            <div className="grid grid-cols-3 gap-2 text-center text-xs">
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <Truck className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">النقل البري</div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <Ship className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">الشحن البحري</div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <Plane className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">الشحن الجوي</div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <Warehouse className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">المستودعات</div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <Package className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">التوزيع</div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors space-y-1">
+                <FileCheck className="w-5 h-5 text-blue-600 mx-auto" />
+                <div className="font-bold text-[10px] text-[#0A1B39]">التخليص الجمركي</div>
+              </div>
             </div>
 
-            <div className="p-3 rounded-2xl bg-navy-950 border border-navy-800 space-y-1.5 hover:border-sky-500/40 transition-colors">
-              <span className="text-[10px] text-emerald-400 font-mono">8 أغسطس 2024</span>
-              <h4 className="font-bold text-xs text-white leading-snug">توسيع شبكة النقل إلى ولايات القضارف وكسلا</h4>
-              <p className="text-[10px] text-gray-400">إضافة 80 شاحنة مبردة وثقيلة لخدمة المحاصيل الزراعية والصادرات.</p>
+            <button
+              onClick={() => setActiveTab('services')}
+              className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1 pt-1"
+            >
+              <span>عرض جميع الخدمات</span>
+              <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+            </button>
+          </div>
+
+          {/* Card 3: آخر المستجدات (Right 4 cols) */}
+          <div className="lg:col-span-4 p-5 rounded-2xl bg-white text-navy-950 shadow-xl border border-gray-100 space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-black text-base text-[#0A1B39]">آخر المستجدات</h3>
+              <button className="text-xs text-blue-600 hover:text-blue-800 font-bold">عرض الكل</button>
+            </div>
+
+            <div className="space-y-2.5 text-xs">
+              <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100 flex items-center gap-3 hover:border-blue-300 transition-colors">
+                <div
+                  className="w-14 h-12 rounded-lg bg-cover bg-center flex-shrink-0"
+                  style={{ backgroundImage: "url('/news-truck.jpg')" }}
+                ></div>
+                <div>
+                  <span className="text-[9px] text-gray-500 font-mono block">12 أغسطس 2024</span>
+                  <h4 className="font-bold text-xs text-[#0A1B39] leading-snug">إطلاق منصة تتبع الشحنات الجديدة</h4>
+                </div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100 flex items-center gap-3 hover:border-blue-300 transition-colors">
+                <div
+                  className="w-14 h-12 rounded-lg bg-cover bg-center flex-shrink-0"
+                  style={{ backgroundImage: "url('/news-port.jpg')" }}
+                ></div>
+                <div>
+                  <span className="text-[9px] text-gray-500 font-mono block">8 أغسطس 2024</span>
+                  <h4 className="font-bold text-xs text-[#0A1B39] leading-snug">توسيع شبكة النقل إلى ولايات جديدة</h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Matrix Sub-View (Matching Screenshot 2) */}
-      {activeTab === 'pricing' && (
-        <section className="p-8 rounded-3xl bg-navy-900/95 border border-sky-500/30 shadow-2xl space-y-8 animate-in fade-in">
-          <div className="text-center space-y-3">
-            <h2 className="text-2xl sm:text-4xl font-black text-white">باقات الأسعار والاشتراكات</h2>
-            <p className="text-xs sm:text-sm text-gray-400 max-w-xl mx-auto">
-              اختر الخطة المناسبة لحجم أعمالك اللوجستية واستفد من الربط الرقمي المباشر.
-            </p>
-
-            {/* Monthly / Yearly Switcher */}
-            <div className="inline-flex items-center gap-2 p-1.5 rounded-xl bg-navy-950 border border-sky-500/30">
-              <button
-                onClick={() => setPricingCycle('monthly')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  pricingCycle === 'monthly' ? 'bg-sky-600 text-white shadow' : 'text-gray-400'
-                }`}
-              >
-                شهري
-              </button>
-              <button
-                onClick={() => setPricingCycle('yearly')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  pricingCycle === 'yearly' ? 'bg-sky-600 text-white shadow' : 'text-gray-400'
-                }`}
-              >
-                سنوي (خصم 20%)
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {/* Basic Tier */}
-            <div className="p-6 rounded-2xl bg-navy-950 border border-navy-800 shadow-xl space-y-4">
-              <h4 className="text-base font-bold text-white">أساسي</h4>
-              <div className="text-3xl font-black font-mono text-white">$49 <span className="text-xs text-gray-400">/ شهرياً</span></div>
-              <ul className="space-y-2 text-xs text-gray-300">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> تتبع الشحنات</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> إشعارات عبر البريد الإلكتروني</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> تقارير أساسية</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> دعم فني عبر البريد</li>
-              </ul>
-              <button
-                onClick={() => setCurrentView('create_shipment')}
-                className="w-full py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-gray-200 font-bold text-xs"
-              >
-                ابدأ الآن
-              </button>
-            </div>
-
-            {/* Pro Tier (Featured) */}
-            <div className="p-6 rounded-2xl bg-gradient-to-b from-blue-950 via-navy-900 to-navy-950 border-2 border-sky-400 shadow-2xl space-y-4 relative">
-              <span className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-sky-500 text-white text-[10px] font-bold">
-                الأكثر شعبية
-              </span>
-              <h4 className="text-base font-bold text-white">احترافي</h4>
-              <div className="text-3xl font-black font-mono text-white">$99 <span className="text-xs text-gray-400">/ شهرياً</span></div>
-              <ul className="space-y-2 text-xs text-gray-200">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> تتبع الشحنات في الوقت الفعلي</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> تقارير وتحليلات متقدمة</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> تكامل API مباشر</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> دعم فني مخصص 24/7</li>
-              </ul>
-              <button
-                onClick={() => setCurrentView('create_shipment')}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white font-extrabold text-xs shadow-lg hover:brightness-110"
-              >
-                ابدأ الآن
-              </button>
-            </div>
-
-            {/* Advanced Tier */}
-            <div className="p-6 rounded-2xl bg-navy-950 border border-navy-800 shadow-xl space-y-4">
-              <h4 className="text-base font-bold text-white">متقدم</h4>
-              <div className="text-3xl font-black font-mono text-white">$199 <span className="text-xs text-gray-400">/ شهرياً</span></div>
-              <ul className="space-y-2 text-xs text-gray-300">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> إدارة كاملة للأسطول والمستودعات</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> توأم رقمي ومحاكاة الذكاء الاصطناعي</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> فواتير إلكترونية ومحفظة ضامنة</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> مدير حساب مخصص</li>
-              </ul>
-              <button
-                onClick={() => setCurrentView('create_shipment')}
-                className="w-full py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-gray-200 font-bold text-xs"
-              >
-                ابدأ الآن
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Rich Structured Footer (Matching Screenshot 2 & 3) */}
-      <footer className="rounded-3xl bg-navy-900/90 border border-sky-500/20 p-8 sm:p-12 text-gray-300 space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3">
-            <h4 className="font-black text-base text-white">سودانيل لوجستك</h4>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              نحن نقدم حلول لوجستية متكاملة لربط السودان بالعالم بموثوقية منذ 2018.
+      {/* 6. Bottom Sovereign Blue Banner (Matching Screenshot 3) */}
+      <section className="max-w-6xl mx-auto px-2">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#06143A] text-white border border-blue-800/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Right Text */}
+          <div className="space-y-1 text-center md:text-start">
+            <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
+              سودانيل .. نحو لوجستيات أكثر ذكاءً
+            </h2>
+            <p className="text-xs text-sky-300 font-medium">
+              من الداخل إلى الخارج .. نصل بك بأمان وسرعة
             </p>
           </div>
 
-          <div>
-            <h5 className="font-bold text-white text-xs mb-3 uppercase tracking-widest">خدماتنا</h5>
-            <ul className="space-y-2 text-xs text-gray-400">
-              <li><button onClick={() => setCurrentView('marketplace')} className="hover:text-sky-400">النقل البري</button></li>
-              <li><button onClick={() => setCurrentView('port_sudan')} className="hover:text-sky-400">الشحن البحري</button></li>
-              <li><button onClick={() => setCurrentView('warehousing')} className="hover:text-sky-400">المستودعات</button></li>
-              <li><button onClick={() => setCurrentView('port_sudan')} className="hover:text-sky-400">التخليص الجمركي</button></li>
-            </ul>
-          </div>
+          {/* Left Feature Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold">
+            <div className="flex items-center gap-1.5 text-gray-200">
+              <BarChart3 className="w-4 h-4 text-sky-400" />
+              <span>كفاءة أعلى وتكاليف أقل</span>
+            </div>
 
-          <div>
-            <h5 className="font-bold text-white text-xs mb-3 uppercase tracking-widest">روابط سريعة</h5>
-            <ul className="space-y-2 text-xs text-gray-400">
-              <li><button onClick={() => setCurrentView('public_track')} className="hover:text-sky-400">تتبع الشحنات</button></li>
-              <li><button onClick={() => setCurrentView('create_shipment')} className="hover:text-sky-400">طلب شحنة جديدة</button></li>
-              <li><button onClick={() => setActiveTab('pricing')} className="hover:text-sky-400">الأسعار</button></li>
-              <li><button onClick={() => setCurrentView('carrier_portal')} className="hover:text-sky-400">بوابة الناقلين</button></li>
-            </ul>
-          </div>
+            <div className="flex items-center gap-1.5 text-gray-200">
+              <Headphones className="w-4 h-4 text-sky-400" />
+              <span>دعم فني 24/7</span>
+            </div>
 
-          <div>
-            <h5 className="font-bold text-white text-xs mb-3 uppercase tracking-widest">اتصل بنا</h5>
-            <ul className="space-y-2 text-xs text-gray-400">
-              <li className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-sky-400" />
-                <span>الخرطوم، بورتسودان</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-sky-400" />
-                <span dir="ltr">+249 123 456 789</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-sky-400" />
-                <span>info@sudaneel-logistic.com</span>
-              </li>
-            </ul>
+            <div className="flex items-center gap-1.5 text-gray-200">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>شراكات استراتيجية</span>
+            </div>
           </div>
         </div>
-
-        <div className="pt-6 border-t border-navy-800 text-center text-xs text-gray-500">
-          © 2026 Sudaneel Logistics Intelligence Platform. جميع الحقوق محفوظة.
-        </div>
-      </footer>
+      </section>
     </div>
   );
 }
