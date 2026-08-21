@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sudanil-logistics": {
+      "command": "node",
+      "args": ["backend/mcp/logistics-mcp-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
