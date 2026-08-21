@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Customer Code -->
+    <record id="seq_sudanil_customer" model="ir.sequence">
+        <field name="name">Sudanil Customer Code Sequence</field>
+        <field name="code">sudanil.customer</field>
+        <field name="prefix">CUST-</field>
+        <field name="padding">5</field>
+        <field name="number_next">1001</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Sequence for Opportunity Code -->
+    <record id="seq_sudanil_opportunity" model="ir.sequence">
+        <field name="name">Sudanil Opportunity Code Sequence</field>
+        <field name="code">sudanil.opportunity</field>
+        <field name="prefix">OPP-</field>
+        <field name="padding">5</field>
+        <field name="number_next">5001</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- ======================= CUSTOMER VIEWS ======================= -->
+    
+    <!-- Customer Form View -->
+    <record id="view_sudanil_customer_form" model="ir.ui.view">
+        <field name="name">sudanil.customer.form</field>
+        <field name="model">sudanil.customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer Profile">
+                <header>
+                    <button name="action_mark_as_active" string="Mark as Active" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'active')]}"/>
+                    <button name="action_mark_as_loyal" string="Mark as Loyal" type="object" class="btn-success" attrs="{'invisible': [('status', '=', 'loyal')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="prospect,qualified,active,loyal,inactive,lost"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                            <span class="badge badge-primary" t-att-class="'badge-' + status"><field name="status"/></span>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Basic Information">
+                            <field name="customer_code" readonly="1"/>
+                            <field name="customer_type"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group string="Company Details">
+                            <field name="company_name" attrs="{'required': [('customer_type', '=', 'company')]}"/>
+                            <field name="registration_number"/>
+                            <field name="industry"/>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Address Information">
+                            <field name="country"/>
+                            <field name="state"/>
+                            <field name="city"/>
+                            <field name="postal_code"/>
+                        </group>
+                        <group string="Rating &amp; Classification">
+                            <field name="customer_rating"/>
+                            <field name="lifetime_value"/>
+                            <field name="credit_limit"/>
+                            <field name="risk_level"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Activity Metrics">
+                            <field name="total_shipments" readonly="1"/>
+                            <field name="active_shipments" readonly="1"/>
+                            <field name="last_interaction_date"/>
+                            <field name="days_since_last_contact" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="address" widget="text" placeholder="Street Address..."/>
+                    <field name="notes" widget="text" placeholder="Internal notes..."/>
+                    
+                    <notebook>
+                        <page string="Shipments" name="shipments">
+                            <field name="shipment_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cargo_type"/>
+                                    <field name="cargo_weight"/>
+                                    <field name="route_type"/>
+                                    <field name="state"/>
+                                    <field name="customs_status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Opportunities" name="opportunities">
+                            <field name="opportunity_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="opportunity_type"/>
+                                    <field name="expected_value"/>
+                                    <field name="stage"/>
+                                    <field name="probability"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Activities" name="activities">
+                            <field name="activity_ids" readonly="1">
+                                <tree>
+                                    <field name="activity_type"/>
+                                    <field name="title"/>
+                                    <field name="activity_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Interactions" name="interactions">
+                            <field name="interaction_ids" readonly="1">
+                                <tree>
+                                    <field name="interaction_type"/>
+                                    <field name="notes"/>
+                                    <field name="interaction_date"/>
+                                    <field name="resolved"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Invoices" name="invoices">
+                            <field name="invoice_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="invoice_date"/>
+                                    <field name="amount_total"/>
+                                    <field name="payment_state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Customer Tree View -->
+    <record id="view_sudanil_customer_tree" model="ir.ui.view">
+        <field name="name">sudanil.customer.tree</field>
+        <field name="model">sudanil.customer</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="status == 'prospect'" decoration-success="status == 'loyal'" decoration-warning="status == 'inactive'" string="Customers">
+                <field name="customer_code"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="customer_type"/>
+                <field name="customer_rating" widget="badge"/>
+                <field name="total_shipments" sum="Total Shipments"/>
+                <field name="lifetime_value" sum="Total Value"/>
+                <field name="status" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Customer Kanban View -->
+    <record id="view_sudanil_customer_kanban" model="ir.ui.view">
+        <field name="name">sudanil.customer.kanban</field>
+        <field name="model">sudanil.customer</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="customer_rating"/>
+                <field name="lifetime_value"/>
+                <field name="total_shipments"/>
+                <field name="email"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div class="o_kanban_tags_section">
+                                    <span class="badge badge-primary"><field name="customer_rating"/></span>
+                                </div>
+                                <ul>
+                                    <li>Shipments: <field name="total_shipments"/></li>
+                                    <li>Value: <field name="lifetime_value" widget="monetary"/></li>
+                                    <li>Email: <field name="email"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action Window for Customer -->
+    <record id="action_sudanil_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">sudanil.customer</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first customer profile!
+            </p>
+        </field>
+    </record>
+
+    <!-- ======================= OPPORTUNITY VIEWS ======================= -->
+
+    <!-- Opportunity Form View -->
+    <record id="view_sudanil_opportunity_form" model="ir.ui.view">
+        <field name="name">sudanil.opportunity.form</field>
+        <field name="model">sudanil.opportunity</field>
+        <field name="arch" type="xml">
+            <form string="Sales Opportunity">
+                <header>
+                    <button name="action_move_to_next_stage" string="Move to Next Stage" type="object" class="oe_highlight"/>
+                    <button name="action_mark_as_won" string="Mark as Won" type="object" class="btn-success" attrs="{'invisible': [('stage', '=', 'won')]}"/>
+                    <button name="action_mark_as_lost" string="Mark as Lost" type="object" class="btn-danger" attrs="{'invisible': [('stage', '=', 'lost')]}"/>
+                    <field name="stage" widget="statusbar" statusbar_visible="prospect,qualification,proposal,negotiation,won,lost"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                            <span class="badge badge-info"><field name="opportunity_code"/></span>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Opportunity Details">
+                            <field name="customer_id"/>
+                            <field name="opportunity_type"/>
+                            <field name="assigned_to"/>
+                            <field name="pipeline_status"/>
+                        </group>
+                        <group string="Financial &amp; Probability">
+                            <field name="expected_value"/>
+                            <field name="probability" widget="gauge"/>
+                            <field name="weighted_value" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Cargo &amp; Route Details">
+                            <field name="cargo_type"/>
+                            <field name="cargo_weight_tons"/>
+                            <field name="route_type"/>
+                        </group>
+                        <group string="Locations">
+                            <field name="origin_location"/>
+                            <field name="destination_location"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Timeline">
+                            <field name="expected_close_date"/>
+                            <field name="actual_close_date" readonly="1"/>
+                            <field name="next_activity_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Competition">
+                            <field name="competitor_info"/>
+                        </group>
+                    </group>
+                    <field name="notes" widget="text" placeholder="Internal notes..."/>
+                    
+                    <notebook>
+                        <page string="Win/Loss Reason" name="outcome">
+                            <group attrs="{'invisible': [('stage', '!=', 'won')]}">
+                                <field name="win_reason"/>
+                            </group>
+                            <group attrs="{'invisible': [('stage', '!=', 'lost')]}">
+                                <group>
+                                    <field name="loss_reason"/>
+                                    <field name="loss_details"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Activities" name="activities">
+                            <field name="activity_ids">
+                                <tree>
+                                    <field name="activity_type"/>
+                                    <field name="notes"/>
+                                    <field name="activity_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Opportunity Tree View -->
+    <record id="view_sudanil_opportunity_tree" model="ir.ui.view">
+        <field name="name">sudanil.opportunity.tree</field>
+        <field name="model">sudanil.opportunity</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="stage == 'proposal'" decoration-warning="stage == 'negotiation'" decoration-success="stage == 'won'" decoration-danger="stage == 'lost'" string="Opportunities">
+                <field name="opportunity_code"/>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="opportunity_type"/>
+                <field name="expected_value"/>
+                <field name="probability"/>
+                <field name="weighted_value" sum="Total Weighted Value"/>
+                <field name="stage"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Opportunity Kanban View -->
+    <record id="view_sudanil_opportunity_kanban" model="ir.ui.view">
+        <field name="name">sudanil.opportunity.kanban</field>
+        <field name="model">sudanil.opportunity</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="expected_value"/>
+                <field name="probability"/>
+                <field name="weighted_value"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div class="o_kanban_tags_section">
+                                    <span class="badge badge-secondary"><field name="customer_id"/></span>
+                                </div>
+                                <ul>
+                                    <li>Value: <field name="expected_value" widget="monetary"/></li>
+                                    <li>Probability: <field name="probability"/>%</li>
+                                    <li>Weighted: <field name="weighted_value" widget="monetary"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action Window for Opportunity -->
+    <record id="action_sudanil_opportunity" model="ir.actions.act_window">
+        <field name="name">Sales Opportunities</field>
+        <field name="res_model">sudanil.opportunity</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first sales opportunity!
+            </p>
+        </field>
+    </record>
+
+    <!-- ======================= MENU ITEMS ======================= -->
+
+    <menuitem id="menu_sudanil_crm" name="Sudanil CRM" parent="menu_sudanil_root" sequence="20"/>
+    <menuitem id="menu_sudanil_customers" name="Customers" parent="menu_sudanil_crm" action="action_sudanil_customer" sequence="10"/>
+    <menuitem id="menu_sudanil_opportunities" name="Sales Opportunities" parent="menu_sudanil_crm" action="action_sudanil_opportunity" sequence="20"/>
+
+</odoo>

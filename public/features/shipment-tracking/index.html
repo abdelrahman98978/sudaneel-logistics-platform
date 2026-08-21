@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar" class="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>تتبع الشحنة | سودانيل لوجيستك</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <!-- Leaflet CSS & JS for Live Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0b1b3d", // Deep Navy
+                        "primary-light": "#1a365d",
+                        "secondary-container": "#1b64d4", // Premium Gold
+                        "secondary-light": "#60a5fa",
+                        "surface-container": "#f1f5f9",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#94a3b8",
+                        "background": "#f8fafc",
+                        "on-background": "#0f172a",
+                        "outline-variant": "#e2e8f0",
+                        "surface": "#ffffff",
+                        "on-surface-variant": "#475569",
+                        "primary": "#0b1b3d",
+                        "secondary": "#b79414",
+                    },
+                    spacing: {
+                        "margin-desktop": "5vw",
+                        "max-width": "1400px",
+                        "section-gap": "100px",
+                        "gutter": "32px",
+                        "margin-mobile": "24px"
+                    },
+                    fontFamily: {
+                        body: ["Alexandria", "Montserrat", "system-ui", "sans-serif"],
+                        headline: ["Alexandria", "Montserrat", "system-ui", "sans-serif"]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Alexandria', 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logistic-shadow {
+            box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.08), 0 4px 10px -3px rgba(11, 27, 61, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px -10px rgba(11, 27, 61, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.05);
+            border-color: #1b64d4;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1b64d4, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-gradient {
+            background: linear-gradient(145deg, rgba(11,27,61,0.85) 0%, rgba(26,54,93,0.6) 60%, rgba(27, 100, 212,0.3) 100%);
+        }
+        .status-dot-pulse {
+            box-shadow: 0 0 0 0 rgba(27, 100, 212, 0.7);
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        @keyframes pulse-ring {
+            100% { box-shadow: 0 0 0 15px rgba(27, 100, 212, 0); }
+        }
+        /* Custom Scrollbar for Milestones */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body">
+
+<!-- Top Navigation Bar -->
+<header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all">
+    <div class="flex items-center gap-10">
+        <a href="../company-profile/index.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+            <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
+        </a>
+        <nav class="hidden md:flex gap-6 items-center text-sm">
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../services-catalog/index.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../contact-support/index.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 font-bold text-slate-500 hover:text-primary transition-colors mx-2 bg-slate-100/50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/50">
+            <span class="material-symbols-outlined text-lg">language</span>
+            <span id="langToggleText" class="text-xs">EN</span>
+        </button>
+        <a href="../client-portal/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
+            <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
+            تسجيل الدخول
+        </a>
+    </div>
+</header>
+
+<main class="pt-24">
+    <!-- Hero Tracking Search -->
+    <section class="hero-gradient py-24 px-margin-desktop relative overflow-hidden text-white">
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-container rounded-full mix-blend-multiply filter blur-[120px] animate-pulse-slow"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto text-center animate-fade-in-up">
+            <h1 class="lang-text font-headline text-5xl md:text-6xl font-bold mb-6 leading-tight" data-ar="تتبع شحنتك المباشرة <br /> <span class='gradient-text'>بدقة واحترافية</span>" data-en="Track your shipment <br /> <span class='gradient-text'>Live & Accurately</span>">
+                تتبع شحنتك المباشرة
+                <br />
+                <span class="gradient-text">بدقة واحترافية</span>
+            </h1>
+            <p class="lang-text text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed" data-ar="متابعة دقيقة ولحظية لمسار بضائعك العالمية عبر شبكتنا المتكاملة، لضمان راحة بالك." data-en="Accurate and real-time tracking of your global shipments through our integrated network, ensuring your peace of mind.">
+                متابعة دقيقة ولحظية لمسار بضائعك العالمية عبر شبكتنا المتكاملة، لضمان راحة بالك.
+            </p>
+            
+            <div class="glass-panel p-3 rounded-2xl flex items-center shadow-2xl h-24 max-w-3xl mx-auto text-on-background relative overflow-hidden border border-white/20">
+                <div class="flex-grow px-6 flex items-center gap-5 relative z-10">
+                    <span class="material-symbols-outlined text-primary text-3xl">qr_code_scanner</span>
+                    <input id="trackingInput" class="lang-text w-full bg-transparent border-none focus:outline-none focus:ring-0 text-xl font-bold text-primary placeholder-slate-400" placeholder="أدخل رقم التتبع" data-ar="أدخل رقم التتبع" data-en="Enter Tracking ID" type="text" value="SNL-240522-001"/>
+                </div>
+                <button id="trackBtn" class="bg-primary text-secondary-container h-full px-12 rounded-xl font-bold text-lg hover:bg-primary-light transition-all active:scale-95 flex items-center gap-2 relative z-10">
+                    <span class="lang-text" data-ar="تتبع" data-en="Track">تتبع</span>
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Dashboard Content -->
+    <section class="px-margin-desktop py-section-gap max-w-max-width mx-auto">
+        <div class="grid grid-cols-12 gap-gutter">
+            
+            <!-- Shipment Status Header Card -->
+            <div class="col-span-12 bg-white rounded-2xl p-8 logistic-shadow flex flex-wrap justify-between items-center gap-8 animate-fade-in-up">
+                <div class="flex items-center gap-6">
+                    <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="material-symbols-outlined text-secondary-container text-4xl">local_shipping</span>
+                    </div>
+                    <div>
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-widest block mb-1">الحالة الحالية للشحنة</span>
+                        <h2 id="currentStatus" class="text-3xl font-bold text-primary tracking-tight">في الطريق - تصل غداً</h2>
+                    </div>
+                </div>
+                
+                <div class="flex gap-10 md:gap-16 items-center bg-slate-50 px-8 py-5 rounded-xl border border-slate-100">
+                    <div class="flex flex-col items-center">
+                        <p class="text-sm font-semibold text-slate-500 mb-1">الوصول المتوقع</p>
+                        <p id="eta" class="text-xl font-bold text-primary">24 مايو 2024</p>
+                    </div>
+                    <div class="w-px h-12 bg-slate-200"></div>
+                    <div class="flex flex-col items-center">
+                        <p class="text-sm font-semibold text-slate-500 mb-1">الوزن الإجمالي</p>
+                        <p id="weight" class="text-xl font-bold text-primary">25.4 كجم</p>
+                    </div>
+                    <div class="w-px h-12 bg-slate-200"></div>
+                    <div class="flex flex-col items-center">
+                        <p class="text-sm font-semibold text-slate-500 mb-1">مستوى الخدمة</p>
+                        <p id="service" class="text-xl font-bold text-secondary">شحن جوي سريع</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Timeline & Live Interactive Leaflet Map -->
+            <div class="col-span-12 md:col-span-8 bg-white rounded-2xl overflow-hidden logistic-shadow h-[600px] flex flex-col relative animate-fade-in-up">
+                <div class="p-4 border-b border-slate-100 flex flex-wrap justify-between items-center bg-white/90 backdrop-blur-md absolute top-0 left-0 right-0 z-[1000] shadow-sm gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg text-lg">near_me</span>
+                        <div>
+                            <h3 class="font-headline text-base md:text-lg font-bold text-primary">المسار اللوجستي الحي</h3>
+                            <p class="text-[11px] text-slate-500 hidden sm:block">تتبع بالأقمار الصناعية ومحطات التخليص الجمركي</p>
+                        </div>
+                    </div>
+                    <!-- Quick Tracking Presets & Map Layer Toggle -->
+                    <div class="flex items-center gap-2">
+                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-bold gap-1">
+                            <button onclick="selectShipmentPreset('SNL-240522-001')" class="preset-btn px-2.5 py-1.5 rounded-md bg-white text-primary shadow-sm hover:text-secondary transition-all" title="شحن بحري - بري">بورتسودان ➔ الخرطوم</button>
+                            <button onclick="selectShipmentPreset('SNL-240523-088')" class="preset-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-primary transition-all" title="شحن بحري دولي">جدة ➔ بورتسودان</button>
+                            <button onclick="selectShipmentPreset('SNL-240524-104')" class="preset-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-primary transition-all" title="شحن جوي سريع">دبي ➔ الخرطوم</button>
+                        </div>
+                        <button id="mapTileToggle" onclick="toggleMapLayer()" class="px-3 py-1.5 bg-primary text-secondary-container rounded-lg text-xs font-bold hover:bg-primary-light transition-all flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-sm">layers</span>
+                            <span id="layerNameText">قمر صناعي</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leaflet Map Canvas -->
+                <div class="flex-grow relative w-full h-full pt-16">
+                    <div id="liveTrackingMap" class="w-full h-full z-0" style="min-height: 520px; background-color: #060d1e;"></div>
+                    
+                    <!-- Live Dynamic Floating Card -->
+                    <div class="absolute bottom-4 right-4 glass-panel p-4 rounded-xl shadow-2xl max-w-xs text-right z-[1000] border-r-4 border-r-secondary-container bg-white/95 backdrop-blur-md">
+                        <div class="flex justify-between items-center mb-2 gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></div>
+                                <span id="mapLiveLocation" class="text-xs font-bold text-primary">الموقع: ميناء بورتسودان الجنوبي</span>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-full">GPS مباشر</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100 mb-2">
+                            <span id="mapVehicleIcon" class="material-symbols-outlined text-primary text-base">directions_boat</span>
+                            <p class="font-semibold text-[11px] truncate">الناقل: <span id="mapCarrierName" class="text-primary font-bold">SUDANIL STAR V.042</span></p>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 pt-1 border-t border-slate-100">
+                            <span>نسبة الأمان في الموعد:</span>
+                            <span class="text-emerald-600 flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified</span> 99.4% AI ETA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical Shipment Milestones -->
+            <div class="col-span-12 md:col-span-4 bg-white rounded-2xl p-8 logistic-shadow h-[600px] overflow-y-auto custom-scrollbar animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-100">
+                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">history</span>
+                    <h3 class="font-headline text-xl font-bold text-primary">سجل حركة الشحنة</h3>
+                </div>
+                <div id="milestonesContainer" class="relative border-r-2 border-slate-200 mr-3 space-y-8 mt-4 pb-4">
+                    <!-- Milestones will be injected here. -->
+                </div>
+            </div>
+
+                <div class="p-6 bg-slate-50 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary bg-white p-2 rounded-lg shadow-sm">inventory_2</span>
+                        <h3 class="font-headline text-xl font-bold text-primary">محتويات الشحنة والبيانات الجمركية</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="shareViaWhatsApp()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+                            <span class="material-symbols-outlined text-sm">share</span>
+                            مشاركة واتساب
+                        </button>
+                        <button onclick="window.print()" class="px-4 py-2 bg-primary hover:bg-primary-light text-secondary-container rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+                            <span class="material-symbols-outlined text-sm">print</span>
+                            طباعة تقرير الشحنة
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead class="bg-white text-xs font-bold text-slate-400 uppercase tracking-wider border-b-2 border-slate-100">
+                            <tr>
+                                <th class="px-8 py-5 text-right font-semibold">وصف العنصر</th>
+                                <th class="px-8 py-5 text-right font-semibold">الأبعاد</th>
+                                <th class="px-8 py-5 text-right font-semibold">الكمية</th>
+                                <th class="px-8 py-5 text-right font-semibold">الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsContainer" class="divide-y divide-slate-100 text-slate-600">
+                            <!-- Items will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Related Actions Sidebar -->
+            <div class="col-span-12 md:col-span-4 flex flex-col gap-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+                <!-- Support Card -->
+                <div class="bg-gradient-to-br from-primary to-primary-light p-8 rounded-2xl text-white logistic-shadow hover-lift cursor-pointer relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 transition-transform group-hover:scale-150"></div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-5xl mb-4 text-secondary-container drop-shadow-md">support_agent</span>
+                        <h4 class="font-headline text-2xl font-bold mb-3">دعم مخصص لشحنتك</h4>
+                        <p class="text-slate-300 text-sm mb-8 leading-relaxed">يتوفر مدير حسابك اللوجستي لتقديم أي مساعدة إضافية بخصوص مسار الشحنة.</p>
+                        <button class="w-full py-4 bg-white text-primary rounded-xl font-bold transition-all hover:bg-slate-100 hover:shadow-lg flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">headset_mic</span>
+                            تواصل فوراً
+                        </button>
+                    </div>
+                </div>
+                <!-- Action Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 logistic-shadow hover-lift cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/5 transition-colors">
+                            <span class="material-symbols-outlined text-secondary text-2xl">description</span>
+                        </div>
+                        <span class="text-sm font-bold text-primary">بوليصة الشحن</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 logistic-shadow hover-lift cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/5 transition-colors">
+                            <span class="material-symbols-outlined text-secondary text-2xl">share</span>
+                        </div>
+                        <span class="text-sm font-bold text-primary">مشاركة الرابط</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 logistic-shadow hover-lift cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/5 transition-colors">
+                            <span class="material-symbols-outlined text-secondary text-2xl">notifications_active</span>
+                        </div>
+                        <span class="text-sm font-bold text-primary">تنبيهات لحظية</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 logistic-shadow hover-lift cursor-pointer flex flex-col items-center text-center group">
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-primary/5 transition-colors">
+                            <span class="material-symbols-outlined text-secondary text-2xl">edit_calendar</span>
+                        </div>
+                        <span class="text-sm font-bold text-primary">تعديل التسليم</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Network Transparency Stats -->
+    <section class="bg-white py-20 px-margin-desktop border-t border-slate-100 mt-10">
+        <div class="max-w-max-width mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div class="text-center group">
+                <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/5 transition-colors">
+                    <span class="material-symbols-outlined text-secondary text-3xl">public</span>
+                </div>
+                <p class="text-4xl font-black text-primary mb-2">150+</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">ميناء ومحطة عالمية</p>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/5 transition-colors">
+                    <span class="material-symbols-outlined text-secondary text-3xl">local_shipping</span>
+                </div>
+                <p class="text-4xl font-black text-primary mb-2">45K+</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">شحنة نشطة حالياً</p>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/5 transition-colors">
+                    <span class="material-symbols-outlined text-secondary text-3xl">route</span>
+                </div>
+                <p class="text-4xl font-black text-primary mb-2">2.4M</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">ميل مقطوع للتوصيل</p>
+            </div>
+            <div class="text-center group">
+                <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/5 transition-colors">
+                    <span class="material-symbols-outlined text-secondary text-3xl">verified</span>
+                </div>
+                <p class="text-4xl font-black text-primary mb-2">99.8%</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">معدل موثوقية العمليات</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-24 pb-12 px-margin-desktop bg-primary text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50"></div>
+    <div class="max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+        <!-- Column 1: Brand & Newsletter -->
+        <div class="col-span-1 md:col-span-4 pr-0 md:pr-4 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain;"/>
+                </div>
+                <p class="lang-text text-slate-400 text-sm leading-relaxed mb-6" data-ar="الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة." data-en="The leading logistics and supply chain company in Sudan with a global network. Precision in motion and excellence in delivery to ensure your business reaches new horizons.">الشركة الرائدة في مجال الخدمات اللوجستية وسلاسل الإمداد في السودان والشبكة العالمية. دقة في الحركة، وتميز في التوصيل لضمان وصول أعمالك إلى آفاق جديدة.</p>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mb-6">
+                <h6 class="lang-text text-xs font-bold uppercase tracking-wider text-secondary-container mb-3" data-ar="اشترك في النشرة البريدية" data-en="SUBSCRIBE TO NEWSLETTER">اشترك في النشرة البريدية</h6>
+                <div class="flex max-w-sm rounded-lg overflow-hidden border border-white/10 focus-within:border-secondary transition-all">
+                    <input type="email" class="lang-text bg-white/5 text-white placeholder-slate-500 text-xs px-4 py-3 flex-grow focus:outline-none border-none" data-ar="البريد الإلكتروني..." data-en="Your email address..." placeholder="البريد الإلكتروني..."/>
+                    <button class="bg-secondary text-primary-container px-4 py-3 flex items-center justify-center hover:bg-secondary-light active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-sm">send</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Twitter/X">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Facebook">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-primary-container transition-all text-white border border-white/10 hover:border-secondary" title="Instagram">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m5.2-1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 2: Our Services -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+            </nav>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="col-span-1 md:col-span-2">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+            <nav class="flex flex-col gap-4">
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../shipment-tracking/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../contact-support/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../client-portal/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
+            </nav>
+        </div>
+
+        <!-- Column 4: Contact Info -->
+        <div class="col-span-1 md:col-span-3">
+            <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h5>
+            <div class="flex flex-col gap-4 text-sm text-slate-400">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">location_on</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المقر الرئيسي:" data-en="Headquarters:">المقر الرئيسي:</p>
+                        <p class="lang-text text-xs" data-ar="الخرطوم، السودان" data-en="Khartoum, Sudan">الخرطوم، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">store</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="المكتب الإقليمي:" data-en="Regional Office:">المكتب الإقليمي:</p>
+                        <p class="lang-text text-xs" data-ar="ميناء بورتسودان، السودان" data-en="Port Sudan, Sudan">ميناء بورتسودان، السودان</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">phone_in_talk</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="هواتف الدعم:" data-en="Support Numbers:">هواتف الدعم:</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 123 456 789</p>
+                        <p class="text-xs font-mono" style="direction: ltr; text-align: right;">+249 912 345 678</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-lg mt-0.5">mail</span>
+                    <div>
+                        <p class="lang-text font-bold text-white" data-ar="البريد الإلكتروني:" data-en="Email Address:">البريد الإلكتروني:</p>
+                        <p class="text-xs font-mono">info@sudanil-logistic.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom Bar -->
+    <div class="max-w-max-width mx-auto w-full pt-8 mt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-semibold text-slate-500">
+        <p class="lang-text" data-ar="© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة." data-en="© 2026 Sudanil Logistic. All rights reserved.">© 2026 سودانيل لوجيستك. جميع الحقوق محفوظة.</p>
+        
+        <!-- Badges / Certifications -->
+        <div class="flex flex-wrap gap-4 justify-center text-xs text-slate-400">
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>حاصل على شهادة ISO 9001" data-en="<span class='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>ISO 9001 Certified"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>حاصل على شهادة ISO 9001</span>
+            <span class="lang-text bg-white/5 px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>عضو شريك FIATA" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>FIATA Associate Member"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>عضو شريك FIATA</span>
+        </div>
+        
+        <!-- Legal & Secure SSL Links -->
+        <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
+            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <span class="text-white/10">|</span>
+            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <span class="text-white/10">|</span>
+            <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
+                <span class="lang-text" data-ar="اتصال آمن SSL" data-en="SSL Secured">اتصال آمن SSL</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    let mapInstance = null;
+    let routePolyline = null;
+    let currentMarker = null;
+    let waypointsLayer = null;
+    let isSatellite = false;
+    let standardLayer = null;
+    let satelliteLayer = null;
+
+    const mockData = {
+        "SNL-240522-001": {
+            id: "SNL-240522-001",
+            status: "في الطريق البري - تصل خلال 18 ساعة",
+            eta: "24 مايو 2024 (04:00 عصراً)",
+            weight: "25.4 كجم (4 منصات نقالة)",
+            service: "الشحن البحري والبري المبرد",
+            locationName: "طريق بورتسودان - عطبرة السريع",
+            carrier: "شاحنة التبريد SUDANIL-COLD #402",
+            carrierIcon: "local_shipping",
+            corridor: [
+                { name: "ميناء بورتسودان الجنوبي (المنشأ)", coords: [19.6158, 37.2164], status: "passed", time: "22 مايو 08:00 ص" },
+                { name: "نقطة التفتيش والتخليص الجمركي - سنكات", coords: [18.8350, 36.8333], status: "current", time: "اليوم 10:30 ص" },
+                { name: "محطة العبور والوقود - هيا", coords: [18.3333, 36.3333], status: "upcoming", time: "اليوم 06:00 م" },
+                { name: "مستودع الفرز الشمالي - عطبرة", coords: [17.7022, 33.9864], status: "upcoming", time: "غداً 02:00 ص" },
+                { name: "المركز اللوجستي الرئيسي - الخرطوم (الوجهة)", coords: [15.5007, 32.5599], status: "destination", time: "غداً 04:00 م" }
+            ],
+            milestones: [
+                { date: "اليوم - 10:30 صباحاً", title: "اجتياز التفتيش الجمركي والمطابقة", desc: "نقطة الرقابة الجمركية سنكات", status: "current" },
+                { date: "22 مايو 2024 - 08:00 صباحاً", title: "مغادرة ساحات الميناء الجنوبي", desc: "ميناء بورتسودان", status: "completed" },
+                { date: "21 مايو 2024 - 04:15 مساءً", title: "إتمام الفسح الجمركي وفحص الحاويات", desc: "الجمارك وهيئة الموانئ البحرية", status: "completed" },
+                { date: "20 مايو 2024 - 11:30 صباحاً", title: "تفريغ الحاوية من الباخرة", desc: "رصيف الحاويات 14", status: "completed" },
+                { date: "مجدولة", title: "التسليم في مستودع العميل", desc: "المنطقة الصناعية سوبا - الخرطوم", status: "scheduled" }
+            ],
+            items: [
+                { desc: "أدوية ومستلزمات طبية مبردة (+4°C)", dim: "120 × 80 × 160 سم", qty: "4 منصات نقالة", status: "تم التحقق" },
+                { desc: "أجهزة قياس حرارة دقيقة IoT", dim: "30 × 30 × 20 سم", qty: "8 وحدات", status: "تم التحقق" },
+                { desc: "بيان جمركي وإفراج صحي موثق", dim: "وثائق رقمية", qty: "ملف معتمد", status: "تم التحقق" }
+            ]
+        },
+        "SNL-240523-088": {
+            id: "SNL-240523-088",
+            status: "في البحر الأحمر - عبور الممر الملاحي",
+            eta: "25 مايو 2024 (08:00 صباحاً)",
+            weight: "18,400 كجم (حاوية 40 قدم)",
+            service: "الشحن البحري الدولي (FCL)",
+            locationName: "البحر الأحمر - 80 ميل بحري قبالة بورتسودان",
+            carrier: "سفينة الحاويات SUDANIL STAR V.042",
+            carrierIcon: "directions_boat",
+            corridor: [
+                { name: "ميناء جدة الإسلامي (المملكة العربية السعودية)", coords: [21.4858, 39.1925], status: "passed", time: "22 مايو 02:00 م" },
+                { name: "الممر الملاحي الدولي بالبحر الأحمر", coords: [20.4000, 38.2000], status: "current", time: "الآن مباشر" },
+                { name: "منطقة المخطاف الخارجي - بورتسودان", coords: [19.6400, 37.2800], status: "upcoming", time: "غداً 04:00 ص" },
+                { name: "رصيف تفريغ الحاويات بميناء بورتسودان", coords: [19.6158, 37.2164], status: "destination", time: "غداً 08:00 ص" }
+            ],
+            milestones: [
+                { date: "الآن - مباشر", title: "ملاحة سلسة في الممر الدولي", desc: "السرعة 16.4 عقدة - حالة الطقس ممتازة", status: "current" },
+                { date: "22 مايو 2024 - 02:00 مساءً", title: "مغادرة ميناء جدة الإسلامي", desc: "رصيف الحاويات 32", status: "completed" },
+                { date: "21 مايو 2024 - 10:00 صباحاً", title: "تحميل الحاوية وربط الأختام الجمركية", desc: "محطة بوابة البحر الأحمر", status: "completed" },
+                { date: "مجدولة", title: "الربط برصيف ميناء بورتسودان", desc: "الرصيف الجنوبي - السودان", status: "scheduled" }
+            ],
+            items: [
+                { desc: "معدات طاقة شمسية ومحولات كهروضوئية", dim: "حاوية 40 قدم High Cube", qty: "480 لوح ومحول", status: "تم التحقق" },
+                { desc: "شهادات المنشأ والفحص الفني الدولي", dim: "-", qty: "ملف إلكتروني", status: "تم التحقق" }
+            ]
+        },
+        "SNL-240524-104": {
+            id: "SNL-240524-104",
+            status: "شحن جوي سريع - في الأجواء",
+            eta: "اليوم (07:30 مساءً)",
+            weight: "480 كجم",
+            service: "الشحن الجوي السريع والفاخر",
+            locationName: "الممر الجوي الإقليمي - رحلة SNL-CARGO #901",
+            carrier: "طائرة الشحن Boeing 737F",
+            carrierIcon: "flight",
+            corridor: [
+                { name: "مطار آل مكتوم الدولي (دبي)", coords: [24.8960, 55.1614], status: "passed", time: "اليوم 02:00 م" },
+                { name: "الممر الجوي الإقليمي (فوق البحر الأحمر)", coords: [20.0000, 42.0000], status: "current", time: "الآن في الأجواء" },
+                { name: "مطار بورتسودان الدولي (الوصول)", coords: [19.4336, 37.2161], status: "destination", time: "اليوم 07:30 م" }
+            ],
+            milestones: [
+                { date: "اليوم - 04:15 مساءً", title: "دخول المجال الجوي الإقليمي", desc: "ارتفاع 34,000 قدم - سرعة 820 كم/س", status: "current" },
+                { date: "اليوم - 02:00 مساءً", title: "الإقلاع من مطار دبي اللوجستي", desc: "مدرج الشحن 12L", status: "completed" },
+                { date: "اليوم - 11:30 صباحاً", title: "التخليص الجمركي السريع للتصدير", desc: "جمارك قرية دبي للشحن", status: "completed" },
+                { date: "مجدولة", title: "الهبوط والاستلام الفوري", desc: "قرية الشحن الجوي بورتسودان", status: "scheduled" }
+            ],
+            items: [
+                { desc: "خوادم ومعدات اتصالات سحابية عاجلة", dim: "100 × 60 × 80 سم", qty: "6 صناديق محصنة", status: "تم التحقق" },
+                { desc: "وثيقة الشحن الجوي الموحدة (AWB)", dim: "-", qty: "أصل رقمي", status: "تم التحقق" }
+            ]
+        }
+    };
+
+    function initLeafletMap() {
+        const mapContainer = document.getElementById('liveTrackingMap');
+        if (!mapContainer || mapInstance) return;
+
+        // Initialize Map centered on Red Sea / Sudan
+        mapInstance = L.map('liveTrackingMap', {
+            zoomControl: false,
+            attributionControl: false
+        }).setView([19.0, 36.5], 6);
+
+        L.control.zoom({ position: 'topright' }).addTo(mapInstance);
+
+        standardLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19
+        });
+
+        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 18
+        });
+
+        standardLayer.addTo(mapInstance);
+        waypointsLayer = L.featureGroup().addTo(mapInstance);
+    }
+
+    function toggleMapLayer() {
+        if (!mapInstance) return;
+        isSatellite = !isSatellite;
+        if (isSatellite) {
+            mapInstance.removeLayer(standardLayer);
+            satelliteLayer.addTo(mapInstance);
+            document.getElementById('layerNameText').innerText = "خريطة قياسية";
+        } else {
+            mapInstance.removeLayer(satelliteLayer);
+            standardLayer.addTo(mapInstance);
+            document.getElementById('layerNameText').innerText = "قمر صناعي";
+        }
+    }
+
+    function selectShipmentPreset(id) {
+        document.getElementById('trackingInput').value = id;
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+            btn.classList.add('text-slate-600');
+        });
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('bg-white', 'text-primary', 'shadow-sm');
+            event.currentTarget.classList.remove('text-slate-600');
+        }
+        performTracking(id);
+    }
+
+    function updateMapCorridor(data) {
+        if (!mapInstance) initLeafletMap();
+        if (!mapInstance || !data.corridor) return;
+
+        waypointsLayer.clearLayers();
+        if (routePolyline) mapInstance.removeLayer(routePolyline);
+
+        const latlngs = data.corridor.map(c => c.coords);
+
+        // Draw glowing gradient corridor line
+        routePolyline = L.polyline(latlngs, {
+            color: '#1b64d4',
+            weight: 5,
+            opacity: 0.85,
+            dashArray: '8, 8',
+            lineCap: 'round',
+            lineJoin: 'round'
+        }).addTo(mapInstance);
+
+        // Add background glow
+        const glowLine = L.polyline(latlngs, {
+            color: '#0b1b3d',
+            weight: 9,
+            opacity: 0.35
+        }).addTo(waypointsLayer);
+
+        let currentCoord = null;
+
+        data.corridor.forEach((wp, idx) => {
+            let markerIconHtml = '';
+            if (wp.status === 'current') {
+                currentCoord = wp.coords;
+                markerIconHtml = `
+                    <div class="relative flex items-center justify-center">
+                        <span class="absolute w-8 h-8 rounded-full bg-secondary-container opacity-75 animate-ping"></span>
+                        <div class="w-7 h-7 rounded-full bg-primary text-secondary-container flex items-center justify-center shadow-2xl border-2 border-white text-xs font-bold">
+                            <span class="material-symbols-outlined text-sm">${data.carrierIcon || 'local_shipping'}</span>
+                        </div>
+                    </div>
+                `;
+            } else if (wp.status === 'passed') {
+                markerIconHtml = `
+                    <div class="w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow-md"></div>
+                `;
+            } else {
+                markerIconHtml = `
+                    <div class="w-4 h-4 rounded-full bg-slate-400 border-2 border-white shadow-md"></div>
+                `;
+            }
+
+            const customIcon = L.divIcon({
+                html: markerIconHtml,
+                className: 'custom-map-icon',
+                iconSize: [28, 28],
+                iconAnchor: [14, 14]
+            });
+
+            const marker = L.marker(wp.coords, { icon: customIcon }).addTo(waypointsLayer);
+            marker.bindPopup(`
+                <div style="font-family: Alexandria, sans-serif; text-align: right; direction: rtl; padding: 4px;">
+                    <b style="color: #0b1b3d; font-size: 13px;">${wp.name}</b>
+                    <p style="color: #64748b; font-size: 11px; margin: 4px 0 0 0;">${wp.time || 'محطة مجدولة'}</p>
+                </div>
+            `);
+        });
+
+        // Fit map bounds to show complete corridor
+        mapInstance.fitBounds(routePolyline.getBounds(), { padding: [60, 60] });
+    }
+
+    function shareViaWhatsApp() {
+        const id = document.getElementById('trackingInput').value.trim();
+        const status = document.getElementById('currentStatus').innerText;
+        const eta = document.getElementById('eta').innerText;
+        const text = encodeURIComponent(`📦 *تتبع شحنة سودانيل لوجيستك*\nرقم الشحنة: ${id}\nالحالة: ${status}\nالوصول المتوقع: ${eta}\nرابط التتبع: ${window.location.href}`);
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+
+    function performTracking(trackingId) {
+        if (!trackingId) return;
+        trackingId = trackingId.toUpperCase().trim();
+        
+        let data = mockData[trackingId];
+        if (!data) {
+            data = {
+                id: trackingId,
+                status: "جاري المعالجة والمطابقة اللوجستية",
+                eta: "27 مايو 2024",
+                weight: "15.0 كجم",
+                service: "الشحن البري السريع",
+                locationName: "المستودع الرئيسي - بورتسودان",
+                carrier: "شاحنة النقل الداخلي #108",
+                carrierIcon: "local_shipping",
+                corridor: [
+                    { name: "مركز الاستلام - بورتسودان", coords: [19.6158, 37.2164], status: "current", time: "اليوم 09:00 ص" },
+                    { name: "الخرطوم المركزية", coords: [15.5007, 32.5599], status: "destination", time: "27 مايو" }
+                ],
+                milestones: [
+                    { date: "اليوم - 09:00 صباحاً", title: "تم تسجيل الشحنة برقم التتبع", desc: `الشحنة رقم ${trackingId} مسجلة في النظام بنجاح`, status: "current" },
+                    { date: "أمس - 04:30 مساءً", title: "تجهيز الشحنة والتغليف المقوى", desc: "مستودعات سودانيل اللوجستية", status: "completed" },
+                    { date: "مجدولة", title: "التسليم النهائي للعميل", desc: "العنوان المحدد في بوليصة الشحن", status: "scheduled" }
+                ],
+                items: [
+                    { desc: "بضائع عامة ومستندات شحن موثقة", dim: "100 × 80 × 80 سم", qty: "منصة واحدة", status: "تم التحقق" }
+                ]
+            };
+        }
+
+        document.getElementById('currentStatus').innerText = data.status;
+        document.getElementById('eta').innerText = data.eta;
+        document.getElementById('weight').innerText = data.weight;
+        document.getElementById('service').innerText = data.service;
+        document.getElementById('mapLiveLocation').innerText = `الموقع: ${data.locationName || 'ميناء بورتسودان'}`;
+        document.getElementById('mapCarrierName').innerText = data.carrier || 'SUDANIL STAR V.042';
+        document.getElementById('mapVehicleIcon').innerText = data.carrierIcon || 'directions_boat';
+
+        let milestonesHtml = '';
+        data.milestones.forEach(m => {
+            let dotClass = "bg-slate-300";
+            let opacityClass = "opacity-60 grayscale";
+            let textClass = "text-slate-500";
+            let dotWrapperClass = "";
+            
+            if (m.status === 'current') {
+                dotClass = "bg-secondary-container";
+                textClass = "text-primary font-bold";
+                opacityClass = "";
+                dotWrapperClass = "status-dot-pulse";
+            } else if (m.status === 'completed') {
+                dotClass = "bg-primary";
+                opacityClass = "";
+                textClass = "text-primary font-bold";
+            }
+            
+            milestonesHtml += `
+            <div class="relative pr-10 ${opacityClass} group">
+                <div class="absolute -right-[13px] top-4 w-6 h-6 ${dotClass} ${dotWrapperClass} rounded-full border-4 border-white shadow-sm transition-transform group-hover:scale-125 z-10"></div>
+                <div class="flex flex-col gap-1.5 bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-white transition-all shadow-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-slate-400">schedule</span>
+                        <span class="text-xs font-semibold text-slate-500">${m.date}</span>
+                    </div>
+                    <h4 class="text-base font-bold text-primary">${m.title}</h4>
+                    <p class="text-sm text-slate-500 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                        ${m.desc}
+                    </p>
+                </div>
+            </div>
+            `;
+        });
+        document.getElementById('milestonesContainer').innerHTML = milestonesHtml;
+
+        let itemsHtml = '';
+        data.items.forEach(item => {
+            let statusBadge = '<span class="px-4 py-1.5 bg-green-50 text-green-700 border border-green-200 text-xs font-bold rounded-full inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> تم التحقق</span>';
+            itemsHtml += `
+            <tr class="hover:bg-slate-50 transition-colors group">
+                <td class="px-8 py-5">
+                    <span class="text-base font-bold text-primary group-hover:text-secondary transition-colors">${item.desc}</span>
+                </td>
+                <td class="px-8 py-5 text-sm font-medium text-slate-500">${item.dim}</td>
+                <td class="px-8 py-5 text-sm font-medium text-slate-500">${item.qty}</td>
+                <td class="px-8 py-5 text-right">${statusBadge}</td>
+            </tr>
+            `;
+        });
+        document.getElementById('itemsContainer').innerHTML = itemsHtml;
+
+        // Update Map visualization
+        updateMapCorridor(data);
+    }
+
+    // Capture search parameters on load
+    window.addEventListener('DOMContentLoaded', function() {
+        initLeafletMap();
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackingId = urlParams.get('tracking_id') || 'SNL-240522-001';
+        document.getElementById('trackingInput').value = trackingId;
+        setTimeout(() => { performTracking(trackingId); }, 200);
+    });
+
+    // Button and Enter key events
+    document.getElementById('trackBtn').addEventListener('click', function() {
+        const id = document.getElementById('trackingInput').value.trim();
+        if (id) {
+            performTracking(id);
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tracking_id=' + encodeURIComponent(id);
+            window.history.pushState({path:newUrl}, '', newUrl);
+        }
+    });
+
+    document.getElementById('trackingInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const id = e.target.value.trim();
+            if (id) {
+                performTracking(id);
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tracking_id=' + encodeURIComponent(id);
+                window.history.pushState({path:newUrl}, '', newUrl);
+            }
+        }
+    });
+
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Language Toggle Logic
+    function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute('lang') || 'ar';
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+        const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+        
+        html.setAttribute('lang', newLang);
+        html.setAttribute('dir', newDir);
+        localStorage.setItem('preferredLang', newLang);
+        
+        document.getElementById('langToggleText').innerText = newLang === 'ar' ? 'EN' : 'عربي';
+        
+        document.querySelectorAll('.lang-text').forEach(el => {
+            if(el.tagName.toLowerCase() === 'input' && el.hasAttribute('placeholder')) {
+                el.setAttribute('placeholder', el.getAttribute(`data-${newLang}`));
+            } else if (el.getAttribute(`data-${newLang}`)) {
+                el.innerHTML = el.getAttribute(`data-${newLang}`);
+            }
+        });
+        
+        // Fix icon alignment for LTR
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(newLang === 'en') {
+                if (icon.parentElement.classList.contains('flex-row-reverse')) {
+                    icon.parentElement.classList.remove('flex-row-reverse');
+                    icon.parentElement.dataset.reversed = "true";
+                }
+            } else {
+                if (icon.parentElement.dataset.reversed === "true") {
+                    icon.parentElement.classList.add('flex-row-reverse');
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && savedLang === 'en') {
+            document.documentElement.setAttribute('lang', 'ar'); 
+            toggleLanguage();
+        }
+    });
+
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+</script>
+<script src="../translations.js"></script>
+</body>
+</html>

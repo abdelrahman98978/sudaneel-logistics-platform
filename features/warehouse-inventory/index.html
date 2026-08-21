@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>إدارة المخزون | سودانيل للخدمات اللوجستية</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&amp;family=Noto+Kufi+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Noto Kufi Arabic', 'Be Vietnam Pro', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#6e8799",
+                    "on-secondary-fixed-variant": "#1e40af",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1a1c1c",
+                    "secondary": "#1351b4",
+                    "surface-bright": "#f9f9f9",
+                    "surface-variant": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "tertiary": "#010101",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary-fixed": "#e2e2e2",
+                    "inverse-primary": "#b0cade",
+                    "surface": "#f9f9f9",
+                    "primary": "#000000",
+                    "on-secondary-container": "#785800",
+                    "primary-fixed": "#cce6fb",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "inverse-surface": "#2f3131",
+                    "primary-container": "#021e2d",
+                    "surface-container": "#eeeeee",
+                    "background": "#f9f9f9",
+                    "on-primary-fixed": "#021e2d",
+                    "on-surface-variant": "#42474c",
+                    "on-background": "#1a1c1c",
+                    "primary-fixed-dim": "#b0cade",
+                    "secondary-fixed": "#dbeafe",
+                    "secondary-container": "#1b64d4",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-dim": "#dadada",
+                    "on-primary-fixed-variant": "#314a5a",
+                    "secondary-fixed-dim": "#3b82f6",
+                    "outline-variant": "#c3c7cc",
+                    "on-secondary-fixed": "#082f49",
+                    "surface-tint": "#496173",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#1c1c1c",
+                    "outline": "#73787c",
+                    "on-tertiary-container": "#848484",
+                    "surface-container-low": "#f3f3f3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "max-width": "1280px",
+                    "section-gap": "80px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-md": ["Be Vietnam Pro", "Noto Kufi Arabic"],
+                    "headline-xl": ["Be Vietnam Pro", "Noto Kufi Arabic"],
+                    "body-md": ["Be Vietnam Pro", "Noto Kufi Arabic"],
+                    "body-lg": ["Be Vietnam Pro", "Noto Kufi Arabic"],
+                    "headline-md": ["Be Vietnam Pro", "Noto Kufi Arabic"],
+                    "headline-lg": ["Be Vietnam Pro", "Noto Kufi Arabic"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="fixed right-0 top-0 h-full w-64 bg-primary-container dark:bg-black flex flex-col p-4 gap-2 shadow-[4px_0_24px_rgba(0,27,42,0.08)] z-50">
+<div class="mb-8 px-2">
+<div class="mb-2"><img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/></div>
+<p class="font-label-md text-label-md text-on-primary-container/70">Sudanil Logistics ERP</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg transition-all duration-200 hover:translate-x-1 active:scale-95" href="../client-portal/index.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">بوابة العملاء</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg transition-all duration-200 hover:translate-x-1 active:scale-95" href="../shipment-tracking/index.html">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">تتبع الشحنات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">إدارة المستودعات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg transition-all duration-200 hover:translate-x-1 active:scale-95" href="../billing-documents/index.html">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">الفواتير والمستندات</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg transition-all duration-200 hover:translate-x-1 active:scale-95" href="../operations-control/index.html">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">مركز العمليات ERP</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-white/10 pt-4 space-y-1">
+<a href="../client-portal/login.html" class="w-full flex items-center gap-3 px-4 py-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary rounded-lg transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">تسجيل الخروج</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="mr-64 p-margin-desktop">
+<!-- Header Section -->
+<header class="flex flex-wrap justify-between items-end mb-10 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-2">إدارة المستودعات والمخزون الذكي</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">مراقبة وتتبع مستويات الإشغال، سلاسل التبريد، والمناطق الجمركية المقيدة (Bonded Warehouses).</p>
+</div>
+<div class="flex gap-3">
+<button onclick="exportInventoryToCSV()" class="bg-surface-container-high text-on-surface flex items-center gap-2 px-5 h-12 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors active:scale-95 border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
+تصدير كشف CSV
+</button>
+<button onclick="openScanModal()" class="bg-secondary-container text-on-secondary-container flex items-center gap-2 px-6 h-12 rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md transition-all active:scale-95 font-bold">
+<span class="material-symbols-outlined text-base" data-icon="qr_code_scanner">qr_code_scanner</span>
+مسح باركود طرد جديد
+</button>
+</div>
+</header>
+</div>
+</header>
+<!-- Stats Overview (Bento Style) -->
+<section class="grid grid-cols-12 gap-gutter mb-section-gap">
+<div class="col-span-4 bg-white p-6 rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,27,42,0.04)] hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="inventory">inventory</span>
+</div>
+<span class="text-green-600 bg-green-50 px-2 py-1 rounded font-label-md text-[12px]">+12%</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">إجمالي العناصر</p>
+<h3 class="text-3xl font-bold mt-1">12,450</h3>
+</div>
+<div class="col-span-4 bg-white p-6 rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,27,42,0.04)] hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-error-container/20 rounded-lg">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="warning">warning</span>
+</div>
+<span class="text-error bg-error-container/50 px-2 py-1 rounded font-label-md text-[12px]">تنبيه عالي</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">تنبيهات إعادة الطلب</p>
+<h3 class="text-3xl font-bold mt-1">28</h3>
+</div>
+<div class="col-span-4 bg-white p-6 rounded-xl border border-outline-variant shadow-[0_4px_20px_rgba(0,27,42,0.04)] hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="warehouse">warehouse</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">8 مستودعات</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">إجمالي القيمة المخزنية</p>
+<h3 class="text-3xl font-bold mt-1">$1.2M</h3>
+</div>
+</section>
+<!-- Filters & Table Section -->
+<section class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<!-- Filter Bar -->
+<div class="p-6 border-b border-outline-variant flex flex-wrap gap-4 items-center justify-between bg-surface-container-low/30">
+<div class="flex gap-4 flex-1 max-w-2xl">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pr-10 pl-4 h-12 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all font-body-md text-body-md" placeholder="البحث عن اسم العنصر، SKU، أو المستودع..." type="text"/>
+</div>
+<select class="h-12 border border-outline-variant rounded-lg px-4 bg-white font-label-md text-label-md focus:ring-2 focus:ring-secondary/20 outline-none">
+<option>جميع الفئات</option>
+<option>إلكترونيات</option>
+<option>قطع غيار</option>
+<option>مواد خام</option>
+</select>
+<select class="h-12 border border-outline-variant rounded-lg px-4 bg-white font-label-md text-label-md focus:ring-2 focus:ring-secondary/20 outline-none">
+<option>حالة المخزون</option>
+<option>متوفر</option>
+<option>منخفض</option>
+<option>نفذ</option>
+</select>
+</div>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+<span class="font-label-md text-label-md">تصفية متقدمة</span>
+</button>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50 text-right">
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">العنصر و SKU</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">الفئة</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-center">المستوى الحالي</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">الموقع</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">الحالة</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">آخر تحديث</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-tech industrial microchip processor component lying on a clean white laboratory surface. The lighting is bright and clinical, emphasizing the precision-engineered details of the electronic part. The overall aesthetic is professional and corporate, using a palette of metallic silvers and clean whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtxfT2dc5lOR3dCQrlEET3g69ecsbf8LXrxO06eAWp0L4uei733EQI-yL_3Dm-oMuP11SXNovtF8Fk7i0knDnuFpqd1NaFjMTNLGY1sXeW6hKnfLLG2DMPb7LPoCUAQVYOdMQNd7O364aA4bTmzj4Y2FtDNGnp7-nzPqfyxbboFqae0mYPd2pCWgWFEjAAWQsAmK7AQKQs5g0tE4x3WDg2_LIdJyc7mt1TLWIF7e_nPUTR1T-c2RzdzXmeXOPhoUw9N4k6FORCIZs"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">معالج مركزي X1-Pro</p>
+<p class="text-[12px] text-on-surface-variant">SKU: CPU-7742-SD</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">إلكترونيات</td>
+<td class="px-6 py-5 text-center">
+<div class="inline-flex flex-col items-center">
+<span class="font-bold text-on-surface">1,240 وحدة</span>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-green-500 w-[85%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                                    بورتسودان - A4
+                                </div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-[12px] font-bold">متوفر</span>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">منذ ساعتين</td>
+<td class="px-6 py-5 text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Stacks of professional-grade cardboard shipping boxes arranged neatly in a modern warehouse environment. The lighting is warm and directional, highlighting the textures of the packaging material. The scene conveys a sense of organized industrial efficiency and logistical reliability, aligned with a premium corporate branding style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHfcjheHfvY5t85G79HA7lbPQGEwlH00R-LCdIhk2Vs7AWMUuM4UQMEf96QYFxCjtZimmmH13P42q70fKP_WjCy6ySwZyFvjB7UuFPCGmu2yTkuQde-WyMgr2L4iGyHltPXU50aQzm8uogwbeIFrO1_FKWE86yGG6ohJ0IClrDbtigQj_Zb7nfzI_Qp9X7fjbKEobvwOXh3lZRWbEV0P6ioYE-Gxos9NAD5fBKCTaMwlWaD92aJwo6ueACNNpulVX9yYm7A6gxmPY"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">صناديق شحن كرتونية - مقاس L</p>
+<p class="text-[12px] text-on-surface-variant">SKU: PKG-BOX-44</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">تغليف</td>
+<td class="px-6 py-5 text-center">
+<div class="inline-flex flex-col items-center">
+<span class="font-bold text-error">45 وحدة</span>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-error w-[15%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                                    الخرطوم - B12
+                                </div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[12px] font-bold">منخفض جداً</span>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">منذ 15 دقيقة</td>
+<td class="px-6 py-5 text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A heavy-duty industrial electric motor with metallic finishes and copper wiring details. The background is a slightly blurred industrial workshop with cool, professional lighting. The image emphasizes rugged durability and technological sophistication, utilizing deep navy and amber tones from the corporate brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6J4wiUGrqixkNpbmNnJqpIOtY78sOwdRkF_W52czve2NLFhrCggcsrxRUo6AlsMKy2rfyAGC2MltedTnUvXzcO6vGywbiCdjCh1I0hCxyX6AJzQu8jMBYMeG4VbrDSoQvO5Lwri2orJkdgPC7RGbwZakiPf-7e8jCcZTa-iLKu3YV6pk_gdJgMGRzZ2pR-W0VfimjnVSG4aYxpVR9ruBLwqMUvRxan52GAwObO8gzQwiPwL_caNDsI80YYxlwAe1946ktUFjEi5c"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">محرك كهربائي 500W</p>
+<p class="text-[12px] text-on-surface-variant">SKU: MOT-EL-900</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">محركات</td>
+<td class="px-6 py-5 text-center">
+<div class="inline-flex flex-col items-center">
+<span class="font-bold text-secondary">215 وحدة</span>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-secondary w-[45%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                                    دبي - الحرة
+                                </div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-secondary-container/30 text-secondary px-3 py-1 rounded-full text-[12px] font-bold">إعادة طلب</span>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">يوم واحد</td>
+<td class="px-6 py-5 text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A collection of professional measurement tools and technical equipment laid out on a blueprint in an engineering studio. High-contrast lighting highlights the metal surfaces and precise markings. The composition is clean and modern, evoking a sense of logistical precision and corporate authority with a sophisticated industrial color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBawjxbsOW7zRI08_26ShD0ahV3ygFVmkKGCLJKBtFaJ8PLPj7zgOg7domC0f0siaS5KUDQFjg86YJIR_Fr9MCjuu_6zsoWBxdp7eqNrE29u8CDFC-a9PD5F7u-W3u0obwnFLlCF3kc2sUnFCHQpRj5V7vkOr87malR7sSCLn6Ipefd5k_EuvyWdhBEChYPSq5ujU3G7ycMRdtspth3UW-H3tM2tMjx7VqE5R_Tq0gPGnEiGw39-w-2NCWzK9t5a4s7EiluEq3nhgA"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">أداة قياس ليزرية</p>
+<p class="text-[12px] text-on-surface-variant">SKU: TLS-LSR-01</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">أدوات فنية</td>
+<td class="px-6 py-5 text-center">
+<div class="inline-flex flex-col items-center">
+<span class="font-bold text-on-surface">580 وحدة</span>
+<div class="w-24 h-1.5 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-green-500 w-[70%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                                    القاهرة - لوجستيك
+                                </div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-[12px] font-bold">متوفر</span>
+</td>
+<td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">3 أيام</td>
+<td class="px-6 py-5 text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-6 border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<p class="font-body-md text-body-md text-on-surface-variant">عرض 1-4 من أصل 12,450 عنصر</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-secondary text-on-secondary font-bold">١</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high">٢</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high">٣</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Warehouse Maps & Interactive Zone Telemetry -->
+<section class="mt-section-gap mb-12">
+<div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+    <div>
+        <h4 class="font-headline-md text-headline-md">توزيع المستودعات والمناطق الجمركية الإقليمية</h4>
+        <p class="text-xs text-on-surface-variant">اختر المستودع لعرض مؤشرات السعة الحية، درجات حرارة التبريد، وسلاسل الإمداد.</p>
+    </div>
+    <!-- Hub Switcher Tabs -->
+    <div class="flex bg-surface-container-high p-1 rounded-lg gap-1 text-xs font-bold">
+        <button onclick="selectWarehouseHub('portsudan')" id="hub-btn-portsudan" class="px-3 py-1.5 rounded-md bg-secondary-container text-on-secondary-container shadow-sm transition-all">بورتسودان (المنطقة الحرة)</button>
+        <button onclick="selectWarehouseHub('khartoum')" id="hub-btn-khartoum" class="px-3 py-1.5 rounded-md text-on-surface-variant hover:text-primary transition-all">الخرطوم (سوبا اللوجستي)</button>
+        <button onclick="selectWarehouseHub('coldchain')" id="hub-btn-coldchain" class="px-3 py-1.5 rounded-md text-on-surface-variant hover:text-primary transition-all">أم درمان (مستودع التبريد)</button>
+        <button onclick="selectWarehouseHub('atbara')" id="hub-btn-atbara" class="px-3 py-1.5 rounded-md text-on-surface-variant hover:text-primary transition-all">عطبرة (محطة التوزيع)</button>
+    </div>
+</div>
+
+<!-- Dynamic Hub Overview Card -->
+<div id="hubOverviewCard" class="bg-primary-container text-white p-6 rounded-2xl mb-8 flex flex-wrap justify-between items-center gap-6 shadow-xl border border-secondary-container/20">
+    <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center border border-secondary-container/40">
+            <span id="hubIcon" class="material-symbols-outlined text-secondary-container text-3xl">warehouse</span>
+        </div>
+        <div>
+            <span id="hubBadge" class="bg-secondary-container/20 text-secondary-container text-[11px] font-black px-2.5 py-0.5 rounded-full border border-secondary-container/30 uppercase">منطقة جمركية مقيدة (Bonded)</span>
+            <h3 id="hubTitle" class="text-2xl font-bold mt-1">مستودع ميناء بورتسودان الرئيسي</h3>
+            <p id="hubLocation" class="text-xs text-slate-300">الميناء الجنوبي - ساحة الحاويات 18 | سعة التخزين: 25,000 طن متري</p>
+        </div>
+    </div>
+    <div class="flex flex-wrap gap-4 items-center">
+        <div class="bg-white/5 px-4 py-3 rounded-xl border border-white/10 text-center min-w-[110px]">
+            <span class="text-[11px] text-slate-400 block">نسبة الإشغال</span>
+            <span id="hubOccupancy" class="text-xl font-bold text-secondary-container">92%</span>
+        </div>
+        <div class="bg-white/5 px-4 py-3 rounded-xl border border-white/10 text-center min-w-[110px]">
+            <span class="text-[11px] text-slate-400 block">سلسلة التبريد IoT</span>
+            <span id="hubTemp" class="text-xl font-bold text-emerald-400">+22°C (جاف)</span>
+        </div>
+        <div class="bg-white/5 px-4 py-3 rounded-xl border border-white/10 text-center min-w-[110px]">
+            <span class="text-[11px] text-slate-400 block">حاويات الترانزيت</span>
+            <span id="hubContainers" class="text-xl font-bold text-white">184 حاوية</span>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="h-64 rounded-xl overflow-hidden border border-outline-variant relative group">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbfBopvgK-G_AZjy2Qfm_63uoqERJy9s7YGthf9dbQHKlJ5Q70fbvfsmGxKXFNsCLZ6ZyWsJR7nGn4uBVgiqtC-yR1X9nRB0XZj-zUls82dpmns8cpyTX_AYjZnqz2aC9Kf7z63yvd7zOd5kRNYCNVSXSiDfB9mT7gos3P1dAQJl_SrfAV4oSskXIu0sCzAhnjgUriW7MYK0G9MoSSkzau-2wphTqkMTPCrEewe_uU77u3LLi0htjfHMUVvZdnHoIYsa9G3nIFsTc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-6 flex flex-col justify-end">
+<p class="text-white font-bold text-lg">بورتسودان - المركز الرئيسي</p>
+<p class="text-white/70 text-sm">سعة التخزين: 92% | رصيف التخليص الجمركي</p>
+</div>
+</div>
+<div class="h-64 rounded-xl overflow-hidden border border-outline-variant relative group">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO6iDnjJ6YLuygUAdYITW3v886sOUjYIQEesDXVk1FGTd1_GanYckdHcF_XwuaSPmYPez3SYCG90txBvms4BfhQymbqlfbvw9L63hVeDWf8xWO4D6aqwb1WYzA6LDF5NaKvtXvR2RMW-U3vKe8_l0mFvV6RkObsKBM5KQQYJdzLD-p2l9QUTQceZRsrCVtJ28pr2jIY4EZqPjpmpLPJodMoK4CAzhokuSQIlacjqB5gVexzJpPPeXYKsjVHQQaT1ZmD45jcG9-WCM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent p-6 flex flex-col justify-end">
+<p class="text-white font-bold text-lg">دبي - مركز الربط اللوجستي الدولي</p>
+<p class="text-white/70 text-sm">سعة التخزين: 45% | ترانزيت إقليمي</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Barcode / SKU Scan Modal -->
+<div id="scanBarcodeModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0b1b3d] dark:text-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-secondary-container/30 animate-fade-in-up">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-white/10 mb-5">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary-container text-2xl">qr_code_scanner</span>
+                <h3 class="font-bold text-lg">مسح باركود طرد لوجستي وارد</h3>
+            </div>
+            <button onclick="closeScanModal()" class="text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Scanner Simulation Box -->
+        <div class="relative bg-slate-900 rounded-xl h-44 flex flex-col items-center justify-center overflow-hidden border-2 border-dashed border-secondary-container/50 mb-5">
+            <div class="absolute inset-x-0 h-1 bg-red-500 shadow-[0_0_12px_#ef4444] animate-pulse" style="animation: scanline 2s infinite ease-in-out;"></div>
+            <span class="material-symbols-outlined text-5xl text-white/30 mb-2">barcode_scanner</span>
+            <p class="text-xs font-mono text-emerald-400">كاميرا المسح الضوئي نشطة ومستعدة...</p>
+        </div>
+
+        <form id="scanForm" onsubmit="handleScanSubmit(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">اسم العنصر / محتوى الطرد</label>
+                <input id="scanItemName" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-lg text-sm font-bold focus:ring-2 focus:ring-secondary-container outline-none" placeholder="مثال: مضخات مياه صناعية عالية الضغط" value="شاشات عرض رقمية 4K"/>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">رمز SKU</label>
+                    <input id="scanSku" required class="w-full px-4 py-2.5 bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-lg text-sm font-mono font-bold focus:ring-2 focus:ring-secondary-container outline-none" value="SKU-DISP-9920"/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">الكمية الواردة</label>
+                    <input id="scanQty" required type="number" min="1" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-lg text-sm font-bold focus:ring-2 focus:ring-secondary-container outline-none" value="120"/>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">المستودع المستهدف</label>
+                <select id="scanWarehouse" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-lg text-sm font-bold focus:ring-2 focus:ring-secondary-container outline-none">
+                    <option value="بورتسودان - المنطقة الحرة">بورتسودان - المنطقة الحرة (ساحة 18)</option>
+                    <option value="الخرطوم - سوبا">الخرطوم - مجمع سوبا اللوجستي</option>
+                    <option value="أم درمان - التبريد">أم درمان - مستودع التبريد المركزي</option>
+                    <option value="عطبرة - التوزيع">عطبرة - محطة التوزيع الشمالية</option>
+                </select>
+            </div>
+            <div class="pt-2 flex gap-3">
+                <button type="button" onclick="closeScanModal()" class="flex-1 py-3 bg-slate-100 dark:bg-white/10 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all">إلغاء</button>
+                <button type="submit" class="flex-1 py-3 bg-secondary-container text-on-secondary-container rounded-xl text-sm font-bold hover:brightness-105 transition-all shadow-md">تسجيل الطرد في المخزون</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+@keyframes scanline {
+    0% { top: 10%; }
+    50% { top: 90%; }
+    100% { top: 10%; }
+}
+</style>
+
+<script>
+const hubData = {
+    portsudan: {
+        title: "مستودع ميناء بورتسودان الرئيسي",
+        badge: "منطقة جمركية مقيدة (Bonded)",
+        location: "الميناء الجنوبي - ساحة الحاويات 18 | سعة التخزين: 25,000 طن متري",
+        occupancy: "92%",
+        temp: "+22°C (جاف)",
+        containers: "184 حاوية",
+        icon: "warehouse"
+    },
+    khartoum: {
+        title: "مجمع سوبا اللوجستي المركزي",
+        badge: "مستودع التوزيع الداخلي",
+        location: "المنطقة الصناعية سوبا - الخرطوم | سعة التخزين: 40,000 طن متري",
+        occupancy: "78%",
+        temp: "+24°C (جاف)",
+        containers: "96 حاوية",
+        icon: "domain"
+    },
+    coldchain: {
+        title: "مستودع التبريد وحفظ الأدوية",
+        badge: "سلسلة تبريد معتمدة Pharma-Grade",
+        location: "أم درمان الصناعية | أنظمة تبريد ذكية -25°C إلى +4°C",
+        occupancy: "64%",
+        temp: "-18.5°C (مجمد)",
+        containers: "42 حاوية مبردة",
+        icon: "ac_unit"
+    },
+    atbara: {
+        title: "محطة الفرز والتوزيع الشمالية",
+        badge: "نقطة شحن سككي وبري",
+        location: "عطبرة - خط السكة الحديد المركزي | سعة التخزين: 15,000 طن متري",
+        occupancy: "51%",
+        temp: "+26°C (جاف)",
+        containers: "38 شاحنة",
+        icon: "tram"
+    }
+};
+
+function selectWarehouseHub(hubKey) {
+    const data = hubData[hubKey];
+    if (!data) return;
+
+    document.getElementById('hubTitle').innerText = data.title;
+    document.getElementById('hubBadge').innerText = data.badge;
+    document.getElementById('hubLocation').innerText = data.location;
+    document.getElementById('hubOccupancy').innerText = data.occupancy;
+    document.getElementById('hubTemp').innerText = data.temp;
+    document.getElementById('hubContainers').innerText = data.containers;
+    document.getElementById('hubIcon').innerText = data.icon;
+
+    document.querySelectorAll('[id^="hub-btn-"]').forEach(btn => {
+        btn.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'shadow-sm');
+        btn.classList.add('text-on-surface-variant');
+    });
+
+    const activeBtn = document.getElementById(`hub-btn-${hubKey}`);
+    if (activeBtn) {
+        activeBtn.classList.add('bg-secondary-container', 'text-on-secondary-container', 'shadow-sm');
+        activeBtn.classList.remove('text-on-surface-variant');
+    }
+}
+
+function openScanModal() {
+    document.getElementById('scanBarcodeModal').classList.remove('hidden');
+}
+
+function closeScanModal() {
+    document.getElementById('scanBarcodeModal').classList.add('hidden');
+}
+
+function handleScanSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('scanItemName').value;
+    const sku = document.getElementById('scanSku').value;
+    const qty = document.getElementById('scanQty').value;
+    const wh = document.getElementById('scanWarehouse').value;
+
+    const tbody = document.querySelector('tbody');
+    if (tbody) {
+        const newRow = document.createElement('tr');
+        newRow.className = "hover:bg-emerald-50/50 bg-emerald-50/20 transition-colors group animate-fade-in-up";
+        newRow.innerHTML = `
+            <td class="px-6 py-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
+                        <span class="material-symbols-outlined">qr_code_2</span>
+                    </div>
+                    <div>
+                        <p class="font-label-md text-label-md text-on-surface font-bold text-emerald-800">${name}</p>
+                        <p class="text-[12px] text-on-surface-variant font-mono">SKU: ${sku}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant">طرد مفحوص وارد</td>
+            <td class="px-6 py-5 text-center">
+                <span class="font-bold text-emerald-700 font-mono">${qty} وحدة</span>
+            </td>
+            <td class="px-6 py-5">
+                <div class="flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px] text-emerald-600">location_on</span>
+                    ${wh}
+                </div>
+            </td>
+            <td class="px-6 py-5">
+                <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-[12px] font-bold">وارد جديد</span>
+            </td>
+            <td class="px-6 py-5 font-body-md text-body-md text-on-surface-variant font-bold text-emerald-600">الآن</td>
+            <td class="px-6 py-5 text-left"></td>
+        `;
+        tbody.insertBefore(newRow, tbody.firstChild);
+    }
+
+    closeScanModal();
+    alert(`✅ تم مسح وتسجيل ${name} (الكمية: ${qty}) في ${wh} بنجاح!`);
+}
+
+function exportInventoryToCSV() {
+    let csv = "العنصر,SKU,الفئة,الكمية,الموقع,الحالة\n";
+    document.querySelectorAll('tbody tr').forEach(row => {
+        const cols = row.querySelectorAll('td');
+        if (cols.length >= 6) {
+            const name = cols[0].innerText.replace(/\n/g, ' - ').replace(/,/g, '');
+            const cat = cols[1].innerText.trim();
+            const qty = cols[2].innerText.trim();
+            const loc = cols[3].innerText.trim();
+            const status = cols[4].innerText.trim();
+            csv += `"${name}","${cat}","${qty}","${loc}","${status}"\n`;
+        }
+    });
+
+    const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `كشف_مخزون_سودانيل_لوجيستك_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+}
+</script>
+
+<!-- Footer Anchor -->
+<footer class="w-full py-12 bg-surface-container-high dark:bg-surface-container-highest border-t border-outline-variant mr-64">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop gap-gutter w-full max-w-max-width mx-auto">
+<div>
+<img src="logo.png" alt="Sudanil Logistics Logo" class="h-12 w-auto object-contain inline-block" style="height: 48px; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"/>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">© 2024 Sudanil Logistic. All rights reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="../legal-compliance/privacy.html">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="../legal-compliance/terms.html">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="../legal-compliance/help.html">Help Center</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="../contact-support/index.html">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>
