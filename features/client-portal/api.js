@@ -11,7 +11,7 @@
     const env = global.__ENV__ || {};
     return {
       url: env.SUPABASE_URL || global.SUPABASE_URL || 'https://burseblwjftyktxrmteh.supabase.co',
-      anonKey: env.SUPABASE_ANON_KEY || global.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1cnNlYmx3amZ0eWt0eHJtdGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDc5MjksImV4cCI6MjA5ODY4MzkyOX0.MDUdE5SORr_2n1HBiwITxKJ2Jitd0Mz6xNOzcA0wVjw'
+      anonKey: env.SUPABASE_ANON_KEY || env.SUPABASE_ANON || global.SUPABASE_ANON_KEY || global.SUPABASE_ANON || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1cnNlYmx3amZ0eWt0eHJtdGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDc5MjksImV4cCI6MjA5ODY4MzkyOX0.MDUdE5SORr_2n1HBiwITxKJ2Jitd0Mz6xNOzcA0wVjw'
     };
   }
 
