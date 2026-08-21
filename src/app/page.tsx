@@ -1,122 +1,44 @@
 'use client';
 
 import React from 'react';
-import { useApp } from '@/lib/store';
-import { Sidebar } from '@/components/common/Sidebar';
-import { Header } from '@/components/common/Header';
-import { CommandPalette } from '@/components/common/CommandPalette';
-import { AiCopilotDrawer } from '@/components/common/AiCopilotDrawer';
+import { ShieldCheck, Lock, Radio, Server } from 'lucide-react';
 
-// Operations & Core Views
-import { ControlTowerView } from '@/components/control-tower/ControlTowerView';
-import { MarketplaceView } from '@/components/marketplace/MarketplaceView';
-import { SmartDispatchView } from '@/components/dispatch/SmartDispatchView';
-import { ShipmentsListView } from '@/components/shipments/ShipmentsListView';
-import { CreateShipmentWizard } from '@/components/shipments/CreateShipmentWizard';
-import { BulkOrdersView } from '@/components/shipments/BulkOrdersView';
-import { ShipmentTrackingPassport } from '@/components/shipments/ShipmentTrackingPassport';
-import { PublicTrackingView } from '@/components/public-tracking/PublicTrackingView';
-import { FleetView } from '@/components/fleet/FleetView';
-import { CarrierPortalView } from '@/components/carrier-portal/CarrierPortalView';
-import { DriverAppView } from '@/components/driver-app/DriverAppView';
-
-// Infrastructure & Ecosystem Views
-import { WarehouseView } from '@/components/warehousing/WarehouseView';
-import { PortSudanView } from '@/components/port-sudan/PortSudanView';
-import { CrossBorderView } from '@/components/cross-border/CrossBorderView';
-
-// Finance, Risk & Intelligence Views
-import { IncidentCenterView } from '@/components/incidents/IncidentCenterView';
-import { ClaimsView } from '@/components/claims/ClaimsView';
-import { FinanceView } from '@/components/finance/FinanceView';
-import { ContractsCrmView } from '@/components/crm-contracts/ContractsCrmView';
-import { AnalyticsView } from '@/components/analytics/AnalyticsView';
-import { AiCenterView } from '@/components/ai-center/AiCenterView';
-import { ReportsView } from '@/components/reports/ReportsView';
-import { LandingView } from '@/components/landing/LandingView';
-
-export default function Home() {
-  const { currentView } = useApp();
-
-  // If in public landing mode, render the full-width public website
-  if (currentView === 'landing') {
-    return (
-      <div className="min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
-        <CommandPalette />
-        <AiCopilotDrawer />
-        <LandingView />
-      </div>
-    );
-  }
-
-  const renderActiveView = () => {
-    switch (currentView) {
-      case 'control_tower':
-        return <ControlTowerView />;
-      case 'marketplace':
-        return <MarketplaceView />;
-      case 'smart_dispatch':
-        return <SmartDispatchView />;
-      case 'shipments':
-        return <ShipmentsListView />;
-      case 'create_shipment':
-        return <CreateShipmentWizard />;
-      case 'bulk_orders':
-        return <BulkOrdersView />;
-      case 'tracking_detail':
-        return <ShipmentTrackingPassport />;
-      case 'public_track':
-        return <PublicTrackingView />;
-      case 'fleet':
-        return <FleetView />;
-      case 'carrier_portal':
-        return <CarrierPortalView />;
-      case 'driver_app':
-      case 'driver_safety':
-        return <DriverAppView />;
-      case 'warehousing':
-        return <WarehouseView />;
-      case 'port_sudan':
-        return <PortSudanView />;
-      case 'cross_border':
-        return <CrossBorderView />;
-      case 'incidents':
-        return <IncidentCenterView />;
-      case 'claims':
-        return <ClaimsView />;
-      case 'finance':
-        return <FinanceView />;
-      case 'contracts_crm':
-        return <ContractsCrmView />;
-      case 'analytics':
-        return <AnalyticsView />;
-      case 'ai_center':
-        return <AiCenterView />;
-      case 'reports':
-        return <ReportsView />;
-      default:
-        return <ControlTowerView />;
-    }
-  };
-
-  // Internal Operations OS Layout (Sidebar + Topbar + Content)
+export default function ProductionLockedPage() {
   return (
-    <div className="flex min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans">
-      {/* Global Command Palette */}
-      <CommandPalette />
+    <div className="min-h-screen bg-navy-950 text-gray-100 flex flex-col items-center justify-center p-6 text-center font-sans">
+      <div className="max-w-md w-full p-8 rounded-3xl bg-navy-900/90 border border-gold/30 shadow-2xl space-y-6">
+        <div className="w-16 h-16 rounded-2xl bg-gold/15 text-gold border border-gold/40 flex items-center justify-center mx-auto shadow-lg">
+          <Lock className="w-8 h-8" />
+        </div>
 
-      {/* Global AI Copilot Assistant Drawer */}
-      <AiCopilotDrawer />
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-950 border border-gold/20 text-gold text-xs font-mono">
+            <Radio className="w-3.5 h-3.5 animate-pulse text-gold" />
+            <span>ENVIRONMENT: PRODUCTION (LOCKED)</span>
+          </div>
 
-      {/* Left / Right Sidebar */}
-      <Sidebar />
+          <h1 className="text-xl sm:text-2xl font-black text-white">
+            بيئة الإنتاج مغلقة حالياً
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            تم تحويل كافة العمليات والأنشطة اللوجستية حصرياً إلى <span className="text-gold font-bold">بيئة الاستيق والتطوير (Staging Environment)</span> بناءً على السياسة التشغيلية المعتمدة.
+          </p>
+        </div>
 
-      {/* Main Operations Dynamic Viewport */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header />
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar">
-          {renderActiveView()}
-        </main>
+        <div className="p-4 rounded-2xl bg-navy-950 border border-navy-800 text-xs text-gray-400 space-y-1.5 text-start">
+          <div className="flex justify-between">
+            <span>Platform Status:</span>
+            <span className="text-amber-400 font-mono font-bold">Staging Active Only</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Production Deployment:</span>
+            <span className="text-gray-500 font-mono">Zero Active Operations</span>
+          </div>
+        </div>
+
+        <div className="text-[11px] text-gray-500 pt-2 border-t border-navy-800">
+          Sudaneel Logistics Intelligence Platform • Enterprise Security Protocol
+        </div>
       </div>
     </div>
   );
