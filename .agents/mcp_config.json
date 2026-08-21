@@ -1,7 +1,8 @@
 {
   "mcpServers": {
     "vercel": {
-      "url": "https://mcp.vercel.com"
+      "url": "https://mcp.vercel.com",
+      "serverUrl": "https://mcp.vercel.com"
     },
     "sudanil-logistics": {
       "command": "node",
