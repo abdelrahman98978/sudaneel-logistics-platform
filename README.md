@@ -1,11 +1,25 @@
-# Sudanil Logistics Platform - Complete ERP & CRM System
+# Sudanil Logistics Platform - Complete ERP, CRM & Logistics Suite
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabdelrahman98978%2Fsudaneel-logistics-platform&env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ODOO_URL,ODOO_DB,ODOO_API_KEY&envDescription=Enter%20your%20Supabase%20and%20Odoo%20ERP%20credentials&project-name=sudaneel-logistics-platform)
+
+## 🌐 Vercel Quick Connect & Deployment
+
+To link this repository directly with Vercel:
+1. Open [Vercel Dashboard: Import Git Repository](https://vercel.com/new).
+2. Select **`abdelrahman98978/sudaneel-logistics-platform`**.
+3. Framework Preset: **Other** (Build command: `node scripts/build.js`, Output Directory: `public`).
+4. Add Environment Variables (from `.env.example`).
+5. Click **Deploy**.
+
+---
 
 ## 🌟 Overview
 
 A comprehensive, production-ready Enterprise Resource Planning (ERP) and Customer Relationship Management (CRM) system built for Sudanil Logistics. This platform integrates real-time shipment tracking, customer management, sales pipeline, and advanced analytics.
 
-**Version:** 2.0  
+**Version:** 2.1.0  
 **Status:** ✅ Production Ready  
+**Architecture:** Screaming Architecture (Domain-Driven Vertical Slices)  
 **License:** LGPL-3  
 **Author:** Sudanil Sovereignty Group / Antigravity AI
 
