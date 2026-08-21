@@ -25,6 +25,17 @@ import { LandingView } from '@/components/landing/LandingView';
 export default function Home() {
   const { currentView } = useApp();
 
+  // If in public landing mode, render the full-width public website
+  if (currentView === 'landing') {
+    return (
+      <div className="min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        <CommandPalette />
+        <AiCopilotDrawer />
+        <LandingView />
+      </div>
+    );
+  }
+
   const renderActiveView = () => {
     switch (currentView) {
       case 'control_tower':
@@ -51,13 +62,12 @@ export default function Home() {
         return <FinanceView />;
       case 'analytics':
         return <AnalyticsView />;
-      case 'landing':
-        return <LandingView />;
       default:
         return <ControlTowerView />;
     }
   };
 
+  // Internal Operations OS Layout (Sidebar + Topbar + Content)
   return (
     <div className="flex min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans">
       {/* Global Command Palette */}
@@ -66,10 +76,10 @@ export default function Home() {
       {/* Global AI Copilot Assistant Drawer */}
       <AiCopilotDrawer />
 
-      {/* Left / Right Sidebar based on direction */}
+      {/* Left / Right Sidebar */}
       <Sidebar />
 
-      {/* Main Dynamic Viewport */}
+      {/* Main Operations Dynamic Viewport */}
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
         <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar">

@@ -75,7 +75,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<UserRole>('super_admin');
   const [lang, setLang] = useState<Language>('ar');
   const [theme, setTheme] = useState<ThemeMode>('dark');
-  const [currentView, setCurrentView] = useState<AppView>('control_tower');
+  const [currentView, setCurrentView] = useState<AppView>('landing');
   const [selectedShipmentId, setSelectedShipmentId] = useState<string | null>('shp-001');
   const [shipments, setShipments] = useState<Shipment[]>(mockShipments);
   const [vehicles, setVehicles] = useState<Vehicle[]>(mockVehicles);
