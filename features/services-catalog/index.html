@@ -25,7 +25,7 @@
         }
         .logistic-depth { box-shadow: 0 10px 30px -5px rgba(11, 27, 61, 0.08), 0 4px 10px -3px rgba(11, 27, 61, 0.04); border: 1px solid rgba(226, 232, 240, 0.8); }
         .logistic-depth-hover { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .logistic-depth-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 40px -10px rgba(11, 27, 61, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.05); border-color: #1b64d4; }
+        .logistic-depth-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 40px -10px rgba(11, 27, 61, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.05); border-color: #d4af37; }
         .service-card {
             box-shadow: 0 12px 30px -10px rgba(0, 27, 42, 0.12);
         }
@@ -34,9 +34,9 @@
             box-shadow: 0 20px 40px -12px rgba(11, 27, 61, 0.18);
         }
         .bg-gradient-navy { background: linear-gradient(145deg, #0b1b3d 0%, #1a365d 100%); }
-        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.88) 0%, rgba(26,54,93,0.5) 60%, rgba(27, 100, 212,0.2) 100%); }
+        .hero-gradient { background: linear-gradient(145deg, rgba(11,27,61,0.88) 0%, rgba(26,54,93,0.5) 60%, rgba(212,175,55,0.2) 100%); }
         .text-gradient-gold {
-            background: linear-gradient(135deg, #1b64d4, #60a5fa);
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -53,8 +53,8 @@
                     colors: {
                         "primary-container": "#0b1b3d", // Deep Navy
                         "primary-light": "#1a365d",
-                        "secondary-container": "#1b64d4", // Premium Gold
-                        "secondary-light": "#60a5fa",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
                         "surface-container": "#f1f5f9",
                         "on-primary": "#ffffff",
                         "on-primary-container": "#94a3b8",
@@ -100,15 +100,15 @@
 <!-- Top Navigation Bar -->
 <header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all">
     <div class="flex items-center gap-10">
-        <a href="../company-profile/index.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
             <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
         </a>
         <nav class="hidden md:flex gap-6 items-center text-sm">
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_7/code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
             <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../shipment-tracking/index.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../contact-support/index.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_12/code.html" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
         </nav>
     </div>
     <div class="flex items-center gap-3">
@@ -116,7 +116,7 @@
             <span class="material-symbols-outlined text-lg">language</span>
             <span id="langToggleText" class="text-xs">EN</span>
         </button>
-        <a href="../client-portal/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
+        <a href="../_21/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
             <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
             تسجيل الدخول
         </a>
@@ -131,160 +131,13 @@
 <div class="relative z-10 max-w-2xl text-white" data-aos="fade-up" data-aos-duration="1000">
 <h1 class="lang-text text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight" data-ar="حلول لوجستية <span class='text-gradient-gold'>عالمية بدقة احترافية</span>" data-en="Global Logistics Solutions <span class='text-gradient-gold'>with Professional Precision</span>">حلول لوجستية <span class="text-gradient-gold">عالمية بدقة احترافية</span></h1>
 <p class="lang-text text-lg text-white/80 mb-8" data-ar="نحن نربط السودان بالعالم من خلال خدمات شحن متكاملة وموثوقة عبر البر والبحر والجو." data-en="We connect Sudan to the world through comprehensive and reliable shipping services via land, sea, and air.">نحن نربط السودان بالعالم من خلال خدمات شحن متكاملة وموثوقة عبر البر والبحر والجو.</p>
-<div class="flex flex-wrap gap-4">
-<a href="#freightCalculatorSection" class="lang-text bg-secondary-container text-on-secondary-container px-8 py-3.5 rounded-lg font-headline-md font-bold logistic-depth hover:translate-y-[-2px] transition-all flex items-center gap-2 inline-flex" data-ar="حاسبة أسعار الشحن والجمارك" data-en="Freight & Customs Calculator">
-<span class="material-symbols-outlined">calculate</span>
-حاسبة أسعار الشحن والجمارك
-</a>
-<a href="../contact-support/index.html" class="lang-text bg-white/10 text-white hover:bg-white/20 border border-white/20 px-6 py-3.5 rounded-lg font-bold transition-all flex items-center gap-2 inline-flex" data-ar="طلب استشارة لوجستية" data-en="Logistics Consultation">
-<span class="material-symbols-outlined">headset_mic</span>
-طلب استشارة لوجستية
-</a>
-</div>
-</div>
-</section>
-
-<!-- Interactive Freight & Duty Calculator Section -->
-<section id="freightCalculatorSection" class="px-4 md:px-margin-desktop py-12 -mt-16 relative z-20">
-    <div class="bg-white dark:bg-[#0b1b3d] rounded-2xl shadow-2xl border border-outline-variant dark:border-white/10 p-6 md:p-10 max-w-6xl mx-auto">
-        <div class="flex flex-wrap justify-between items-center mb-8 border-b border-slate-100 dark:border-white/10 pb-4 gap-4">
-            <div>
-                <div class="flex items-center gap-2 text-secondary font-bold text-xs uppercase tracking-wider mb-1">
-                    <span class="material-symbols-outlined text-base">calculate</span>
-                    <span>Sudanil Intelligent Estimator</span>
-                </div>
-                <h3 class="font-headline text-2xl md:text-3xl font-bold text-primary dark:text-white">حاسبة تكلفة الشحن والرسوم الجمركية التقديرية</h3>
-            </div>
-            <div class="flex bg-slate-100 dark:bg-white/5 p-1 rounded-xl gap-1">
-                <button type="button" onclick="setFreightMode('sea')" id="mode-sea" class="freight-mode-btn px-4 py-2 rounded-lg bg-primary text-secondary-container font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
-                    <span class="material-symbols-outlined text-sm">directions_boat</span>
-                    بحري (FCL/LCL)
-                </button>
-                <button type="button" onclick="setFreightMode('air')" id="mode-air" class="freight-mode-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 font-bold text-xs flex items-center gap-1.5 transition-all">
-                    <span class="material-symbols-outlined text-sm">flight</span>
-                    جوي سريع
-                </button>
-                <button type="button" onclick="setFreightMode('land')" id="mode-land" class="freight-mode-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 font-bold text-xs flex items-center gap-1.5 transition-all">
-                    <span class="material-symbols-outlined text-sm">local_shipping</span>
-                    بري داخلي
-                </button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Inputs Column -->
-            <div class="lg:col-span-7 space-y-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">ميناء / مدينة المنشأ</label>
-                        <select id="calcOrigin" onchange="calculateFreightRate()" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary">
-                            <option value="jeddah">ميناء جدة الإسلامي (السعودية)</option>
-                            <option value="dubai">دبي - جبل علي / مطار آل مكتوم (الإمارات)</option>
-                            <option value="shanghai">ميناء شنغهاي (الصين)</option>
-                            <option value="cairo">القاهرة - المنطقة اللوجستية (مصر)</option>
-                            <option value="istanbul">إسطنبول (تركيا)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">الوجهة داخل السودان</label>
-                        <select id="calcDestination" onchange="calculateFreightRate()" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary">
-                            <option value="portsudan">ميناء بورتسودan (المستودع الرئيسي)</option>
-                            <option value="khartoum">الخرطوم (مجمع سوبا اللوجستي)</option>
-                            <option value="atbara">عطبرة (محطة التوزيع الشمالية)</option>
-                            <option value="kassala">كسلا والقضارف (القطاع الشرقي)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">الوزن الفعلي (كجم)</label>
-                        <input type="number" id="calcWeight" oninput="calculateFreightRate()" value="500" min="1" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary"/>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">الحجم الإجمالي (CBM م³)</label>
-                        <input type="number" id="calcCbm" oninput="calculateFreightRate()" value="2.4" step="0.1" min="0.1" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary"/>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">قيمة البضاعة (USD)</label>
-                        <input type="number" id="calcValue" oninput="calculateFreightRate()" value="4500" min="100" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary"/>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">بند التعرفة الجمركية (HS Code)</label>
-                        <select id="calcHsCode" onchange="calculateFreightRate()" class="w-full h-11 px-3 bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-bold text-primary dark:text-white outline-none focus:border-secondary">
-                            <option value="0.05">إلكترونيات ومعدات رقمية (رسوم 5%)</option>
-                            <option value="0.00">معدات زراعية وطاقة شمسية (إعفاء 0%)</option>
-                            <option value="0.00">أدوية ومستلزمات طبية أساسية (إعفاء 0%)</option>
-                            <option value="0.15">قطع غيار سيارات ومحركات (رسوم 15%)</option>
-                            <option value="0.25">بضائع استهلاكية ومواد غذائية مصنعة (رسوم 25%)</option>
-                        </select>
-                    </div>
-                    <div class="flex items-end">
-                        <label class="flex items-center gap-2 cursor-pointer p-2.5 bg-slate-50 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 w-full">
-                            <input type="checkbox" id="calcColdChain" onchange="calculateFreightRate()" class="w-4 h-4 text-secondary accent-secondary"/>
-                            <span class="text-xs font-bold text-primary dark:text-slate-200">طلب حاوية مبردة / تبريد نشط (-18°C)</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Output Proforma Card -->
-            <div class="lg:col-span-5 bg-slate-50 dark:bg-black/40 rounded-xl p-6 border border-slate-200 dark:border-white/10 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-200 dark:border-white/10">
-                        <span class="text-xs font-bold text-slate-500">عرض السعر التقديري (Proforma)</span>
-                        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">سعر تنافسي فوري</span>
-                    </div>
-
-                    <div class="space-y-3 text-xs">
-                        <div class="flex justify-between text-slate-600 dark:text-slate-300">
-                            <span>أجرة الشحن الأساسية (<span id="calcModeLabel">بحري</span>):</span>
-                            <span id="calcBaseFreight" class="font-bold text-primary dark:text-white">$750.00</span>
-                        </div>
-                        <div class="flex justify-between text-slate-600 dark:text-slate-300">
-                            <span>الرسوم الجمركية التقديرية:</span>
-                            <span id="calcCustomsDuty" class="font-bold text-primary dark:text-white">$225.00</span>
-                        </div>
-                        <div class="flex justify-between text-slate-600 dark:text-slate-300">
-                            <span>مناولة الميناء والتفريغ الميكانيكي:</span>
-                            <span id="calcHandling" class="font-bold text-primary dark:text-white">$120.00</span>
-                        </div>
-                        <div class="flex justify-between text-slate-600 dark:text-slate-300">
-                            <span>التأمين الشامل ضد المخاطر:</span>
-                            <span id="calcInsurance" class="font-bold text-primary dark:text-white">$45.00</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-dashed border-slate-300 dark:border-white/20">
-                        <div class="flex justify-between items-baseline">
-                            <span class="text-sm font-bold text-primary dark:text-white">الإجمالي التقديري:</span>
-                            <div class="text-left">
-                                <span id="calcTotalUsd" class="text-2xl font-black text-secondary">$1,140.00</span>
-                                <span id="calcTotalSdg" class="block text-[11px] text-slate-400 font-bold font-mono">≈ 2,850,000 SDG</span>
-                            </div>
-                        </div>
-                        <p class="text-[10px] text-slate-400 mt-2">* الأسعار تقديرية وتخضع للمعاينة الفعلية وتوفر الحاويات في تاريخ الحجز.</p>
-                    </div>
-                </div>
-
-                <div class="mt-6 pt-4 border-t border-slate-200 dark:border-white/10 flex gap-2">
-                    <button onclick="shareQuoteWhatsApp()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
-                        <span class="material-symbols-outlined text-sm">share</span>
-                        تصدير واتساب
+<div class="flex gap-4">
+<button class="lang-text bg-secondary-container text-on-secondary-container px-8 py-3 rounded-lg font-headline-md font-bold logistic-depth hover:translate-y-[-2px] transition-all" data-ar="ابدأ الشحن الآن" data-en="Start Shipping Now">
+                        ابدأ الشحن الآن
                     </button>
-                    <a href="../client-portal/booking.html" class="flex-1 py-2.5 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm hover:brightness-105 active:scale-95 text-center">
-                        <span class="material-symbols-outlined text-sm">fact_check</span>
-                        تثبيت الحجز
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 </section>
-
 <!-- Services Section: Warehousing (Bento Highlight) -->
 <section class="px-4 md:px-margin-desktop py-section-gap">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
@@ -318,7 +171,7 @@
 </div>
 <!-- Warehouse Image (Asset IMAGE_10 placeholder) -->
 <div class="lg:col-span-7 rounded-xl overflow-hidden logistic-depth group">
-<img alt="Warehousing Facilities" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="../../core/assets/ChatGPT Image May 17, 2026, 08_11_23 AM.png"/>
+<img alt="Warehousing Facilities" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="../_6/ChatGPT Image May 17, 2026, 08_11_23 AM.png"/>
 </div>
 </div>
 </section>
@@ -332,7 +185,7 @@
 <!-- Land Freight -->
 <div class="service-card bg-surface rounded-xl overflow-hidden border border-outline-variant transition-all">
 <div class="h-48 relative">
-<img alt="Land Freight" class="w-full h-full object-cover" src="../../core/assets/ChatGPT Image May 18, 2026, 04_27_49 AM.png"/>
+<img alt="Land Freight" class="w-full h-full object-cover" src="../_6/ChatGPT Image May 18, 2026, 04_27_49 AM.png"/>
 <div class="absolute inset-0 bg-primary-container/20"></div>
 </div>
 <div class="p-8">
@@ -360,7 +213,7 @@
 <!-- Sea Freight -->
 <div class="service-card bg-surface rounded-xl overflow-hidden border border-outline-variant transition-all">
 <div class="h-48 relative">
-<img alt="Sea Freight" class="w-full h-full object-cover" src="../../core/assets/ChatGPT Image May 18, 2026, 04_28_45 AM.png"/>
+<img alt="Sea Freight" class="w-full h-full object-cover" src="../_6/ChatGPT Image May 18, 2026, 04_28_45 AM.png"/>
 <div class="absolute inset-0 bg-primary-container/20"></div>
 </div>
 <div class="p-8">
@@ -388,7 +241,7 @@
 <!-- Air Freight -->
 <div class="service-card bg-surface rounded-xl overflow-hidden border border-outline-variant transition-all">
 <div class="h-48 relative">
-<img alt="Air Freight" class="w-full h-full object-cover" src="../../core/assets/ChatGPT Image May 18, 2026, 04_29_21 AM.png"/>
+<img alt="Air Freight" class="w-full h-full object-cover" src="../_6/ChatGPT Image May 18, 2026, 04_29_21 AM.png"/>
 <div class="absolute inset-0 bg-primary-container/20"></div>
 </div>
 <div class="p-8">
@@ -486,12 +339,12 @@
         <div class="col-span-1 md:col-span-2">
             <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
             <nav class="flex flex-col gap-4">
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_7/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
                 <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="#" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../shipment-tracking/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../contact-support/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../client-portal/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
             </nav>
         </div>
 
@@ -544,11 +397,11 @@
         
         <!-- Legal & Secure SSL Links -->
         <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
             <span class="text-white/10">|</span>
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
             <span class="text-white/10">|</span>
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
             <span class="text-white/10">|</span>
             <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
                 <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
@@ -557,93 +410,6 @@
         </div>
     </div>
 </footer>
-<script>
-    let activeFreightMode = 'sea';
-
-    const originRates = {
-        sea: { jeddah: 450, dubai: 650, shanghai: 1200, cairo: 500, istanbul: 850 },
-        air: { jeddah: 1200, dubai: 1800, shanghai: 3500, cairo: 1400, istanbul: 2200 },
-        land: { jeddah: 950, dubai: 1400, shanghai: 2800, cairo: 750, istanbul: 1900 }
-    };
-
-    function setFreightMode(mode) {
-        activeFreightMode = mode;
-        const labels = { sea: 'بحري', air: 'جوي سريع', land: 'بري داخلي' };
-        document.getElementById('calcModeLabel').innerText = labels[mode];
-
-        document.querySelectorAll('.freight-mode-btn').forEach(btn => {
-            btn.classList.remove('bg-primary', 'text-secondary-container', 'shadow-sm');
-            btn.classList.add('text-slate-600', 'dark:text-slate-300');
-        });
-
-        const activeBtn = document.getElementById(`mode-${mode}`);
-        if (activeBtn) {
-            activeBtn.classList.add('bg-primary', 'text-secondary-container', 'shadow-sm');
-            activeBtn.classList.remove('text-slate-600', 'dark:text-slate-300');
-        }
-
-        calculateFreightRate();
-    }
-
-    function calculateFreightRate() {
-        const origin = document.getElementById('calcOrigin').value;
-        const weight = parseFloat(document.getElementById('calcWeight').value) || 0;
-        const cbm = parseFloat(document.getElementById('calcCbm').value) || 0;
-        const value = parseFloat(document.getElementById('calcValue').value) || 0;
-        const dutyRate = parseFloat(document.getElementById('calcHsCode').value) || 0;
-        const isCold = document.getElementById('calcColdChain').checked;
-
-        // Base rate based on mode & origin
-        let baseRate = originRates[activeFreightMode][origin] || 600;
-
-        // Weight/Volume factor
-        let chargeableUnit = Math.max(cbm, weight / 1000);
-        if (activeFreightMode === 'air') {
-            // Volumetric air weight (1 CBM = 167 kg)
-            const volumetricWeight = cbm * 167;
-            const finalAirWeight = Math.max(weight, volumetricWeight);
-            baseRate = (baseRate * 0.4) + (finalAirWeight * 4.2);
-        } else {
-            baseRate = baseRate * Math.max(1, chargeableUnit * 0.85);
-        }
-
-        if (isCold) {
-            baseRate += 350; // Reefer surcharge
-        }
-
-        // Customs Duty
-        const customsDuty = value * dutyRate;
-
-        // Handling and Insurance
-        const handling = activeFreightMode === 'air' ? 85 : 120;
-        const insurance = Math.max(30, value * 0.01);
-
-        const totalUsd = baseRate + customsDuty + handling + insurance;
-        const totalSdg = totalUsd * 2500; // Estimated exchange rate
-
-        document.getElementById('calcBaseFreight').innerText = `$${baseRate.toFixed(2)}`;
-        document.getElementById('calcCustomsDuty').innerText = `$${customsDuty.toFixed(2)}`;
-        document.getElementById('calcHandling').innerText = `$${handling.toFixed(2)}`;
-        document.getElementById('calcInsurance').innerText = `$${insurance.toFixed(2)}`;
-        document.getElementById('calcTotalUsd').innerText = `$${totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        document.getElementById('calcTotalSdg').innerText = `≈ ${Math.round(totalSdg).toLocaleString('en-US')} SDG`;
-    }
-
-    function shareQuoteWhatsApp() {
-        const mode = document.getElementById('calcModeLabel').innerText;
-        const originText = document.getElementById('calcOrigin').options[document.getElementById('calcOrigin').selectedIndex].text;
-        const destText = document.getElementById('calcDestination').options[document.getElementById('calcDestination').selectedIndex].text;
-        const total = document.getElementById('calcTotalUsd').innerText;
-        const weight = document.getElementById('calcWeight').value;
-
-        const text = encodeURIComponent(`📋 *عرض سعر شحن تقديري - سودانيل لوجيستك*\nنوع الشحن: ${mode}\nالمنشأ: ${originText}\nالوجهة: ${destText}\nالوزن: ${weight} كجم\n*الإجمالي التقديري:* ${total}\nاحجز شحنتك الآن: ${window.location.href}`);
-        window.open(`https://wa.me/?text=${text}`, '_blank');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        calculateFreightRate();
-    });
-</script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // Language Toggle Logic

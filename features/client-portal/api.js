@@ -6,12 +6,32 @@
 (function(global) {
   'use strict';
 
-  // ── Supabase Configuration (Dynamically resolved from Vercel ENV / Window) ──
+  // ── Supabase Configuration (Loaded from Vercel Environment Variables) ──
+  // SECURITY: No API keys are hardcoded. All secrets come from Vercel env vars
+  // via the /api/config serverless endpoint or window.__ENV__ injection.
+  let _configCache = null;
+
+  async function loadConfigFromVercel() {
+    if (_configCache) return _configCache;
+    try {
+      const res = await fetch('/api/config');
+      if (res.ok) {
+        const data = await res.json();
+        _configCache = data;
+        global.__ENV__ = { ...global.__ENV__, ...data };
+        return data;
+      }
+    } catch (e) {
+      console.warn('[SudanilAPI] Could not load config from /api/config:', e.message);
+    }
+    return {};
+  }
+
   function getSupabaseConfig() {
     const env = global.__ENV__ || {};
     return {
-      url: env.SUPABASE_URL || global.SUPABASE_URL || 'https://burseblwjftyktxrmteh.supabase.co',
-      anonKey: env.SUPABASE_ANON_KEY || env.SUPABASE_ANON || global.SUPABASE_ANON_KEY || global.SUPABASE_ANON || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1cnNlYmx3amZ0eWt0eHJtdGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDc5MjksImV4cCI6MjA5ODY4MzkyOX0.MDUdE5SORr_2n1HBiwITxKJ2Jitd0Mz6xNOzcA0wVjw'
+      url: env.SUPABASE_URL || global.SUPABASE_URL || '',
+      anonKey: env.SUPABASE_ANON_KEY || env.SUPABASE_ANON || global.SUPABASE_ANON_KEY || global.SUPABASE_ANON || ''
     };
   }
 
@@ -20,13 +40,19 @@
   let realtimeSubscriptions = [];
 
   // ── Initialize Supabase Client ──────────────────────────────
-  function initSupabase() {
+  async function initSupabase() {
     if (!global.supabase) {
       console.error('[SudanilAPI] Supabase JS library not loaded. Add the script tag first.');
       return null;
     }
     if (!supabaseClient) {
+      // Load config from Vercel environment variables first
+      await loadConfigFromVercel();
       const config = getSupabaseConfig();
+      if (!config.url || !config.anonKey) {
+        console.error('[SudanilAPI] Missing SUPABASE_URL or SUPABASE_ANON_KEY. Set them in Vercel Dashboard → Environment Variables.');
+        return null;
+      }
       supabaseClient = global.supabase.createClient(config.url, config.anonKey);
     }
     return supabaseClient;

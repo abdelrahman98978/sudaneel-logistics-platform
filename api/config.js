@@ -2,6 +2,7 @@
 // Vercel Serverless Function: Public Environment Config
 // Exposes ONLY safe public variables configured in Vercel.
 // Sensitive server keys (Service Role, DB passwords) are NEVER exposed.
+// SECURITY: No fallback keys. All values come from Vercel env vars.
 // ============================================================
 
 module.exports = (req, res) => {
@@ -13,9 +14,20 @@ module.exports = (req, res) => {
     return res.status(200).end();
   }
 
+  const supabaseUrl = process.env.SUPABASE_URL || '';
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON || '';
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return res.status(503).json({
+      error: 'Environment variables not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel Dashboard.',
+      SUPABASE_URL: supabaseUrl ? '✓ Set' : '✗ Missing',
+      SUPABASE_ANON_KEY: supabaseAnonKey ? '✓ Set' : '✗ Missing'
+    });
+  }
+
   res.status(200).json({
-    supabaseUrl: process.env.SUPABASE_URL || 'https://burseblwjftyktxrmteh.supabase.co',
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1cnNlYmx3amZ0eWt0eHJtdGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDc5MjksImV4cCI6MjA5ODY4MzkyOX0.MDUdE5SORr_2n1HBiwITxKJ2Jitd0Mz6xNOzcA0wVjw',
+    SUPABASE_URL: supabaseUrl,
+    SUPABASE_ANON_KEY: supabaseAnonKey,
     environment: process.env.NODE_ENV || 'production'
   });
 };

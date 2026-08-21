@@ -32,10 +32,10 @@
                     "colors": {
                         "on-primary": "#ffffff",
                         "on-primary-container": "#6e8799",
-                        "on-secondary-fixed-variant": "#1e40af",
+                        "on-secondary-fixed-variant": "#5c4300",
                         "on-error-container": "#93000a",
                         "on-surface": "#1a1c1c",
-                        "secondary": "#1351b4",
+                        "secondary": "#795900",
                         "surface-bright": "#f9f9f9",
                         "surface-variant": "#e2e2e2",
                         "on-tertiary-fixed": "#1b1b1b",
@@ -58,14 +58,14 @@
                         "on-surface-variant": "#42474c",
                         "on-background": "#1a1c1c",
                         "primary-fixed-dim": "#b0cade",
-                        "secondary-fixed": "#dbeafe",
-                        "secondary-container": "#1b64d4",
+                        "secondary-fixed": "#ffdfa0",
+                        "secondary-container": "#fdcb5b",
                         "tertiary-fixed-dim": "#c6c6c6",
                         "surface-dim": "#dadada",
                         "on-primary-fixed-variant": "#314a5a",
-                        "secondary-fixed-dim": "#3b82f6",
+                        "secondary-fixed-dim": "#ecc165",
                         "outline-variant": "#c3c7cc",
-                        "on-secondary-fixed": "#082f49",
+                        "on-secondary-fixed": "#261a00",
                         "surface-tint": "#496173",
                         "error-container": "#ffdad6",
                         "on-secondary": "#ffffff",
@@ -118,34 +118,38 @@
 <aside class="fixed right-0 top-0 h-full w-64 bg-primary-container text-on-primary-container shadow-[4px_0_24px_rgba(0,27,42,0.08)] flex flex-col p-4 gap-2 z-50 hidden md:flex">
 <div class="mb-8 px-2">
 <div class="mb-2"><img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/></div>
-<p class="text-on-primary-container/70 text-label-md">Sudanil Logistics ERP</p>
+<p class="text-on-primary-container/70 text-label-md">Enterprise Logistics</p>
 </div>
 <nav class="flex flex-col gap-2 flex-grow">
-<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="../client-portal/index.html">
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="#">
 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">بوابة العملاء</span>
+<span class="font-label-md text-label-md">Dashboard</span>
 </a>
-<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="../shipment-tracking/index.html">
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="#">
 <span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
-<span class="font-label-md text-label-md">تتبع الشحنات</span>
+<span class="font-label-md text-label-md">Shipments</span>
 </a>
-<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="../warehouse-inventory/index.html">
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="#">
 <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
-<span class="font-label-md text-label-md">إدارة المستودعات</span>
+<span class="font-label-md text-label-md">Inventory</span>
 </a>
 <a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
 <span class="material-symbols-outlined" data-icon="description">description</span>
-<span class="font-label-md text-label-md">الفواتير والمستندات</span>
+<span class="font-label-md text-label-md">Documents</span>
 </a>
-<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="../operations-control/index.html">
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary hover:translate-x-[-4px] transition-all duration-200" href="#">
 <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
-<span class="font-label-md text-label-md">مركز العمليات ERP</span>
+<span class="font-label-md text-label-md">Analytics</span>
 </a>
 </nav>
 <div class="mt-auto border-t border-white/10 pt-4 flex flex-col gap-2">
-<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all" href="../client-portal/login.html">
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-primary-container/70 hover:bg-white/10 hover:text-on-primary transition-all" href="#">
 <span class="material-symbols-outlined" data-icon="logout">logout</span>
-<span class="font-label-md text-label-md">تسجيل الخروج</span>
+<span class="font-label-md text-label-md">Logout</span>
 </a>
 </div>
 </aside>
@@ -365,190 +369,31 @@
 <p class="text-body-md text-on-surface-variant text-center md:text-right">© 2024 Sudanil Logistic. جميع الحقوق محفوظة.</p>
 </div>
 <div class="flex flex-wrap justify-center gap-6">
-<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="../legal-compliance/privacy.html">سياسة الخصوصية</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="../legal-compliance/terms.html">شروط الخدمة</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="../legal-compliance/help.html">الامتثال والأسئلة الشائعة</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="../contact-support/index.html">اتصل بنا</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">سياسة الخصوصية</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">شروط الخدمة</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">الامتثال العالمي</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-body-md" href="#">اتصل بنا</a>
 </div>
 </div>
 </footer>
 </main>
-
-<!-- Official Logistics Invoice & Customs Release Modal -->
-<div id="invoiceModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="bg-white text-slate-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl border border-secondary/30 animate-fade-in-up">
-        <!-- Modal Toolbar -->
-        <div class="flex flex-wrap justify-between items-center pb-4 border-b border-slate-200 gap-3">
-            <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-secondary text-2xl">verified_user</span>
-                <h3 class="font-bold text-lg text-primary">المستند الرسمي المعتمد</h3>
-            </div>
-            <div class="flex items-center gap-2">
-                <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-bold gap-1">
-                    <button onclick="setCurrency('USD')" id="cur-usd" class="px-2.5 py-1 rounded bg-white text-primary shadow-sm">USD ($)</button>
-                    <button onclick="setCurrency('SDG')" id="cur-sdg" class="px-2.5 py-1 rounded text-slate-500 hover:text-primary">SDG (ج.س)</button>
-                    <button onclick="setCurrency('SAR')" id="cur-sar" class="px-2.5 py-1 rounded text-slate-500 hover:text-primary">SAR (ر.س)</button>
-                </div>
-                <button onclick="window.print()" class="px-3.5 py-1.5 bg-primary text-secondary-container rounded-lg text-xs font-bold hover:bg-primary-light transition-all flex items-center gap-1">
-                    <span class="material-symbols-outlined text-sm">print</span>
-                    طباعة PDF
-                </button>
-                <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-red-500 transition-colors p-1">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Printable Document Canvas -->
-        <div id="printableDoc" class="pt-6 font-sans">
-            <!-- Document Header -->
-            <div class="flex justify-between items-start pb-6 border-b-2 border-primary/20">
-                <div>
-                    <img src="logo.png" alt="Sudanil Logistics" class="h-10 w-auto mb-2 object-contain"/>
-                    <p class="text-xs text-slate-500 font-bold">شركة سودانيل للخدمات اللوجستية والتخليص الجمركي</p>
-                    <p class="text-[11px] text-slate-400">بورتسودان - الميناء الجنوبي | السجل التجاري: 104928</p>
-                </div>
-                <div class="text-left font-mono">
-                    <span id="docTypeBadge" class="bg-emerald-100 text-emerald-800 text-xs font-black px-2.5 py-1 rounded-full uppercase block text-center mb-1">فاتورة تجارية رسمية</span>
-                    <p class="text-xs font-bold text-primary">DOC NO: <span id="modalDocNumber">SNL-INV-882041</span></p>
-                    <p class="text-[11px] text-slate-500">DATE: <span id="modalDocDate">14 OCT 2024</span></p>
-                </div>
-            </div>
-
-            <!-- Client & Shipment Details -->
-            <div class="grid grid-cols-2 gap-4 py-4 border-b border-slate-100 text-xs">
-                <div>
-                    <span class="text-slate-400 font-bold block mb-1">بيانات العميل / المستورد:</span>
-                    <p class="font-bold text-slate-800 text-sm">شركة النيلين للتجارة والاستيراد المحدودة</p>
-                    <p class="text-slate-500">الخرطوم - المنطقة الصناعية بحري | الرقم الضريبي: 30048821</p>
-                </div>
-                <div class="text-left">
-                    <span class="text-slate-400 font-bold block mb-1">بيانات الشحنة والمسار:</span>
-                    <p class="font-bold text-slate-800">بوليصة شحن: <span class="font-mono">SNL-BL-99201</span></p>
-                    <p class="text-slate-500">المسار: ميناء جدة الإسلامي ➔ ميناء بورتسودان</p>
-                </div>
-            </div>
-
-            <!-- Items Table -->
-            <div class="py-4">
-                <table class="w-full text-right text-xs border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-600 font-bold">
-                            <th class="p-2.5">البند والوصف اللوجستي</th>
-                            <th class="p-2.5 text-center">الكمية</th>
-                            <th class="p-2.5 text-center">سعر الوحدة</th>
-                            <th class="p-2.5 text-left">الإجمالي</th>
-                        </tr>
-                    </thead>
-                    <tbody id="invoiceTableBody" class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="p-2.5 font-bold text-slate-800">نقل بحري FCL (حاوية 40 قدم Standard)</td>
-                            <td class="p-2.5 text-center">1</td>
-                            <td class="p-2.5 text-center font-mono invoice-item-rate" data-usd="650">$650.00</td>
-                            <td class="p-2.5 text-left font-mono font-bold text-primary invoice-item-total" data-usd="650">$650.00</td>
-                        </tr>
-                        <tr>
-                            <td class="p-2.5 font-bold text-slate-800">تخليص جمركي ومطابقة مواصفات المقاييس</td>
-                            <td class="p-2.5 text-center">1</td>
-                            <td class="p-2.5 text-center font-mono invoice-item-rate" data-usd="220">$220.00</td>
-                            <td class="p-2.5 text-left font-mono font-bold text-primary invoice-item-total" data-usd="220">$220.00</td>
-                        </tr>
-                        <tr>
-                            <td class="p-2.5 font-bold text-slate-800">رسوم عوائد الموانئ البحرية والتفريغ الآلي</td>
-                            <td class="p-2.5 text-center">1</td>
-                            <td class="p-2.5 text-center font-mono invoice-item-rate" data-usd="140">$140.00</td>
-                            <td class="p-2.5 text-left font-mono font-bold text-primary invoice-item-total" data-usd="140">$140.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Totals & QR Verification Code -->
-            <div class="flex justify-between items-center pt-4 border-t-2 border-slate-200">
-                <div class="flex items-center gap-3">
-                    <div class="w-16 h-16 bg-slate-100 p-1.5 rounded-lg border border-slate-200 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-4xl text-primary">qr_code_2</span>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-bold text-slate-400 uppercase block">التحقق الرقمي المعتمد</span>
-                        <p class="text-[11px] font-mono text-emerald-700 font-bold">DIGITAL HASH: 8F2A-99B1-0C4D</p>
-                    </div>
-                </div>
-                <div class="text-left">
-                    <span class="text-xs text-slate-500 font-bold block">صافي القيمة المستحقة:</span>
-                    <span id="invoiceGrandTotal" class="text-2xl font-black text-secondary font-mono">$1,010.00</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-let currentCurrency = 'USD';
-const conversionRates = { USD: 1, SDG: 2500, SAR: 3.75 };
-const currencySymbols = { USD: '$', SDG: ' SDG', SAR: ' SAR' };
-
-function openInvoiceModal(docNumber, docType, date) {
-    document.getElementById('modalDocNumber').innerText = docNumber || 'SNL-INV-882041';
-    document.getElementById('modalDocDate').innerText = date || '14 OCT 2024';
-    if (docType) document.getElementById('docTypeBadge').innerText = docType;
-    document.getElementById('invoiceModal').classList.remove('hidden');
-    updateInvoiceCurrencyDisplay();
-}
-
-function closeInvoiceModal() {
-    document.getElementById('invoiceModal').classList.add('hidden');
-}
-
-function setCurrency(cur) {
-    currentCurrency = cur;
-    document.querySelectorAll('[id^="cur-"]').forEach(btn => {
-        btn.classList.remove('bg-white', 'text-primary', 'shadow-sm');
-        btn.classList.add('text-slate-500');
-    });
-    const active = document.getElementById(`cur-${cur.toLowerCase()}`);
-    if (active) {
-        active.classList.add('bg-white', 'text-primary', 'shadow-sm');
-        active.classList.remove('text-slate-500');
-    }
-    updateInvoiceCurrencyDisplay();
-}
-
-function updateInvoiceCurrencyDisplay() {
-    const rate = conversionRates[currentCurrency];
-    const sym = currencySymbols[currentCurrency];
-
-    let grandUsd = 0;
-    document.querySelectorAll('.invoice-item-rate').forEach(el => {
-        const usd = parseFloat(el.getAttribute('data-usd')) || 0;
-        const converted = usd * rate;
-        el.innerText = `${currentCurrency === 'USD' ? sym : ''}${converted.toLocaleString('en-US', { minimumFractionDigits: 2 })}${currentCurrency !== 'USD' ? sym : ''}`;
-    });
-
-    document.querySelectorAll('.invoice-item-total').forEach(el => {
-        const usd = parseFloat(el.getAttribute('data-usd')) || 0;
-        grandUsd += usd;
-        const converted = usd * rate;
-        el.innerText = `${currentCurrency === 'USD' ? sym : ''}${converted.toLocaleString('en-US', { minimumFractionDigits: 2 })}${currentCurrency !== 'USD' ? sym : ''}`;
-    });
-
-    const finalGrand = grandUsd * rate;
-    document.getElementById('invoiceGrandTotal').innerText = `${currentCurrency === 'USD' ? sym : ''}${finalGrand.toLocaleString('en-US', { minimumFractionDigits: 2 })}${currentCurrency !== 'USD' ? sym : ''}`;
-}
-
-// Attach click events to existing download buttons in table
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('button:has([data-icon="download"]), button:has([data-icon="visibility"])').forEach((btn, idx) => {
-        btn.onclick = () => {
-            const rows = [
-                { num: 'SNL-INV-882041', type: 'فاتورة تجارية معتمدة', date: '14 أكتوبر 2024' },
-                { num: 'SNL-BL-774920', type: 'بوليصة شحن بحرية (Bill of Lading)', date: '12 أكتوبر 2024' },
-                { num: 'SNL-PK-900212', type: 'بيان التعبئة والفحص الجمركي', date: '10 أكتوبر 2024' }
-            ];
-            const item = rows[idx % rows.length];
-            openInvoiceModal(item.num, item.type, item.date);
-        };
-    });
-});
-</script>
+<!-- Bottom Nav (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface/95 backdrop-blur-md border-t border-outline-variant flex justify-around items-center h-16 z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">لوحة التحكم</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="text-[10px] font-bold">الشحنات</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="description" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-[10px] font-bold border-b-2 border-secondary pb-0.5">المستندات</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-bold">التحليلات</span>
+</a>
+</nav>
 </body></html>

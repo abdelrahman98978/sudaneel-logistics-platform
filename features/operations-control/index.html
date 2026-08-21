@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
   <meta charset="utf-8"/>
@@ -8,7 +8,7 @@
   <!-- Session Security Shield Check -->
   <script>
     if (!localStorage.getItem('sessionToken') || !localStorage.getItem('sessionToken').startsWith('sovereign_admin_')) {
-      window.location.replace('../client-portal/login.html');
+      window.location.replace('../_21/login.html');
     }
   </script>
 
@@ -32,8 +32,8 @@
               lighter: "#122854"
             },
             gold: {
-              DEFAULT: "#1b64d4",
-              light: "#dbeafe"
+              DEFAULT: "#d4af37",
+              light: "#ffdfa0"
             }
           },
           borderRadius: {
@@ -51,8 +51,8 @@
     :root {
       --navy: #060d1e;
       --navy-light: #0b1b3d;
-      --gold: #1b64d4;
-      --gold-light: #dbeafe;
+      --gold: #d4af37;
+      --gold-light: #ffdfa0;
       --white: #ffffff;
       --gray-50: #f8fafc;
       --gray-100: #f1f5f9;
@@ -75,7 +75,7 @@
     .glass {
       background: rgba(11, 27, 61, 0.7);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(27, 100, 212, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.15);
     }
 
     .light-mode .glass {
@@ -87,7 +87,7 @@
     .glass-sidebar {
       background: rgba(6, 13, 30, 0.85);
       backdrop-filter: blur(16px);
-      border-left: 1px solid rgba(27, 100, 212, 0.15);
+      border-left: 1px solid rgba(212, 175, 55, 0.15);
     }
 
     .light-mode .glass-sidebar {
@@ -98,18 +98,18 @@
     /* Standard Direction Handling */
     html[dir="ltr"] .glass-sidebar {
       border-left: none;
-      border-right: 1px solid rgba(27, 100, 212, 0.15);
+      border-right: 1px solid rgba(212, 175, 55, 0.15);
     }
     html[dir="ltr"].light-mode .glass-sidebar {
       border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .gold-glow {
-      box-shadow: 0 0 15px rgba(27, 100, 212, 0.3);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
     }
 
     .gold-border {
-      border-color: rgba(27, 100, 212, 0.3);
+      border-color: rgba(212, 175, 55, 0.3);
     }
 
     .light-mode .gold-border {
@@ -173,7 +173,7 @@
       border-color: rgba(6, 13, 30, 0.06) !important;
     }
     .light-mode table tbody tr:hover {
-      background: rgba(27, 100, 212, 0.06) !important;
+      background: rgba(212, 175, 55, 0.06) !important;
     }
     .light-mode table .font-mono {
       color: var(--navy) !important;
@@ -1520,7 +1520,7 @@
       if (window.globeMesh && window.globeAmbientLight && window.globeLighting) {
         const isLight = html.classList.contains('light-mode');
         window.globeAmbientLight.color.setHex(isLight ? 0xe2e8f0 : 0x021e2d);
-        window.globeLighting.color.setHex(isLight ? 0x1b64d4 : 0xffdfa0);
+        window.globeLighting.color.setHex(isLight ? 0xd4af37 : 0xffdfa0);
         window.globeMesh.material.color.setHex(isLight ? 0x1a365d : 0x021e2d);
       }
     }
@@ -2215,7 +2215,7 @@
       globeAmbientLight = new THREE.AmbientLight(isLight ? 0xe2e8f0 : 0x021e2d, 1.8);
       globeScene.add(globeAmbientLight);
 
-      globeLighting = new THREE.DirectionalLight(isLight ? 0x1b64d4 : 0xffdfa0, isLight ? 1.8 : 1.2);
+      globeLighting = new THREE.DirectionalLight(isLight ? 0xd4af37 : 0xffdfa0, isLight ? 1.8 : 1.2);
       globeLighting.position.set(5, 3, 5);
       globeScene.add(globeLighting);
 
@@ -2244,7 +2244,7 @@
       // Draw global wireframe overlay
       const wireGeo = new THREE.SphereGeometry(4.01, 24, 24);
       const wireMat = new THREE.MeshBasicMaterial({
-        color: 0x1b64d4,
+        color: 0xd4af37,
         wireframe: true,
         transparent: true,
         opacity: 0.15
@@ -2267,7 +2267,7 @@
       globeMesh.add(globeNodeGroup);
 
       // Setup Route Arcs
-      function createRouteArc(start, end, color = 0x1b64d4) {
+      function createRouteArc(start, end, color = 0xd4af37) {
         const midPoint = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
         const distance = start.distanceTo(end);
         midPoint.normalize().multiplyScalar(4 + distance * 0.25);
@@ -2399,7 +2399,7 @@
       localStorage.removeItem('sessionToken');
       showToast('جاري تسجيل الخروج من البوابة المتكاملة...', 'Logging out from integrated administrative gateway...', 'info');
       setTimeout(() => {
-        window.location.replace('../client-portal/login.html');
+        window.location.replace('../_21/login.html');
       }, 1000);
     }
 
@@ -2443,20 +2443,20 @@
     });
   </script>
 <!-- Floating AI Assistant Button -->
-<button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#1b64d4] to-[#3b82f6] text-[#060d1e] shadow-[0_8px_30px_rgba(27, 100, 212,0.4)] border border-[#1b64d4]/30 hover:scale-110 active:scale-95 transition-all duration-300">
+<button id="ai-assistant-btn" class="fixed bottom-6 z-[999] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-[#d4af37] to-[#ecc165] text-[#060d1e] shadow-[0_8px_30px_rgba(212,175,55,0.4)] border border-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300">
   <span class="material-symbols-outlined text-2xl font-bold">support_agent</span>
   <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#060d1e] animate-pulse"></span>
 </button>
 
 <!-- AI Assistant Chat Panel -->
 <div id="ai-chat-panel" class="fixed bottom-24 z-[999] w-[380px] h-[520px] rounded-2xl industrial-shadow flex flex-col opacity-0 translate-y-10 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-  <div class="flex items-center justify-between px-4 py-3 border-b border-[#1b64d4]/20 bg-gradient-to-r from-[#060d1e]/90 to-[#0b1b3d]/90 rounded-t-2xl">
+  <div class="flex items-center justify-between px-4 py-3 border-b border-[#d4af37]/20 bg-gradient-to-r from-[#060d1e]/90 to-[#0b1b3d]/90 rounded-t-2xl">
     <div class="flex items-center gap-3">
-      <div class="relative w-12 h-12 bg-[#060d1e] border border-[#1b64d4]/30 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(27, 100, 212,0.15)]">
+      <div class="relative w-12 h-12 bg-[#060d1e] border border-[#d4af37]/30 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(212,175,55,0.15)]">
         <canvas id="assistant3DCanvas" class="w-full h-full"></canvas>
       </div>
       <div>
-        <h4 class="text-xs font-bold text-[#1b64d4] lang-text" data-ar="المساعد الذكي الموحد" data-en="Smart AI Assistant">المساعد الذكي الموحد</h4>
+        <h4 class="text-xs font-bold text-[#d4af37] lang-text" data-ar="المساعد الذكي الموحد" data-en="Smart AI Assistant">المساعد الذكي الموحد</h4>
         <span class="text-[10px] text-green-400 flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping"></span>
           <span class="lang-text" data-ar="متصل ونشط" data-en="Online & Active">متصل ونشط</span>
@@ -2471,20 +2471,20 @@
   <div id="ai-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/40 backdrop-blur-md">
     <div class="flex gap-2.5 items-start">
       <div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>
-      <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#1b64d4]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]">
+      <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]">
         <p class="lang-text" data-ar="مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟" data-en="Welcome to Sudanil Integrated Logistics Portal. I am your intelligent assistant. I can help you track shipments, calculate customs clearances, check warehouse capacities, and facilitate all your operations. How can I assist you today?">مرحباً بك في بوابة سودانيل اللوجستية المتكاملة. أنا مساعدك الذكي لتتبع شحناتك، حساب تكلفة الجمارك، حجز المستودعات، وتسهيل تعاملاتك اللوجستية. كيف يمكنني خدمتك اليوم؟</p>
         <div class="mt-2.5 flex flex-wrap gap-1.5">
-          <button onclick="sendQuickReply(this)" class="bg-[#1b64d4]/10 hover:bg-[#1b64d4]/25 border border-[#1b64d4]/20 rounded-full px-2.5 py-1 text-[10px] text-[#3b82f6] transition-colors lang-text" data-ar="أين شحنتي #SN-TRK-908125؟" data-en="Where is my shipment #SN-TRK-908125?">أين شحنتي #SN-TRK-908125؟</button>
-          <button onclick="sendQuickReply(this)" class="bg-[#1b64d4]/10 hover:bg-[#1b64d4]/25 border border-[#1b64d4]/20 rounded-full px-2.5 py-1 text-[10px] text-[#3b82f6] transition-colors lang-text" data-ar="حساب تكلفة الجمارك" data-en="Calculate customs fees">حساب تكلفة الجمارك</button>
-          <button onclick="sendQuickReply(this)" class="bg-[#1b64d4]/10 hover:bg-[#1b64d4]/25 border border-[#1b64d4]/20 rounded-full px-2.5 py-1 text-[10px] text-[#3b82f6] transition-colors lang-text" data-ar="حالة مستودع الخرطوم" data-en="Khartoum Warehouse status">حالة مستودع الخرطوم</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="أين شحنتي #SN-TRK-908125؟" data-en="Where is my shipment #SN-TRK-908125?">أين شحنتي #SN-TRK-908125؟</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حساب تكلفة الجمارك" data-en="Calculate customs fees">حساب تكلفة الجمارك</button>
+          <button onclick="sendQuickReply(this)" class="bg-[#d4af37]/10 hover:bg-[#d4af37]/25 border border-[#d4af37]/20 rounded-full px-2.5 py-1 text-[10px] text-[#ecc165] transition-colors lang-text" data-ar="حالة مستودع الخرطوم" data-en="Khartoum Warehouse status">حالة مستودع الخرطوم</button>
         </div>
       </div>
     </div>
   </div>
 
-  <form id="ai-chat-form" class="p-3 border-t border-[#1b64d4]/20 bg-[#060d1e]/90 flex gap-2 rounded-b-2xl">
-    <input id="ai-user-input" type="text" autocomplete="off" placeholder="اكتب استفسارك هنا..." class="flex-1 bg-slate-900/60 border border-slate-700/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#1b64d4] focus:ring-1 focus:ring-[#1b64d4] transition-all" data-ar-placeholder="اكتب استفسارك هنا..." data-en-placeholder="Type your inquiry here...">
-    <button type="submit" class="w-9 h-9 rounded-xl bg-gradient-to-r from-[#1b64d4] to-[#3b82f6] flex items-center justify-center text-[#060d1e] hover:scale-105 active:scale-95 transition-all shadow-[0_0_10px_rgba(27, 100, 212,0.2)]">
+  <form id="ai-chat-form" class="p-3 border-t border-[#d4af37]/20 bg-[#060d1e]/90 flex gap-2 rounded-b-2xl">
+    <input id="ai-user-input" type="text" autocomplete="off" placeholder="اكتب استفسارك هنا..." class="flex-1 bg-slate-900/60 border border-slate-700/60 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all" data-ar-placeholder="اكتب استفسارك هنا..." data-en-placeholder="Type your inquiry here...">
+    <button type="submit" class="w-9 h-9 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center text-[#060d1e] hover:scale-105 active:scale-95 transition-all shadow-[0_0_10px_rgba(212,175,55,0.2)]">
       <span class="material-symbols-outlined text-lg font-bold">send</span>
     </button>
   </form>
@@ -2521,7 +2521,7 @@
       
       const geo = new THREE.IcosahedronGeometry(1.2, 2);
       const mat = new THREE.MeshBasicMaterial({
-          color: 0x1b64d4,
+          color: 0xd4af37,
           wireframe: true,
           transparent: true,
           opacity: 0.65
@@ -2606,8 +2606,8 @@
           : `<div class="flex-shrink-0"><img src="logo.png" alt="SL" style="height: 32px; width: 32px; object-fit: contain;"/></div>`;
           
       const bubbleClass = isUser
-          ? 'bg-gradient-to-br from-[#1b64d4]/20 to-[#3b82f6]/10 border border-[#1b64d4]/20 p-3 rounded-2xl rounded-tl-none text-xs text-white leading-relaxed max-w-[80%]'
-          : 'bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#1b64d4]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]';
+          ? 'bg-gradient-to-br from-[#d4af37]/20 to-[#ecc165]/10 border border-[#d4af37]/20 p-3 rounded-2xl rounded-tl-none text-xs text-white leading-relaxed max-w-[80%]'
+          : 'bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-200 leading-relaxed max-w-[80%]';
           
       msgDiv.innerHTML = isUser 
           ? `<div class="${bubbleClass}">${text}</div>${avatarHTML}`
@@ -2629,11 +2629,11 @@
       const loaderDiv = document.createElement('div');
       loaderDiv.className = 'flex gap-2.5 items-start temp-loader';
       loaderDiv.innerHTML = `
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-[#1b64d4] to-[#3b82f6] flex items-center justify-center flex-shrink-0 text-[#060d1e] font-bold text-sm">SL</div>
-          <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#1b64d4]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-400 leading-relaxed flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#1b64d4] animate-bounce" style="animation-delay: 0ms"></span>
-              <span class="w-1.5 h-1.5 rounded-full bg-[#1b64d4] animate-bounce" style="animation-delay: 150ms"></span>
-              <span class="w-1.5 h-1.5 rounded-full bg-[#1b64d4] animate-bounce" style="animation-delay: 300ms"></span>
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#ecc165] flex items-center justify-center flex-shrink-0 text-[#060d1e] font-bold text-sm">SL</div>
+          <div class="bg-gradient-to-br from-[#0b1b3d]/80 to-[#060d1e]/80 border border-[#d4af37]/10 p-3 rounded-2xl rounded-tr-none text-xs text-slate-400 leading-relaxed flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 0ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 150ms"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-bounce" style="animation-delay: 300ms"></span>
           </div>
       `;
       aiMessages.appendChild(loaderDiv);

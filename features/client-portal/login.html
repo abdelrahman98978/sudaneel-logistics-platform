@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
 <meta charset="utf-8"/>
@@ -13,7 +13,7 @@
 :root{
   --navy:#060d1e;
   --navy-light:#0e1e3f;
-  --gold:#1b64d4;
+  --gold:#d4af37;
   --gold-light:#f5e6b8;
   --white:#ffffff;
   --gray-50:#f8fafc;
@@ -48,7 +48,7 @@ html[dir="ltr"] .info-panel{border-right:none;border-left:1px solid var(--gray-2
 .info-panel::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(circle at 30% 20%, rgba(27, 100, 212,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 30% 20%, rgba(212,175,55,0.06) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(6,13,30,0.03) 0%, transparent 40%);
 }
 .info-panel::after{
@@ -97,7 +97,7 @@ html[dir="ltr"] .info-panel{border-right:none;border-left:1px solid var(--gray-2
 .stat-card:hover{
   transform:translateY(-3px);
   box-shadow:var(--shadow-md);
-  border-color:rgba(27, 100, 212,0.3);
+  border-color:rgba(212,175,55,0.3);
 }
 .stat-icon {
   width: 40px;
@@ -146,11 +146,11 @@ html[dir="ltr"] .info-panel{border-right:none;border-left:1px solid var(--gray-2
   font-family: inherit;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(27, 100, 212, 0.2);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
 }
 .send-otp-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(27, 100, 212, 0.35);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
   background: linear-gradient(135deg, #f5e6b8, var(--gold));
 }
 .send-otp-btn:active {
@@ -213,9 +213,9 @@ html[dir="ltr"] .back-btn:hover .material-symbols-outlined{
 }
 .back-btn:hover, .lang-btn:hover {
   border-color: var(--gold);
-  background: rgba(27, 100, 212, 0.08);
+  background: rgba(212, 175, 55, 0.08);
   color: var(--gold);
-  box-shadow: 0 4px 12px rgba(27, 100, 212, 0.15);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
 }
 
 /* Dynamic slidable tabs selector */
@@ -381,7 +381,7 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
   border-color: var(--gold);
   background: #fffdf5;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(27, 100, 212, 0.1);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
 }
 .demo-cred .lbl{font-size:9px;color:var(--gray-400);font-weight:700;margin-bottom:0}
 .demo-cred .val{font-size:10px;color:var(--gray-800);font-weight:700;font-family:'Montserrat',monospace}
@@ -422,7 +422,7 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
 .glass {
   background: rgba(11, 27, 61, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(27, 100, 212, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
   max-width: 400px;
   width: 95%;
@@ -512,10 +512,10 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
 }
 .biometric-btn:hover {
   border-color: var(--gold);
-  background: rgba(27, 100, 212, 0.08);
+  background: rgba(212, 175, 55, 0.08);
   color: var(--gold);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(27, 100, 212, 0.15);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
 }
 .biometric-btn:active {
   transform: translateY(0);
@@ -594,7 +594,7 @@ html[dir="ltr"] .pass-toggle{left:auto;right:16px}
 }
 .scan-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(27, 100, 212,0.35);
+  box-shadow: 0 8px 25px rgba(212,175,55,0.35);
 }
 .scan-btn:active {
   transform: translateY(0);
@@ -739,7 +739,7 @@ body.dark-mode {
 }
 body.dark-mode .login-panel {
   background: var(--navy) !important;
-  border-color: rgba(27, 100, 212, 0.2);
+  border-color: rgba(212, 175, 55, 0.2);
 }
 body.dark-mode .login-header h2 {
   color: var(--white);
@@ -752,7 +752,7 @@ body.dark-mode .form-group label {
 }
 body.dark-mode .form-input {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.2) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
   color: var(--white) !important;
 }
 body.dark-mode .form-input::placeholder {
@@ -766,14 +766,14 @@ body.dark-mode .divider span {
 }
 body.dark-mode .demo-box {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
 }
 body.dark-mode .demo-cred {
   background: var(--navy) !important;
-  border-color: rgba(27, 100, 212, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
 }
 body.dark-mode .demo-cred:hover {
-  background: rgba(27, 100, 212, 0.05) !important;
+  background: rgba(212, 175, 55, 0.05) !important;
   border-color: var(--gold) !important;
 }
 body.dark-mode .demo-cred .lbl {
@@ -786,11 +786,11 @@ body.dark-mode .demo-pass {
 }
 body.dark-mode .tab-container {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
 }
 body.dark-mode .tab-indicator {
   background: var(--navy) !important;
-  border-color: rgba(27, 100, 212, 0.2) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
 }
 body.dark-mode .tab-btn {
   color: var(--gray-400) !important;
@@ -800,32 +800,32 @@ body.dark-mode .tab-btn.active {
 }
 body.dark-mode .biometric-btn {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.2) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
   color: var(--gold) !important;
 }
 body.dark-mode .biometric-btn:hover {
-  background: rgba(27, 100, 212, 0.1) !important;
+  background: rgba(212, 175, 55, 0.1) !important;
   color: var(--gold-light) !important;
 }
 body.dark-mode .divider::before, 
 body.dark-mode .divider::after {
-  background: rgba(27, 100, 212, 0.15) !important;
+  background: rgba(212, 175, 55, 0.15) !important;
 }
 body.dark-mode .back-btn, 
 body.dark-mode .lang-btn {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
   color: var(--gray-300) !important;
 }
 body.dark-mode .back-btn:hover, 
 body.dark-mode .lang-btn:hover {
   color: var(--gold) !important;
   border-color: var(--gold) !important;
-  background: rgba(27, 100, 212, 0.08) !important;
+  background: rgba(212, 175, 55, 0.08) !important;
 }
 body.dark-mode .info-panel {
   background: var(--navy) !important;
-  border-color: rgba(27, 100, 212, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
 }
 body.dark-mode .info-logo-text {
   color: var(--white) !important;
@@ -838,7 +838,7 @@ body.dark-mode .info-sub {
 }
 body.dark-mode .stat-card {
   background: var(--navy-light) !important;
-  border-color: rgba(27, 100, 212, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.1) !important;
 }
 body.dark-mode .stat-card:hover {
   border-color: var(--gold) !important;
@@ -898,8 +898,8 @@ body.dark-mode .forgot:hover {
   border-width: 1px;
   border-style: solid;
 }
-.border-\[\#1b64d4\]\/25 {
-  border-color: rgba(27, 100, 212, 0.25);
+.border-\[\#d4af37\]\/25 {
+  border-color: rgba(212, 175, 55, 0.25);
 }
 .p-2\.5 {
   padding: 0.625rem;
@@ -993,11 +993,11 @@ html[dir="ltr"] .text-right {
 }
 
 /* Dropdown item hover */
-.hover\:text-\[\#1b64d4\]:hover {
-  color: #1b64d4;
+.hover\:text-\[\#d4af37\]:hover {
+  color: #d4af37;
 }
-.hover\:bg-\[\#1b64d4\]\/10:hover {
-  background-color: rgba(27, 100, 212, 0.1);
+.hover\:bg-\[\#d4af37\]\/10:hover {
+  background-color: rgba(212, 175, 55, 0.1);
 }
 .active\:scale-95:active {
   transform: scale(0.95);
@@ -1021,7 +1021,7 @@ button.w-full.text-right {
   <!-- Sleek Top Header Actions -->
   <div class="login-top">
     <!-- Back to Main Website Button -->
-    <a href="../company-profile/index.html" class="back-btn">
+    <a href="../_6/code.html" class="back-btn">
       <span class="material-symbols-outlined" id="back-btn-icon" style="font-size:16px">arrow_forward</span>
       <span class="lang-text" data-ar="الرجوع للموقع" data-en="Main Website">الرجوع للموقع</span>
     </a>
@@ -1227,7 +1227,7 @@ button.w-full.text-right {
     <div style="position:relative; width:120px; height:120px; margin:0 auto 24px auto; display:flex; align-items:center; justify-content:center;">
       <div style="position:absolute; inset:0; border-radius:50%; border:2px solid var(--gold); opacity:0.15; animation: ping 2s infinite ease-in-out;"></div>
       <div style="position:absolute; inset:10px; border-radius:50%; border:2px solid var(--gold); opacity:0.3; animation: pulse 1.5s infinite ease-in-out;"></div>
-      <div id="scanner-bg" style="width:96px; height:96px; border-radius:50%; background:rgba(27, 100, 212,0.08); border:1px solid rgba(27, 100, 212,0.25); display:flex; align-items:center; justify-content:center; transition:all 0.4s;">
+      <div id="scanner-bg" style="width:96px; height:96px; border-radius:50%; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); display:flex; align-items:center; justify-content:center; transition:all 0.4s;">
         <span class="material-symbols-outlined text-5xl text-gold" id="scanner-icon" style="font-size:48px; color:var(--gold);">fingerprint</span>
       </div>
       <!-- Moving laser sweep bar -->
@@ -1370,7 +1370,7 @@ function showToast(arText, enText) {
   toast.className = 'animate-fade-in';
   toast.style.background = 'rgba(11, 27, 61, 0.95)';
   toast.style.color = 'var(--gold)';
-  toast.style.border = '1px solid rgba(27, 100, 212,0.3)';
+  toast.style.border = '1px solid rgba(212,175,55,0.3)';
   toast.style.borderRadius = '12px';
   toast.style.padding = '14px 20px';
   toast.style.fontSize = '12px';
@@ -1451,7 +1451,7 @@ function startSimulatedScan() {
   triggerBtn.disabled = true;
   triggerBtn.classList.add('opacity-50');
   
-  scannerBg.style.boxShadow = '0 0 25px rgba(27, 100, 212, 0.4)';
+  scannerBg.style.boxShadow = '0 0 25px rgba(212, 175, 55, 0.4)';
   
   appendConsoleLog('📡 Accessing local secure credential repository...', '📡 الاتصال بمخزن المصادقات البيومترية الآمن...');
   
@@ -1475,7 +1475,7 @@ function startSimulatedScan() {
     closePasskeyModal();
     if (selectedPasskeyRole === 'admin') {
       localStorage.setItem('sessionToken', 'sovereign_admin_' + Date.now());
-      window.location.href = '../operations-control/index.html';
+      window.location.href = '../_20/code.html';
     } else {
       localStorage.setItem('sessionToken', 'sovereign_client_' + Date.now());
       window.location.href = 'code.html';
@@ -1556,7 +1556,7 @@ function handleOTPLogin(e) {
     if (code === '123456') {
       if (email === ADMIN_EMAIL) {
         localStorage.setItem('sessionToken', 'sovereign_admin_' + Date.now());
-        window.location.href = '../operations-control/index.html';
+        window.location.href = '../_20/code.html';
       } else {
         localStorage.setItem('sessionToken', 'sovereign_client_' + Date.now());
         window.location.href = 'code.html';
@@ -1648,7 +1648,7 @@ function initLogin3D() {
 
   // Glowing gold nodes
   const mat = new THREE.PointsMaterial({
-    color: 0x1b64d4,
+    color: 0xd4af37,
     size: 0.12,
     transparent: true,
     opacity: 0.85
@@ -1659,7 +1659,7 @@ function initLogin3D() {
 
   // Connection lines segments (Optimized static buffer allocation)
   const lineMat = new THREE.LineBasicMaterial({
-    color: 0x1b64d4,
+    color: 0xd4af37,
     transparent: true,
     opacity: 0.12
   });

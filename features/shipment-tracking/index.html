@@ -8,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-    <!-- Leaflet CSS & JS for Live Interactive Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -19,8 +16,8 @@
                     colors: {
                         "primary-container": "#0b1b3d", // Deep Navy
                         "primary-light": "#1a365d",
-                        "secondary-container": "#1b64d4", // Premium Gold
-                        "secondary-light": "#60a5fa",
+                        "secondary-container": "#d4af37", // Premium Gold
+                        "secondary-light": "#f6e05e",
                         "surface-container": "#f1f5f9",
                         "on-primary": "#ffffff",
                         "on-primary-container": "#94a3b8",
@@ -80,7 +77,7 @@
         .hover-lift:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 40px -10px rgba(11, 27, 61, 0.15), 0 10px 15px -5px rgba(11, 27, 61, 0.05);
-            border-color: #1b64d4;
+            border-color: #d4af37;
         }
         .glass-panel {
             background: rgba(255, 255, 255, 0.85);
@@ -89,20 +86,20 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
         .gradient-text {
-            background: linear-gradient(135deg, #1b64d4, #60a5fa);
+            background: linear-gradient(135deg, #d4af37, #f6e05e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .hero-gradient {
-            background: linear-gradient(145deg, rgba(11,27,61,0.85) 0%, rgba(26,54,93,0.6) 60%, rgba(27, 100, 212,0.3) 100%);
+            background: linear-gradient(145deg, rgba(11,27,61,0.85) 0%, rgba(26,54,93,0.6) 60%, rgba(212,175,55,0.3) 100%);
         }
         .status-dot-pulse {
-            box-shadow: 0 0 0 0 rgba(27, 100, 212, 0.7);
+            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
             animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
         }
         @keyframes pulse-ring {
-            100% { box-shadow: 0 0 0 15px rgba(27, 100, 212, 0); }
+            100% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
         }
         /* Custom Scrollbar for Milestones */
         .custom-scrollbar::-webkit-scrollbar {
@@ -126,15 +123,15 @@
 <!-- Top Navigation Bar -->
 <header id="mainNav" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-transparent transition-all">
     <div class="flex items-center gap-10">
-        <a href="../company-profile/index.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
+        <a href="../_6/code.html" class="font-headline text-2xl font-black text-primary flex items-center gap-3">
             <img src="logo.png" alt="Sudanil Logistics Logo" class="h-8 w-auto object-contain inline-block" style="height: 32px; object-fit: contain;"/>
         </a>
         <nav class="hidden md:flex gap-6 items-center text-sm">
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../company-profile/index.html" data-ar="من نحن" data-en="About Us">من نحن</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../services-catalog/index.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_6/code.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_7/code.html" data-ar="من نحن" data-en="About Us">من نحن</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_8/code.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
             <a class="lang-text font-bold text-primary border-b-2 border-secondary pb-1" href="#" data-ar="تتبع الشحنة" data-en="Tracking">تتبع الشحنة</a>
-            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../contact-support/index.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+            <a class="lang-text font-bold text-slate-500 hover:text-primary transition-colors" href="../_3/code.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
         </nav>
     </div>
     <div class="flex items-center gap-3">
@@ -142,7 +139,7 @@
             <span class="material-symbols-outlined text-lg">language</span>
             <span id="langToggleText" class="text-xs">EN</span>
         </button>
-        <a href="../client-portal/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
+        <a href="../_21/login.html" class="lang-text bg-primary hover:bg-primary-light text-white font-bold px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/20 active:scale-95 transition-all duration-300 flex items-center gap-2 text-sm" data-ar="تسجيل الدخول" data-en="Login">
             <span class="material-symbols-outlined text-sm text-secondary-container">login</span>
             تسجيل الدخول
         </a>
@@ -213,50 +210,43 @@
                 </div>
             </div>
 
-            <!-- Visual Timeline & Live Interactive Leaflet Map -->
+            <!-- Visual Timeline & Map -->
             <div class="col-span-12 md:col-span-8 bg-white rounded-2xl overflow-hidden logistic-shadow h-[600px] flex flex-col relative animate-fade-in-up">
-                <div class="p-4 border-b border-slate-100 flex flex-wrap justify-between items-center bg-white/90 backdrop-blur-md absolute top-0 left-0 right-0 z-[1000] shadow-sm gap-2">
-                    <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg text-lg">near_me</span>
-                        <div>
-                            <h3 class="font-headline text-base md:text-lg font-bold text-primary">المسار اللوجستي الحي</h3>
-                            <p class="text-[11px] text-slate-500 hidden sm:block">تتبع بالأقمار الصناعية ومحطات التخليص الجمركي</p>
-                        </div>
+                <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-white/80 backdrop-blur-md absolute top-0 left-0 right-0 z-20 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">my_location</span>
+                        <h3 class="font-headline text-xl font-bold text-primary">خريطة الحركة المباشرة</h3>
                     </div>
-                    <!-- Quick Tracking Presets & Map Layer Toggle -->
-                    <div class="flex items-center gap-2">
-                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-bold gap-1">
-                            <button onclick="selectShipmentPreset('SNL-240522-001')" class="preset-btn px-2.5 py-1.5 rounded-md bg-white text-primary shadow-sm hover:text-secondary transition-all" title="شحن بحري - بري">بورتسودان ➔ الخرطوم</button>
-                            <button onclick="selectShipmentPreset('SNL-240523-088')" class="preset-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-primary transition-all" title="شحن بحري دولي">جدة ➔ بورتسودان</button>
-                            <button onclick="selectShipmentPreset('SNL-240524-104')" class="preset-btn px-2.5 py-1.5 rounded-md text-slate-600 hover:text-primary transition-all" title="شحن جوي سريع">دبي ➔ الخرطوم</button>
-                        </div>
-                        <button id="mapTileToggle" onclick="toggleMapLayer()" class="px-3 py-1.5 bg-primary text-secondary-container rounded-lg text-xs font-bold hover:bg-primary-light transition-all flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-sm">layers</span>
-                            <span id="layerNameText">قمر صناعي</span>
-                        </button>
+                    <div class="flex bg-slate-100 p-1 rounded-lg">
+                        <button class="px-5 py-2 bg-white text-primary font-bold rounded-md shadow-sm text-sm transition-all">خريطة قياسية</button>
+                        <button class="px-5 py-2 text-slate-500 hover:text-primary font-semibold rounded-md text-sm transition-colors">قمر صناعي</button>
                     </div>
                 </div>
-
-                <!-- Leaflet Map Canvas -->
-                <div class="flex-grow relative w-full h-full pt-16">
-                    <div id="liveTrackingMap" class="w-full h-full z-0" style="min-height: 520px; background-color: #060d1e;"></div>
+                <div class="flex-grow relative">
+                    <!-- Overlay to make map look more premium (less contrast) -->
+                    <div class="absolute inset-0 bg-primary/5 pointer-events-none z-10 mix-blend-multiply"></div>
+                    <img class="w-full h-full object-cover grayscale-[30%] contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT2mj2PQZVBSv-7R4Tza-rYr0VvPA-Mwl6mw--uUlXYlm2znIadMH74H_FwfVeQQ3NrHEuLnc6H46qvP7aL2V9Mzdg59CwhqZUOgx4sWdWYSuzjcxiG8IRBXUyMUiQGXCGE_0NoaunZq0uwiQtDRwQwlpcpleFUxbEkccNc5I09ITlee3ZL9fMZW-GlWb0MQ5GTONO7Kbm6Buqv-OD1Dl57GBG4DKEslVOoQ_eOvk08b3aOK-oPc-374ESoJurqCSSs3-brxkIR9Y"/>
                     
-                    <!-- Live Dynamic Floating Card -->
-                    <div class="absolute bottom-4 right-4 glass-panel p-4 rounded-xl shadow-2xl max-w-xs text-right z-[1000] border-r-4 border-r-secondary-container bg-white/95 backdrop-blur-md">
-                        <div class="flex justify-between items-center mb-2 gap-4">
-                            <div class="flex items-center gap-2">
-                                <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></div>
-                                <span id="mapLiveLocation" class="text-xs font-bold text-primary">الموقع: ميناء بورتسودان الجنوبي</span>
+                    <!-- Map Pin -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 animate-float">
+                        <div class="relative">
+                            <div class="w-6 h-6 bg-secondary-container rounded-full status-dot-pulse absolute top-3 left-[9px]"></div>
+                            <span class="material-symbols-outlined text-primary text-5xl relative drop-shadow-xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Info Card -->
+                    <div class="absolute bottom-6 right-6 glass-panel p-5 rounded-xl shadow-2xl max-w-sm text-right z-20 border-r-4 border-r-secondary-container">
+                        <div class="flex justify-between items-start mb-4 gap-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+                                <span class="text-sm font-bold text-primary">الموقع الحالي: ميناء بورتسودان</span>
                             </div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-full">GPS مباشر</span>
+                            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">مباشر</span>
                         </div>
-                        <div class="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100 mb-2">
-                            <span id="mapVehicleIcon" class="material-symbols-outlined text-primary text-base">directions_boat</span>
-                            <p class="font-semibold text-[11px] truncate">الناقل: <span id="mapCarrierName" class="text-primary font-bold">SUDANIL STAR V.042</span></p>
-                        </div>
-                        <div class="flex items-center justify-between text-[11px] font-bold text-slate-500 pt-1 border-t border-slate-100">
-                            <span>نسبة الأمان في الموعد:</span>
-                            <span class="text-emerald-600 flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified</span> 99.4% AI ETA</span>
+                        <div class="flex items-center gap-3 text-sm text-slate-600 bg-white/50 p-3 rounded-lg border border-white">
+                            <span class="material-symbols-outlined text-slate-400">directions_boat</span>
+                            <p class="font-semibold">الناقل: <span class="text-primary">SUDANIL STAR V.042</span></p>
                         </div>
                     </div>
                 </div>
@@ -273,21 +263,17 @@
                 </div>
             </div>
 
-                <div class="p-6 bg-slate-50 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <!-- Shipment Details Table Section -->
+            <div class="col-span-12 md:col-span-8 bg-white rounded-2xl logistic-shadow overflow-hidden animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="p-6 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary bg-white p-2 rounded-lg shadow-sm">inventory_2</span>
-                        <h3 class="font-headline text-xl font-bold text-primary">محتويات الشحنة والبيانات الجمركية</h3>
+                        <h3 class="font-headline text-xl font-bold text-primary">محتويات الشحنة</h3>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="shareViaWhatsApp()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
-                            <span class="material-symbols-outlined text-sm">share</span>
-                            مشاركة واتساب
-                        </button>
-                        <button onclick="window.print()" class="px-4 py-2 bg-primary hover:bg-primary-light text-secondary-container rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
-                            <span class="material-symbols-outlined text-sm">print</span>
-                            طباعة تقرير الشحنة
-                        </button>
-                    </div>
+                    <button class="text-sm font-bold text-secondary hover:text-primary transition-colors flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">download</span>
+                        تحميل المستندات
+                    </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-right border-collapse">
@@ -433,11 +419,11 @@
         <div class="col-span-1 md:col-span-3">
             <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="خدماتنا اللوجستية" data-en="Our Services">خدماتنا اللوجستية</h5>
             <nav class="flex flex-col gap-4">
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البري وحلول الأساطيل" data-en="Land Freight & Fleet Solutions">الشحن البري وحلول الأساطيل</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن البحري الدولي" data-en="International Ocean Freight">الشحن البحري الدولي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="الشحن الجوي السريع" data-en="Express Air Freight">الشحن الجوي السريع</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="إدارة التخزين والتوزيع الذكي" data-en="Smart Warehousing & Distribution">إدارة التخزين والتوزيع الذكي</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="التخليص الجمركي والاستشارات" data-en="Customs Clearance & Consulting">التخليص الجمركي والاستشارات</a>
             </nav>
         </div>
 
@@ -445,12 +431,12 @@
         <div class="col-span-1 md:col-span-2">
             <h5 class="lang-text text-sm font-bold text-white uppercase mb-8 tracking-widest border-b border-white/10 pb-4 inline-block" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
             <nav class="flex flex-col gap-4">
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../company-profile/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../services-catalog/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../shipment-tracking/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../contact-support/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
-                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../client-portal/index.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_6/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>الرئيسية" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Home"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>الرئيسية</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_7/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>من نحن" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>About Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>من نحن</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_8/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>خدماتنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Services"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>خدماتنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_12/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>تتبع الشحنة" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Tracking"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تتبع الشحنة</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_3/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>اتصل بنا" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Contact Us"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>اتصل بنا</a>
+                <a class="lang-text text-slate-400 hover:text-secondary-container transition-colors text-sm font-semibold flex items-center gap-2" href="../_21/code.html" data-ar="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>بوابة العملاء" data-en="<span class='w-1.5 h-1.5 rounded-full bg-secondary-container'></span>Client Portal"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>تسجيل الدخول</a>
             </nav>
         </div>
 
@@ -503,11 +489,11 @@
         
         <!-- Legal & Secure SSL Links -->
         <div class="flex flex-wrap gap-4 items-center justify-center text-xs text-slate-400">
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
             <span class="text-white/10">|</span>
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/terms.html" data-ar="شروط الخدمة" data-en="Terms of Service">شروط الخدمة</a>
             <span class="text-white/10">|</span>
-            <a class="lang-text hover:text-white transition-colors" href="../legal-compliance/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
+            <a class="lang-text hover:text-white transition-colors" href="../_7/help.html" data-ar="مركز المساعدة" data-en="Help Center">مركز المساعدة</a>
             <span class="text-white/10">|</span>
             <span class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
                 <span class="material-symbols-outlined text-sm text-emerald-500">lock</span> 
@@ -518,225 +504,25 @@
 </footer>
 
 <script>
-    let mapInstance = null;
-    let routePolyline = null;
-    let currentMarker = null;
-    let waypointsLayer = null;
-    let isSatellite = false;
-    let standardLayer = null;
-    let satelliteLayer = null;
-
     const mockData = {
         "SNL-240522-001": {
-            id: "SNL-240522-001",
-            status: "في الطريق البري - تصل خلال 18 ساعة",
-            eta: "24 مايو 2024 (04:00 عصراً)",
-            weight: "25.4 كجم (4 منصات نقالة)",
-            service: "الشحن البحري والبري المبرد",
-            locationName: "طريق بورتسودان - عطبرة السريع",
-            carrier: "شاحنة التبريد SUDANIL-COLD #402",
-            carrierIcon: "local_shipping",
-            corridor: [
-                { name: "ميناء بورتسودان الجنوبي (المنشأ)", coords: [19.6158, 37.2164], status: "passed", time: "22 مايو 08:00 ص" },
-                { name: "نقطة التفتيش والتخليص الجمركي - سنكات", coords: [18.8350, 36.8333], status: "current", time: "اليوم 10:30 ص" },
-                { name: "محطة العبور والوقود - هيا", coords: [18.3333, 36.3333], status: "upcoming", time: "اليوم 06:00 م" },
-                { name: "مستودع الفرز الشمالي - عطبرة", coords: [17.7022, 33.9864], status: "upcoming", time: "غداً 02:00 ص" },
-                { name: "المركز اللوجستي الرئيسي - الخرطوم (الوجهة)", coords: [15.5007, 32.5599], status: "destination", time: "غداً 04:00 م" }
-            ],
+            status: "في الطريق - تصل غداً",
+            eta: "24 مايو 2024",
+            weight: "25.4 كجم",
+            service: "الشحن الجوي السريع",
             milestones: [
-                { date: "اليوم - 10:30 صباحاً", title: "اجتياز التفتيش الجمركي والمطابقة", desc: "نقطة الرقابة الجمركية سنكات", status: "current" },
-                { date: "22 مايو 2024 - 08:00 صباحاً", title: "مغادرة ساحات الميناء الجنوبي", desc: "ميناء بورتسودان", status: "completed" },
-                { date: "21 مايو 2024 - 04:15 مساءً", title: "إتمام الفسح الجمركي وفحص الحاويات", desc: "الجمارك وهيئة الموانئ البحرية", status: "completed" },
-                { date: "20 مايو 2024 - 11:30 صباحاً", title: "تفريغ الحاوية من الباخرة", desc: "رصيف الحاويات 14", status: "completed" },
-                { date: "مجدولة", title: "التسليم في مستودع العميل", desc: "المنطقة الصناعية سوبا - الخرطوم", status: "scheduled" }
+                { date: "22 مايو 2024 - 10:30 صباحاً", title: "وصلت إلى مرفق الفرز", desc: "مركز بورتسودان اللوجستي", status: "current" },
+                { date: "21 مايو 2024 - 08:40 مساءً", title: "غادرت المحطة الرئيسية", desc: "المنطقة الصناعية بالخرطوم", status: "completed" },
+                { date: "20 مايو 2024 - 02:15 مساءً", title: "تم استلام الشحنة من المرسل", desc: "موقع العميل، الخرطوم", status: "completed" },
+                { date: "مجدولة", title: "التسليم النهائي للمستلم", desc: "المكتب الإقليمي بكسلا", status: "scheduled" }
             ],
             items: [
-                { desc: "أدوية ومستلزمات طبية مبردة (+4°C)", dim: "120 × 80 × 160 سم", qty: "4 منصات نقالة", status: "تم التحقق" },
-                { desc: "أجهزة قياس حرارة دقيقة IoT", dim: "30 × 30 × 20 سم", qty: "8 وحدات", status: "تم التحقق" },
-                { desc: "بيان جمركي وإفراج صحي موثق", dim: "وثائق رقمية", qty: "ملف معتمد", status: "تم التحقق" }
-            ]
-        },
-        "SNL-240523-088": {
-            id: "SNL-240523-088",
-            status: "في البحر الأحمر - عبور الممر الملاحي",
-            eta: "25 مايو 2024 (08:00 صباحاً)",
-            weight: "18,400 كجم (حاوية 40 قدم)",
-            service: "الشحن البحري الدولي (FCL)",
-            locationName: "البحر الأحمر - 80 ميل بحري قبالة بورتسودان",
-            carrier: "سفينة الحاويات SUDANIL STAR V.042",
-            carrierIcon: "directions_boat",
-            corridor: [
-                { name: "ميناء جدة الإسلامي (المملكة العربية السعودية)", coords: [21.4858, 39.1925], status: "passed", time: "22 مايو 02:00 م" },
-                { name: "الممر الملاحي الدولي بالبحر الأحمر", coords: [20.4000, 38.2000], status: "current", time: "الآن مباشر" },
-                { name: "منطقة المخطاف الخارجي - بورتسودان", coords: [19.6400, 37.2800], status: "upcoming", time: "غداً 04:00 ص" },
-                { name: "رصيف تفريغ الحاويات بميناء بورتسودان", coords: [19.6158, 37.2164], status: "destination", time: "غداً 08:00 ص" }
-            ],
-            milestones: [
-                { date: "الآن - مباشر", title: "ملاحة سلسة في الممر الدولي", desc: "السرعة 16.4 عقدة - حالة الطقس ممتازة", status: "current" },
-                { date: "22 مايو 2024 - 02:00 مساءً", title: "مغادرة ميناء جدة الإسلامي", desc: "رصيف الحاويات 32", status: "completed" },
-                { date: "21 مايو 2024 - 10:00 صباحاً", title: "تحميل الحاوية وربط الأختام الجمركية", desc: "محطة بوابة البحر الأحمر", status: "completed" },
-                { date: "مجدولة", title: "الربط برصيف ميناء بورتسودان", desc: "الرصيف الجنوبي - السودان", status: "scheduled" }
-            ],
-            items: [
-                { desc: "معدات طاقة شمسية ومحولات كهروضوئية", dim: "حاوية 40 قدم High Cube", qty: "480 لوح ومحول", status: "تم التحقق" },
-                { desc: "شهادات المنشأ والفحص الفني الدولي", dim: "-", qty: "ملف إلكتروني", status: "تم التحقق" }
-            ]
-        },
-        "SNL-240524-104": {
-            id: "SNL-240524-104",
-            status: "شحن جوي سريع - في الأجواء",
-            eta: "اليوم (07:30 مساءً)",
-            weight: "480 كجم",
-            service: "الشحن الجوي السريع والفاخر",
-            locationName: "الممر الجوي الإقليمي - رحلة SNL-CARGO #901",
-            carrier: "طائرة الشحن Boeing 737F",
-            carrierIcon: "flight",
-            corridor: [
-                { name: "مطار آل مكتوم الدولي (دبي)", coords: [24.8960, 55.1614], status: "passed", time: "اليوم 02:00 م" },
-                { name: "الممر الجوي الإقليمي (فوق البحر الأحمر)", coords: [20.0000, 42.0000], status: "current", time: "الآن في الأجواء" },
-                { name: "مطار بورتسودان الدولي (الوصول)", coords: [19.4336, 37.2161], status: "destination", time: "اليوم 07:30 م" }
-            ],
-            milestones: [
-                { date: "اليوم - 04:15 مساءً", title: "دخول المجال الجوي الإقليمي", desc: "ارتفاع 34,000 قدم - سرعة 820 كم/س", status: "current" },
-                { date: "اليوم - 02:00 مساءً", title: "الإقلاع من مطار دبي اللوجستي", desc: "مدرج الشحن 12L", status: "completed" },
-                { date: "اليوم - 11:30 صباحاً", title: "التخليص الجمركي السريع للتصدير", desc: "جمارك قرية دبي للشحن", status: "completed" },
-                { date: "مجدولة", title: "الهبوط والاستلام الفوري", desc: "قرية الشحن الجوي بورتسودان", status: "scheduled" }
-            ],
-            items: [
-                { desc: "خوادم ومعدات اتصالات سحابية عاجلة", dim: "100 × 60 × 80 سم", qty: "6 صناديق محصنة", status: "تم التحقق" },
-                { desc: "وثيقة الشحن الجوي الموحدة (AWB)", dim: "-", qty: "أصل رقمي", status: "تم التحقق" }
+                { desc: "مكونات إلكترونية (آمنة)", dim: "120 × 80 × 60 سم", qty: "4 منصات نقالة", status: "تم التحقق" },
+                { desc: "قطع غيار صناعية", dim: "40 × 40 × 30 سم", qty: "12 وحدة", status: "تم التحقق" },
+                { desc: "حزمة مستندات اللوجستيات", dim: "-", qty: "ملف واحد", status: "قيد المعالجة" }
             ]
         }
     };
-
-    function initLeafletMap() {
-        const mapContainer = document.getElementById('liveTrackingMap');
-        if (!mapContainer || mapInstance) return;
-
-        // Initialize Map centered on Red Sea / Sudan
-        mapInstance = L.map('liveTrackingMap', {
-            zoomControl: false,
-            attributionControl: false
-        }).setView([19.0, 36.5], 6);
-
-        L.control.zoom({ position: 'topright' }).addTo(mapInstance);
-
-        standardLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            maxZoom: 19
-        });
-
-        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 18
-        });
-
-        standardLayer.addTo(mapInstance);
-        waypointsLayer = L.featureGroup().addTo(mapInstance);
-    }
-
-    function toggleMapLayer() {
-        if (!mapInstance) return;
-        isSatellite = !isSatellite;
-        if (isSatellite) {
-            mapInstance.removeLayer(standardLayer);
-            satelliteLayer.addTo(mapInstance);
-            document.getElementById('layerNameText').innerText = "خريطة قياسية";
-        } else {
-            mapInstance.removeLayer(satelliteLayer);
-            standardLayer.addTo(mapInstance);
-            document.getElementById('layerNameText').innerText = "قمر صناعي";
-        }
-    }
-
-    function selectShipmentPreset(id) {
-        document.getElementById('trackingInput').value = id;
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.classList.remove('bg-white', 'text-primary', 'shadow-sm');
-            btn.classList.add('text-slate-600');
-        });
-        if (event && event.currentTarget) {
-            event.currentTarget.classList.add('bg-white', 'text-primary', 'shadow-sm');
-            event.currentTarget.classList.remove('text-slate-600');
-        }
-        performTracking(id);
-    }
-
-    function updateMapCorridor(data) {
-        if (!mapInstance) initLeafletMap();
-        if (!mapInstance || !data.corridor) return;
-
-        waypointsLayer.clearLayers();
-        if (routePolyline) mapInstance.removeLayer(routePolyline);
-
-        const latlngs = data.corridor.map(c => c.coords);
-
-        // Draw glowing gradient corridor line
-        routePolyline = L.polyline(latlngs, {
-            color: '#1b64d4',
-            weight: 5,
-            opacity: 0.85,
-            dashArray: '8, 8',
-            lineCap: 'round',
-            lineJoin: 'round'
-        }).addTo(mapInstance);
-
-        // Add background glow
-        const glowLine = L.polyline(latlngs, {
-            color: '#0b1b3d',
-            weight: 9,
-            opacity: 0.35
-        }).addTo(waypointsLayer);
-
-        let currentCoord = null;
-
-        data.corridor.forEach((wp, idx) => {
-            let markerIconHtml = '';
-            if (wp.status === 'current') {
-                currentCoord = wp.coords;
-                markerIconHtml = `
-                    <div class="relative flex items-center justify-center">
-                        <span class="absolute w-8 h-8 rounded-full bg-secondary-container opacity-75 animate-ping"></span>
-                        <div class="w-7 h-7 rounded-full bg-primary text-secondary-container flex items-center justify-center shadow-2xl border-2 border-white text-xs font-bold">
-                            <span class="material-symbols-outlined text-sm">${data.carrierIcon || 'local_shipping'}</span>
-                        </div>
-                    </div>
-                `;
-            } else if (wp.status === 'passed') {
-                markerIconHtml = `
-                    <div class="w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow-md"></div>
-                `;
-            } else {
-                markerIconHtml = `
-                    <div class="w-4 h-4 rounded-full bg-slate-400 border-2 border-white shadow-md"></div>
-                `;
-            }
-
-            const customIcon = L.divIcon({
-                html: markerIconHtml,
-                className: 'custom-map-icon',
-                iconSize: [28, 28],
-                iconAnchor: [14, 14]
-            });
-
-            const marker = L.marker(wp.coords, { icon: customIcon }).addTo(waypointsLayer);
-            marker.bindPopup(`
-                <div style="font-family: Alexandria, sans-serif; text-align: right; direction: rtl; padding: 4px;">
-                    <b style="color: #0b1b3d; font-size: 13px;">${wp.name}</b>
-                    <p style="color: #64748b; font-size: 11px; margin: 4px 0 0 0;">${wp.time || 'محطة مجدولة'}</p>
-                </div>
-            `);
-        });
-
-        // Fit map bounds to show complete corridor
-        mapInstance.fitBounds(routePolyline.getBounds(), { padding: [60, 60] });
-    }
-
-    function shareViaWhatsApp() {
-        const id = document.getElementById('trackingInput').value.trim();
-        const status = document.getElementById('currentStatus').innerText;
-        const eta = document.getElementById('eta').innerText;
-        const text = encodeURIComponent(`📦 *تتبع شحنة سودانيل لوجيستك*\nرقم الشحنة: ${id}\nالحالة: ${status}\nالوصول المتوقع: ${eta}\nرابط التتبع: ${window.location.href}`);
-        window.open(`https://wa.me/?text=${text}`, '_blank');
-    }
 
     function performTracking(trackingId) {
         if (!trackingId) return;
@@ -745,25 +531,17 @@
         let data = mockData[trackingId];
         if (!data) {
             data = {
-                id: trackingId,
-                status: "جاري المعالجة والمطابقة اللوجستية",
+                status: "جاري المعالجة - قيد التحديث",
                 eta: "27 مايو 2024",
                 weight: "15.0 كجم",
-                service: "الشحن البري السريع",
-                locationName: "المستودع الرئيسي - بورتسودان",
-                carrier: "شاحنة النقل الداخلي #108",
-                carrierIcon: "local_shipping",
-                corridor: [
-                    { name: "مركز الاستلام - بورتسودان", coords: [19.6158, 37.2164], status: "current", time: "اليوم 09:00 ص" },
-                    { name: "الخرطوم المركزية", coords: [15.5007, 32.5599], status: "destination", time: "27 مايو" }
-                ],
+                service: "الشحن البري القياسي",
                 milestones: [
-                    { date: "اليوم - 09:00 صباحاً", title: "تم تسجيل الشحنة برقم التتبع", desc: `الشحنة رقم ${trackingId} مسجلة في النظام بنجاح`, status: "current" },
-                    { date: "أمس - 04:30 مساءً", title: "تجهيز الشحنة والتغليف المقوى", desc: "مستودعات سودانيل اللوجستية", status: "completed" },
-                    { date: "مجدولة", title: "التسليم النهائي للعميل", desc: "العنوان المحدد في بوليصة الشحن", status: "scheduled" }
+                    { date: "اليوم - 09:00 صباحاً", title: "تم تحديث رقم التتبع", desc: `الشحنة رقم ${trackingId} مسجلة في النظام بنجاح`, status: "current" },
+                    { date: "أمس - 04:30 مساءً", title: "تم تجهيز الشحنة والتغليف", desc: "مستودعات سودانيل الرئيسية", status: "completed" },
+                    { date: "مجدولة", title: "التسليم النهائي للعميل", desc: "العنوان المحدد للعميل", status: "scheduled" }
                 ],
                 items: [
-                    { desc: "بضائع عامة ومستندات شحن موثقة", dim: "100 × 80 × 80 سم", qty: "منصة واحدة", status: "تم التحقق" }
+                    { desc: "بضائع عامة ومستندات شحن", dim: "100 × 80 × 80 سم", qty: "منصة واحدة", status: "تم التحقق" }
                 ]
             };
         }
@@ -772,9 +550,6 @@
         document.getElementById('eta').innerText = data.eta;
         document.getElementById('weight').innerText = data.weight;
         document.getElementById('service').innerText = data.service;
-        document.getElementById('mapLiveLocation').innerText = `الموقع: ${data.locationName || 'ميناء بورتسودان'}`;
-        document.getElementById('mapCarrierName').innerText = data.carrier || 'SUDANIL STAR V.042';
-        document.getElementById('mapVehicleIcon').innerText = data.carrierIcon || 'directions_boat';
 
         let milestonesHtml = '';
         data.milestones.forEach(m => {
@@ -815,7 +590,12 @@
 
         let itemsHtml = '';
         data.items.forEach(item => {
-            let statusBadge = '<span class="px-4 py-1.5 bg-green-50 text-green-700 border border-green-200 text-xs font-bold rounded-full inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> تم التحقق</span>';
+            let statusBadge = '';
+            if (item.status === 'تم التحقق') {
+                statusBadge = '<span class="px-4 py-1.5 bg-green-50 text-green-700 border border-green-200 text-xs font-bold rounded-full inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> تم التحقق</span>';
+            } else {
+                statusBadge = '<span class="px-4 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold rounded-full inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> قيد المعالجة</span>';
+            }
             itemsHtml += `
             <tr class="hover:bg-slate-50 transition-colors group">
                 <td class="px-8 py-5">
@@ -828,25 +608,24 @@
             `;
         });
         document.getElementById('itemsContainer').innerHTML = itemsHtml;
-
-        // Update Map visualization
-        updateMapCorridor(data);
     }
 
     // Capture search parameters on load
-    window.addEventListener('DOMContentLoaded', function() {
-        initLeafletMap();
+    window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
-        const trackingId = urlParams.get('tracking_id') || 'SNL-240522-001';
-        document.getElementById('trackingInput').value = trackingId;
-        setTimeout(() => { performTracking(trackingId); }, 200);
-    });
+        const trackingId = urlParams.get('tracking_id');
+        if (trackingId) {
+            document.getElementById('trackingInput').value = trackingId;
+            performTracking(trackingId);
+        }
+    };
 
     // Button and Enter key events
     document.getElementById('trackBtn').addEventListener('click', function() {
         const id = document.getElementById('trackingInput').value.trim();
         if (id) {
             performTracking(id);
+            // Update URL without reloading page
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tracking_id=' + encodeURIComponent(id);
             window.history.pushState({path:newUrl}, '', newUrl);
         }
@@ -857,6 +636,7 @@
             const id = e.target.value.trim();
             if (id) {
                 performTracking(id);
+                // Update URL without reloading page
                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tracking_id=' + encodeURIComponent(id);
                 window.history.pushState({path:newUrl}, '', newUrl);
             }

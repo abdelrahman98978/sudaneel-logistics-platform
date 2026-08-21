@@ -2,36 +2,58 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const envVars = [
-  {
-    key: 'SUPABASE_URL',
-    value: 'https://burseblwjftyktxrmteh.supabase.co',
-    target: ['production', 'preview', 'development']
-  },
-  {
-    key: 'SUPABASE_ANON_KEY',
-    value: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1cnNlYmx3amZ0eWt0eHJtdGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDc5MjksImV4cCI6MjA5ODY4MzkyOX0.MDUdE5SORr_2n1HBiwITxKJ2Jitd0Mz6xNOzcA0wVjw',
-    target: ['production', 'preview', 'development']
-  },
-  {
-    key: 'NODE_ENV',
-    value: 'production',
-    target: ['production']
-  }
-];
+// ============================================================
+// SECURITY: This script does NOT contain any API keys.
+// It reads from .env.local (which is git-ignored) and uploads
+// to Vercel environment variables via the CLI.
+// ============================================================
+
+const envFilePath = path.join(__dirname, '..', '.env.local');
+const envExamplePath = path.join(__dirname, '..', '.env.example');
 
 console.log('====================================================');
 console.log('🚀 Sudanil Logistics — Vercel Environment Variables Sync');
 console.log('====================================================\n');
 
-console.log('📋 Variables to upload to Vercel:');
+// Read from .env.local or prompt user
+let envContent = '';
+if (fs.existsSync(envFilePath)) {
+  envContent = fs.readFileSync(envFilePath, 'utf8');
+} else {
+  console.log('⚠️  No .env.local file found.');
+  console.log('📝 Create one based on .env.example and add your real keys:');
+  console.log(`   cp ${envExamplePath} ${envFilePath}\n`);
+  console.log('Then re-run this script.\n');
+  process.exit(1);
+}
+
+// Parse env vars (skip comments and empty lines)
+const envVars = envContent
+  .split('\n')
+  .filter(line => line.trim() && !line.startsWith('#') && line.includes('='))
+  .map(line => {
+    const eqIndex = line.indexOf('=');
+    return {
+      key: line.substring(0, eqIndex).trim(),
+      value: line.substring(eqIndex + 1).trim().replace(/^["']|["']$/g, '')
+    };
+  })
+  .filter(v => v.key && v.value && !v.key.startsWith('VERCEL_'));
+
+if (envVars.length === 0) {
+  console.log('⚠️  No environment variables found in .env.local');
+  process.exit(1);
+}
+
+console.log('📋 Variables found in .env.local:');
 envVars.forEach(v => {
-  console.log(`  ✓ ${v.key} (${v.target.join(', ')})`);
+  const masked = v.value.length > 10 ? v.value.substring(0, 6) + '...' + v.value.slice(-4) : '***';
+  console.log(`  ✓ ${v.key} = ${masked}`);
 });
 
-console.log('\n💡 To upload via Vercel CLI, run:');
+console.log('\n💡 To upload each variable to Vercel, run:');
 envVars.forEach(v => {
-  console.log(`  npx vercel env add ${v.key} production`);
+  console.log(`  echo "${v.value}" | npx vercel env add ${v.key} production`);
 });
 
 console.log('\n🔗 Or configure directly in Vercel Dashboard:');
