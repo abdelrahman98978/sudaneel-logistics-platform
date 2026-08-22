@@ -38,9 +38,14 @@ node_modules/
 *.sln
 *.sw?
 
-# Vercel & Next.js artifacts
-.vercel
+# Vercel & Next.js build output
 .next/
+out/
+build/
+dist/
+
+# Cloned sub-repos
+sudaneel-connect/
+.vercel/
 *.tsbuildinfo
 .env*
-

@@ -25,6 +25,9 @@ import {
   Globe,
   Radio,
   Search,
+  MapPin,
+  CreditCard,
+  LifeBuoy,
 } from 'lucide-react';
 
 export function Sidebar() {
@@ -88,6 +91,13 @@ export function Sidebar() {
       title: 'Logistics Infrastructure',
       items: [
         {
+          view: 'locations',
+          label: t.locationsHubs,
+          icon: MapPin,
+          badge: '10 Hubs',
+          badgeColor: 'bg-gold/20 text-gold border-gold/30',
+        },
+        {
           view: 'warehousing',
           label: t.warehousing,
           icon: Warehouse,
@@ -125,6 +135,11 @@ export function Sidebar() {
       title: 'Finance, AI & Intelligence',
       items: [
         {
+          view: 'invoices_ledger',
+          label: t.invoicesLedger,
+          icon: CreditCard,
+        },
+        {
           view: 'incidents',
           label: t.incidentCenter,
           icon: ShieldAlert,
@@ -147,6 +162,11 @@ export function Sidebar() {
           view: 'contracts_crm',
           label: t.contractsCrm,
           icon: FileText,
+        },
+        {
+          view: 'support_center',
+          label: t.supportCenter,
+          icon: LifeBuoy,
         },
         {
           view: 'analytics',

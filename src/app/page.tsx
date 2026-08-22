@@ -33,6 +33,9 @@ import { ContractsCrmView } from '@/components/crm-contracts/ContractsCrmView';
 import { AnalyticsView } from '@/components/analytics/AnalyticsView';
 import { AiCenterView } from '@/components/ai-center/AiCenterView';
 import { ReportsView } from '@/components/reports/ReportsView';
+import { LocationsView } from '@/components/locations/LocationsView';
+import { SupportCenterView } from '@/components/support/SupportCenterView';
+import { InvoicesLedgerView } from '@/components/finance/InvoicesLedgerView';
 import { LandingView } from '@/components/landing/LandingView';
 
 export default function Home() {
@@ -94,6 +97,12 @@ export default function Home() {
         return <AiCenterView />;
       case 'reports':
         return <ReportsView />;
+      case 'locations':
+        return <LocationsView />;
+      case 'support_center':
+        return <SupportCenterView />;
+      case 'invoices_ledger':
+        return <InvoicesLedgerView />;
       default:
         return <ControlTowerView />;
     }
