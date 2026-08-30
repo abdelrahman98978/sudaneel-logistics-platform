@@ -54,6 +54,7 @@ export function CommandPalette() {
     { title: t.smartDispatch, icon: Cpu, view: 'smart_dispatch', category: 'Operations' },
     { title: t.warehousing, icon: Warehouse, view: 'warehousing', category: 'Infrastructure' },
     { title: t.portSudan, icon: Anchor, view: 'port_sudan', category: 'Infrastructure' },
+    { title: 'التخليص الجمركي (Customs Workspace)', icon: FileCheck2, view: 'customs_workspace', category: 'Infrastructure' },
     { title: t.crossBorder, icon: Globe2, view: 'cross_border', category: 'Infrastructure' },
     { title: t.fleetManagement, icon: Truck, view: 'fleet', category: 'Infrastructure' },
     { title: t.incidentCenter, icon: ShieldAlert, view: 'incidents', category: 'Risk & Finance' },

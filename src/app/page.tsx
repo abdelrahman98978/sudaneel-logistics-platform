@@ -24,6 +24,7 @@ import { DriverAppView } from '@/components/driver-app/DriverAppView';
 // Infrastructure & Ecosystem Views
 import { WarehouseView } from '@/components/warehousing/WarehouseView';
 import { PortSudanView } from '@/components/port-sudan/PortSudanView';
+import { CustomsWorkspaceView } from '@/components/customs/CustomsWorkspaceView';
 import { CrossBorderView } from '@/components/cross-border/CrossBorderView';
 
 // Finance, Risk & Intelligence Views
@@ -87,6 +88,8 @@ export default function Home() {
         return <WarehouseView />;
       case 'port_sudan':
         return <PortSudanView />;
+      case 'customs_workspace':
+        return <CustomsWorkspaceView />;
       case 'cross_border':
         return <CrossBorderView />;
       case 'incidents':

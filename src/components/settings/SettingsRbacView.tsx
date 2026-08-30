@@ -85,15 +85,18 @@ export function SettingsRbacView() {
   const allRoles: { id: UserRole; nameAr: string; nameEn: string; desc: string }[] = [
     { id: 'super_admin', nameAr: 'مدير المنصة التنفيذي', nameEn: 'Super Platform Admin', desc: 'تحكم وصلاحيات شاملة 100%' },
     { id: 'operations_manager', nameAr: 'مدير العمليات اللوجستية', nameEn: 'Operations Manager', desc: 'إشراف على النقل والمستودعات' },
-    { id: 'dispatcher', nameAr: 'منسق الشحنات والتوزيع', nameEn: 'Freight Dispatcher', desc: 'تخصيص الشاحنات والمطابقات' },
+    { id: 'dispatcher', nameAr: 'منسق الشحنات والتوجيه الذكي', nameEn: 'Freight Dispatcher', desc: 'تخصيص الشاحنات والمطابقات' },
     { id: 'fleet_manager', nameAr: 'مدير أسطول المركبات', nameEn: 'Fleet Manager', desc: 'الصيانة والتيليماتري والسائقين' },
+    { id: 'warehouse_manager', nameAr: 'مدير المستودعات والتخزين WMS', nameEn: 'Warehouse Director', desc: 'إدارة المخزون وحجوزات الساحات' },
+    { id: 'customs_officer', nameAr: 'ضابط الجمارك والموانئ', nameEn: 'Customs Officer', desc: 'اعتماد الإفراج الجمركي وفحص الحاويات' },
+    { id: 'customs_agent', nameAr: 'مخلص جمركي معتمد', nameEn: 'Customs Broker', desc: 'تسجيل الإقرارات وحساب الرسوم' },
     { id: 'finance_manager', nameAr: 'المدير المالي والتسويات', nameEn: 'Finance Manager', desc: 'الفواتير والمدفوعات والمحافظ' },
-    { id: 'carrier_admin', nameAr: 'بوابة الناقل المعتمد', nameEn: 'Carrier Partner Admin', desc: 'قبول الشحنات وإسناد المركبات' },
+    { id: 'support_agent', nameAr: 'أخصائي الدعم وخدمة العملاء', nameEn: 'Customer Support Agent', desc: 'إدارة التذاكر وحل الاستفسارات' },
     { id: 'driver', nameAr: 'سائق شاحنة معتمد', nameEn: 'Certified Truck Driver', desc: 'تطبيق السائق وتأكيد الوصول POD' },
-    { id: 'shipper_customer', nameAr: 'بوابة كبار الشاحنين (B2B)', nameEn: 'Enterprise Shipper', desc: 'إنشاء ومتابعة الشحنات وسداد الفواتير' },
-    { id: 'warehouse_manager', nameAr: 'مدير المستودعات والتخزين', nameEn: 'Warehouse Director', desc: 'إدارة المخزون وحجوزات الساحات' },
-    { id: 'customs_agent', nameAr: 'مخلص جمركي معتمد', nameEn: 'Customs Broker', desc: 'إجراءات ميناء بورتسودان الجمركية' },
-    { id: 'risk_auditor', nameAr: 'مسؤول المخاطر والامتثال', nameEn: 'Risk & Claims Auditor', desc: 'تسوية النزاعات والتأمين الشامل' },
+    { id: 'carrier_admin', nameAr: 'بوابة الناقل المعتمد', nameEn: 'Carrier Partner Admin', desc: 'قبول الشحنات وإسناد المركبات' },
+    { id: 'corporate_customer', nameAr: 'عميل شركات ومؤسسات (Enterprise)', nameEn: 'Corporate Enterprise Customer', desc: 'حساب مؤسسي متعدد الفروع وعقود خاصة' },
+    { id: 'individual_customer', nameAr: 'عميل فردي (Individual Shipper)', nameEn: 'Individual Customer', desc: 'شحن شخصي فوري ودفع إلكتروني' },
+    { id: 'risk_auditor', nameAr: 'مسؤول المخاطر والامتثال', nameEn: 'Risk & Compliance Auditor', desc: 'تسوية النزاعات والتأمين الشامل' },
   ];
 
   const handleTogglePermission = (permKey: string, targetRole: UserRole) => {

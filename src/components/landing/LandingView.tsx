@@ -148,6 +148,7 @@ export function LandingView() {
         { label: 'مواصفات ومعايير الأسطول', view: 'fleet' },
         { label: 'بوابة تسجيل الناقلين', view: 'carrier_portal' },
         { label: 'تطبيق السائقين الرقمي', view: 'driver_app' },
+        { label: 'تطبيق العميل الرقمي للجوال', view: 'mobile_app' },
         { label: 'معايير السلامة والفحص الفني', view: 'incidents' },
       ],
     },
@@ -158,6 +159,7 @@ export function LandingView() {
         { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
       ],
       sidebarLinks: [
+        { label: 'مساحة عمل التخليص الجمركي (Customs Workspace)', view: 'customs_workspace' },
         { label: 'حاسبة الرسوم والتخليص الجمركي', view: 'port_sudan' },
         { label: 'إجراءات عبور الشاحنات الحدودية', view: 'cross_border' },
         { label: 'سجلات بوالص الشحن الإلكترونية', view: 'shipments' },

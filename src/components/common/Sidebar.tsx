@@ -107,6 +107,12 @@ export function Sidebar() {
           badge: portContainers.length > 0 ? `${portContainers.length}` : undefined,
         },
         {
+          view: 'customs_workspace',
+          label: 'التخليص الجمركي (Customs)',
+          icon: FileCheck2,
+          badge: 'HS Codes',
+        },
+        {
           view: 'cross_border',
           label: t.crossBorder,
           icon: Globe2,

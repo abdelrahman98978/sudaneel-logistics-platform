@@ -7,12 +7,16 @@ export type UserRole =
   | 'operations_manager'
   | 'dispatcher'
   | 'fleet_manager'
-  | 'finance_manager'
-  | 'carrier_admin'
-  | 'driver'
-  | 'shipper_customer'
   | 'warehouse_manager'
+  | 'customs_officer'
   | 'customs_agent'
+  | 'finance_manager'
+  | 'support_agent'
+  | 'driver'
+  | 'carrier_admin'
+  | 'corporate_customer'
+  | 'individual_customer'
+  | 'shipper_customer'
   | 'risk_auditor';
 
 export type Language = 'ar' | 'en';
@@ -521,4 +525,28 @@ export interface BulkShipmentRow {
   priceEstimate: number;
   validationStatus: 'valid' | 'duplicate' | 'invalid_address' | 'weight_exceeded';
   errorMessage?: string;
+}
+
+// ============================================================
+// 9. CUSTOMS WORKSPACE & DECLARATION TYPES (Master Plan Sec. 15)
+// ============================================================
+
+export interface CustomsDeclaration {
+  id: string;
+  declarationNumber: string;
+  importerExporter: string;
+  bolNumber: string;
+  hsCode: string;
+  cargoDescription: string;
+  commercialInvoiceValue: number;
+  originCountry: string;
+  entryPort: string;
+  calculatedDutyTax: number;
+  permitsRequired: string[];
+  permitsStatus: 'approved' | 'under_review' | 'missing';
+  inspectionStatus: 'green_channel' | 'physical_inspection_pending' | 'inspection_completed' | 'hold';
+  releaseStatus: 'draft' | 'submitted' | 'duty_paid' | 'released' | 'rejected';
+  submittedAt: string;
+  releasedAt?: string;
+  officerNotes?: string;
 }

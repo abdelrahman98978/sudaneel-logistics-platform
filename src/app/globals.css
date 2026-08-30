@@ -1,8 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --electric-blue: #3E6AE1;
-  --electric-blue-hover: #345ac2;
+  /* Sudaneel Logistics Official Master Plan Tokens (Section 3) */
+  --sd-navy: #032C70;
+  --sd-blue: #0849A8;
+  --sd-royal: #0B5ED7;
+  --sd-action: #2563EB;
+  --sd-gold: #D7A11E;
+  --sd-bg: #F7FAFF;
+  --sd-text: #0B2451;
+  --sd-border: #D9E6F5;
+  --sd-success: #14A44D;
+  --sd-warning: #F59E0B;
+  --sd-danger: #E5484D;
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --space-unit: 4px;
+
+  /* Tesla Marketing Theme Tokens */
+  --electric-blue: #0849A8;
+  --electric-blue-hover: #032C70;
   --pure-white: #FFFFFF;
   --light-ash: #F4F4F4;
   --carbon-dark: #171A20;
@@ -11,10 +28,10 @@
   --silver-fog: #8E8E8E;
   --cloud-gray: #EEEEEE;
   --pale-silver: #D0D1D2;
-  --frosted-nav: rgba(255, 255, 255, 0.75);
+  --frosted-nav: rgba(255, 255, 255, 0.85);
 
   --background: #FFFFFF;
-  --foreground: #171A20;
+  --foreground: #0B2451;
 }
 
 * {

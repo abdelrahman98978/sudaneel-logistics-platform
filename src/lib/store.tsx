@@ -25,6 +25,7 @@ import {
   AnomalyAlert,
   NegotiationOffer,
   BulkShipmentRow,
+  CustomsDeclaration,
 } from '@/types';
 import {
   mockShipments,
@@ -46,6 +47,7 @@ import {
   mockAnomalyAlerts,
   mockNegotiationOffers,
   mockBulkShipmentRows,
+  mockCustomsDeclarations,
 } from './mock-data';
 import { dictionary } from './i18n';
 
@@ -65,6 +67,7 @@ export type AppView =
   | 'driver_safety'
   | 'warehousing'
   | 'port_sudan'
+  | 'customs_workspace'
   | 'cross_border'
   | 'incidents'
   | 'claims'
@@ -119,6 +122,7 @@ interface AppContextType {
   anomalyAlerts: AnomalyAlert[];
   negotiationOffers: NegotiationOffer[];
   bulkShipmentRows: BulkShipmentRow[];
+  customsDeclarations: CustomsDeclaration[];
 
   // Translations & Drawers
   t: typeof dictionary.ar;
@@ -140,6 +144,8 @@ interface AppContextType {
   updateContainerStatus: (containerId: string, newStatus: import('@/types').PortCustomsStatus) => void;
   submitClaim: (claim: Claim) => void;
   updateClaimStatus: (claimId: string, newStatus: import('@/types').ClaimStatus, compensation?: number) => void;
+  submitCustomsDeclaration: (declaration: CustomsDeclaration) => void;
+  updateCustomsDeclarationStatus: (id: string, releaseStatus: CustomsDeclaration['releaseStatus'], inspectionStatus?: CustomsDeclaration['inspectionStatus']) => void;
   counterNegotiationOffer: (offerId: string, counterAmount: number) => void;
   acceptNegotiationOffer: (offerId: string) => void;
   importBulkShipments: (rows: BulkShipmentRow[]) => void;
@@ -180,6 +186,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [anomalyAlerts, setAnomalyAlerts] = useState<AnomalyAlert[]>(mockAnomalyAlerts);
   const [negotiationOffers, setNegotiationOffers] = useState<NegotiationOffer[]>(mockNegotiationOffers);
   const [bulkShipmentRows, setBulkShipmentRows] = useState<BulkShipmentRow[]>(mockBulkShipmentRows);
+  const [customsDeclarations, setCustomsDeclarations] = useState<CustomsDeclaration[]>(mockCustomsDeclarations);
 
   const [isAiCopilotOpen, setIsAiCopilotOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
@@ -442,6 +449,42 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const submitCustomsDeclaration = (declaration: CustomsDeclaration) => {
+    setCustomsDeclarations((prev) => [declaration, ...prev]);
+    showToast(
+      lang === 'ar' ? 'تم تسجيل الإقرار الجمركي' : 'Customs Declaration Filed',
+      lang === 'ar'
+        ? `تم تسجيل الإقرار رقم ${declaration.declarationNumber} وإرساله لمنفذ ${declaration.entryPort}`
+        : `Declaration ${declaration.declarationNumber} submitted to ${declaration.entryPort}`,
+      'success'
+    );
+  };
+
+  const updateCustomsDeclarationStatus = (
+    id: string,
+    releaseStatus: CustomsDeclaration['releaseStatus'],
+    inspectionStatus?: CustomsDeclaration['inspectionStatus']
+  ) => {
+    setCustomsDeclarations((prev) =>
+      prev.map((dec) => {
+        if (dec.id === id) {
+          return {
+            ...dec,
+            releaseStatus,
+            inspectionStatus: inspectionStatus || dec.inspectionStatus,
+            releasedAt: releaseStatus === 'released' ? new Date().toISOString().slice(0, 16).replace('T', ' ') : dec.releasedAt,
+          };
+        }
+        return dec;
+      })
+    );
+    showToast(
+      lang === 'ar' ? 'تحديث حالة الإقرار الجمركي' : 'Customs Status Updated',
+      lang === 'ar' ? `تم تحديث حالة المعاملة إلى: ${releaseStatus}` : `Status updated to ${releaseStatus}`,
+      'info'
+    );
+  };
+
   const topUpWallet = (amount: number, method: string, reference: string) => {
     // Add transaction to first shipper or current user
     showToast('تم شحن المحفظة', `تمت إضافة مبلغ ${amount.toLocaleString()} SDG إلى الرصيد التشغيلي`, 'success');
@@ -495,6 +538,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         anomalyAlerts,
         negotiationOffers,
         bulkShipmentRows,
+        customsDeclarations,
         t,
         isAiCopilotOpen,
         setIsAiCopilotOpen,
@@ -510,6 +554,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         updateContainerStatus,
         submitClaim,
         updateClaimStatus,
+        submitCustomsDeclaration,
+        updateCustomsDeclarationStatus,
         counterNegotiationOffer,
         acceptNegotiationOffer,
         importBulkShipments,
