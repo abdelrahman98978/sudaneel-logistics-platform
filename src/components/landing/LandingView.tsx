@@ -35,26 +35,26 @@ export function LandingView() {
   // Hero showcase items (Tesla 100vh full-viewport gallery)
   const heroSlides = [
     {
-      id: 'fleet',
-      titleAr: 'أسطول النقل الثقيل واللوجستيات',
-      titleEn: 'Sovereign Logistics Fleet',
-      subtitleAr: '0% تأخير مع الربط الرقمي اللحظي لكافة الممرات الوطنية',
-      subtitleEn: '0% Delay with Real-time Digital Telemetry across National Corridors',
-      bgImage: '/hero-bg.jpg',
+      id: 'multimodal',
+      titleAr: 'نقل بثقة .. نوصل باحتراف',
+      titleEn: 'Deliver With Confidence & Precision',
+      subtitleAr: 'حلول لوجستية متكاملة تلبي احتياجاتك عبر كافة ممرات السودان وموانئه',
+      subtitleEn: 'Comprehensive Multimodal Freight & Sovereign Telemetry across Sudan',
+      bgImage: '/images/hero-multimodal.jpg',
       primaryBtnAr: 'اطلب شحنة الآن',
       primaryBtnEn: 'Order Freight Now',
       primaryAction: () => setCurrentView('create_shipment'),
-      secondaryBtnAr: 'استكشف الأسطول',
-      secondaryBtnEn: 'View Fleet Inventory',
-      secondaryAction: () => setCurrentView('fleet'),
+      secondaryBtnAr: 'استكشف المنصة',
+      secondaryBtnEn: 'Operations OS',
+      secondaryAction: () => setCurrentView('control_tower'),
     },
     {
       id: 'port',
       titleAr: 'بوابة بورتسودان وسلاسل الإمداد العالمية',
       titleEn: 'Port Sudan Global Hub & Maritime Gateway',
-      subtitleAr: 'مناولة متكاملة للحاويات وتخليص جمركي إلكتروني فوري',
+      subtitleAr: 'مناولة متكاملة للحاويات وتخليص جمركي إلكتروني فوري مع منع غرامات الأرضيات',
       subtitleEn: 'Integrated Container Terminal Logistics & Digital Customs Clearance',
-      bgImage: '/news-port.jpg',
+      bgImage: '/images/port-sudan-terminal.jpg',
       primaryBtnAr: 'حجز حاوية فوري',
       primaryBtnEn: 'Book Container',
       primaryAction: () => setCurrentView('port_sudan'),
@@ -68,7 +68,7 @@ export function LandingView() {
       titleEn: 'Smart Warehousing & Cold Chain Network',
       subtitleAr: 'طاقة تخزينية 120,000 طن متري مع رصد حراري دقيق للسلع الحيوية',
       subtitleEn: '120,000 MT Storage Capacity with Active Temperature Telemetry',
-      bgImage: '/hero-bg.jpg',
+      bgImage: '/images/warehouse-hub.jpg',
       primaryBtnAr: 'حجز مساحة تخزين',
       primaryBtnEn: 'Reserve Storage',
       primaryAction: () => setCurrentView('warehousing'),
@@ -77,18 +77,18 @@ export function LandingView() {
       secondaryAction: () => setCurrentView('locations'),
     },
     {
-      id: 'backhaul',
-      titleAr: 'بورصة الشاحنات والرحلات العائدة',
-      titleEn: 'Dynamic Backhaul Freight Exchange',
-      subtitleAr: 'وفورات نقل تصل إلى 30% والقضاء التام على مسافات الشاحنات الفارغة',
-      subtitleEn: 'Up to 30% Freight Savings with Zero Deadhead Empty Miles',
-      bgImage: '/news-truck.jpg',
-      primaryBtnAr: 'استعراض الصفقات الفورية',
-      primaryBtnEn: 'Browse Backhaul Deals',
-      primaryAction: () => setCurrentView('marketplace'),
-      secondaryBtnAr: 'تسجيل شاحنة فارغة',
-      secondaryBtnEn: 'Register Empty Truck',
-      secondaryAction: () => setCurrentView('carrier_portal'),
+      id: 'fleet',
+      titleAr: 'أسطول النقل الثقيل واللوجستيات',
+      titleEn: 'Sovereign Logistics Fleet',
+      subtitleAr: 'شاحنات ثقيلة مبردة وجافة وفانات توصيل سريع موحدة الهوية',
+      subtitleEn: 'Euro 5/6 Heavy & Express Fleet with 4-second GPS Refresh',
+      bgImage: '/images/fleet-vehicles.jpg',
+      primaryBtnAr: 'استكشف الأسطول',
+      primaryBtnEn: 'View Fleet Inventory',
+      primaryAction: () => setCurrentView('fleet'),
+      secondaryBtnAr: 'بورصة الشاحنات',
+      secondaryBtnEn: 'Backhaul Exchange',
+      secondaryAction: () => setCurrentView('marketplace'),
     },
   ];
 
@@ -140,9 +140,9 @@ export function LandingView() {
   }> = {
     fleet: {
       columns: [
-        { name: 'Mercedes Actros 3340', type: 'شاحنة نقل ثقيل 40 طن', img: '/news-truck.jpg', view: 'fleet' },
-        { name: 'Volvo FH16 Multi-Axle', type: 'مقطورة مسطحة للحاويات', img: '/news-truck.jpg', view: 'fleet' },
-        { name: 'Carrier Transicold Reefer', type: 'شاحنة مبردة لحفظ الأدوية والأغذية', img: '/news-truck.jpg', view: 'fleet' },
+        { name: 'Volvo Heavy Freight 40ft', type: 'شاحنة نقل ثقيل وتريلات', img: '/images/fleet-vehicles.jpg', view: 'fleet' },
+        { name: 'Mercedes Sprinter Van', type: 'فان توصيل سريع وتوزيع محلي', img: '/images/fleet-vehicles.jpg', view: 'fleet' },
+        { name: 'Heavy Highway Runner', type: 'قوافل الشحن عبر الممرات الصحراوية', img: '/images/fleet-highway.jpg', view: 'fleet' },
       ],
       sidebarLinks: [
         { label: 'مواصفات ومعايير الأسطول', view: 'fleet' },
@@ -153,9 +153,9 @@ export function LandingView() {
     },
     ports: {
       columns: [
-        { name: 'محطة الحاويات الجنوبية', type: 'بورتسودان — طاقة 500K TEU', img: '/news-port.jpg', view: 'port_sudan' },
-        { name: 'محطة الصب الجاف الساحلية', type: 'تفريغ وتعبئة الحبوب والأسمنت', img: '/news-port.jpg', view: 'port_sudan' },
-        { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/news-port.jpg', view: 'port_sudan' },
+        { name: 'محطة الحاويات الجنوبية (SCT)', type: 'بورتسودان — طاقة 650K TEU', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
+        { name: 'محطة الصب الجاف الساحلية', type: 'تفريغ وتعبئة الحبوب والأسمنت', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
+        { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
       ],
       sidebarLinks: [
         { label: 'حاسبة الرسوم والتخليص الجمركي', view: 'port_sudan' },
@@ -165,9 +165,9 @@ export function LandingView() {
     },
     warehouses: {
       columns: [
-        { name: 'مركز سوبا اللوجستي المركزي', type: 'الخرطوم — 45,000 متر مربع', img: '/hero-bg.jpg', view: 'warehousing' },
-        { name: 'مستودع عطبرة للتوزيع الشمالي', type: 'نهر النيل — محطة تفريغ وتوزيع', img: '/hero-bg.jpg', view: 'warehousing' },
-        { name: 'مركز القضارف للصادرات الزراعية', type: 'مستودع محاصيل ومبردات', img: '/hero-bg.jpg', view: 'warehousing' },
+        { name: 'المستودع الذكي المركزي A01/B01', type: 'الخرطوم وبورتسودان — 120,000 م²', img: '/images/warehouse-hub.jpg', view: 'warehousing' },
+        { name: 'المقر الرئيسي وساحات الاستقبال', type: 'مركز العمليات المتقدم ومكاتب العملاء', img: '/images/hq-facility.jpg', view: 'locations' },
+        { name: 'مستودعات التبريد الدوائي والغذائي', type: 'حفظ مبرد ومجمد مع حساسات IoT', img: '/images/warehouse-hub.jpg', view: 'warehousing' },
       ],
       sidebarLinks: [
         { label: 'إدارة المخزون والمساحات الفورية', view: 'warehousing' },
@@ -177,9 +177,9 @@ export function LandingView() {
     },
     marketplace: {
       columns: [
-        { name: 'رحلات بورتسودان ➔ الخرطوم', type: 'شاحنات عائدة بخصم 28%', img: '/news-truck.jpg', view: 'marketplace' },
-        { name: 'رحلات عطبرة ➔ الدمازين', type: 'شاحنات صب ومواد بناء', img: '/news-truck.jpg', view: 'marketplace' },
-        { name: 'رحلات كوستي ➔ كسلا', type: 'نقل محاصيل وسلع استهلاكية', img: '/news-truck.jpg', view: 'marketplace' },
+        { name: 'رحلات بورتسودان ➔ الخرطوم', type: 'شاحنات عائدة بخصم 28%', img: '/images/fleet-highway.jpg', view: 'marketplace' },
+        { name: 'رحلات عطبرة ➔ الدمازين', type: 'شاحنات صب ومواد بناء', img: '/images/fleet-vehicles.jpg', view: 'marketplace' },
+        { name: 'رحلات كوستي ➔ كسلا', type: 'نقل محاصيل وسلع استهلاكية', img: '/images/hero-multimodal.jpg', view: 'marketplace' },
       ],
       sidebarLinks: [
         { label: 'جميع الصفقات والعروض المفتوحة', view: 'marketplace' },
@@ -199,19 +199,35 @@ export function LandingView() {
             : 'bg-transparent text-white border-b border-white/10'
         }`}
       >
-        <div className="max-w-[1383px] mx-auto px-6 h-[56px] flex items-center justify-between">
-          {/* Brand Wordmark (Spaced uppercase precision) */}
+        <div className="max-w-[1383px] mx-auto px-6 h-[64px] flex items-center justify-between">
+          {/* Brand Wordmark & Logo */}
           <div
             onClick={() => setActiveHeroIndex(0)}
-            className="cursor-pointer flex items-center gap-2"
+            className="cursor-pointer flex items-center gap-3"
           >
-            <span
-              className={`text-[15px] font-[500] tracking-[0.25em] uppercase ${
-                isScrolled ? 'text-[#171A20]' : 'text-white'
-              }`}
-            >
-              {lang === 'ar' ? 'سـودانـيـل' : 'S U D A N E E L'}
-            </span>
+            <div className="w-10 h-10 rounded-[4px] bg-white p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0">
+              <img
+                src="/images/brand-logo.jpg"
+                alt="سودانيل لوجيستك"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="leading-tight">
+              <span
+                className={`text-[15px] font-[500] tracking-wide block ${
+                  isScrolled ? 'text-[#171A20]' : 'text-white'
+                }`}
+              >
+                {lang === 'ar' ? 'سودانيل لوجيستك' : 'SUDANIL LOGISTIC'}
+              </span>
+              <span
+                className={`text-[10px] block ${
+                  isScrolled ? 'text-[#5C5E62]' : 'text-white/80'
+                }`}
+              >
+                {lang === 'ar' ? 'نقل بثقة .. نوصل باحتراف' : 'Deliver with Confidence'}
+              </span>
+            </div>
           </div>
 
           {/* Center Navigation Links (14px / 500 / Carbon Dark) */}
@@ -497,29 +513,37 @@ export function LandingView() {
           </p>
         </div>
 
-        {/* 2-Up Horizontal Landscape Cards */}
+        {/* 4-Up Horizontal Landscape Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Card 1: النقل البري للممرات الحيوية */}
           <div
-            onClick={() => setCurrentView('marketplace')}
-            className="relative h-[340px] sm:h-[400px] rounded-[12px] overflow-hidden cursor-pointer group"
+            onClick={() => setCurrentView('fleet')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
           >
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-              style={{ backgroundImage: "url('/news-truck.jpg')" }}
+              style={{ backgroundImage: "url('/images/fleet-highway.jpg')" }}
             >
-              <div className="absolute inset-0 bg-black/25"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-            {/* Top-Right Label (16px / 500 / White) */}
-            <div className="absolute top-6 start-6 z-10">
-              <span className="text-[16px] font-[500] text-white">
-                {lang === 'ar' ? 'ممرات النقل البري الوطنية' : 'National Highway Corridors'}
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Euro 5/6 Heavy Fleet
               </span>
             </div>
-            {/* Bottom Action */}
-            <div className="absolute bottom-6 start-6 z-10">
-              <button className="text-[14px] font-[500] text-white underline underline-offset-4 flex items-center gap-1">
-                <span>{lang === 'ar' ? 'استكشف الممرات والأسطول' : 'Explore Corridors'}</span>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'ممرات النقل البري والشاحنات الثقيلة' : 'National Highway Freight Corridors'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'ربط لحظي لكافة الولايات وقوافل الشحن المؤمنة' : 'Real-time convoy routing across all sovereign corridors'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'استكشف الأسطول' : 'Explore'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -528,26 +552,127 @@ export function LandingView() {
           {/* Card 2: الموانئ والتجارة الدولية */}
           <div
             onClick={() => setCurrentView('port_sudan')}
-            className="relative h-[340px] sm:h-[400px] rounded-[12px] overflow-hidden cursor-pointer group"
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
           >
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-              style={{ backgroundImage: "url('/news-port.jpg')" }}
+              style={{ backgroundImage: "url('/images/port-sudan-terminal.jpg')" }}
             >
-              <div className="absolute inset-0 bg-black/25"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-            {/* Top-Right Label (16px / 500 / White) */}
-            <div className="absolute top-6 start-6 z-10">
-              <span className="text-[16px] font-[500] text-white">
-                {lang === 'ar' ? 'التجارة الدولية وموانئ البحر الأحمر' : 'Maritime Ports & Red Sea Gateway'}
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Port Sudan Hub (SCT)
               </span>
             </div>
-            {/* Bottom Action */}
-            <div className="absolute bottom-6 start-6 z-10">
-              <button className="text-[14px] font-[500] text-white underline underline-offset-4 flex items-center gap-1">
-                <span>{lang === 'ar' ? 'إجراءات التخليص والمناولة' : 'Customs & Handling'}</span>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'التجارة الدولية وموانئ البحر الأحمر' : 'Maritime Ports & Red Sea Gateway'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'تخليص جمركي فوري وتفريغ مباشر للحاويات' : 'Direct container evacuation & automated customs clearance'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'محطة الحاويات' : 'Ports Hub'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
+            </div>
+          </div>
+
+          {/* Card 3: المستودعات الذكية */}
+          <div
+            onClick={() => setCurrentView('warehousing')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/warehouse-hub.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+            </div>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Smart WMS & Cold Chain
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'المستودعات الذكية وسلاسل التبريد' : 'Smart Warehouses & Cold Chain'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? '120,000 م² مساحات تخزين جاف ومبرد ومجمرك' : 'Bonded & temperature-monitored strategic facilities'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'حجز مساحة' : 'Reserve'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 4: المقر والمحطات */}
+          <div
+            onClick={() => setCurrentView('locations')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/hq-facility.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+            </div>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                10 Strategic Hubs
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'المقر الرئيسي وشبكة المحطات في الولايات' : 'Corporate HQ & Regional Stations'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'صالات استقبال مجهزة وأرصفة مناولة سريعة' : '24/7 client reception centers & rapid truck loading docks'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'دليل المحطات' : 'View Hubs'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Services Matrix Trust Showcase */}
+        <div className="pt-8 border-t border-[#EEEEEE] space-y-6">
+          <div className="text-center space-y-1">
+            <span className="text-[#3E6AE1] text-[12px] font-mono uppercase font-[500]">
+              Official Certified Operations
+            </span>
+            <h3 className="text-[24px] font-[500] text-[#171A20]">
+              {lang === 'ar' ? 'منظومة الخدمات اللوجستية المتكاملة' : 'Full Spectrum Logistics Services'}
+            </h3>
+            <p className="text-[13px] text-[#5C5E62]">
+              {lang === 'ar' ? 'نقل بري • شحن بحري • شحن جوي • تخزين ذكي • مناولة • تتبع • توصيل سريع • تخليص جمركي • دعم 24/7' : 'Multimodal Freight, Bonded Storage, Customs Clearance & Telemetry'}
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <div className="p-4 bg-[#F4F4F4] rounded-[8px] border border-[#EEEEEE] max-w-2xl w-full flex justify-center">
+              <img
+                src="/images/services-badges-2.jpg"
+                alt="خدمات سودانيل لوجيستك المعتمدة"
+                className="w-full h-auto max-h-[360px] object-contain"
+              />
             </div>
           </div>
         </div>
