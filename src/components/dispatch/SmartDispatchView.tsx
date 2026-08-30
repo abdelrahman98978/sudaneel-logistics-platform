@@ -2,21 +2,14 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
-import { Shipment, Vehicle } from '@/types';
 import { evaluateDispatchMatches, MatchEvaluation } from '@/lib/matching-engine';
 import {
   Cpu,
   Truck,
   Package,
   Sparkles,
-  Zap,
-  CheckCircle2,
-  Navigation,
-  ShieldCheck,
-  TrendingDown,
-  ArrowRight,
-  Info,
-  Layers,
+  MapPin,
+  Leaf,
 } from 'lucide-react';
 
 export function SmartDispatchView() {
@@ -50,7 +43,6 @@ export function SmartDispatchView() {
   const handleAutoDispatch = () => {
     setIsAutoDispatching(true);
     setTimeout(() => {
-      // Auto-assign top match for the active shipment
       if (matches.length > 0) {
         const top = matches[0];
         assignVehicleToShipment(
@@ -69,29 +61,29 @@ export function SmartDispatchView() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 font-sans text-[#171A20]">
       {/* Smart Dispatch Header */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-gold/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-gold" />
-            <h2 className="font-bold text-lg text-white">
+            <Cpu className="w-5 h-5 text-[#3E6AE1]" />
+            <h2 className="font-[500] text-[17px] text-[#171A20]">
               {lang === 'ar' ? 'مركز التوزيع الذكي وخوارزميات المطابقة (AI Dispatch)' : 'AI Smart Dispatch & Fleet Allocation Center'}
             </h2>
           </div>
-          <p className="text-xs text-gray-300">
+          <p className="text-[13px] font-[400] text-[#5C5E62] mt-1">
             {lang === 'ar'
               ? 'تخصيص الشاحنات والسائقين بناءً على المسافة، السعة، مؤشر الثقة (Trust Score)، والرحلات العائدة.'
-              : 'Allocate fleet assets dynamically based on proximity, payload, trust score, and backhaul empty optimization.'}
+              : 'Allocate fleet assets dynamically based on proximity, payload, trust score, and backhaul optimization.'}
           </p>
         </div>
 
         <button
           onClick={handleAutoDispatch}
           disabled={isAutoDispatching || matches.length === 0}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold via-amber-400 to-amber-500 hover:brightness-110 text-navy-950 font-bold text-xs shadow-xl shadow-gold/10 flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50"
+          className="btn-tesla-primary !min-w-[160px] !min-h-[38px] !py-1 !px-4 text-[13px] flex items-center gap-2 disabled:opacity-50"
         >
-          <Sparkles className={`w-4 h-4 text-navy-950 ${isAutoDispatching ? 'animate-spin' : 'animate-bounce'}`} />
+          <Sparkles className="w-4 h-4" />
           <span>{isAutoDispatching ? 'Optimizing Fleet...' : t.autoDispatchBtn}</span>
         </button>
       </div>
@@ -99,214 +91,190 @@ export function SmartDispatchView() {
       {/* 3-Panel Dispatch Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Panel 1: Unassigned Shipments Queue (3.5 cols) */}
-        <div className="lg:col-span-4 rounded-2xl bg-navy-900/90 border border-gold/25 p-4 space-y-3 shadow-xl">
-          <div className="flex items-center justify-between pb-2 border-b border-gold/15">
-            <h3 className="font-bold text-sm text-white flex items-center gap-2">
-              <Package className="w-4 h-4 text-gold" />
-              <span>Unassigned Loads ({unassignedShipments.length})</span>
+        <div className="lg:col-span-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
+              <Package className="w-4 h-4 text-[#3E6AE1]" />
+              <span>قائمة انتظار التوزيع ({unassignedShipments.length})</span>
             </h3>
-            <span className="text-[10px] text-gray-400 font-mono">Queue</span>
           </div>
 
-          <div className="space-y-2 max-h-[560px] overflow-y-auto custom-scrollbar">
-            {unassignedShipments.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setActiveShipmentId(s.id)}
-                className={`w-full p-3 rounded-xl text-start transition-all cursor-pointer ${
-                  s.id === currentShipment?.id
-                    ? 'bg-gradient-to-r from-gold/20 to-navy-800 border border-gold/50 shadow-md'
-                    : 'bg-navy-950/70 border border-navy-800 hover:bg-navy-800/80 text-gray-300'
-                }`}
-              >
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="font-bold font-mono text-gold">{s.trackingNumber}</span>
-                  <span className="text-[10px] text-gray-400 font-mono">{s.distanceKm} km</span>
-                </div>
-                <div className="font-semibold text-white text-xs">
-                  {s.origin.city} ➔ {s.destination.city}
-                </div>
-                <div className="text-[11px] text-gray-400 truncate mt-0.5">
-                  {s.cargoDescription} ({(s.totalWeightKg / 1000).toFixed(1)}T)
-                </div>
-              </button>
-            ))}
+          <div className="space-y-2.5 max-h-[500px] overflow-y-auto custom-scrollbar">
+            {unassignedShipments.map((shp) => {
+              const isSelected = shp.id === activeShipmentId;
+              return (
+                <button
+                  key={shp.id}
+                  onClick={() => {
+                    setActiveShipmentId(shp.id);
+                    setSelectedEvaluation(null);
+                  }}
+                  className={`w-full p-3.5 rounded-[4px] text-start transition-colors duration-330 border cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#F4F4F4] border-[#171A20]'
+                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-[500] text-[#171A20] text-[13px]">{shp.trackingNumber}</span>
+                    <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-[2px] bg-white border border-[#D0D1D2]">
+                      {(shp.totalWeightKg / 1000).toFixed(1)} T
+                    </span>
+                  </div>
+                  <div className="text-[13px] font-[500] text-[#171A20] mt-1">{shp.customerNameAr || shp.customerName}</div>
+                  <div className="text-[12px] text-[#5C5E62] flex items-center gap-1 mt-0.5">
+                    <MapPin className="w-3 h-3 text-[#3E6AE1]" />
+                    <span>{shp.origin.city} ➔ {shp.destination.city}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Panel 2 & 3: Active Load Route Summary & AI Candidate Match Breakdown (8.5 cols) */}
-        <div className="lg:col-span-8 space-y-4">
-          {/* Active Target Load Profile Card */}
-          {currentShipment && (
-            <div className="p-4 rounded-2xl bg-navy-900/90 border border-gold/30 shadow-xl space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-gold/15 gap-2">
-                <div>
-                  <div className="text-xs text-gold font-mono font-bold">{currentShipment.trackingNumber}</div>
-                  <h3 className="text-base font-bold text-white">
-                    {currentShipment.origin.city} ➔ {currentShipment.destination.city}
-                  </h3>
-                  <div className="text-xs text-gray-300">{currentShipment.customerNameAr || currentShipment.customerName}</div>
-                </div>
-
-                <div className="text-end">
-                  <div className="text-lg font-bold text-white font-mono">
-                    {currentShipment.price.toLocaleString()} SDG
-                  </div>
-                  <div className="text-xs text-emerald-400 font-medium">Required: {currentShipment.requiredVehicleType}</div>
-                </div>
-              </div>
-
-              {/* Route & Cargo Specs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                <div className="p-2 rounded-xl bg-navy-950/80 border border-navy-800">
-                  <span className="text-[10px] text-gray-400 block">Distance:</span>
-                  <span className="font-bold text-white font-mono">{currentShipment.distanceKm} KM</span>
-                </div>
-                <div className="p-2 rounded-xl bg-navy-950/80 border border-navy-800">
-                  <span className="text-[10px] text-gray-400 block">Cargo Weight:</span>
-                  <span className="font-bold text-gold font-mono">{(currentShipment.totalWeightKg / 1000).toFixed(1)} Tons</span>
-                </div>
-                <div className="p-2 rounded-xl bg-navy-950/80 border border-navy-800">
-                  <span className="text-[10px] text-gray-400 block">Pickup Date:</span>
-                  <span className="font-semibold text-gray-200">{currentShipment.pickupDate}</span>
-                </div>
-                <div className="p-2 rounded-xl bg-navy-950/80 border border-navy-800">
-                  <span className="text-[10px] text-gray-400 block">Priority:</span>
-                  <span className="font-semibold text-amber-400 uppercase font-mono">{currentShipment.priority}</span>
-                </div>
-              </div>
+        {/* Panel 2: Ranked AI Matches (5 cols) */}
+        <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+            <div>
+              <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
+                <Truck className="w-4 h-4 text-[#3E6AE1]" />
+                <span>المركبات المطابقة آلياً</span>
+              </h3>
+              <span className="text-[12px] text-[#5C5E62]">{currentShipment?.trackingNumber}</span>
             </div>
-          )}
+            <span className="text-[12px] font-mono font-[500] text-[#3E6AE1]">{matches.length} Candidates</span>
+          </div>
 
-          {/* AI Recommended Candidate Fleet Cards */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-xs font-bold text-gold uppercase px-1">
-              <span>AI Ranked Fleet Matches ({matches.length} Candidates)</span>
-              <span className="text-gray-400 text-[10px]">Scored by Proximity, Capacity, Trust & Backhaul</span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {matches.map((match, idx) => (
+          <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar">
+            {matches.map((match, idx) => {
+              const isSelected = selectedEvaluation?.vehicle.id === match.vehicle.id;
+              return (
                 <div
-                  key={idx}
-                  className={`p-4 rounded-2xl bg-navy-900/90 border shadow-lg space-y-3 transition-all ${
-                    match.matchScore >= 90
-                      ? 'border-gold/40 hover:border-gold shadow-gold/5'
-                      : 'border-navy-800 hover:border-navy-700'
+                  key={match.vehicle.id}
+                  onClick={() => setSelectedEvaluation(match)}
+                  className={`p-4 rounded-[4px] border transition-colors duration-330 cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#F4F4F4] border-[#3E6AE1]'
+                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
                   }`}
                 >
-                  {/* Match Score Badge */}
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`text-xs font-bold font-mono px-2.5 py-0.5 rounded-full border ${
-                            match.matchScore >= 90
-                              ? 'bg-gold/20 text-gold border-gold/40'
-                              : 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                          }`}
-                        >
-                          {match.matchScore}% Match
-                        </span>
-                        {match.isBackhaul && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                            Backhaul Asset
+                        <span className="font-[500] font-mono text-[14px] text-[#171A20]">{match.vehicle.plateNumber}</span>
+                        {idx === 0 && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-[2px] bg-[#171A20] text-white font-[500]">
+                            BEST FIT
                           </span>
                         )}
                       </div>
-
-                      <h4 className="font-bold text-white font-mono text-sm mt-1.5">{match.vehicle.plateNumber}</h4>
-                      <div className="text-xs text-gray-400">{match.carrier?.name}</div>
+                      <div className="text-[13px] text-[#5C5E62] mt-0.5">{match.carrier?.name} • {match.driver?.name}</div>
                     </div>
 
                     <div className="text-end">
-                      <div className="text-xs font-bold text-gold font-mono">{match.vehicle.capacityTons}T Payload</div>
-                      <div className="text-[10px] text-gray-400">{match.distanceToPickupKm} km from pickup</div>
+                      <span className="text-[18px] font-[500] font-mono text-[#3E6AE1]">
+                        {match.matchScore}%
+                      </span>
+                      <span className="text-[10px] text-[#8E8E8E] block">AI Match Score</span>
                     </div>
                   </div>
 
-                  {/* Explainable Factor Pills */}
-                  <div className="space-y-1 text-xs">
-                    {match.factors.slice(0, 2).map((factor, fIdx) => (
-                      <div key={fIdx} className="text-[11px] text-gray-300 flex items-center gap-1.5">
-                        <span className="text-gold">•</span>
-                        <span>{lang === 'ar' ? factor.descriptionAr : factor.descriptionEn}</span>
-                      </div>
-                    ))}
+                  <div className="grid grid-cols-3 gap-2 text-[11px] text-[#5C5E62] mt-2 pt-2 border-t border-[#EEEEEE]">
+                    <div>
+                      <span className="block text-[10px] text-[#8E8E8E]">Location</span>
+                      <span className="font-[500] text-[#171A20]">{match.vehicle.currentCity}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[10px] text-[#8E8E8E]">Capacity</span>
+                      <span className="font-mono font-[500] text-[#171A20]">{match.vehicle.capacityTons} T</span>
+                    </div>
+                    <div>
+                      <span className="block text-[10px] text-[#8E8E8E]">Trust Score</span>
+                      <span className="font-mono font-[500] text-[#3E6AE1]">{match.carrier?.trustScore}/100</span>
+                    </div>
                   </div>
 
-                  {/* CTA Buttons */}
-                  <div className="flex items-center gap-2 pt-2 border-t border-gold/10">
+                  <div className="flex items-center justify-between pt-3 mt-2 border-t border-[#EEEEEE]">
+                    {match.isBackhaul ? (
+                      <span className="text-[11px] text-[#3E6AE1] flex items-center gap-1 font-[500]">
+                        <Leaf className="w-3.5 h-3.5" /> Backhaul Optimization (-{match.expectedSavingsPercent}%)
+                      </span>
+                    ) : (
+                      <span className="text-[11px] text-[#8E8E8E]">Standard Routing</span>
+                    )}
+
                     <button
-                      onClick={() => setSelectedEvaluation(match)}
-                      className="px-3 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-gray-200 text-xs font-semibold flex items-center gap-1 cursor-pointer"
-                    >
-                      <Info className="w-3.5 h-3.5" />
-                      <span>{lang === 'ar' ? 'شرح التقييم' : 'Explain Score'}</span>
-                    </button>
-                    <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         assignVehicleToShipment(
                           currentShipment.id,
                           match.vehicle.id,
                           match.driver?.id || drivers[0].id
                         );
-                        alert(
-                          lang === 'ar'
-                            ? `تم تعيين المركبة ${match.vehicle.plateNumber} للشحنة ${currentShipment.trackingNumber}`
-                            : `Vehicle ${match.vehicle.plateNumber} assigned to ${currentShipment.trackingNumber}`
-                        );
+                        alert(`Assigned ${match.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`);
                       }}
-                      className="flex-1 py-2 rounded-xl bg-gradient-to-r from-gold to-amber-500 hover:brightness-110 text-navy-950 font-bold text-xs shadow-md transition-transform hover:scale-105 cursor-pointer text-center"
+                      className="btn-tesla-primary !min-w-[100px] !min-h-[30px] !py-0.5 !px-3 text-[12px]"
                     >
-                      {lang === 'ar' ? 'تأكيد التعيين الفوري' : 'Assign to Load'}
+                      تثبيت التعيين
                     </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
-      </div>
 
-      {/* Explainable AI Factor Breakdown Modal */}
-      {selectedEvaluation && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-navy-900 border border-gold/40 rounded-2xl p-5 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gold/20">
-              <div>
-                <h3 className="font-bold text-base text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-gold" />
-                  <span>Explainable AI Match Breakdown</span>
-                </h3>
-                <div className="text-xs text-gray-400 font-mono">{selectedEvaluation.vehicle.plateNumber}</div>
+        {/* Panel 3: Match Evaluation Details (3 cols) */}
+        <div className="lg:col-span-3 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
+          <div className="pb-3 border-b border-[#EEEEEE]">
+            <h3 className="font-[500] text-[14px] text-[#171A20]">تفاصيل التحليل الخوارزمي</h3>
+            <span className="text-[12px] text-[#5C5E62]">Multi-Criteria Weighting</span>
+          </div>
+
+          {selectedEvaluation ? (
+            <div className="space-y-4 text-[13px]">
+              <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-1">
+                <span className="text-[11px] text-[#8E8E8E] block">Selected Fleet Unit</span>
+                <div className="font-[500] text-[#171A20]">{selectedEvaluation.vehicle.plateNumber}</div>
+                <div className="text-[12px] text-[#5C5E62]">{selectedEvaluation.carrier?.name}</div>
               </div>
-              <button onClick={() => setSelectedEvaluation(null)} className="text-gray-400 hover:text-white p-1">
-                ✕
+
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-[#5C5E62]">Match Score:</span>
+                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.matchScore}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#5C5E62]">Distance to Pickup:</span>
+                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.distanceToPickupKm} km</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#5C5E62]">Carrier Trust:</span>
+                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.carrier?.trustScore}%</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  assignVehicleToShipment(
+                    currentShipment.id,
+                    selectedEvaluation.vehicle.id,
+                    selectedEvaluation.driver?.id || drivers[0].id
+                  );
+                  alert(`Assigned ${selectedEvaluation.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`);
+                }}
+                className="btn-tesla-primary w-full !min-h-[36px] text-[13px]"
+              >
+                تأكيد التعيين الفوري
               </button>
             </div>
-
-            <div className="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
-              {selectedEvaluation.factors.map((f, idx) => (
-                <div key={idx} className="p-3 rounded-xl bg-navy-950/80 border border-navy-800 space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-white">{lang === 'ar' ? f.nameAr : f.nameEn}</span>
-                    <span className="font-bold font-mono text-gold">{f.score}/100</span>
-                  </div>
-                  <div className="text-xs text-gray-300">{lang === 'ar' ? f.descriptionAr : f.descriptionEn}</div>
-                </div>
-              ))}
+          ) : (
+            <div className="text-center py-12 text-[#8E8E8E] text-[13px]">
+              اختر مركبة من القائمة لعرض تفاصيل التحليل الرياضي
             </div>
-
-            <button
-              onClick={() => setSelectedEvaluation(null)}
-              className="w-full py-2 rounded-xl bg-navy-800 text-gray-200 font-bold text-xs hover:bg-navy-700 cursor-pointer"
-            >
-              Close
-            </button>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -3,19 +3,12 @@
 import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
 import {
-  DollarSign,
   Download,
   Send,
   Printer,
   FileText,
   CreditCard,
   Search,
-  Filter,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
-  Building2,
-  ArrowUpRight,
   TrendingUp,
 } from 'lucide-react';
 
@@ -122,16 +115,16 @@ export function InvoicesLedgerView() {
   });
 
   return (
-    <div className="space-y-6 pb-12 font-sans" dir="rtl">
+    <div className="space-y-6 font-sans text-[#171A20]" dir="rtl">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-navy-900 border border-gold/30 p-6 rounded-2xl shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#FFFFFF] border border-[#EEEEEE] p-6 rounded-[4px]">
         <div>
-          <div className="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase tracking-wider mb-1">
             <CreditCard className="w-4 h-4" />
             <span>نظام التسويات والفوترة اللوجستية</span>
           </div>
-          <h1 className="text-2xl font-black text-white">الفواتير والمدفوعات والمستحقات</h1>
-          <p className="text-xs text-gray-300 mt-1">
+          <h1 className="text-[20px] font-[500] text-[#171A20]">الفواتير والمدفوعات والمستحقات</h1>
+          <p className="text-[13px] text-[#5C5E62] mt-1">
             إدارة ومتابعة فواتير الشحن، مستحقات الناقلين، الرسوم الجمركية، وتسويات محفظة EBS.
           </p>
         </div>
@@ -139,52 +132,52 @@ export function InvoicesLedgerView() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setCurrentView('finance')}
-            className="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white rounded-xl text-xs font-bold border border-white/10 transition-colors"
+            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px]"
           >
             نظام المحفظة والضمان Escrow
           </button>
           <button
             onClick={() => setCurrentView('control_tower')}
-            className="px-4 py-2 bg-gold hover:bg-gold-light text-navy-950 rounded-xl text-xs font-extrabold shadow-md transition-transform hover:scale-105"
+            className="btn-tesla-primary !min-h-[36px] !py-1 !px-3 text-[13px]"
           >
             برج المراقبة
           </button>
         </div>
       </div>
 
-      {/* 4 KPI Cards (Matching invoices.tsx) */}
+      {/* 4 KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-navy-900/80 border border-white/5 shadow-lg space-y-2">
-          <span className="text-xs text-gray-400 font-bold block">إجمالي المبالغ المستلمة</span>
-          <div className="text-2xl font-black font-mono text-emerald-400">$284,500</div>
-          <span className="text-[11px] text-emerald-400/80 flex items-center gap-1 font-semibold">
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
+          <span className="text-[12px] text-[#5C5E62] block">إجمالي المبالغ المستلمة</span>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$284,500</div>
+          <span className="text-[11px] text-[#3E6AE1] flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5" />
-            +14.2% مقارنة بالشهر السابق
+            +14.2% هذا الشهر
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-navy-900/80 border border-white/5 shadow-lg space-y-2">
-          <span className="text-xs text-gray-400 font-bold block">فواتير مستحقة الدفع</span>
-          <div className="text-2xl font-black font-mono text-amber-400">$32,100</div>
-          <span className="text-[11px] text-amber-400/80 font-semibold">3 فواتير تستحق خلال 48 ساعة</span>
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
+          <span className="text-[12px] text-[#5C5E62] block">فواتير مستحقة الدفع</span>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$32,100</div>
+          <span className="text-[11px] text-[#5C5E62]">3 فواتير خلال 48 ساعة</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-navy-900/80 border border-white/5 shadow-lg space-y-2">
-          <span className="text-xs text-gray-400 font-bold block">مستحقات الناقلين</span>
-          <div className="text-2xl font-black font-mono text-sky-400">$48,200</div>
-          <span className="text-[11px] text-gray-400 font-semibold">18 أمر نقل تم التحقق من الـ POD</span>
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
+          <span className="text-[12px] text-[#5C5E62] block">مستحقات الناقلين</span>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$48,200</div>
+          <span className="text-[11px] text-[#8E8E8E]">18 أمر نقل تم التحقق من POD</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-navy-900/80 border border-white/5 shadow-lg space-y-2">
-          <span className="text-xs text-gray-400 font-bold block">مستحقات السائقين</span>
-          <div className="text-2xl font-black font-mono text-gold">$12,400</div>
-          <span className="text-[11px] text-gray-400 font-semibold">حوافز ومكافآت التوصيل السريع</span>
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
+          <span className="text-[12px] text-[#5C5E62] block">مستحقات السائقين</span>
+          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">$12,400</div>
+          <span className="text-[11px] text-[#8E8E8E]">حوافز التوصيل السريع</span>
         </div>
       </div>
 
       {/* Tabs Filter + Search */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-navy-900/60 p-3 rounded-2xl border border-white/5">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FFFFFF] p-3 rounded-[4px] border border-[#EEEEEE]">
+        <div className="flex items-center gap-1">
           {[
             { id: 'all', label: 'كل الفواتير' },
             { id: 'paid', label: 'مدفوعة' },
@@ -194,10 +187,10 @@ export function InvoicesLedgerView() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
                 activeTab === tab.id
-                  ? 'bg-gold text-navy-950 font-black shadow-md'
-                  : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-[#171A20] text-white font-[500]'
+                  : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4]'
               }`}
             >
               {tab.label}
@@ -206,73 +199,73 @@ export function InvoicesLedgerView() {
         </div>
 
         <div className="relative">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-gray-400" />
+          <Search className="w-4 h-4 absolute right-3 top-2.5 text-[#8E8E8E]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="ابحث برقم الفاتورة أو العميل..."
-            className="bg-navy-950 border border-white/10 rounded-xl pr-9 pl-4 py-2 text-xs text-white placeholder-gray-400 outline-none focus:border-gold"
+            className="bg-[#FFFFFF] border border-[#D0D1D2] rounded-[4px] pr-9 pl-4 py-1.5 text-[13px] text-[#171A20] placeholder-[#8E8E8E] outline-none"
           />
         </div>
       </div>
 
-      {/* Table & Invoice Details Drawer Grid */}
+      {/* Table & Invoice Details Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Table of Invoices (7 cols) */}
-        <div className="lg:col-span-7 bg-navy-900 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-extrabold text-sm text-white">قائمة الفواتير</h3>
-            <span className="text-xs text-gray-400 font-mono">{filteredInvoices.length} فواتير</span>
+        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-5 space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+            <h3 className="font-[500] text-[14px] text-[#171A20]">قائمة الفواتير</h3>
+            <span className="text-[12px] text-[#5C5E62] font-mono">{filteredInvoices.length} فواتير</span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-xs text-start">
+            <table className="w-full text-[13px] text-start">
               <thead>
-                <tr className="border-b border-white/10 text-gray-400">
-                  <th className="pb-3 text-start">رقم الفاتورة</th>
-                  <th className="pb-3 text-start">العميل</th>
-                  <th className="pb-3 text-start">التاريخ</th>
-                  <th className="pb-3 text-start">المبلغ</th>
-                  <th className="pb-3 text-start">الحالة</th>
-                  <th className="pb-3 text-start">إجراء</th>
+                <tr className="border-b border-[#EEEEEE] text-[#5C5E62] bg-[#F4F4F4] text-[11px] uppercase">
+                  <th className="p-3 text-start">رقم الفاتورة</th>
+                  <th className="p-3 text-start">العميل</th>
+                  <th className="p-3 text-start">التاريخ</th>
+                  <th className="p-3 text-start">المبلغ</th>
+                  <th className="p-3 text-start">الحالة</th>
+                  <th className="p-3 text-start">إجراء</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 font-medium">
+              <tbody className="divide-y divide-[#EEEEEE]">
                 {filteredInvoices.map((inv) => {
                   const isSelected = selectedInvoice.id === inv.id;
                   return (
                     <tr
                       key={inv.id}
                       onClick={() => setSelectedInvoice(inv)}
-                      className={`hover:bg-white/5 transition-colors cursor-pointer ${
-                        isSelected ? 'bg-navy-800' : ''
+                      className={`hover:bg-[#F4F4F4] transition-colors duration-330 cursor-pointer ${
+                        isSelected ? 'bg-[#F4F4F4]' : ''
                       }`}
                     >
-                      <td className="py-3 font-mono font-bold text-gold">{inv.id}</td>
-                      <td className="py-3 text-white max-w-[140px] truncate">{inv.client}</td>
-                      <td className="py-3 text-gray-400 font-mono">{inv.date}</td>
-                      <td className="py-3 font-mono font-extrabold text-white">${inv.total.toLocaleString()}</td>
-                      <td className="py-3">
+                      <td className="p-3 font-mono font-[500] text-[#3E6AE1]">{inv.id}</td>
+                      <td className="p-3 text-[#171A20] max-w-[140px] truncate">{inv.client}</td>
+                      <td className="p-3 text-[#5C5E62] font-mono">{inv.date}</td>
+                      <td className="p-3 font-mono font-[500] text-[#171A20]">${inv.total.toLocaleString()}</td>
+                      <td className="p-3">
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          className={`px-2 py-0.5 rounded-[2px] text-[11px] font-[500] border ${
                             inv.status === 'paid'
-                              ? 'bg-emerald-500/20 text-emerald-400'
+                              ? 'bg-white text-[#171A20] border-[#D0D1D2]'
                               : inv.status === 'unpaid'
-                              ? 'bg-amber-500/20 text-amber-400'
-                              : 'bg-rose-500/20 text-rose-400'
+                              ? 'bg-white text-[#3E6AE1] border-[#3E6AE1]'
+                              : 'bg-white text-[#393C41] border-[#D0D1D2]'
                           }`}
                         >
                           {inv.status === 'paid' ? 'مدفوعة' : inv.status === 'unpaid' ? 'غير مدفوعة' : 'متأخرة'}
                         </span>
                       </td>
-                      <td className="py-3">
+                      <td className="p-3">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedInvoice(inv);
                           }}
-                          className="px-2 py-1 rounded bg-navy-800 hover:bg-navy-700 text-gray-200 text-[10px] border border-white/10"
+                          className="px-2.5 py-1 rounded-[2px] bg-[#FFFFFF] hover:bg-[#F4F4F4] text-[#171A20] text-[11px] border border-[#D0D1D2]"
                         >
                           معاينة
                         </button>
@@ -286,78 +279,78 @@ export function InvoicesLedgerView() {
         </div>
 
         {/* Selected Invoice Details Card (5 cols) */}
-        <div className="lg:col-span-5 bg-navy-900 border border-gold/30 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-4">
             <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gold" />
+              <FileText className="w-5 h-5 text-[#3E6AE1]" />
               <div>
-                <h3 className="font-extrabold text-sm text-white">تفاصيل الفاتورة</h3>
-                <span className="font-mono text-xs text-gold font-bold">{selectedInvoice.id}</span>
+                <h3 className="font-[500] text-[15px] text-[#171A20]">تفاصيل الفاتورة</h3>
+                <span className="font-mono text-[12px] text-[#3E6AE1] font-[500]">{selectedInvoice.id}</span>
               </div>
             </div>
             <span
-              className={`px-2.5 py-1 rounded-full text-xs font-black ${
+              className={`px-2.5 py-1 rounded-[2px] text-[11px] font-[500] border ${
                 selectedInvoice.status === 'paid'
-                  ? 'bg-emerald-500/20 text-emerald-400'
+                  ? 'bg-[#F4F4F4] text-[#171A20] border-[#D0D1D2]'
                   : selectedInvoice.status === 'unpaid'
-                  ? 'bg-amber-500/20 text-amber-400'
-                  : 'bg-rose-500/20 text-rose-400'
+                  ? 'bg-[#F4F4F4] text-[#3E6AE1] border-[#3E6AE1]'
+                  : 'bg-[#F4F4F4] text-[#393C41] border-[#D0D1D2]'
               }`}
             >
               {selectedInvoice.status === 'paid' ? 'مدفوعة بالكامل' : selectedInvoice.status === 'unpaid' ? 'غير مدفوعة' : 'متأخرة السداد'}
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="p-2.5 rounded-xl bg-navy-950/80 border border-white/5">
-              <span className="text-[10px] text-gray-400 block">العميل الشاحن</span>
-              <span className="font-bold text-white leading-tight block mt-0.5">{selectedInvoice.client}</span>
+          <div className="grid grid-cols-2 gap-3 text-[13px]">
+            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
+              <span className="text-[11px] text-[#8E8E8E] block">العميل الشاحن</span>
+              <span className="font-[500] text-[#171A20] block mt-0.5">{selectedInvoice.client}</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-navy-950/80 border border-white/5">
-              <span className="text-[10px] text-gray-400 block">رقم بوليصة الشحنة</span>
-              <span className="font-bold font-mono text-sky-400 leading-tight block mt-0.5">{selectedInvoice.shipmentId}</span>
+            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
+              <span className="text-[11px] text-[#8E8E8E] block">رقم بوليصة الشحنة</span>
+              <span className="font-[500] font-mono text-[#3E6AE1] block mt-0.5">{selectedInvoice.shipmentId}</span>
             </div>
           </div>
 
           {/* Breakdown */}
-          <div className="space-y-2 pt-2 border-t border-white/10 text-xs">
-            <div className="flex justify-between text-gray-300">
+          <div className="space-y-2 pt-2 border-t border-[#EEEEEE] text-[13px]">
+            <div className="flex justify-between text-[#5C5E62]">
               <span>المجموع الفرعي (تكلفة النقل)</span>
-              <span className="font-mono font-bold text-white">${selectedInvoice.subtotal.toFixed(2)}</span>
+              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-300">
+            <div className="flex justify-between text-[#5C5E62]">
               <span>ضريبة القيمة المضافة (5%)</span>
-              <span className="font-mono font-bold text-white">${selectedInvoice.tax.toFixed(2)}</span>
+              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.tax.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-300">
-              <span>رسوم المنصة والتأمين السيادي</span>
-              <span className="font-mono font-bold text-white">${selectedInvoice.fees.toFixed(2)}</span>
+            <div className="flex justify-between text-[#5C5E62]">
+              <span>رسوم المنصة والتأمين</span>
+              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.fees.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-sm font-black pt-2 border-t border-white/10 text-gold">
+            <div className="flex justify-between text-[15px] font-[500] pt-2 border-t border-[#EEEEEE] text-[#171A20]">
               <span>الإجمالي الكلي المطلوب</span>
-              <span className="font-mono text-base">${selectedInvoice.total.toFixed(2)}</span>
+              <span className="font-mono text-[18px] text-[#171A20]">${selectedInvoice.total.toFixed(2)}</span>
             </div>
           </div>
 
           {/* Actions */}
-          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/10">
+          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#EEEEEE]">
             <button
               onClick={() => alert(`جاري تحميل الفاتورة ${selectedInvoice.id} بصيغة PDF...`)}
-              className="py-2 px-2 bg-navy-800 hover:bg-navy-700 text-white rounded-xl text-xs font-bold border border-white/10 flex items-center justify-center gap-1 cursor-pointer"
+              className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>تحميل PDF</span>
+              <Download className="w-3.5 h-3.5 text-[#3E6AE1]" />
+              <span>PDF</span>
             </button>
             <button
               onClick={() => window.print()}
-              className="py-2 px-2 bg-navy-800 hover:bg-navy-700 text-white rounded-xl text-xs font-bold border border-white/10 flex items-center justify-center gap-1 cursor-pointer"
+              className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>طباعة</span>
             </button>
             <button
               onClick={() => alert(`تم إرسال إشعار السداد إلى ${selectedInvoice.client} عبر البريد والرسائل النصية.`)}
-              className="py-2 px-2 bg-gold hover:bg-gold-light text-navy-950 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1 shadow cursor-pointer"
+              className="btn-tesla-primary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
               <Send className="w-3.5 h-3.5" />
               <span>إرسال</span>

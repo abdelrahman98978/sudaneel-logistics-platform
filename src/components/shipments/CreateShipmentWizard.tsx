@@ -16,11 +16,10 @@ import {
   Sparkles,
   Zap,
   Building2,
-  Calendar,
 } from 'lucide-react';
 
 export function CreateShipmentWizard() {
-  const { addShipment, setCurrentView, setSelectedShipmentId, t, lang, carriers } = useApp();
+  const { addShipment, setCurrentView, setSelectedShipmentId, lang, carriers } = useApp();
 
   const [step, setStep] = useState(1);
 
@@ -125,49 +124,49 @@ export function CreateShipmentWizard() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-5">
+    <div className="max-w-4xl mx-auto space-y-6 font-sans text-[#171A20]">
       {/* Stepper Wizard Header */}
-      <div className="p-5 rounded-2xl bg-navy-900/90 border border-gold/30 shadow-2xl space-y-4">
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-gold" />
-              <span>{lang === 'ar' ? 'معالج إنشاء الشحنة الذكية (10-Step Wizard)' : 'Smart Shipment Creator (10-Step Wizard)'}</span>
+            <h2 className="text-[17px] font-[500] text-[#171A20] flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#3E6AE1]" />
+              <span>{lang === 'ar' ? 'معالج إنشاء الشحنة الذكية' : 'Smart Shipment Creator'}</span>
             </h2>
-            <p className="text-xs text-gray-400">
+            <p className="text-[13px] font-[400] text-[#5C5E62]">
               {lang === 'ar' ? `المرحلة ${step} من 10: إعداد الشحنة والتسعير التنافسي` : `Step ${step} of 10: Logistics parameters & pricing`}
             </p>
           </div>
-          <span className="font-mono text-gold text-sm font-bold bg-navy-950 px-3 py-1 rounded-xl border border-gold/20">
+          <span className="font-mono text-[#3E6AE1] text-[13px] font-[500] bg-[#F4F4F4] px-3 py-1 rounded-[2px] border border-[#EEEEEE]">
             Step {step} / 10
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-navy-950 rounded-full h-2 overflow-hidden border border-gold/20">
+        <div className="w-full bg-[#F4F4F4] rounded-[2px] h-1.5 overflow-hidden">
           <div
-            className="bg-gradient-to-r from-gold to-amber-500 h-full transition-all duration-300"
+            className="bg-[#3E6AE1] h-full transition-all duration-330"
             style={{ width: `${(step / 10) * 100}%` }}
           ></div>
         </div>
       </div>
 
       {/* Step Content */}
-      <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/25 shadow-2xl min-h-[380px] flex flex-col justify-between">
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] min-h-[380px] flex flex-col justify-between">
         {/* STEP 1: Pickup Location */}
         {step === 1 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-gold" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 1: {lang === 'ar' ? 'بيانات نقطة التحميل (Pickup)' : 'Origin & Pickup Location'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'المدينة:' : 'City:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'المدينة:' : 'City:'}</label>
                 <select
                   value={originCity}
                   onChange={(e) => setOriginCity(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 >
                   <option value="Khartoum">Khartoum (الخرطوم)</option>
                   <option value="Port Sudan">Port Sudan (بورتسودان)</option>
@@ -177,28 +176,28 @@ export function CreateShipmentWizard() {
                 </select>
               </div>
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'تاريخ التحميل:' : 'Pickup Date:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'تاريخ التحميل:' : 'Pickup Date:'}</label>
                 <input
                   type="date"
                   value={pickupDate}
                   onChange={(e) => setPickupDate(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
               <div className="sm:col-span-2 space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'العنوان التفصيلي:' : 'Detailed Address:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'العنوان التفصيلي:' : 'Detailed Address:'}</label>
                 <input
                   value={originAddress}
                   onChange={(e) => setOriginAddress(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
               <div className="sm:col-span-2 space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'مسؤول الموقع ورقم الهاتف:' : 'Site Contact & Phone:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'مسؤول الموقع ورقم الهاتف:' : 'Site Contact & Phone:'}</label>
                 <input
                   value={originContact}
                   onChange={(e) => setOriginContact(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
             </div>
@@ -208,17 +207,17 @@ export function CreateShipmentWizard() {
         {/* STEP 2: Destination Location */}
         {step === 2 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-sky-400" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 2: {lang === 'ar' ? 'بيانات نقطة الوصول والتسليم (Destination)' : 'Destination & Delivery Site'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'مدينة الوصول:' : 'Destination City:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'مدينة الوصول:' : 'Destination City:'}</label>
                 <select
                   value={destCity}
                   onChange={(e) => setDestCity(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 >
                   <option value="Port Sudan">Port Sudan (بورتسودان)</option>
                   <option value="Khartoum">Khartoum (الخرطوم)</option>
@@ -227,28 +226,28 @@ export function CreateShipmentWizard() {
                 </select>
               </div>
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'موعد التسليم المتوقع:' : 'Delivery Window:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'موعد التسليم المتوقع:' : 'Delivery Window:'}</label>
                 <input
                   type="date"
                   value={deliveryDate}
                   onChange={(e) => setDeliveryDate(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
               <div className="sm:col-span-2 space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'عنوان موقع التسليم:' : 'Destination Address:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'عنوان موقع التسليم:' : 'Destination Address:'}</label>
                 <input
                   value={destAddress}
                   onChange={(e) => setDestAddress(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
               <div className="sm:col-span-2 space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'المستلم وجهة الاتصال:' : 'Receiver Contact:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'المستلم وجهة الاتصال:' : 'Receiver Contact:'}</label>
                 <input
                   value={destContact}
                   onChange={(e) => setDestContact(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
             </div>
@@ -258,17 +257,17 @@ export function CreateShipmentWizard() {
         {/* STEP 3: Cargo Details */}
         {step === 3 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Package className="w-5 h-5 text-gold" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <Package className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 3: {lang === 'ar' ? 'مواصفات البضاعة والوزن (Cargo Details)' : 'Cargo Type & Weight'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'نوع البضاعة:' : 'Cargo Type:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'نوع البضاعة:' : 'Cargo Type:'}</label>
                 <select
                   value={cargoType}
                   onChange={(e) => setCargoType(e.target.value as CargoType)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 >
                   <option value="bulk">Bulk & Grain (صب وحبوب)</option>
                   <option value="general">General Cargo (بضائع عامة)</option>
@@ -280,41 +279,41 @@ export function CreateShipmentWizard() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'الوزن الإجمالي (كجم):' : 'Total Weight (Kg):'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'الوزن الإجمالي (كجم):' : 'Total Weight (Kg):'}</label>
                 <input
                   type="number"
                   value={weightKg}
                   onChange={(e) => setWeightKg(Number(e.target.value))}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white font-mono outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] font-mono outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2 space-y-1">
-                <label className="text-gray-300 font-semibold">{lang === 'ar' ? 'وصف الشحنة التفصيلي:' : 'Detailed Description:'}</label>
+                <label className="text-[#5C5E62]">{lang === 'ar' ? 'وصف الشحنة التفصيلي:' : 'Detailed Description:'}</label>
                 <input
                   value={cargoDesc}
                   onChange={(e) => setCargoDesc(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none"
+                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
                 />
               </div>
 
-              <div className="flex items-center gap-4 sm:col-span-2 pt-2">
-                <label className="flex items-center gap-2 cursor-pointer text-gray-200">
+              <div className="flex items-center gap-6 sm:col-span-2 pt-2">
+                <label className="flex items-center gap-2 cursor-pointer text-[#171A20]">
                   <input
                     type="checkbox"
                     checked={isFragile}
                     onChange={(e) => setIsFragile(e.target.checked)}
-                    className="accent-gold w-4 h-4 rounded"
+                    className="accent-[#3E6AE1] w-4 h-4 rounded"
                   />
                   <span>Fragile Cargo (قابلة للكسر)</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-gray-200">
+                <label className="flex items-center gap-2 cursor-pointer text-[#171A20]">
                   <input
                     type="checkbox"
                     checked={isTempControlled}
                     onChange={(e) => setIsTempControlled(e.target.checked)}
-                    className="accent-gold w-4 h-4 rounded"
+                    className="accent-[#3E6AE1] w-4 h-4 rounded"
                   />
                   <span>Cold-Chain Required (تحتاج تبريد)</span>
                 </label>
@@ -326,11 +325,11 @@ export function CreateShipmentWizard() {
         {/* STEP 4: Vehicle Type */}
         {step === 4 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Truck className="w-5 h-5 text-gold" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <Truck className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 4: {lang === 'ar' ? 'نوع الشاحنة المطلوبة (Fleet Requirement)' : 'Select Fleet Type'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
               {[
                 { type: 'truck_heavy', label: 'Heavy Truck (شاحنة ثقيلة 30T)', desc: 'General & bulk loads' },
                 { type: 'flatbed', label: 'Flatbed (مسطحة 35T)', desc: 'Containers & industrial steel' },
@@ -343,67 +342,67 @@ export function CreateShipmentWizard() {
                   key={v.type}
                   type="button"
                   onClick={() => setVehicleType(v.type as VehicleType)}
-                  className={`p-3.5 rounded-xl border text-start transition-all cursor-pointer ${
+                  className={`p-4 rounded-[4px] border text-start transition-colors duration-330 cursor-pointer ${
                     vehicleType === v.type
-                      ? 'bg-gold/20 border-gold text-white shadow-lg'
-                      : 'bg-navy-950/70 border-navy-800 text-gray-300 hover:bg-navy-800'
+                      ? 'bg-[#F4F4F4] border-[#3E6AE1] text-[#171A20]'
+                      : 'bg-[#FFFFFF] border-[#EEEEEE] text-[#5C5E62] hover:bg-[#F4F4F4]'
                   }`}
                 >
-                  <div className="font-bold text-white">{v.label}</div>
-                  <div className="text-[10px] text-gray-400 mt-1">{v.desc}</div>
+                  <div className="font-[500] text-[#171A20]">{v.label}</div>
+                  <div className="text-[11px] text-[#8E8E8E] mt-1">{v.desc}</div>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* STEP 5: Value Added Services & Priority */}
+        {/* STEP 5: Value Added Services */}
         {step === 5 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-emerald-400" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 5: {lang === 'ar' ? 'الخدمات الإضافية والأولويات' : 'Value Added Services & SLA'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <label className="p-3.5 rounded-xl bg-navy-950/80 border border-navy-800 flex items-center gap-3 cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+              <label className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={hasInsurance}
                   onChange={(e) => setHasInsurance(e.target.checked)}
-                  className="accent-gold w-4 h-4 rounded"
+                  className="accent-[#3E6AE1] w-4 h-4 rounded"
                 />
                 <div>
-                  <div className="font-bold text-white">Full Cargo Insurance (تأمين بوالص شامل)</div>
-                  <div className="text-[10px] text-gray-400">100% financial protection against loss or damage</div>
+                  <div className="font-[500] text-[#171A20]">Full Cargo Insurance (تأمين بوالص شامل)</div>
+                  <div className="text-[11px] text-[#5C5E62]">100% financial protection against loss or damage</div>
                 </div>
               </label>
 
-              <label className="p-3.5 rounded-xl bg-navy-950/80 border border-emerald-500/40 flex items-center gap-3 cursor-pointer">
+              <label className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isBackhaulDeal}
                   onChange={(e) => setIsBackhaulDeal(e.target.checked)}
-                  className="accent-emerald-400 w-4 h-4 rounded"
+                  className="accent-[#3E6AE1] w-4 h-4 rounded"
                 />
                 <div>
-                  <div className="font-bold text-emerald-400">Apply Backhaul Discount (-22%)</div>
-                  <div className="text-[10px] text-gray-300">Match with empty return trucks along the route</div>
+                  <div className="font-[500] text-[#3E6AE1]">Apply Backhaul Discount (-22%)</div>
+                  <div className="text-[11px] text-[#5C5E62]">Match with empty return trucks along the route</div>
                 </div>
               </label>
             </div>
 
             <div className="space-y-1.5 pt-2">
-              <label className="text-xs font-semibold text-gray-200">SLA Priority / الأولوية:</label>
+              <label className="text-[13px] font-[500] text-[#171A20]">SLA Priority / الأولوية:</label>
               <div className="flex gap-2">
                 {(['normal', 'express', 'critical'] as const).map((p) => (
                   <button
                     key={p}
                     type="button"
                     onClick={() => setPriority(p)}
-                    className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase transition-all cursor-pointer ${
+                    className={`flex-1 py-2 rounded-[4px] text-[13px] font-[500] uppercase transition-colors duration-330 cursor-pointer ${
                       priority === p
-                        ? 'bg-gold text-navy-950 shadow-md'
-                        : 'bg-navy-950 border border-navy-800 text-gray-300'
+                        ? 'bg-[#171A20] text-white'
+                        : 'bg-[#FFFFFF] border border-[#D0D1D2] text-[#5C5E62]'
                     }`}
                   >
                     {p}
@@ -414,36 +413,36 @@ export function CreateShipmentWizard() {
           </div>
         )}
 
-        {/* STEP 6: Smart Price Estimate & Breakdown */}
+        {/* STEP 6: Smart Price Estimate */}
         {step === 6 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-gold" />
-              <span>Step 6: {lang === 'ar' ? 'حساب التسعير الديناميكي الذكي' : 'AI Smart Dynamic Price Estimate'}</span>
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
+              <span>Step 6: {lang === 'ar' ? 'حساب التسعير الديناميكي الذكي' : 'AI Dynamic Price Estimate'}</span>
             </h3>
 
-            <div className="p-4 rounded-xl bg-navy-950/90 border border-gold/30 space-y-2 text-xs">
-              <div className="flex items-center justify-between text-gray-300 pb-1.5 border-b border-navy-800">
+            <div className="p-5 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2 text-[13px]">
+              <div className="flex items-center justify-between text-[#5C5E62] pb-1.5 border-b border-[#EEEEEE]">
                 <span>Base Transportation & Distance (830 km):</span>
-                <span className="font-mono text-white">{(priceBreakdown.baseTransport + priceBreakdown.distanceCharge).toLocaleString()} SDG</span>
+                <span className="font-mono text-[#171A20]">{(priceBreakdown.baseTransport + priceBreakdown.distanceCharge).toLocaleString()} SDG</span>
               </div>
-              <div className="flex items-center justify-between text-gray-300 pb-1.5 border-b border-navy-800">
+              <div className="flex items-center justify-between text-[#5C5E62] pb-1.5 border-b border-[#EEEEEE]">
                 <span>Fuel Adjustment Buffer:</span>
-                <span className="font-mono text-white">+{priceBreakdown.fuelAdjustment.toLocaleString()} SDG</span>
+                <span className="font-mono text-[#171A20]">+{priceBreakdown.fuelAdjustment.toLocaleString()} SDG</span>
               </div>
-              <div className="flex items-center justify-between text-gray-300 pb-1.5 border-b border-navy-800">
-                <span>Route Risk & Mountain Pass Safety:</span>
-                <span className="font-mono text-white">+{priceBreakdown.routeRiskFactor.toLocaleString()} SDG</span>
+              <div className="flex items-center justify-between text-[#5C5E62] pb-1.5 border-b border-[#EEEEEE]">
+                <span>Route Risk & Safety Factor:</span>
+                <span className="font-mono text-[#171A20]">+{priceBreakdown.routeRiskFactor.toLocaleString()} SDG</span>
               </div>
               {isBackhaulDeal && (
-                <div className="flex items-center justify-between text-emerald-400 font-semibold pb-1.5 border-b border-navy-800">
+                <div className="flex items-center justify-between text-[#3E6AE1] font-[500] pb-1.5 border-b border-[#EEEEEE]">
                   <span>Empty Truck Backhaul Discount:</span>
                   <span className="font-mono">-{priceBreakdown.backhaulDiscount.toLocaleString()} SDG</span>
                 </div>
               )}
-              <div className="flex items-center justify-between text-base font-bold text-white pt-2">
+              <div className="flex items-center justify-between text-[15px] font-[500] text-[#171A20] pt-2">
                 <span>Total Guaranteed Price:</span>
-                <span className="font-mono text-gold text-lg">{priceBreakdown.total.toLocaleString()} SDG</span>
+                <span className="font-mono text-[#171A20] text-[18px]">{priceBreakdown.total.toLocaleString()} SDG</span>
               </div>
             </div>
           </div>
@@ -452,8 +451,8 @@ export function CreateShipmentWizard() {
         {/* STEP 7: Carrier Selection */}
         {step === 7 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-gold" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 7: {lang === 'ar' ? 'اختيار وتثبيت الناقل المعتمد' : 'Select Certified Carrier'}</span>
             </h3>
             <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
@@ -462,21 +461,21 @@ export function CreateShipmentWizard() {
                   key={c.id}
                   type="button"
                   onClick={() => setSelectedCarrierId(c.id)}
-                  className={`w-full p-3 rounded-xl border flex items-center justify-between text-start transition-all cursor-pointer ${
+                  className={`w-full p-4 rounded-[4px] border flex items-center justify-between text-start transition-colors duration-330 cursor-pointer ${
                     selectedCarrierId === c.id
-                      ? 'bg-gold/20 border-gold text-white'
-                      : 'bg-navy-950/70 border-navy-800 text-gray-300 hover:bg-navy-800'
+                      ? 'bg-[#F4F4F4] border-[#3E6AE1]'
+                      : 'bg-[#FFFFFF] border-[#EEEEEE] text-[#5C5E62] hover:bg-[#F4F4F4]'
                   }`}
                 >
                   <div>
-                    <div className="font-bold text-white">{c.name}</div>
-                    <div className="text-[10px] text-gray-400">{c.city} • {c.fleetCount} Trucks</div>
+                    <div className="font-[500] text-[#171A20]">{c.name}</div>
+                    <div className="text-[11px] text-[#8E8E8E]">{c.city} • {c.fleetCount} Trucks</div>
                   </div>
                   <div className="text-end">
-                    <span className="text-xs font-mono font-bold text-gold px-2 py-0.5 rounded bg-navy-900 border border-gold/30">
+                    <span className="text-[11px] font-mono font-[500] text-[#171A20] px-2 py-0.5 rounded-[2px] bg-white border border-[#D0D1D2]">
                       Trust: {c.trustScore}/100
                     </span>
-                    <div className="text-[10px] text-emerald-400 mt-1">{c.onTimeDeliveryRate}% OTD</div>
+                    <div className="text-[11px] text-[#3E6AE1] mt-1">{c.onTimeDeliveryRate}% OTD</div>
                   </div>
                 </button>
               ))}
@@ -487,26 +486,26 @@ export function CreateShipmentWizard() {
         {/* STEP 8: Review Manifest */}
         {step === 8 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 8: {lang === 'ar' ? 'مراجعة بوليصة الشحن (Manifest Review)' : 'Review Manifest'}</span>
             </h3>
-            <div className="p-4 rounded-xl bg-navy-950/90 border border-gold/20 text-xs space-y-2">
+            <div className="p-5 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] text-[13px] space-y-2">
               <div className="flex justify-between">
-                <span className="text-gray-400">Route:</span>
-                <span className="font-bold text-white">{originCity} ➔ {destCity} (830 km)</span>
+                <span className="text-[#5C5E62]">Route:</span>
+                <span className="font-[500] text-[#171A20]">{originCity} ➔ {destCity} (830 km)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Cargo:</span>
-                <span className="font-bold text-white">{cargoDesc} ({(weightKg / 1000).toFixed(1)} Tons)</span>
+                <span className="text-[#5C5E62]">Cargo:</span>
+                <span className="font-[500] text-[#171A20]">{cargoDesc} ({(weightKg / 1000).toFixed(1)} Tons)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Carrier:</span>
-                <span className="font-bold text-gold">{carriers.find((c) => c.id === selectedCarrierId)?.name}</span>
+                <span className="text-[#5C5E62]">Carrier:</span>
+                <span className="font-[500] text-[#171A20]">{carriers.find((c) => c.id === selectedCarrierId)?.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Agreed Amount:</span>
-                <span className="font-mono font-bold text-emerald-400 text-sm">{priceBreakdown.total.toLocaleString()} SDG</span>
+                <span className="text-[#5C5E62]">Agreed Amount:</span>
+                <span className="font-mono font-[500] text-[#3E6AE1] text-[15px]">{priceBreakdown.total.toLocaleString()} SDG</span>
               </div>
             </div>
           </div>
@@ -515,15 +514,15 @@ export function CreateShipmentWizard() {
         {/* STEP 9: Payment & Terms */}
         {step === 9 && (
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-gold" />
+            <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
               <span>Step 9: {lang === 'ar' ? 'طريقة الدفع والتسوية' : 'Payment & Contract Terms'}</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-gold/20 border border-gold text-white font-bold cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13px]">
+              <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#3E6AE1] text-[#171A20] font-[500] cursor-pointer">
                 Enterprise Corporate Wallet (خصم تلقائي من المحفظة)
               </div>
-              <div className="p-3.5 rounded-xl bg-navy-950/80 border border-navy-800 text-gray-300 cursor-pointer">
+              <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#5C5E62] cursor-pointer">
                 Bankak / Bank of Khartoum Direct API (بنكك)
               </div>
             </div>
@@ -533,13 +532,13 @@ export function CreateShipmentWizard() {
         {/* STEP 10: Confirmation */}
         {step === 10 && (
           <div className="text-center py-6 space-y-3">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-10 h-10 animate-bounce" />
+            <div className="w-14 h-14 rounded-full bg-[#F4F4F4] border border-[#EEEEEE] text-[#3E6AE1] flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-lg font-bold text-white">
+            <h3 className="text-[17px] font-[500] text-[#171A20]">
               {lang === 'ar' ? 'جاهز للتثبيت والإطلاق الفوري!' : 'Ready for Instant Dispatch & Locking!'}
             </h3>
-            <p className="text-xs text-gray-300 max-w-md mx-auto">
+            <p className="text-[13px] text-[#5C5E62] max-w-md mx-auto">
               {lang === 'ar'
                 ? 'سيتم إصدار الباركود الرقمي، إشعار الناقل والسائق، وتفعيل التتبع المباشر لحظياً.'
                 : 'Digital manifest, driver notifications, and real-time GPS telemetry will activate instantly.'}
@@ -548,12 +547,12 @@ export function CreateShipmentWizard() {
         )}
 
         {/* Stepper Navigation Buttons */}
-        <div className="flex items-center justify-between pt-4 border-t border-gold/15 mt-4">
+        <div className="flex items-center justify-between pt-4 border-t border-[#EEEEEE] mt-4">
           <button
             type="button"
             disabled={step === 1}
             onClick={() => setStep((prev) => Math.max(1, prev - 1))}
-            className="px-4 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-gray-300 text-xs font-semibold flex items-center gap-1 disabled:opacity-30 cursor-pointer"
+            className="btn-tesla-secondary !min-w-[100px] !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1 disabled:opacity-30"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{lang === 'ar' ? 'السابق' : 'Previous'}</span>
@@ -563,7 +562,7 @@ export function CreateShipmentWizard() {
             <button
               type="button"
               onClick={() => setStep((prev) => Math.min(10, prev + 1))}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-amber-500 hover:brightness-110 text-navy-950 text-xs font-bold shadow-lg flex items-center gap-1 cursor-pointer transition-transform hover:scale-105"
+              className="btn-tesla-primary !min-w-[120px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-1"
             >
               <span>{lang === 'ar' ? 'التالي' : 'Next Step'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -572,7 +571,7 @@ export function CreateShipmentWizard() {
             <button
               type="button"
               onClick={handleFinish}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 text-navy-950 text-xs font-bold shadow-xl flex items-center gap-2 cursor-pointer transition-transform hover:scale-105"
+              className="btn-tesla-primary !min-w-[200px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
             >
               <Zap className="w-4 h-4" />
               <span>{lang === 'ar' ? 'إصدار الشحنة وتفعيل التتبع المباشر' : 'Launch Shipment & Live Tracking'}</span>
