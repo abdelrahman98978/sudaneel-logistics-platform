@@ -8,8 +8,8 @@ import {
   Bot,
   Globe,
   Bell,
-  Sparkles,
   Shield,
+  Settings,
 } from 'lucide-react';
 
 export function Header() {
@@ -19,8 +19,10 @@ export function Header() {
     lang,
     setLang,
     t,
+    setCurrentView,
     setIsAiCopilotOpen,
     setIsCommandPaletteOpen,
+    showToast,
     incidents,
     backhauls,
     claims,
@@ -39,6 +41,16 @@ export function Header() {
     { key: 'customs_agent', label: t.roleCustomsAgent },
     { key: 'risk_auditor', label: t.roleRiskAuditor },
   ];
+
+  const handleNotificationClick = () => {
+    showToast(
+      lang === 'ar' ? 'مركز العمليات والتنبيهات الحية' : 'Live Operations Radar',
+      lang === 'ar'
+        ? `يوجد ${incidents.length} بلاغات طارئة نشطة و ${claims.length} مطالبات قيد المراجعة.`
+        : `${incidents.length} emergency incidents and ${claims.length} pending claims active.`,
+      'info'
+    );
+  };
 
   return (
     <header className="sticky top-0 z-30 h-14 border-b border-[#EEEEEE] bg-[#FFFFFF]/90 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between transition-all duration-330">
@@ -83,7 +95,15 @@ export function Header() {
             <Shield className="w-3.5 h-3.5 text-[#5C5E62] flex-shrink-0" />
             <select
               value={role}
-              onChange={(e) => setRole(e.target.value as UserRole)}
+              onChange={(e) => {
+                const newRole = e.target.value as UserRole;
+                setRole(newRole);
+                showToast(
+                  lang === 'ar' ? 'تم تبديل الدور' : 'Role Switched',
+                  lang === 'ar' ? `أنت الآن تعمل بصلاحيات: ${newRole}` : `Switched active role to: ${newRole}`,
+                  'info'
+                );
+              }}
               className="bg-transparent text-[13px] font-[400] text-[#171A20] outline-none cursor-pointer pr-1"
             >
               {rolesList.map((r) => (
@@ -94,6 +114,15 @@ export function Header() {
             </select>
           </div>
         </div>
+
+        {/* Settings & RBAC Button */}
+        <button
+          onClick={() => setCurrentView('settings_rbac')}
+          className="p-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#5C5E62] hover:text-[#171A20] transition-colors duration-330 cursor-pointer"
+          title="Platform Settings & RBAC"
+        >
+          <Settings className="w-4 h-4" />
+        </button>
 
         {/* Language Switcher */}
         <button
@@ -108,7 +137,7 @@ export function Header() {
         {/* Notification Bell */}
         <div className="relative">
           <button
-            onClick={() => alert(`Notifications: ${incidents.length} active emergency incidents, ${claims.length} pending claims`)}
+            onClick={handleNotificationClick}
             className="p-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#5C5E62] hover:text-[#171A20] transition-colors duration-330 relative cursor-pointer"
           >
             <Bell className="w-4 h-4" />

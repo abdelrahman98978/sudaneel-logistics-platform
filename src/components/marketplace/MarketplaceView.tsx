@@ -18,6 +18,7 @@ export function MarketplaceView() {
     negotiationOffers,
     counterNegotiationOffer,
     acceptNegotiationOffer,
+    showToast,
     t,
     lang,
     setCurrentView,
@@ -51,20 +52,24 @@ export function MarketplaceView() {
     e.preventDefault();
     if (!selectedOffer) return;
     counterNegotiationOffer(selectedOffer.id, counterPriceInput);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم إرسال العرض المضاد' : 'Counteroffer Dispatched',
       lang === 'ar'
-        ? `تم إرسال العرض المضاد بقيمة ${counterPriceInput.toLocaleString()} ج.س للناقل بنجاح!`
-        : `Counteroffer of ${counterPriceInput.toLocaleString()} SDG dispatched to carrier!`
+        ? `تم إرسال العرض المضاد بقيمة ${counterPriceInput.toLocaleString()} SDG للناقل بنجاح!`
+        : `Counteroffer of ${counterPriceInput.toLocaleString()} SDG dispatched to carrier!`,
+      'success'
     );
     setSelectedOffer(null);
   };
 
   const handleAcceptOffer = (offerId: string) => {
     acceptNegotiationOffer(offerId);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم قبول عرض السعر' : 'Rate Accepted',
       lang === 'ar'
         ? 'تم قبول عرض الناقل وتثبيت السعر! تم توجيه الشحنة للتحميل.'
-        : 'Carrier rate offer accepted! Load dispatched for loading.'
+        : 'Carrier rate offer accepted! Load dispatched for loading.',
+      'success'
     );
   };
 
@@ -214,7 +219,11 @@ export function MarketplaceView() {
                     Details
                   </button>
                   <button
-                    onClick={() => alert(`Bid submitted on ${shp.trackingNumber}`)}
+                    onClick={() => showToast(
+                      lang === 'ar' ? 'تم تقديم عرض السعر' : 'Bid Submitted',
+                      lang === 'ar' ? `تم تسجيل مزايدتك على الشحنة ${shp.trackingNumber} في سجل البورصة اللوجستية` : `Bid submitted on ${shp.trackingNumber}`,
+                      'success'
+                    )}
                     className="btn-tesla-primary !min-w-[90px] !min-h-[32px] !py-1 !px-3 text-[13px]"
                   >
                     Bid / Book
@@ -274,7 +283,11 @@ export function MarketplaceView() {
                   <Leaf className="w-4 h-4 text-[#3E6AE1]" /> Zero Empty Carbon Trip
                 </span>
                 <button
-                  onClick={() => alert(`Matched returning asset ${bh.vehiclePlate} with cargo load!`)}
+                  onClick={() => showToast(
+                    lang === 'ar' ? 'حجز شاحنة رحلة العودة' : 'Backhaul Truck Booked',
+                    lang === 'ar' ? `تم حجز الشاحنة ${bh.vehiclePlate} بخصم ${bh.discountPercent}% بنجاح` : `Matched returning asset ${bh.vehiclePlate} with cargo load!`,
+                    'success'
+                  )}
                   className="btn-tesla-primary !min-w-[140px] !min-h-[34px] !py-1 !px-4 text-[13px]"
                 >
                   Book Backhaul Truck

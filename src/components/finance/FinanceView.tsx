@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
 import {
   Wallet,
@@ -9,18 +9,59 @@ import {
   Users,
   Clock,
   Zap,
+  Download,
+  PlusCircle,
 } from 'lucide-react';
 import { mockWalletTransactions } from '@/lib/mock-data';
+import { exportToCsv } from '@/lib/export-utils';
+import { EbsPaymentModal } from './EbsPaymentModal';
 
 export function FinanceView() {
-  const { invoices, t, lang } = useApp();
+  const { invoices, showToast, t, lang } = useApp();
+  const [isTopUpOpen, setIsTopUpOpen] = useState(false);
 
   const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
   const paidRevenue = invoices.filter((i) => i.status === 'paid').reduce((sum, inv) => sum + inv.amount, 0);
   const pendingRevenue = invoices.filter((i) => i.status === 'pending').reduce((sum, inv) => sum + inv.amount, 0);
 
+  const handleExecuteSettlements = () => {
+    showToast(
+      lang === 'ar' ? 'تم تشغيل دورة التسويات الآلية' : 'Settlements Executed',
+      lang === 'ar'
+        ? 'تمت مطابقة 18 إشعار تسليم POD وتحويل المستحقات فورياً لحسابات الناقلين المصرفية عبر بنكك وفوري'
+        : 'Automated settlement cycle completed. Payouts transferred via EBS network.',
+      'success'
+    );
+  };
+
+  const handleExportTransactions = () => {
+    exportToCsv('sudaneel-wallet-transactions', [
+      { header: 'Transaction ID', accessor: (t) => t.id },
+      { header: 'Type', accessor: (t) => t.type },
+      { header: 'Amount (SDG)', accessor: (t) => t.amount },
+      { header: 'Status', accessor: (t) => t.status },
+      { header: 'Date', accessor: (t) => t.date },
+      { header: 'Description (AR)', accessor: (t) => t.descriptionAr },
+      { header: 'Description (EN)', accessor: (t) => t.descriptionEn },
+    ], mockWalletTransactions);
+
+    showToast(
+      lang === 'ar' ? 'تم تصدير سجل المعاملات' : 'Transactions Exported',
+      lang === 'ar' ? 'تم تنزيل ملف CSV موثق لكافة حركات المحفظة' : 'Downloaded wallet transactions CSV successfully',
+      'success'
+    );
+  };
+
   return (
     <div className="space-y-6 font-sans text-[#171A20]">
+      {/* Top-up Modal */}
+      <EbsPaymentModal
+        isOpen={isTopUpOpen}
+        amount={500000}
+        description="شحن الرصيد التشغيلي للمحفظة المركزية"
+        onClose={() => setIsTopUpOpen(false)}
+      />
+
       {/* Top Banner */}
       <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
@@ -37,11 +78,18 @@ export function FinanceView() {
 
         <div className="flex items-center gap-2">
           <button
-            onClick={() => alert(lang === 'ar' ? 'تم تشغيل دورة التسوية الآلية لجميع شحنات الـ POD المؤكدة' : 'Automated settlement cycle executed for all verified PODs')}
-            className="btn-tesla-primary !min-w-[180px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
+            onClick={() => setIsTopUpOpen(true)}
+            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1.5"
+          >
+            <PlusCircle className="w-4 h-4 text-[#3E6AE1]" />
+            <span>{lang === 'ar' ? 'شحن المحفظة (EBS)' : 'Top-up Wallet'}</span>
+          </button>
+          <button
+            onClick={handleExecuteSettlements}
+            className="btn-tesla-primary !min-w-[170px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
           >
             <Zap className="w-4 h-4" />
-            <span>{lang === 'ar' ? 'تنفيذ التسويات الآلية' : 'Execute Auto-Settlements'}</span>
+            <span>{lang === 'ar' ? 'تنفيذ التسويات الآلية' : 'Execute Settlements'}</span>
           </button>
         </div>
       </div>
@@ -133,10 +181,13 @@ export function FinanceView() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Invoices List (7 cols) */}
         <div className="lg:col-span-7 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <FileText className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Digital Invoices & Billing</span>
-          </h3>
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#3E6AE1]" />
+              <span>Digital Invoices & Billing</span>
+            </h3>
+            <span className="text-[12px] text-[#5C5E62]">{invoices.length} Invoices</span>
+          </div>
 
           <div className="space-y-2 max-h-80 overflow-y-auto custom-scrollbar">
             {invoices.map((inv) => (
@@ -165,10 +216,20 @@ export function FinanceView() {
 
         {/* Real-time Ledger Transactions (5 cols) */}
         <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <Clock className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Wallet Settlement Activity</span>
-          </h3>
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#3E6AE1]" />
+              <span>Wallet Settlement Activity</span>
+            </h3>
+
+            <button
+              onClick={handleExportTransactions}
+              className="text-[12px] text-[#3E6AE1] hover:underline flex items-center gap-1 font-[500]"
+            >
+              <Download className="w-3 h-3" />
+              <span>تصدير CSV</span>
+            </button>
+          </div>
 
           <div className="space-y-2 max-h-80 overflow-y-auto custom-scrollbar">
             {mockWalletTransactions.map((tx) => (

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export function ContractsCrmView() {
-  const { contracts, crmOpportunities, lang } = useApp();
+  const { contracts, crmOpportunities, showToast, lang } = useApp();
 
   const [activeTab, setActiveTab] = useState<'contracts' | 'crm_pipeline'>('contracts');
 
@@ -167,7 +167,11 @@ export function ContractsCrmView() {
             </h3>
 
             <button
-              onClick={() => alert('Opening New Lead Form')}
+              onClick={() => showToast(
+                lang === 'ar' ? 'إضافة فرصة مبيعات جديدة' : 'Add New Lead',
+                lang === 'ar' ? 'تم فتح نموذج تسجيل العميل الجديد وحساب الحجم السنوي المتوقع' : 'Opened lead registration form',
+                'info'
+              )}
               className="btn-tesla-primary !min-h-[34px] !py-1 !px-3 text-[12px]"
             >
               + Add Lead

@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export function AiCenterView() {
-  const { digitalTwinScenarios, anomalyAlerts, t, lang } = useApp();
+  const { digitalTwinScenarios, anomalyAlerts, showToast, t, lang } = useApp();
 
   const [activeTab, setActiveTab] = useState<'digital_twin' | 'anomaly_detection' | 'explainable_ai'>('digital_twin');
   const [selectedScenario, setSelectedScenario] = useState<DigitalTwinScenario>(digitalTwinScenarios[0]);
@@ -23,12 +23,14 @@ export function AiCenterView() {
     setIsSimulating(true);
     setTimeout(() => {
       setIsSimulating(false);
-      alert(
+      showToast(
+        lang === 'ar' ? 'اكتملت محاكاة التوأم الرقمي' : 'Digital Twin Simulation Complete',
         lang === 'ar'
           ? 'تم تشغيل محاكاة التوأم الرقمي بنجاح! تم تحديث توقعات استخدام الأسطول وهوامش الأرباح.'
-          : 'Digital Twin simulation completed! Fleet utilization and profit projections updated.'
+          : 'Fleet utilization and profit projections updated.',
+        'success'
       );
-    }, 1200);
+    }, 1000);
   };
 
   return (
@@ -175,7 +177,11 @@ export function AiCenterView() {
                 </p>
                 <div className="pt-2">
                   <button
-                    onClick={() => alert('Applying automated fleet reallocation protocol across corridors')}
+                    onClick={() => showToast(
+                      lang === 'ar' ? 'إعادة توزيع الأسطول' : 'Fleet Reallocated',
+                      lang === 'ar' ? 'تم تطبيق بروتوكول إعادة توجيه الشاحنات آلياً عبر الممرات اللوجستية' : 'Automated fleet reallocation protocol applied across corridors',
+                      'success'
+                    )}
                     className="btn-tesla-primary !min-h-[34px] !py-1 !px-4 text-[12px]"
                   >
                     Execute Fleet Reallocation
@@ -229,13 +235,21 @@ export function AiCenterView() {
                   <span className="text-[#8E8E8E]">{anom.location} • {anom.detectedAt}</span>
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => alert(`Clearing false alarm for ${anom.assetPlate}`)}
+                      onClick={() => showToast(
+                        lang === 'ar' ? 'تم إلغاء الإنذار' : 'Alarm Cleared',
+                        lang === 'ar' ? `تم اعتماد التحقق وإغلاق بلاغ الشذوذ للمركبة ${anom.assetPlate}` : `Cleared alarm for ${anom.assetPlate}`,
+                        'info'
+                      )}
                       className="btn-tesla-secondary !min-h-[30px] !py-0.5 !px-3 text-[11px]"
                     >
                       Clear Alarm
                     </button>
                     <button
-                      onClick={() => alert(`Escalating security audit for ${anom.assetPlate}`)}
+                      onClick={() => showToast(
+                        lang === 'ar' ? 'تم تصعيد التدقيق الأمني' : 'Audit Escalated',
+                        lang === 'ar' ? `تمت إحالة المركبة ${anom.assetPlate} لوحدة الرقابة والتتبع السيادي الميداني` : `Security audit escalated for ${anom.assetPlate}`,
+                        'warning'
+                      )}
                       className="btn-tesla-primary !min-h-[30px] !py-0.5 !px-3 text-[11px]"
                     >
                       Escalate Audit

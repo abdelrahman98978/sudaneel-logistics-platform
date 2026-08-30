@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 export function IncidentCenterView() {
-  const { incidents, lang } = useApp();
+  const { incidents, showToast, lang } = useApp();
   const [selectedIncident, setSelectedIncident] = useState<Incident | null>(incidents[0] || null);
 
   return (
@@ -136,7 +136,11 @@ export function IncidentCenterView() {
             {/* Actions */}
             <div className="pt-2">
               <button
-                onClick={() => alert(lang === 'ar' ? 'تم توجيه أمر الإنقاذ إلى الشاحنة الاحتياطية' : 'Rescue dispatch signal confirmed')}
+                onClick={() => showToast(
+                  lang === 'ar' ? 'تم توجيه فريق الإنقاذ' : 'Rescue Dispatched',
+                  lang === 'ar' ? 'تم توجيه أمر الإنقاذ إلى الشاحنة الاحتياطية وإرسال الإحداثيات لفريق الصيانة الميداني' : 'Rescue dispatch signal confirmed and telemetry shared with maintenance team',
+                  'warning'
+                )}
                 className="btn-tesla-primary w-full !min-h-[38px] text-[13px]"
               >
                 {lang === 'ar' ? 'تأكيد توجيه فريق الإنقاذ والصيانة' : 'Confirm Rescue Dispatch'}

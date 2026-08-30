@@ -19,6 +19,7 @@ export function SmartDispatchView() {
     drivers,
     carriers,
     assignVehicleToShipment,
+    showToast,
     t,
     lang,
   } = useApp();
@@ -52,12 +53,14 @@ export function SmartDispatchView() {
         );
       }
       setIsAutoDispatching(false);
-      alert(
+      showToast(
+        lang === 'ar' ? 'تم التوزيع الآلي الذكي' : 'AI Auto-Dispatch Complete',
         lang === 'ar'
           ? 'تم التوزيع الآلي بنجاح! تم تعيين أفضل شاحنة معتمدة بناءً على التكلفة ومطابقة العودة.'
-          : 'AI Auto-Dispatch complete! Optimal asset assigned based on cost and backhaul fit.'
+          : 'Optimal asset assigned based on cost and backhaul fit.',
+        'success'
       );
-    }, 1200);
+    }, 1000);
   };
 
   return (
@@ -211,7 +214,11 @@ export function SmartDispatchView() {
                           match.vehicle.id,
                           match.driver?.id || drivers[0].id
                         );
-                        alert(`Assigned ${match.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`);
+                        showToast(
+                          lang === 'ar' ? 'تم تعيين المركبة' : 'Vehicle Assigned',
+                          lang === 'ar' ? `تم إسناد الشاحنة ${match.vehicle.plateNumber} للشحنة ${currentShipment.trackingNumber} بنجاح` : `Assigned ${match.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`,
+                          'success'
+                        );
                       }}
                       className="btn-tesla-primary !min-w-[100px] !min-h-[30px] !py-0.5 !px-3 text-[12px]"
                     >
@@ -261,7 +268,11 @@ export function SmartDispatchView() {
                     selectedEvaluation.vehicle.id,
                     selectedEvaluation.driver?.id || drivers[0].id
                   );
-                  alert(`Assigned ${selectedEvaluation.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`);
+                  showToast(
+                    lang === 'ar' ? 'تم تأكيد التعيين الفوري' : 'Assignment Confirmed',
+                    lang === 'ar' ? `تم إسناد الشاحنة ${selectedEvaluation.vehicle.plateNumber} للشحنة ${currentShipment.trackingNumber}` : `Assigned ${selectedEvaluation.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`,
+                    'success'
+                  );
                 }}
                 className="btn-tesla-primary w-full !min-h-[36px] text-[13px]"
               >

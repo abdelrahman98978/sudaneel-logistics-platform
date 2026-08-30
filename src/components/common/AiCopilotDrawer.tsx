@@ -28,6 +28,7 @@ export function AiCopilotDrawer() {
     setIsAiCopilotOpen,
     setCurrentView,
     setSelectedShipmentId,
+    showToast,
     lang,
     backhauls,
   } = useApp();
@@ -158,7 +159,11 @@ export function AiCopilotDrawer() {
       setCurrentView('control_tower');
       setIsAiCopilotOpen(false);
     } else {
-      alert(lang === 'ar' ? 'تم تنفيذ الإجراء بنجاح' : 'Action executed');
+      showToast(
+        lang === 'ar' ? 'تم تنفيذ الإجراء الآلي' : 'Autonomous Action Executed',
+        lang === 'ar' ? 'تم إرسال الإشعار والتحديث بنجاح عبر محرك الذكاء الاصطناعي' : 'Action dispatched via AI Copilot',
+        'success'
+      );
     }
   };
 
