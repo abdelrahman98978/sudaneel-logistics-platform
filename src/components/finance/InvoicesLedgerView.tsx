@@ -13,6 +13,7 @@ import {
   TrendingUp,
   FileSpreadsheet,
   Zap,
+  CheckCircle2,
 } from 'lucide-react';
 import { exportToCsv, printDocument } from '@/lib/export-utils';
 import { EbsPaymentModal } from './EbsPaymentModal';
@@ -58,309 +59,215 @@ export function InvoicesLedgerView() {
       { header: 'Tracking Reference', accessor: (i) => i.trackingNumber },
       { header: 'Customer (AR)', accessor: (i) => i.customerNameAr || i.customerName },
       { header: 'Customer (EN)', accessor: (i) => i.customerName },
-      { header: 'Net Amount (SDG)', accessor: (i) => i.amount },
-      { header: 'Tax (SDG)', accessor: (i) => i.tax },
-      { header: 'Total (SDG)', accessor: (i) => i.total },
+      { header: 'Total Amount (SDG)', accessor: (i) => i.total.toLocaleString() },
       { header: 'Status', accessor: (i) => i.status },
       { header: 'Issue Date', accessor: (i) => i.issueDate },
       { header: 'Due Date', accessor: (i) => i.dueDate },
-    ], invoices);
+    ], filteredInvoices);
 
     showToast(
-      lang === 'ar' ? 'تم تصدير دفتر الفواتير' : 'Invoices Exported',
-      lang === 'ar' ? 'تم تنزيل ملف CSV موثق لجميع الفواتير بنجاح' : 'Downloaded CSV ledger with UTF-8 support',
-      'success'
-    );
-  };
-
-  const handleSendReminder = () => {
-    showToast(
-      lang === 'ar' ? 'تم إرسال إشعار السداد' : 'Payment Reminder Sent',
-      lang === 'ar'
-        ? `تم إرسال رابط سداد الفاتورة ${selectedInvoice.invoiceNumber} إلى ${selectedInvoice.customerNameAr || selectedInvoice.customerName} عبر SMS والبريد`
-        : `Sent invoice ${selectedInvoice.invoiceNumber} reminder to ${selectedInvoice.customerName}`,
+      lang === 'ar' ? 'تم تصدير سجل الفواتير' : 'Invoices Exported',
+      lang === 'ar' ? 'تم تحميل ملف CSV لسجل الفواتير والتسويات بنجاح' : 'Invoices CSV downloaded',
       'success'
     );
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]" dir="rtl">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <CreditCard className="w-4 h-4" />
+            <span>Financial Settlement Ledger • سجل الفواتير والتسويات</span>
+          </div>
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            سجل الفواتير والتسويات (Invoices & Settlements)
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            إصدار الفواتير الإلكترونية المعتمدة، السداد عبر بنكك وبوابة EBS، تسوية حسابات الناقلين والشاحنين تلقائياً.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={handleExportCsv}
+            className="btn-shopify-outline"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>تصدير CSV</span>
+          </button>
+
+          <button
+            onClick={() => setIsPaymentModalOpen(true)}
+            className="btn-shopify-pill"
+          >
+            <Zap className="w-4 h-4 text-[#c1fbd4]" />
+            <span>سداد فوري عبر EBS / بنكك</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 3 Metric Cards (Shopify Style: 12px rounded, featured card in Aloe-10) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="shopify-card-aloe p-6 space-y-2 shadow-[0_8px_20px_rgba(193,251,212,0.4)]">
+          <span className="text-[12px] font-[600] text-[#000000]">إجمالي المحصل (Paid Settlements)</span>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{totalCollected.toLocaleString()} SDG</div>
+          <div className="text-[12px] text-[#000000]/80 font-[500]">تسويات فورية مكتملة 100%</div>
+        </div>
+
+        <div className="shopify-card p-6 space-y-2">
+          <span className="text-[12px] font-[600] text-[#71717a]">مستحقات قيد التحصيل (Pending)</span>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{totalPending.toLocaleString()} SDG</div>
+          <div className="text-[12px] text-[#71717a]">بانتظار تفويض الدفع البنكي</div>
+        </div>
+
+        <div className="shopify-card p-6 space-y-2">
+          <span className="text-[12px] font-[600] text-[#71717a]">عدد الفواتير الصادرة</span>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{invoices.length}</div>
+          <div className="text-[12px] text-[#71717a]">فواتير رقمية موثقة ومعتمدة</div>
+        </div>
+      </div>
+
+      {/* Invoice Split Grid: Table (7 cols) + Selected Printable Invoice (5 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Invoices Table (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          {/* Search & Tabs */}
+          <div className="shopify-card p-4 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#ffffff]">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 absolute start-4 top-1/2 -translate-y-1/2 text-[#71717a]" />
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="بحث برقم الفاتورة أو العميل..."
+                className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-full ps-10 pe-4 py-2 text-[13px] outline-none text-[#000000] focus:border-[#000000]"
+              />
+            </div>
+
+            <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar">
+              {['all', 'paid', 'pending', 'overdue'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab as any)}
+                  className={`px-3.5 py-1.5 rounded-full text-[12px] font-[500] whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    activeTab === tab
+                      ? 'bg-[#000000] text-white shadow-sm'
+                      : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
+                  }`}
+                >
+                  {tab === 'all' && 'الكل'}
+                  {tab === 'paid' && 'مسددة'}
+                  {tab === 'pending' && 'معلقة'}
+                  {tab === 'overdue' && 'متأخرة'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="shopify-card overflow-hidden bg-[#ffffff]">
+            <div className="overflow-x-auto">
+              <table className="w-full text-start text-[13px]">
+                <thead>
+                  <tr className="border-b border-[#e4e4e7] bg-[#fbfbf5] text-[#71717a] text-[11.5px]">
+                    <th className="p-3.5 text-start font-[600]">رقم الفاتورة</th>
+                    <th className="p-3.5 text-start font-[600]">العميل</th>
+                    <th className="p-3.5 text-start font-[600]">المبلغ</th>
+                    <th className="p-3.5 text-start font-[600]">الحالة</th>
+                    <th className="p-3.5 text-end font-[600]">الاستحقاق</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#e4e4e7] font-[420]">
+                  {filteredInvoices.map((inv) => (
+                    <tr
+                      key={inv.id}
+                      onClick={() => setSelectedInvoice(inv)}
+                      className={`hover:bg-[#fbfbf5] transition-colors cursor-pointer ${
+                        selectedInvoice?.id === inv.id ? 'bg-[#fbfbf5] font-[500]' : ''
+                      }`}
+                    >
+                      <td className="p-3.5 font-mono font-[600] text-[#000000]">{inv.invoiceNumber}</td>
+                      <td className="p-3.5 text-[#000000] truncate max-w-[130px]">{inv.customerNameAr || inv.customerName}</td>
+                      <td className="p-3.5 font-mono font-[700] text-[#000000]">{inv.total.toLocaleString()} SDG</td>
+                      <td className="p-3.5">
+                        <span className={inv.status === 'paid' ? 'shopify-tag-mint !text-[10.5px]' : 'shopify-tag-shade !text-[10.5px]'}>
+                          {inv.status}
+                        </span>
+                      </td>
+                      <td className="p-3.5 text-end font-mono text-[11px] text-[#71717a]">{inv.dueDate}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Selected Printable Invoice Preview (5 cols) */}
+        <div className="lg:col-span-5 space-y-4">
+          <div id="printable-invoice" className="shopify-card p-6 space-y-6 bg-[#ffffff]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-[10px] bg-white p-0.5 flex items-center justify-center border border-[#e4e4e7] shadow-sm">
+                  <img src="/images/brand-logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <h3 className="font-[600] text-[15px] text-[#000000]">فاتورة شحن ضريبية معتمدة</h3>
+                  <p className="text-[11px] text-[#71717a] font-mono">{selectedInvoice.invoiceNumber}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => printDocument(`Invoice-${selectedInvoice.invoiceNumber}`)}
+                className="p-2 rounded-full hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000]"
+                title="طباعة الفاتورة"
+              >
+                <Printer className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-2 text-[12.5px]">
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">العميل:</span>
+                <span className="font-[600] text-[#000000]">{selectedInvoice.customerNameAr || selectedInvoice.customerName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">رقم الشحنة المرجعي:</span>
+                <span className="font-mono font-[600] text-[#000000]">{selectedInvoice.trackingNumber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">تاريخ الإصدار:</span>
+                <span className="font-mono text-[#000000]">{selectedInvoice.issueDate}</span>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-[12px] bg-[#c1fbd4] border border-[#a8f5c2] flex items-center justify-between">
+              <span className="font-[600] text-[14px] text-[#000000]">المبلغ الإجمالي المستحق:</span>
+              <span className="font-mono font-[800] text-[20px] text-[#000000]">{selectedInvoice.total.toLocaleString()} SDG</span>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => setIsPaymentModalOpen(true)}
+                className="w-full btn-shopify-pill !py-2.5 text-[13px]"
+              >
+                <CreditCard className="w-4 h-4 text-[#c1fbd4]" />
+                <span>دفع الفاتورة فوراً عبر بنكك / EBS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* EBS Payment Modal */}
       <EbsPaymentModal
         isOpen={isPaymentModalOpen}
         invoice={selectedInvoice}
         onClose={() => setIsPaymentModalOpen(false)}
+        onSuccess={() => {
+          setIsPaymentModalOpen(false);
+          showToast('تم السداد بنجاح', `تم دفع مبلغ ${selectedInvoice.total.toLocaleString()} SDG للفاتورة ${selectedInvoice.invoiceNumber}`, 'success');
+        }}
       />
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#FFFFFF] border border-[#EEEEEE] p-6 rounded-[4px]">
-        <div>
-          <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase tracking-wider mb-1">
-            <CreditCard className="w-4 h-4" />
-            <span>نظام التسويات والفوترة اللوجستية</span>
-          </div>
-          <h1 className="text-[20px] font-[500] text-[#171A20]">الفواتير والمدفوعات والمستحقات</h1>
-          <p className="text-[13px] text-[#5C5E62] mt-1">
-            إدارة ومتابعة فواتير الشحن، مستحقات الناقلين، الرسوم الجمركية، وتسويات محفظة EBS.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handleExportCsv}
-            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1.5"
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-[#3E6AE1]" />
-            <span>تصدير CSV</span>
-          </button>
-          <button
-            onClick={() => setCurrentView('finance')}
-            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px]"
-          >
-            نظام المحفظة والضمان Escrow
-          </button>
-          <button
-            onClick={() => setCurrentView('control_tower')}
-            className="btn-tesla-primary !min-h-[36px] !py-1 !px-3 text-[13px]"
-          >
-            برج المراقبة
-          </button>
-        </div>
-      </div>
-
-      {/* 4 KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">إجمالي المبالغ المستلمة</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{(totalCollected / 1000000).toFixed(2)}M <span className="text-[12px] text-[#3E6AE1]">SDG</span></div>
-          <span className="text-[11px] text-[#3E6AE1] flex items-center gap-1">
-            <TrendingUp className="w-3.5 h-3.5" />
-            +14.2% هذا الشهر
-          </span>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">فواتير مستحقة الدفع</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{(totalPending / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span></div>
-          <span className="text-[11px] text-[#5C5E62]">{invoices.filter((i) => i.status === 'pending').length} فواتير قيد التحصيل</span>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">مستحقات الناقلين المعتمدة</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">48.2M <span className="text-[12px]">SDG</span></div>
-          <span className="text-[11px] text-[#8E8E8E]">18 أمر نقل تم التحقق من POD</span>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">عمولات المنصة المحصلة (10%)</span>
-          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">12.4M <span className="text-[12px]">SDG</span></div>
-          <span className="text-[11px] text-[#8E8E8E]">تسوية آلية فورية</span>
-        </div>
-      </div>
-
-      {/* Tabs Filter + Search */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FFFFFF] p-3 rounded-[4px] border border-[#EEEEEE]">
-        <div className="flex items-center gap-1">
-          {[
-            { id: 'all', label: 'كل الفواتير' },
-            { id: 'paid', label: 'مدفوعة' },
-            { id: 'pending', label: 'قيد التحصيل' },
-            { id: 'overdue', label: 'متأخرة' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-                activeTab === tab.id
-                  ? 'bg-[#171A20] text-white font-[500]'
-                  : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="relative">
-          <Search className="w-4 h-4 absolute right-3 top-2.5 text-[#8E8E8E]" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="ابحث برقم الفاتورة أو العميل..."
-            className="bg-[#FFFFFF] border border-[#D0D1D2] rounded-[4px] pr-9 pl-4 py-1.5 text-[13px] text-[#171A20] placeholder-[#8E8E8E] outline-none"
-          />
-        </div>
-      </div>
-
-      {/* Table & Invoice Details Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Table of Invoices (7 cols) */}
-        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-5 space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20]">قائمة الفواتير</h3>
-            <span className="text-[12px] text-[#5C5E62] font-mono">{filteredInvoices.length} فواتير</span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-[13px] text-start">
-              <thead>
-                <tr className="border-b border-[#EEEEEE] text-[#5C5E62] bg-[#F4F4F4] text-[11px] uppercase">
-                  <th className="p-3 text-start">رقم الفاتورة</th>
-                  <th className="p-3 text-start">العميل</th>
-                  <th className="p-3 text-start">التاريخ</th>
-                  <th className="p-3 text-start">المبلغ (SDG)</th>
-                  <th className="p-3 text-start">الحالة</th>
-                  <th className="p-3 text-start">إجراء</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#EEEEEE]">
-                {filteredInvoices.map((inv) => {
-                  const isSelected = selectedInvoice.id === inv.id;
-                  return (
-                    <tr
-                      key={inv.id}
-                      onClick={() => setSelectedInvoice(inv)}
-                      className={`hover:bg-[#F4F4F4] transition-colors duration-330 cursor-pointer ${
-                        isSelected ? 'bg-[#F4F4F4]' : ''
-                      }`}
-                    >
-                      <td className="p-3 font-mono font-[500] text-[#3E6AE1]">{inv.invoiceNumber}</td>
-                      <td className="p-3 text-[#171A20] max-w-[140px] truncate">{inv.customerNameAr || inv.customerName}</td>
-                      <td className="p-3 text-[#5C5E62] font-mono">{inv.issueDate}</td>
-                      <td className="p-3 font-mono font-[500] text-[#171A20]">{inv.total.toLocaleString()}</td>
-                      <td className="p-3">
-                        <span
-                          className={`px-2 py-0.5 rounded-[2px] text-[11px] font-[500] border ${
-                            inv.status === 'paid'
-                              ? 'bg-white text-[#171A20] border-[#D0D1D2]'
-                              : inv.status === 'pending'
-                              ? 'bg-white text-[#3E6AE1] border-[#3E6AE1]'
-                              : 'bg-white text-[#393C41] border-[#D0D1D2]'
-                          }`}
-                        >
-                          {inv.status === 'paid' ? 'مدفوعة' : inv.status === 'pending' ? 'قيد التحصيل' : 'متأخرة'}
-                        </span>
-                      </td>
-                      <td className="p-3">
-                        {inv.status === 'pending' ? (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedInvoice(inv);
-                              setIsPaymentModalOpen(true);
-                            }}
-                            className="px-2.5 py-1 rounded-[2px] bg-[#171A20] hover:bg-[#393C41] text-white text-[11px] font-[500] flex items-center gap-1"
-                          >
-                            <Zap className="w-3 h-3 text-[#3E6AE1]" />
-                            <span>سداد EBS</span>
-                          </button>
-                        ) : (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedInvoice(inv);
-                            }}
-                            className="px-2.5 py-1 rounded-[2px] bg-[#FFFFFF] hover:bg-[#F4F4F4] text-[#171A20] text-[11px] border border-[#D0D1D2]"
-                          >
-                            معاينة
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Selected Invoice Details Card (5 cols) */}
-        <div id="printable-invoice-card" className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-4">
-            <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#3E6AE1]" />
-              <div>
-                <h3 className="font-[500] text-[15px] text-[#171A20]">تفاصيل الفاتورة الضريبية</h3>
-                <span className="font-mono text-[12px] text-[#3E6AE1] font-[500]">{selectedInvoice.invoiceNumber}</span>
-              </div>
-            </div>
-            <span
-              className={`px-2.5 py-1 rounded-[2px] text-[11px] font-[500] border ${
-                selectedInvoice.status === 'paid'
-                  ? 'bg-[#F4F4F4] text-[#171A20] border-[#D0D1D2]'
-                  : selectedInvoice.status === 'pending'
-                  ? 'bg-[#F4F4F4] text-[#3E6AE1] border-[#3E6AE1]'
-                  : 'bg-[#F4F4F4] text-[#393C41] border-[#D0D1D2]'
-              }`}
-            >
-              {selectedInvoice.status === 'paid' ? 'مدفوعة بالكامل' : selectedInvoice.status === 'pending' ? 'قيد التحصيل' : 'متأخرة السداد'}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 text-[13px]">
-            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
-              <span className="text-[11px] text-[#8E8E8E] block">العميل الشاحن</span>
-              <span className="font-[500] text-[#171A20] block mt-0.5">{selectedInvoice.customerNameAr || selectedInvoice.customerName}</span>
-            </div>
-            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
-              <span className="text-[11px] text-[#8E8E8E] block">رقم بوليصة الشحنة</span>
-              <span className="font-[500] font-mono text-[#3E6AE1] block mt-0.5">{selectedInvoice.trackingNumber}</span>
-            </div>
-          </div>
-
-          {/* Breakdown */}
-          <div className="space-y-2 pt-2 border-t border-[#EEEEEE] text-[13px]">
-            <div className="flex justify-between text-[#5C5E62]">
-              <span>المجموع الفرعي (تكلفة النقل)</span>
-              <span className="font-mono font-[500] text-[#171A20]">{selectedInvoice.amount.toLocaleString()} SDG</span>
-            </div>
-            <div className="flex justify-between text-[#5C5E62]">
-              <span>ضريبة القيمة المضافة السيادية (5%)</span>
-              <span className="font-mono font-[500] text-[#171A20]">{selectedInvoice.tax.toLocaleString()} SDG</span>
-            </div>
-            <div className="flex justify-between text-[15px] font-[500] pt-2 border-t border-[#EEEEEE] text-[#171A20]">
-              <span>الإجمالي الكلي المطلوب</span>
-              <span className="font-mono text-[18px] text-[#3E6AE1]">{selectedInvoice.total.toLocaleString()} SDG</span>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#EEEEEE]">
-            {selectedInvoice.status === 'pending' ? (
-              <button
-                onClick={() => setIsPaymentModalOpen(true)}
-                className="col-span-3 btn-tesla-primary !min-h-[36px] !py-1 text-[13px] flex items-center justify-center gap-1.5 mb-1"
-              >
-                <CreditCard className="w-4 h-4" />
-                <span>سداد الفاتورة عبر بوابة EBS الآن</span>
-              </button>
-            ) : null}
-
-            <button
-              onClick={handleExportCsv}
-              className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
-            >
-              <Download className="w-3.5 h-3.5 text-[#3E6AE1]" />
-              <span>تصدير</span>
-            </button>
-            <button
-              onClick={() => printDocument(`Sudaneel-Invoice-${selectedInvoice.invoiceNumber}`)}
-              className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>طباعة</span>
-            </button>
-            <button
-              onClick={handleSendReminder}
-              className="btn-tesla-primary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>إرسال</span>
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

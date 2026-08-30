@@ -40,6 +40,7 @@ export function Sidebar() {
       label: string;
       icon: React.ElementType;
       badge?: string | number;
+      isMint?: boolean;
     }[];
   }[] = [
     {
@@ -50,6 +51,7 @@ export function Sidebar() {
           label: t.controlTower,
           icon: Compass,
           badge: 'Live',
+          isMint: true,
         },
         {
           view: 'marketplace',
@@ -91,7 +93,7 @@ export function Sidebar() {
           view: 'locations',
           label: t.locationsHubs,
           icon: MapPin,
-          badge: '10',
+          badge: '10 Hubs',
         },
         {
           view: 'warehousing',
@@ -128,7 +130,8 @@ export function Sidebar() {
           view: 'mobile_app',
           label: t.mobileApp,
           icon: Smartphone,
-          badge: 'App Suite',
+          badge: '8 Screens',
+          isMint: true,
         },
       ],
     },
@@ -197,14 +200,14 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 lg:w-72 bg-[#171A20] border-e border-[#2A2E35] flex flex-col shrink-0 min-h-screen text-[#FFFFFF]">
-      {/* Brand logo container */}
+    <aside className="w-64 lg:w-72 bg-[#000000] border-e border-[#1e2c31] flex flex-col shrink-0 min-h-screen text-[#ffffff] shopify-theme">
+      {/* Brand logo container (Shopify Cinematic Header) */}
       <div
         onClick={() => setCurrentView('landing')}
-        className="h-16 border-b border-[#2A2E35] px-4 flex items-center justify-between cursor-pointer hover:bg-[#20242C] transition-colors duration-330"
+        className="h-16 border-b border-[#1e2c31] px-4 flex items-center justify-between cursor-pointer hover:bg-[#0a0a0a] transition-colors duration-200"
       >
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-[4px] bg-white p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-[10px] bg-white p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-sm">
             <img
               src="/images/brand-logo.jpg"
               alt="سودانيل لوجيستك"
@@ -212,24 +215,24 @@ export function Sidebar() {
             />
           </div>
           <div className="leading-tight">
-            <h1 className="font-[500] text-[13px] tracking-wide text-white">
+            <h1 className="font-[600] text-[14px] tracking-tight text-white">
               {t.brandName}
             </h1>
-            <p className="text-[10px] text-[#8E8E8E] truncate">
+            <p className="text-[10px] text-[#a1a1aa] truncate font-[400]">
               {t.brandTagline}
             </p>
           </div>
         </div>
-        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded-[2px] bg-white/10 text-[#3E6AE1] font-mono">
+        <span className="shopify-tag-mint !px-2 !py-0.5 !text-[10px]">
           OS 3.0
         </span>
       </div>
 
-      {/* Navigation list */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5 custom-scrollbar">
+      {/* Navigation list (Shopify Pill Shape items) */}
+      <div className="flex-1 overflow-y-auto px-3 py-5 space-y-6 custom-scrollbar">
         {navigationSections.map((sec, sIdx) => (
-          <div key={sIdx} className="space-y-1">
-            <div className="px-3 pb-1 text-[11px] font-[500] tracking-wider text-[#8E8E8E] uppercase">
+          <div key={sIdx} className="space-y-1.5">
+            <div className="px-3 pb-1 text-[11px] font-[600] tracking-wider text-[#71717a] uppercase">
               {sec.title}
             </div>
 
@@ -241,20 +244,22 @@ export function Sidebar() {
                 <button
                   key={item.view}
                   onClick={() => setCurrentView(item.view)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-[4px] text-[14px] transition-colors duration-330 cursor-pointer ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-[13.5px] transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-[#3E6AE1] text-white font-[500]'
-                      : 'text-[#D0D1D2] hover:text-white hover:bg-[#20242C] font-[400]'
+                      ? 'bg-[#c1fbd4] text-[#000000] font-[600] shadow-sm'
+                      : 'text-[#d4d4d8] hover:text-white hover:bg-white/10 font-[420]'
                   }`}
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-[#000000]' : 'text-[#a1a1aa]'}`} />
                   <span className="truncate flex-1 text-start">{item.label}</span>
                   {item.badge && (
                     <span
-                      className={`text-[11px] px-1.5 py-0.2 rounded-[4px] font-mono ${
+                      className={`text-[10.5px] px-2 py-0.5 rounded-full font-mono font-[600] ${
                         isActive
-                          ? 'bg-white/20 text-white'
-                          : 'bg-white/10 text-[#D0D1D2]'
+                          ? 'bg-[#000000] text-[#ffffff]'
+                          : item.isMint
+                          ? 'bg-[#c1fbd4] text-[#000000]'
+                          : 'bg-white/15 text-[#ffffff]'
                       }`}
                     >
                       {item.badge}
@@ -267,17 +272,19 @@ export function Sidebar() {
         ))}
       </div>
 
-      {/* Footer Status card */}
-      <div className="p-3 border-t border-[#2A2E35] bg-[#171A20]">
-        <div className="p-2.5 rounded-[4px] bg-[#20242C] border border-[#2A2E35] flex items-center justify-between text-[12px]">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#3E6AE1]"></div>
+      {/* Footer Status card (Shopify 12px rounded card) */}
+      <div className="p-3 border-t border-[#1e2c31] bg-[#000000]">
+        <div className="p-3 rounded-[12px] bg-[#0a0a0a] border border-[#1e2c31] flex items-center justify-between text-[12px]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#c1fbd4] animate-pulse"></div>
             <div>
-              <div className="font-[500] text-white">Sovereign Corridors</div>
-              <div className="text-[10px] text-[#8E8E8E]">Khartoum ↔ Port Sudan</div>
+              <div className="font-[600] text-white">Sovereign Corridors</div>
+              <div className="text-[10px] text-[#a1a1aa]">Khartoum ↔ Port Sudan</div>
             </div>
           </div>
-          <span className="text-[10px] text-[#3E6AE1] font-[500]">ACTIVE</span>
+          <span className="shopify-tag-mint !px-2 !py-0.5 !text-[10px]">
+            ACTIVE
+          </span>
         </div>
       </div>
     </aside>

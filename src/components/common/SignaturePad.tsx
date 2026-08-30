@@ -127,12 +127,12 @@ export function SignaturePad({
         />
       </div>
 
-      <div className="flex items-center justify-between pt-1">
+      <div className="flex items-center justify-between pt-2">
         <button
           type="button"
           onClick={handleClear}
           disabled={!hasDrawn}
-          className="btn-tesla-secondary !min-h-[32px] !py-0.5 !px-3 text-[12px] flex items-center gap-1.5 disabled:opacity-40"
+          className="btn-shopify-outline !py-1.5 !px-3.5 text-[12px] flex items-center gap-1.5 disabled:opacity-40"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>مسح التوقيع</span>
@@ -142,9 +142,9 @@ export function SignaturePad({
           type="button"
           onClick={handleConfirm}
           disabled={!hasDrawn}
-          className="btn-tesla-primary !min-h-[32px] !py-0.5 !px-4 text-[12px] flex items-center gap-1.5 disabled:opacity-40"
+          className="btn-shopify-pill !py-1.5 !px-4 text-[12px] flex items-center gap-1.5 disabled:opacity-40"
         >
-          <Check className="w-3.5 h-3.5" />
+          <Check className="w-3.5 h-3.5 text-[#c1fbd4]" />
           <span>اعتماد التوقيع</span>
         </button>
       </div>

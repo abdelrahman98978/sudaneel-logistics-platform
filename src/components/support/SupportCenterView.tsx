@@ -16,6 +16,7 @@ import {
   LifeBuoy,
   MessageSquare,
   Clock,
+  Sparkles,
 } from 'lucide-react';
 
 interface Ticket {
@@ -57,45 +58,39 @@ export function SupportCenterView() {
 
   const supportCards = [
     {
-      icon: HelpCircle,
-      title: 'الأسئلة الشائعة',
-      desc: 'إجابات وافية على أكثر استفسارات العملاء والناقلين تكراراً.',
-    },
-    {
       icon: PackageSearch,
-      title: 'تتبع الشحنات',
-      desc: 'إرشادات حول أجهزة التتبع الفضائية وتحديثات الـ ETA.',
+      title: 'تتبع الشحنات والاستلام',
+      desc: 'الاستعلام عن بوالص الشحن، أوقات الوصول المقدرة، أو طلب تغيير وجهة التسليم.',
+      action: () => setCurrentView('shipments'),
     },
     {
       icon: Receipt,
       title: 'الفواتير والمدفوعات',
-      desc: 'تسويات نظام EBS، الدفع عبر بنكك، والمطالبات الضريبية.',
-    },
-    {
-      icon: UserCog,
-      title: 'الحساب والصلاحيات',
-      desc: 'إدارة أدوار RBAC، التحقق الثنائي MFA، وتراخيص الناقلين.',
+      desc: 'الاستفسار عن التسويات البنكية، شحن المحفظة، أو مطابقة فواتير الجمارك.',
+      action: () => setCurrentView('invoices_ledger'),
     },
     {
       icon: Boxes,
-      title: 'خدمات التخزين والموانئ',
-      desc: 'شروط الإيداع بميناء بورتسودان وسعات المستودعات المركزية.',
+      title: 'المستودعات والتخزين',
+      desc: 'إدارة مساحات التخزين المحجوزة، فحص المخزون (WMS)، أو استلام البضائع.',
+      action: () => setCurrentView('warehousing'),
     },
     {
       icon: PhoneCall,
-      title: 'الاتصال المباشر 24/7',
-      desc: 'غرفة العمليات المركزية: 9200-SUDAN / support@sudaneel.sd',
+      title: 'غرفة الطوارئ 24/7',
+      desc: 'التواصل المباشر مع مشرفي العمليات وفرق الإنقاذ الميداني على الطرق القومية.',
+      action: () => setCurrentView('incidents'),
     },
   ];
 
-  const handleCreateTicket = (e: React.FormEvent) => {
+  const handleSubmitTicket = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!ticketSubject.trim() || !ticketDescription.trim()) return;
+    if (!ticketSubject || !ticketDescription) return;
 
     const newTicket: Ticket = {
       id: `TCK-2026-0${activeTickets.length + 82}`,
       subject: ticketSubject,
-      category: ticketCategory === 'shipment' ? 'الشحنات والتتبع' : ticketCategory === 'invoice' ? 'الفواتير' : 'الدعم العام',
+      category: ticketCategory === 'shipment' ? 'الشحنات والتتبع' : ticketCategory === 'billing' ? 'الفواتير والمدفوعات' : 'الدعم الفني',
       priority: ticketPriority as any,
       status: 'open',
       createdAt: 'الآن',
@@ -109,98 +104,100 @@ export function SupportCenterView() {
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]" dir="rtl">
-      {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#FFFFFF] border border-[#EEEEEE] p-6 rounded-[4px]">
-        <div>
-          <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase tracking-wider mb-1">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir="rtl">
+      {/* Header */}
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
             <LifeBuoy className="w-4 h-4" />
-            <span>مركز الدعم والمساعدة الفنية الموحد</span>
+            <span>24/7 Operations Help Desk • مركز الدعم والمساعدة</span>
           </div>
-          <h1 className="text-[20px] font-[500] text-[#171A20]">كيف يمكننا مساعدتك اليوم؟</h1>
-          <p className="text-[13px] text-[#5C5E62] mt-1">
-            فريق الدعم الفني وغرفة العمليات اللوجستية في خدمتك على مدار 24 ساعة طوال أيام الأسبوع.
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">مركز الدعم والمساعدة الموحد</h1>
+          <p className="text-[14px] text-[#71717a] leading-relaxed">
+            فريق عمليات مخصص لمتابعة رحلاتكم على مدار الساعة وحل أي معوقات لوجستية أو جمركية فورياً.
           </p>
         </div>
 
-        <button
-          onClick={() => setCurrentView('control_tower')}
-          className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px]"
-        >
-          العودة لبرج المراقبة
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setCurrentView('incidents')}
+            className="btn-shopify-pill"
+          >
+            <span>مركز البلاغات الطارئة</span>
+          </button>
+        </div>
       </div>
 
-      {/* Search Input */}
-      <div className="relative max-w-3xl mx-auto">
-        <Search className="w-4 h-4 absolute right-4 top-3.5 text-[#8E8E8E]" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="ابحث عن إجابة لسؤالك، دليل إجراءات الجمارك، أو رقم تذكرة..."
-          className="w-full bg-[#FFFFFF] border border-[#D0D1D2] rounded-[4px] pr-11 pl-4 py-2.5 text-[14px] text-[#171A20] placeholder-[#8E8E8E] outline-none"
-        />
-      </div>
-
-      {/* 6 Support Category Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {supportCards.map((c) => {
-          const Icon = c.icon;
+      {/* Fast Access Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {supportCards.map((card, i) => {
+          const Icon = card.icon;
           return (
             <div
-              key={c.title}
-              className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] hover:bg-[#F4F4F4] transition-colors duration-330 cursor-pointer space-y-2"
+              key={i}
+              onClick={card.action}
+              className="shopify-card p-6 space-y-4 hover:border-[#a1a1aa] transition-colors cursor-pointer flex flex-col justify-between"
             >
-              <div className="w-10 h-10 rounded-[4px] bg-[#F4F4F4] text-[#3E6AE1] flex items-center justify-center">
-                <Icon className="w-5 h-5" />
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-[600] text-[15px] text-[#000000]">{card.title}</h3>
+                  <p className="text-[12.5px] text-[#71717a] mt-1 line-clamp-2">{card.desc}</p>
+                </div>
               </div>
-              <h3 className="font-[500] text-[14px] text-[#171A20]">{c.title}</h3>
-              <p className="text-[12px] text-[#5C5E62] leading-relaxed">{c.desc}</p>
+
+              <div className="pt-2 text-[12px] font-[600] text-[#000000] flex items-center justify-between">
+                <span>فتح القسم</span>
+                <span>➔</span>
+              </div>
             </div>
           );
         })}
       </div>
 
-      {/* Grid: Create Ticket (7 cols) + Active Tickets (5 cols) */}
+      {/* Main Split: Ticket Form (7 cols) + Active Tickets (5 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Create Ticket Form (7 cols) */}
-        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <MessageSquare className="w-4 h-4 text-[#3E6AE1]" />
-            <h2 className="font-[500] text-[15px] text-[#171A20]">فتح تذكرة دعم فني جديدة</h2>
+        {/* Ticket Submission Form */}
+        <div className="lg:col-span-7 shopify-card p-8 space-y-6 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-[#000000]" />
+              <h2 className="font-[600] text-[17px] text-[#000000]">فتح تذكرة دعم جديدة</h2>
+            </div>
+            <span className="shopify-tag-mint !text-[11px]">استجابة خلال 15 دقيقة</span>
           </div>
 
           {submitted && (
-            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#3E6AE1] text-[#171A20] text-[12px] font-[500] flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
-              <span>تم استلام التذكرة بنجاح وجارٍ المتابعة الفورية من قبل فريق العمليات!</span>
+            <div className="p-4 rounded-[12px] bg-[#c1fbd4] border border-[#a8f5c2] text-[#000000] text-[13px] flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>تم استلام تذكرتك بنجاح وجارٍ مراجعتها من قبل مشرف العمليات المختص.</span>
             </div>
           )}
 
-          <form onSubmit={handleCreateTicket} className="space-y-4 text-[13px]">
+          <form onSubmit={handleSubmitTicket} className="space-y-4 text-[13px]">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[#5C5E62]">التصنيف</label>
+                <label className="text-[#71717a] font-[500]">تصنيف المشكلة</label>
                 <select
                   value={ticketCategory}
                   onChange={(e) => setTicketCategory(e.target.value)}
-                  className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 text-[#000000] outline-none focus:border-[#000000]"
                 >
-                  <option value="shipment">شحنة وتتبع</option>
-                  <option value="invoice">فاتورة ومدفوعات</option>
-                  <option value="customs">تخليص جمركي</option>
-                  <option value="technical">خلل تقني في المنصة</option>
-                  <option value="other">أخرى</option>
+                  <option value="shipment">الشحنات والتتبع</option>
+                  <option value="billing">الفواتير والتسويات</option>
+                  <option value="customs">التخليص الجمركي بميناء بورتسودان</option>
+                  <option value="technical">دعم تقني وتطبيق الهاتف</option>
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[#5C5E62]">الأولوية</label>
+                <label className="text-[#71717a] font-[500]">درجة الأهمية</label>
                 <select
                   value={ticketPriority}
                   onChange={(e) => setTicketPriority(e.target.value)}
-                  className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 text-[#000000] outline-none focus:border-[#000000]"
                 >
                   <option value="low">منخفضة (استفسار عام)</option>
                   <option value="medium">متوسطة</option>
@@ -211,64 +208,64 @@ export function SupportCenterView() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[#5C5E62]">موضوع التذكرة</label>
+              <label className="text-[#71717a] font-[500]">موضوع التذكرة</label>
               <input
                 type="text"
                 value={ticketSubject}
                 onChange={(e) => setTicketSubject(e.target.value)}
                 placeholder="مثال: طلب تغيير نقطة تسليم الشحنة SDN-2024-1258..."
-                className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
+                className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 text-[#000000] outline-none focus:border-[#000000]"
                 required
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-[#5C5E62]">تفاصيل البلاغ / الاستفسار</label>
+              <label className="text-[#71717a] font-[500]">تفاصيل البلاغ / الاستفسار</label>
               <textarea
                 rows={4}
                 value={ticketDescription}
                 onChange={(e) => setTicketDescription(e.target.value)}
                 placeholder="يرجى كتابة التفاصيل الكاملة ورقم الشحنة أو المركبة المعنية..."
-                className="w-full bg-white border border-[#D0D1D2] rounded-[4px] p-3 text-[#171A20] outline-none"
+                className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] p-3.5 text-[#000000] outline-none focus:border-[#000000]"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="btn-tesla-primary w-full !min-h-[38px] text-[13px] flex items-center justify-center gap-2"
+              className="btn-shopify-pill w-full !py-3 text-[13.5px] flex items-center justify-center gap-2"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4 text-[#c1fbd4]" />
               <span>إرسال التذكرة إلى غرفة العمليات</span>
             </button>
           </form>
         </div>
 
         {/* Active Tickets List (5 cols) */}
-        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+        <div className="lg:col-span-5 shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
             <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#3E6AE1]" />
-              <h2 className="font-[500] text-[15px] text-[#171A20]">تذاكر الدعم النشطة</h2>
+              <FileText className="w-4 h-4 text-[#000000]" />
+              <h2 className="font-[600] text-[15px] text-[#000000]">تذاكر الدعم النشطة</h2>
             </div>
-            <span className="text-[12px] font-mono text-[#3E6AE1] font-[500]">{activeTickets.length} تذاكر</span>
+            <span className="shopify-tag-mint font-mono font-[600]">{activeTickets.length} تذاكر</span>
           </div>
 
           <div className="space-y-3">
             {activeTickets.map((t) => (
-              <div key={t.id} className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2">
+              <div key={t.id} className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-mono font-[500] text-[#3E6AE1]">{t.id}</span>
-                  <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-[500] bg-white border border-[#D0D1D2]">
+                  <span className="text-[12px] font-mono font-[700] text-[#000000]">{t.id}</span>
+                  <span className={t.status === 'resolved' ? 'shopify-tag-mint !text-[10px]' : 'shopify-tag-shade !text-[10px]'}>
                     {t.status === 'resolved' ? 'تم الحل' : t.status === 'in_progress' ? 'قيد المعالجة' : 'مفتوحة'}
                   </span>
                 </div>
 
-                <h4 className="font-[500] text-[13px] text-[#171A20] leading-snug">{t.subject}</h4>
+                <h4 className="font-[600] text-[13px] text-[#000000] leading-snug">{t.subject}</h4>
 
-                <div className="flex items-center justify-between text-[11px] text-[#5C5E62] pt-1 border-t border-[#EEEEEE]">
+                <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-[#e4e4e7]">
                   <span>{t.category}</span>
-                  <span className="flex items-center gap-1 font-mono text-[#8E8E8E]">
+                  <span className="flex items-center gap-1 font-mono text-[#71717a]">
                     <Clock className="w-3 h-3" />
                     {t.createdAt}
                   </span>

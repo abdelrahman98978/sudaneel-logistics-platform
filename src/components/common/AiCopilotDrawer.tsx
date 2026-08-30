@@ -7,6 +7,8 @@ import {
   Send,
   X,
   Zap,
+  Sparkles,
+  ArrowRight,
 } from 'lucide-react';
 
 interface CopilotResponse {
@@ -98,21 +100,22 @@ export function AiCopilotDrawer() {
         insight:
           lang === 'ar'
             ? 'أفضل مركبة مطابقة لشحنة كنانة #SDN-77312 هي شاحنة البحر الأحمر (PSD-6029-FLAT) بنسبة توافق 98%.'
-            : 'Best match for Kenana Sugar #SDN-77312 is Red Sea Freight Flatbed (PSD-6029-FLAT) at 98% AI Match.',
+            : 'Optimal matched carrier for Kenana Sugar #SDN-77312 is Red Sea Heavy Trailer (PSD-6029-FLAT) with 98% score.',
         cause:
           lang === 'ar'
-            ? 'تواجد الشاحنة في بورتسودان بجوار مسار التحميل، سعة 35 طن، وسجل ثقة 94/100 مع تسليم في الموعد 96.5%.'
-            : 'Truck located at Port Sudan corridor, 35T payload fit, Trust score 94/100, 96.5% historical OTD.',
+            ? 'موقع الشاحنة يبعد 4 كم فقط عن مستودع سنار مع توفر شهادة فحص سلامة سارية.'
+            : 'Vehicle located 4 km from Sennar hub with valid cold-chain / bulk integrity certificate.',
         impact:
           lang === 'ar'
-            ? 'توفير 820,000 ج.س على العميل مقارنة بالشاحنات المخصصة من الخرطوم.'
-            : 'Saves 820,000 SDG for shipper versus deadheading dedicated trucks from Khartoum.',
+            ? 'بدء التحميل خلال 30 دقيقة بدلاً من الانتظار 6 ساعات مع توفير 180,000 ج.س.'
+            : 'Loading starts in 30 mins instead of 6h delay, saving 180,000 SDG in idling costs.',
         recommendation:
           lang === 'ar'
-            ? 'تثبيت التعيين وإرسال إشعار القبول للسائق محمود إدريس.'
-            : 'Confirm match and dispatch digital load manifest to driver Mahmoud Idris.',
+            ? 'اعتماد التكليف الآلي وإصدار بوليصة الشحن الرقمية فوراً.'
+            : 'Approve instant dispatch and generate blockchain digital consignment passport.',
         actions: [
-          { label: lang === 'ar' ? 'اعتماد وتعيين الشاحنة' : 'Confirm Assignment', actionType: 'open_dispatch' },
+          { label: lang === 'ar' ? 'اعتماد وإصدار البوليصة' : 'Confirm & Issue Waybill', actionType: 'assign_shp', payload: 'SDN-77312' },
+          { label: lang === 'ar' ? 'عرض تفاصيل الشحنة' : 'View Details', actionType: 'view_shp', payload: 'shp-002' },
         ],
       };
     } else {
@@ -120,22 +123,23 @@ export function AiCopilotDrawer() {
         query: q,
         insight:
           lang === 'ar'
-            ? 'شبكة سودانيل اللوجستية تعمل بكفاءة 96.2% عبر الممرات الوطنية والدولية.'
-            : 'Sudaneel logistics operating network functioning at 96.2% multi-corridor efficiency.',
+            ? `تم تحليل الاستفسار: "${q}". جميع المؤشرات التشغيلية على الممرات الرئيسية تعمل بكفاءة 99.4%.`
+            : `Analyzed query: "${q}". Operational throughput on primary corridors is optimal at 99.4%.`,
         cause:
           lang === 'ar'
-            ? 'انتظام تدفق الشاحنات على طريق التحدي واستقرار درجات حرارة الحاويات المبردة.'
-            : 'Stable highway velocity on Al-Tahaddi corridor and 100% active telemetry on cold-chain reefers.',
+            ? 'استقرار تدفق القوافل اللوجستية وتوفر طاقة استيعابية كافية في محطة بورتسودان وسنار.'
+            : 'Smooth convoy telemetry and adequate berth capacity at Port Sudan SCT terminal.',
         impact:
           lang === 'ar'
-            ? 'معدل التسليم في الوقت المحدد (OTD) 97.4% خلال الـ 24 ساعة الماضية.'
-            : 'On-Time Delivery rate sustained at 97.4% over the last 24-hour cycle.',
+            ? 'زمن العبور بين الخرطوم وبورتسودان مستقر عند 14.5 ساعة بدون اختناقات.'
+            : 'Average transit time stable at 14.5h without severe chokepoints.',
         recommendation:
           lang === 'ar'
-            ? 'تفعيل عروض الخصم التنافسية للرحلات العائدة لتحفيز حجوزات المصدرين.'
-            : 'Activate dynamic backhaul promotions to capture high-volume export shippers.',
+            ? 'المتابعة عبر برج المراقبة وتفعيل التنبيهات الآلية لأي طارئ.'
+            : 'Monitor via Live Control Tower with automated sensor anomaly detection.',
         actions: [
-          { label: lang === 'ar' ? 'عرض مركز العمليات' : 'Open Control Tower', actionType: 'open_control_tower' },
+          { label: lang === 'ar' ? 'فتح برج المراقبة' : 'Open Control Tower', actionType: 'open_tower' },
+          { label: lang === 'ar' ? 'فحص الأسطول' : 'Check Fleet', actionType: 'open_fleet' },
         ],
       };
     }
@@ -144,112 +148,138 @@ export function AiCopilotDrawer() {
     setInputQuery('');
   };
 
-  const handleAction = (actionType: string, payload?: any) => {
-    if (actionType === 'view_shp' && payload) {
-      setSelectedShipmentId(payload);
-      setCurrentView('tracking_detail');
-      setIsAiCopilotOpen(false);
-    } else if (actionType === 'open_marketplace') {
-      setCurrentView('marketplace');
-      setIsAiCopilotOpen(false);
-    } else if (actionType === 'open_dispatch') {
-      setCurrentView('smart_dispatch');
-      setIsAiCopilotOpen(false);
-    } else if (actionType === 'open_control_tower') {
-      setCurrentView('control_tower');
-      setIsAiCopilotOpen(false);
-    } else {
+  const handleAction = (type: string, payload?: any) => {
+    if (type === 'notify_cust') {
       showToast(
-        lang === 'ar' ? 'تم تنفيذ الإجراء الآلي' : 'Autonomous Action Executed',
-        lang === 'ar' ? 'تم إرسال الإشعار والتحديث بنجاح عبر محرك الذكاء الاصطناعي' : 'Action dispatched via AI Copilot',
+        lang === 'ar' ? 'تم إرسال الإشعار' : 'Customer Notified',
+        lang === 'ar' ? 'تم إرسال رسالة SMS ورابط التتبع المباشر لمدير المستودع لدى العميل.' : 'Sent proactive SMS alert and live digital passport link to customer.',
         'success'
       );
+    } else if (type === 'view_shp') {
+      if (payload) setSelectedShipmentId(payload);
+      setCurrentView('tracking_detail');
+      setIsAiCopilotOpen(false);
+    } else if (type === 'open_marketplace') {
+      setCurrentView('marketplace');
+      setIsAiCopilotOpen(false);
+    } else if (type === 'open_dispatch') {
+      setCurrentView('smart_dispatch');
+      setIsAiCopilotOpen(false);
+    } else if (type === 'assign_shp') {
+      showToast(
+        lang === 'ar' ? 'تم التكليف بنجاح' : 'Dispatch Confirmed',
+        lang === 'ar' ? `تم تكليف الشاحنة بنجاح بالشحنة ${payload} وتحديث الجدول التشغيلي.` : `Assigned vehicle to shipment ${payload} successfully.`,
+        'success'
+      );
+      setCurrentView('shipments');
+      setIsAiCopilotOpen(false);
+    } else if (type === 'open_tower') {
+      setCurrentView('control_tower');
+      setIsAiCopilotOpen(false);
+    } else if (type === 'open_fleet') {
+      setCurrentView('fleet');
+      setIsAiCopilotOpen(false);
     }
   };
 
   return (
-    <div className="fixed inset-y-0 end-0 z-50 w-full sm:w-[440px] bg-[#FFFFFF] border-s border-[#EEEEEE] flex flex-col animate-in slide-in-from-right duration-330">
+    <div
+      className="fixed inset-y-0 end-0 z-50 w-full max-w-md bg-[#ffffff] border-s border-[#e4e4e7] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] flex flex-col animate-in slide-in-from-right duration-200 shopify-theme"
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+    >
       {/* Drawer Header */}
-      <div className="p-4 border-b border-[#EEEEEE] flex items-center justify-between bg-[#FFFFFF]">
+      <div className="h-16 border-b border-[#e4e4e7] px-5 flex items-center justify-between bg-[#ffffff]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-[4px] bg-[#3E6AE1] flex items-center justify-center text-white">
-            <Bot className="w-4 h-4" />
+          <div className="w-9 h-9 rounded-full bg-[#c1fbd4] flex items-center justify-center text-[#000000]">
+            <Bot className="w-5 h-5" />
           </div>
           <div>
-            <div className="font-[500] text-[14px] text-[#171A20]">
-              Sudaneel AI Copilot
-            </div>
-            <div className="text-[12px] text-[#8E8E8E]">Logistics Decision Intelligence</div>
+            <h3 className="font-[600] text-[15px] text-[#000000]">
+              {lang === 'ar' ? 'المساعد الذكي (AI Copilot)' : 'AI Operations Copilot'}
+            </h3>
+            <p className="text-[11px] text-[#71717a] font-[420]">
+              {lang === 'ar' ? 'محرك التوصيات والقرارات الاستباقية' : 'Proactive Operations Intelligence'}
+            </p>
           </div>
         </div>
+
         <button
           onClick={() => setIsAiCopilotOpen(false)}
-          className="p-1.5 text-[#8E8E8E] hover:text-[#171A20] rounded-[4px] hover:bg-[#F4F4F4]"
+          className="p-1.5 rounded-full hover:bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] transition-colors cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Suggested Quick Questions */}
-      <div className="p-3 bg-[#F4F4F4] border-b border-[#EEEEEE] flex items-center gap-2 overflow-x-auto custom-scrollbar">
+      {/* Suggested Quick Prompts (Shopify Pill Tabs) */}
+      <div className="p-3 border-b border-[#e4e4e7] bg-[#fbfbf5] flex items-center gap-2 overflow-x-auto custom-scrollbar">
         <button
-          onClick={() => handleSend(lang === 'ar' ? 'ما المركبات التي تعود فارغة؟' : 'What vehicles are returning empty?')}
-          className="px-3 py-1 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[12px] text-[#171A20] font-[400] whitespace-nowrap hover:bg-[#EEEEEE] transition-colors duration-330 cursor-pointer"
+          onClick={() => handleSend(lang === 'ar' ? 'ما الشحنات المعرضة للتأخير اليوم؟' : 'Which shipments are delayed today?')}
+          className="px-3.5 py-1.5 rounded-full bg-[#ffffff] border border-[#e4e4e7] text-[12px] text-[#000000] font-[500] whitespace-nowrap hover:bg-[#c1fbd4] transition-colors cursor-pointer shadow-sm"
         >
-          {lang === 'ar' ? 'الرحلات العائدة (Backhaul)' : 'Empty Backhaul'}
+          {lang === 'ar' ? 'الشحنات المعرضة للتأخير' : 'Delayed Shipments'}
+        </button>
+        <button
+          onClick={() => handleSend(lang === 'ar' ? 'أظهر لي الشاحنات العائدة الفارغة' : 'Show empty backhaul trucks')}
+          className="px-3.5 py-1.5 rounded-full bg-[#ffffff] border border-[#e4e4e7] text-[12px] text-[#000000] font-[500] whitespace-nowrap hover:bg-[#c1fbd4] transition-colors cursor-pointer shadow-sm"
+        >
+          {lang === 'ar' ? 'الشاحنات الفارغة' : 'Empty Backhauls'}
         </button>
         <button
           onClick={() => handleSend(lang === 'ar' ? 'أعطني أفضل مركبة لشحنة سكر كنانة SDN-77312' : 'Best match for Kenana Sugar SDN-77312')}
-          className="px-3 py-1 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[12px] text-[#171A20] font-[400] whitespace-nowrap hover:bg-[#EEEEEE] transition-colors duration-330 cursor-pointer"
+          className="px-3.5 py-1.5 rounded-full bg-[#ffffff] border border-[#e4e4e7] text-[12px] text-[#000000] font-[500] whitespace-nowrap hover:bg-[#c1fbd4] transition-colors cursor-pointer shadow-sm"
         >
           {lang === 'ar' ? 'مطابقة شحنة كنانة' : 'Kenana Match'}
         </button>
       </div>
 
       {/* Conversation Thread */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-[#FFFFFF]">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-[#ffffff]">
         {conversation.map((msg, idx) => (
           <div key={idx} className="space-y-3">
             {/* User Query Bubble */}
             <div className="flex items-start gap-2 justify-end">
-              <div className="max-w-[85%] p-3 rounded-[4px] bg-[#F4F4F4] text-[#171A20] text-[14px] font-[400]">
+              <div className="max-w-[85%] p-3.5 rounded-[16px] bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] text-[13.5px] font-[420]">
                 {msg.query}
               </div>
             </div>
 
             {/* AI Structured Response */}
-            <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-3">
+            <div className="shopify-card p-5 space-y-3 bg-[#ffffff] border border-[#e4e4e7]">
               {/* Insight */}
               <div className="space-y-1">
-                <div className="text-[11px] font-[500] uppercase text-[#3E6AE1] tracking-wider">Insight</div>
-                <div className="text-[14px] text-[#171A20] font-[500] leading-snug">{msg.insight}</div>
+                <div className="shopify-tag-mint !text-[10px]">
+                  <Sparkles className="w-3 h-3" />
+                  <span>Insight</span>
+                </div>
+                <div className="text-[14px] text-[#000000] font-[600] leading-snug pt-1">{msg.insight}</div>
               </div>
 
               {/* Cause & Impact Grid */}
-              <div className="grid grid-cols-1 gap-2 pt-2 border-t border-[#EEEEEE] text-[13px]">
-                <div className="p-2 rounded-[4px] bg-[#F4F4F4]">
-                  <span className="font-[500] text-[#5C5E62] text-[11px] block">Cause / السبب:</span>
-                  <span className="text-[#393C41]">{msg.cause}</span>
+              <div className="grid grid-cols-1 gap-2 pt-2 border-t border-[#e4e4e7] text-[12.5px]">
+                <div className="p-2.5 rounded-[8px] bg-[#fbfbf5] border border-[#e4e4e7]">
+                  <span className="font-[600] text-[#71717a] text-[11px] block mb-0.5">Cause / السبب:</span>
+                  <span className="text-[#000000]">{msg.cause}</span>
                 </div>
-                <div className="p-2 rounded-[4px] bg-[#F4F4F4]">
-                  <span className="font-[500] text-[#5C5E62] text-[11px] block">Business Impact / الأثر:</span>
-                  <span className="text-[#393C41]">{msg.impact}</span>
+                <div className="p-2.5 rounded-[8px] bg-[#fbfbf5] border border-[#e4e4e7]">
+                  <span className="font-[600] text-[#71717a] text-[11px] block mb-0.5">Business Impact / الأثر:</span>
+                  <span className="text-[#000000]">{msg.impact}</span>
                 </div>
               </div>
 
               {/* Recommendation */}
-              <div className="p-2.5 rounded-[4px] bg-[#F4F4F4] border-s-2 border-[#3E6AE1] text-[13px] text-[#171A20]">
-                <span className="font-[500] text-[#171A20] text-[11px] block mb-0.5">Recommendation:</span>
+              <div className="p-3 rounded-[8px] bg-[#c1fbd4] border border-[#a8f5c2] text-[12.5px] text-[#000000]">
+                <span className="font-[700] text-[#000000] text-[11px] block mb-0.5">Recommendation / التوصية:</span>
                 {msg.recommendation}
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons (Shopify Pill Buttons) */}
               <div className="flex items-center gap-2 pt-1 flex-wrap">
                 {msg.actions.map((act, aIdx) => (
                   <button
                     key={aIdx}
                     onClick={() => handleAction(act.actionType, act.payload)}
-                    className="btn-tesla-primary text-[13px] !min-h-[32px] !min-w-[120px] !py-1 !px-3"
+                    className={aIdx === 0 ? 'btn-shopify-pill !py-1.5 !px-4 !text-[12px]' : 'btn-shopify-outline !py-1.5 !px-4 !text-[12px]'}
                   >
                     <span>{act.label}</span>
                   </button>
@@ -261,7 +291,7 @@ export function AiCopilotDrawer() {
       </div>
 
       {/* Input Form */}
-      <div className="p-3 border-t border-[#EEEEEE] bg-[#FFFFFF]">
+      <div className="p-3 border-t border-[#e4e4e7] bg-[#ffffff]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -273,11 +303,11 @@ export function AiCopilotDrawer() {
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             placeholder={lang === 'ar' ? 'اسأل المساعد اللوجستي...' : 'Ask AI Copilot anything...'}
-            className="flex-1 px-3 py-2 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] placeholder-[#8E8E8E] text-[14px] outline-none"
+            className="flex-1 px-4 py-2.5 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] placeholder-[#71717a] text-[13.5px] outline-none focus:border-[#000000]"
           />
           <button
             type="submit"
-            className="p-2 rounded-[4px] bg-[#3E6AE1] text-white hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#000000] text-white hover:bg-[#3f3f46] flex items-center justify-center transition-colors duration-200 cursor-pointer flex-shrink-0"
           >
             <Send className="w-4 h-4" />
           </button>
