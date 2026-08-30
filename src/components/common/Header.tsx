@@ -57,6 +57,13 @@ export function Header() {
       {/* Search trigger (4px radius, minimalist border #D0D1D2) */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <button
+          onClick={() => setCurrentView('landing')}
+          className="flex lg:hidden items-center gap-2 p-1 rounded-[4px] hover:bg-[#F4F4F4] transition-colors flex-shrink-0"
+          title="الرئيسية"
+        >
+          <img src="/images/brand-logo.jpg" alt="Logo" className="w-8 h-8 rounded-[4px] object-contain border border-[#EEEEEE]" />
+        </button>
+        <button
           onClick={() => setIsCommandPaletteOpen(true)}
           className="flex items-center gap-2.5 w-full bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#393C41] px-3 py-1.5 rounded-[4px] text-[14px] transition-colors duration-330 cursor-pointer"
         >
