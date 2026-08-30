@@ -108,5 +108,146 @@ body {
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  height: 100vh;
+}
+
+/* ============================================================ */
+/* Shopify Design System Language Tokens & Classes (DESIGN-shopify.md) */
+/* ============================================================ */
+.shopify-theme {
+  --shopify-primary: #000000;
+  --shopify-ink: #000000;
+  --shopify-on-primary: #ffffff;
+  --shopify-canvas-night: #000000;
+  --shopify-canvas-night-elevated: #0a0a0a;
+  --shopify-canvas-light: #ffffff;
+  --shopify-canvas-cream: #fbfbf5;
+  --shopify-aloe: #c1fbd4;
+  --shopify-pistachio: #d4f9e0;
+  --shopify-hairline: #e4e4e7;
+  --shopify-shade-30: #d4d4d8;
+  --shopify-shade-40: #a1a1aa;
+  --shopify-shade-50: #71717a;
+  --shopify-shade-70: #3f3f46;
+  font-feature-settings: "ss03";
+}
+
+.shopify-card {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.02), 0 4px 4px rgba(0, 0, 0, 0.02), 0 2px 2px rgba(0, 0, 0, 0.02), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.shopify-card-aloe {
+  background-color: #c1fbd4;
+  border: 1px solid #a8f5c2;
+  border-radius: 12px;
+  color: #000000;
+}
+
+.shopify-card-pistachio {
+  background-color: #d4f9e0;
+  border: 1px solid #bdf2cf;
+  border-radius: 12px;
+  color: #000000;
+}
+
+.shopify-card-cinematic {
+  background-color: #0a0a0a;
+  border: 1px solid #1e2c31;
+  border-radius: 20px;
+  color: #ffffff;
+}
+
+.btn-shopify-pill {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-shopify-pill:hover {
+  background-color: #3f3f46;
+}
+
+.btn-shopify-aloe {
+  background-color: #c1fbd4;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-shopify-aloe:hover {
+  background-color: #a8f5c2;
+}
+
+.btn-shopify-outline {
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-shopify-outline:hover {
+  background-color: #fbfbf5;
+}
+
+.shopify-tag-mint {
+  background-color: #c1fbd4;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shopify-tag-pistachio {
+  background-color: #d4f9e0;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shopify-tag-shade {
+  background-color: #d4d4d8;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
