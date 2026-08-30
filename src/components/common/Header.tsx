@@ -87,6 +87,14 @@ export function Header() {
           </div>
         )}
 
+        {/* Control Tower Quick Jump Button */}
+        <button
+          onClick={() => setCurrentView('control_tower')}
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#F4F4F4] hover:bg-[#EEEEEE] border border-[#D0D1D2] text-[#171A20] text-[13px] font-[500] transition-colors duration-330 cursor-pointer"
+        >
+          <span>{lang === 'ar' ? 'لوحة التحكم' : 'Control Tower'}</span>
+        </button>
+
         {/* AI Copilot Trigger (Tesla Accent Style) */}
         <button
           onClick={() => setIsAiCopilotOpen(true)}
