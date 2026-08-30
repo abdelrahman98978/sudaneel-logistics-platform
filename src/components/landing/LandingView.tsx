@@ -1,44 +1,117 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import {
   Search,
+  Globe,
+  ChevronLeft,
+  ChevronRight,
+  MessageSquare,
+  Send,
+  Calendar,
   Truck,
   Ship,
-  Plane,
   Warehouse,
-  FileCheck,
+  Repeat,
+  ArrowUpRight,
   ShieldCheck,
   Zap,
-  Globe,
-  Building2,
-  Users,
-  CheckCircle2,
-  ArrowRight,
-  Phone,
-  Mail,
   MapPin,
   Clock,
-  LogIn,
-  Send,
-  Radio,
-  Sparkles,
-  Award,
-  ChevronRight,
-  TrendingUp,
+  Package,
 } from 'lucide-react';
 
 export function LandingView() {
-  const { setCurrentView, setSelectedShipmentId, shipments, t, lang, setLang } = useApp();
+  const { setCurrentView, setSelectedShipmentId, shipments, lang, setLang } = useApp();
 
-  const [activeNav, setActiveNav] = useState<'home' | 'about' | 'services' | 'track' | 'contact'>('home');
+  // State management
+  const [activeHeroIndex, setActiveHeroIndex] = useState(0);
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [trackingInput, setTrackingInput] = useState('');
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [contactSubject, setContactSubject] = useState('general');
-  const [contactMessage, setContactMessage] = useState('');
+  const [chatInput, setChatInput] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Hero showcase items (Tesla 100vh full-viewport gallery)
+  const heroSlides = [
+    {
+      id: 'fleet',
+      titleAr: 'أسطول النقل الثقيل واللوجستيات',
+      titleEn: 'Sovereign Logistics Fleet',
+      subtitleAr: '0% تأخير مع الربط الرقمي اللحظي لكافة الممرات الوطنية',
+      subtitleEn: '0% Delay with Real-time Digital Telemetry across National Corridors',
+      bgImage: '/hero-bg.jpg',
+      primaryBtnAr: 'اطلب شحنة الآن',
+      primaryBtnEn: 'Order Freight Now',
+      primaryAction: () => setCurrentView('create_shipment'),
+      secondaryBtnAr: 'استكشف الأسطول',
+      secondaryBtnEn: 'View Fleet Inventory',
+      secondaryAction: () => setCurrentView('fleet'),
+    },
+    {
+      id: 'port',
+      titleAr: 'بوابة بورتسودان وسلاسل الإمداد العالمية',
+      titleEn: 'Port Sudan Global Hub & Maritime Gateway',
+      subtitleAr: 'مناولة متكاملة للحاويات وتخليص جمركي إلكتروني فوري',
+      subtitleEn: 'Integrated Container Terminal Logistics & Digital Customs Clearance',
+      bgImage: '/news-port.jpg',
+      primaryBtnAr: 'حجز حاوية فوري',
+      primaryBtnEn: 'Book Container',
+      primaryAction: () => setCurrentView('port_sudan'),
+      secondaryBtnAr: 'جدول الرحلات البحرية',
+      secondaryBtnEn: 'Port Schedules',
+      secondaryAction: () => setCurrentView('port_sudan'),
+    },
+    {
+      id: 'warehouse',
+      titleAr: 'المستودعات الذكية وسلاسل التبريد',
+      titleEn: 'Smart Warehousing & Cold Chain Network',
+      subtitleAr: 'طاقة تخزينية 120,000 طن متري مع رصد حراري دقيق للسلع الحيوية',
+      subtitleEn: '120,000 MT Storage Capacity with Active Temperature Telemetry',
+      bgImage: '/hero-bg.jpg',
+      primaryBtnAr: 'حجز مساحة تخزين',
+      primaryBtnEn: 'Reserve Storage',
+      primaryAction: () => setCurrentView('warehousing'),
+      secondaryBtnAr: 'شبكة المراكز اللوجستية',
+      secondaryBtnEn: 'Explore Hubs',
+      secondaryAction: () => setCurrentView('locations'),
+    },
+    {
+      id: 'backhaul',
+      titleAr: 'بورصة الشاحنات والرحلات العائدة',
+      titleEn: 'Dynamic Backhaul Freight Exchange',
+      subtitleAr: 'وفورات نقل تصل إلى 30% والقضاء التام على مسافات الشاحنات الفارغة',
+      subtitleEn: 'Up to 30% Freight Savings with Zero Deadhead Empty Miles',
+      bgImage: '/news-truck.jpg',
+      primaryBtnAr: 'استعراض الصفقات الفورية',
+      primaryBtnEn: 'Browse Backhaul Deals',
+      primaryAction: () => setCurrentView('marketplace'),
+      secondaryBtnAr: 'تسجيل شاحنة فارغة',
+      secondaryBtnEn: 'Register Empty Truck',
+      secondaryAction: () => setCurrentView('carrier_portal'),
+    },
+  ];
+
+  // Auto-advance hero carousel every 8 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveHeroIndex((prev) => (prev + 1) % heroSlides.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
+  // Scroll listener for nav styling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleTrackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,676 +123,575 @@ export function LandingView() {
       setSelectedShipmentId(match.id);
       setCurrentView('tracking_detail');
     } else {
-      setSelectedShipmentId(shipments[0].id);
-      setCurrentView('tracking_detail');
+      setCurrentView('public_track');
     }
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(lang === 'ar' ? 'تم استلام رسالتك بنجاح! سيتواصل معك فريق الدعم خلال أقل من ساعتين.' : 'Message received! Support will reach out within 2 hours.');
-    setContactName('');
-    setContactEmail('');
-    setContactPhone('');
-    setContactMessage('');
+    if (!chatInput.trim()) return;
+    setCurrentView('control_tower');
+  };
+
+  // Mega dropdown data (3-column vehicle cards + text sidebar)
+  const megaMenuContent: Record<string, {
+    columns: { name: string; type: string; img: string; view: string }[];
+    sidebarLinks: { label: string; view: string }[];
+  }> = {
+    fleet: {
+      columns: [
+        { name: 'Mercedes Actros 3340', type: 'شاحنة نقل ثقيل 40 طن', img: '/news-truck.jpg', view: 'fleet' },
+        { name: 'Volvo FH16 Multi-Axle', type: 'مقطورة مسطحة للحاويات', img: '/news-truck.jpg', view: 'fleet' },
+        { name: 'Carrier Transicold Reefer', type: 'شاحنة مبردة لحفظ الأدوية والأغذية', img: '/news-truck.jpg', view: 'fleet' },
+      ],
+      sidebarLinks: [
+        { label: 'مواصفات ومعايير الأسطول', view: 'fleet' },
+        { label: 'بوابة تسجيل الناقلين', view: 'carrier_portal' },
+        { label: 'تطبيق السائقين الرقمي', view: 'driver_app' },
+        { label: 'معايير السلامة والفحص الفني', view: 'incidents' },
+      ],
+    },
+    ports: {
+      columns: [
+        { name: 'محطة الحاويات الجنوبية', type: 'بورتسودان — طاقة 500K TEU', img: '/news-port.jpg', view: 'port_sudan' },
+        { name: 'محطة الصب الجاف الساحلية', type: 'تفريغ وتعبئة الحبوب والأسمنت', img: '/news-port.jpg', view: 'port_sudan' },
+        { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/news-port.jpg', view: 'port_sudan' },
+      ],
+      sidebarLinks: [
+        { label: 'حاسبة الرسوم والتخليص الجمركي', view: 'port_sudan' },
+        { label: 'إجراءات عبور الشاحنات الحدودية', view: 'cross_border' },
+        { label: 'سجلات بوالص الشحن الإلكترونية', view: 'shipments' },
+      ],
+    },
+    warehouses: {
+      columns: [
+        { name: 'مركز سوبا اللوجستي المركزي', type: 'الخرطوم — 45,000 متر مربع', img: '/hero-bg.jpg', view: 'warehousing' },
+        { name: 'مستودع عطبرة للتوزيع الشمالي', type: 'نهر النيل — محطة تفريغ وتوزيع', img: '/hero-bg.jpg', view: 'warehousing' },
+        { name: 'مركز القضارف للصادرات الزراعية', type: 'مستودع محاصيل ومبردات', img: '/hero-bg.jpg', view: 'warehousing' },
+      ],
+      sidebarLinks: [
+        { label: 'إدارة المخزون والمساحات الفورية', view: 'warehousing' },
+        { label: 'سلاسل التبريد والتخزين الدوائي', view: 'warehousing' },
+        { label: 'دليل المستودعات والمحطات', view: 'locations' },
+      ],
+    },
+    marketplace: {
+      columns: [
+        { name: 'رحلات بورتسودان ➔ الخرطوم', type: 'شاحنات عائدة بخصم 28%', img: '/news-truck.jpg', view: 'marketplace' },
+        { name: 'رحلات عطبرة ➔ الدمازين', type: 'شاحنات صب ومواد بناء', img: '/news-truck.jpg', view: 'marketplace' },
+        { name: 'رحلات كوستي ➔ كسلا', type: 'نقل محاصيل وسلع استهلاكية', img: '/news-truck.jpg', view: 'marketplace' },
+      ],
+      sidebarLinks: [
+        { label: 'جميع الصفقات والعروض المفتوحة', view: 'marketplace' },
+        { label: 'نظام التوزيع والتوجيه الذكي', view: 'smart_dispatch' },
+        { label: 'عقود الشحن وإدارة العملاء CRM', view: 'contracts_crm' },
+      ],
+    },
   };
 
   return (
-    <div className="space-y-12 pb-20 font-sans">
-      {/* ===== HEADER NAVIGATION ===== */}
-      <header className="sticky top-4 z-50 rounded-2xl bg-navy-900/95 border border-gold/30 p-3 sm:p-4 shadow-2xl flex items-center justify-between backdrop-blur-xl transition-all">
-        {/* Brand Logo & Name */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveNav('home')}>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/30 to-amber-500/20 border border-gold/50 flex items-center justify-center text-gold shadow-lg">
-            <Radio className="w-5 h-5 text-gold animate-pulse" />
-          </div>
-          <div>
-            <h1 className="font-extrabold text-base text-white tracking-tight flex items-center gap-1.5">
-              <span>{lang === 'ar' ? 'سودانيل لوجيستك' : 'Sudanil Logistic'}</span>
-            </h1>
-            <p className="text-[10px] text-gray-400">
-              {lang === 'ar' ? 'حلول لوجستية عالمية' : 'Global Logistics Solutions'}
-            </p>
-          </div>
-        </div>
-
-        {/* Center Nav Links (Matching original tabs) */}
-        <nav className="hidden md:flex items-center gap-1 bg-navy-950/90 p-1.5 rounded-xl border border-gold/20 text-xs font-bold">
-          <button
-            onClick={() => setActiveNav('home')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeNav === 'home' ? 'bg-gold text-navy-950 shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
-            }`}
+    <div className="relative bg-[#FFFFFF] text-[#171A20] font-sans selection:bg-[#3E6AE1] selection:text-[#FFFFFF]" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* 1. Tesla Frosted Glass Floating Navigation Bar */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-330 ${
+          isScrolled
+            ? 'bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#EEEEEE]'
+            : 'bg-transparent text-white border-b border-white/10'
+        }`}
+      >
+        <div className="max-w-[1383px] mx-auto px-6 h-[56px] flex items-center justify-between">
+          {/* Brand Wordmark (Spaced uppercase precision) */}
+          <div
+            onClick={() => setActiveHeroIndex(0)}
+            className="cursor-pointer flex items-center gap-2"
           >
-            {lang === 'ar' ? 'الرئيسية' : 'Home'}
-          </button>
-          <button
-            onClick={() => setActiveNav('about')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeNav === 'about' ? 'bg-gold text-navy-950 shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
-            }`}
-          >
-            {lang === 'ar' ? 'من نحن' : 'About Us'}
-          </button>
-          <button
-            onClick={() => setActiveNav('services')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeNav === 'services' ? 'bg-gold text-navy-950 shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
-            }`}
-          >
-            {lang === 'ar' ? 'خدماتنا' : 'Services'}
-          </button>
-          <button
-            onClick={() => setActiveNav('track')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeNav === 'track' ? 'bg-gold text-navy-950 shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
-            }`}
-          >
-            {lang === 'ar' ? 'تتبع الشحنة' : 'Track Shipment'}
-          </button>
-          <button
-            onClick={() => setActiveNav('contact')}
-            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
-              activeNav === 'contact' ? 'bg-gold text-navy-950 shadow-md font-extrabold' : 'text-gray-300 hover:text-white'
-            }`}
-          >
-            {lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-          </button>
-        </nav>
-
-        {/* Right Action buttons */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Language Toggle */}
-          <button
-            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-            className="flex items-center gap-1 px-3 py-2 rounded-xl bg-navy-800 border border-gold/20 text-xs font-bold text-gray-200 hover:bg-navy-700 transition-colors"
-          >
-            <Globe className="w-3.5 h-3.5 text-gold" />
-            <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
-          </button>
-
-          {/* Login / Launch Platform Button */}
-          <button
-            onClick={() => setCurrentView('control_tower')}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-gold via-amber-400 to-amber-500 hover:brightness-110 text-navy-950 font-extrabold text-xs shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-          >
-            <LogIn className="w-4 h-4" />
-            <span>{lang === 'ar' ? 'تسجيل الدخول' : 'Login'}</span>
-          </button>
-        </div>
-      </header>
-
-      {/* ===== 1. HOME VIEW (الرئيسية) ===== */}
-      {activeNav === 'home' && (
-        <div className="space-y-16 animate-in fade-in">
-          {/* HERO SECTION */}
-          <section className="relative rounded-3xl bg-gradient-to-b from-navy-900 via-navy-950 to-[#030712] border border-gold/30 p-8 sm:p-16 shadow-2xl overflow-hidden text-center space-y-8">
-            <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:32px_32px] opacity-10 pointer-events-none"></div>
-
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/15 border border-gold/40 text-gold text-xs font-bold shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-gold animate-ping"></span>
-              <span>{lang === 'ar' ? 'سودانيل لوجيستك.. الشركة الرائدة في اللوجستيات عالمياً' : 'Sudanil Logistic.. Global Logistics Leader'}</span>
-            </div>
-
-            {/* Main Title (نقل بثقة.. نوصل باحتراف) */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto">
-              <span>{lang === 'ar' ? 'نقل بثقة..' : 'Ship with Trust..'} </span>
-              <span className="text-gradient-gold">{lang === 'ar' ? 'نوصل باحتراف' : 'Deliver with Excellence'}</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              {lang === 'ar'
-                ? 'رائدون في مجال الخدمات اللوجستية المتكاملة، نضمن وصول شحناتكم بأمان ودقة عالية عبر شبكتنا العالمية المتميزة.'
-                : 'Pioneers in integrated logistics, ensuring your shipments arrive safely and accurately through our premium network.'}
-            </p>
-
-            {/* Tracking Search Input Widget */}
-            <div className="max-w-xl mx-auto pt-2">
-              <form
-                onSubmit={handleTrackSubmit}
-                className="p-2 rounded-2xl bg-navy-900/90 backdrop-blur-xl border border-gold/40 shadow-2xl flex items-center gap-2"
-              >
-                <div className="ps-3 flex items-center gap-2 text-gold">
-                  <Search className="w-5 h-5" />
-                </div>
-                <input
-                  value={trackingInput}
-                  onChange={(e) => setTrackingInput(e.target.value)}
-                  placeholder={lang === 'ar' ? 'أدخل رقم التتبع (مثال: SDN-88419)...' : 'Enter tracking number (e.g. SDN-88419)...'}
-                  className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none text-xs sm:text-sm font-medium"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-amber-500 hover:brightness-110 text-navy-950 font-extrabold text-xs sm:text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-                >
-                  {lang === 'ar' ? 'تتبع الآن' : 'Track Now'}
-                </button>
-              </form>
-            </div>
-
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6">
-              <div className="p-4 rounded-2xl bg-navy-900/80 border border-gold/20 text-center shadow-lg">
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-gold">1,284</div>
-                <div className="text-xs text-gray-300 mt-1 font-bold">{lang === 'ar' ? 'شحنة نشطة' : 'Active Shipments'}</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-navy-900/80 border border-gold/20 text-center shadow-lg">
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-sky-400">150+</div>
-                <div className="text-xs text-gray-300 mt-1 font-bold">{lang === 'ar' ? 'وجهة ومحطة' : 'Destinations'}</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-navy-900/80 border border-gold/20 text-center shadow-lg">
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400">99.8%</div>
-                <div className="text-xs text-gray-300 mt-1 font-bold">{lang === 'ar' ? 'معدل الموثوقية' : 'Reliability Rate'}</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-navy-900/80 border border-gold/20 text-center shadow-lg">
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-white">24/7</div>
-                <div className="text-xs text-gray-300 mt-1 font-bold">{lang === 'ar' ? 'دعم متواصل' : 'Continuous Support'}</div>
-              </div>
-            </div>
-          </section>
-
-          {/* SERVICES SHOWCASE (خدماتنا اللوجستية) */}
-          <section className="space-y-8">
-            <div className="text-center space-y-3">
-              <h2 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'ar' ? 'خدماتنا اللوجستية المتميزة' : 'Our Logistics Services'}
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-400 max-w-xl mx-auto">
-                {lang === 'ar' ? 'نقدم مجموعة شاملة من حلول الشحن والنقل المصممة لتلبية احتياجات أعمالكم بكفاءة وموثوقية.' : 'Comprehensive supply chain and cargo transport tailored for enterprise efficiency.'}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1: Land Freight */}
-              <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/20 hover:border-gold shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
-                  <Truck className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white">
-                  {lang === 'ar' ? 'الشحن البري وحلول الأساطيل' : 'Land Freight & Fleet Solutions'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'شبكة متطورة من الشاحنات الحديثة والمجهزة بأحدث أنظمة التتبع اللحظي لنقل البضائع عبر جميع الولايات والمنافذ.'
-                    : 'Modern fleet equipped with real-time GPS sensors connecting all domestic corridors and dry ports.'}
-                </p>
-              </div>
-
-              {/* Card 2: Ocean Freight */}
-              <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/20 hover:border-gold shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-sky-500/20 flex items-center justify-center text-sky-400">
-                  <Ship className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white">
-                  {lang === 'ar' ? 'الشحن البحري الدولي' : 'International Ocean Freight'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'خدمات شحن بحري متكاملة عبر ميناء بورتسودان مع كبرى الخطوط الملاحية العالمية للحاويات والبضائع السائبة.'
-                    : 'End-to-end container handling and ocean drayage via Port Sudan connected to top shipping lines.'}
-                </p>
-              </div>
-
-              {/* Card 3: Air Freight */}
-              <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/20 hover:border-gold shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400">
-                  <Plane className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white">
-                  {lang === 'ar' ? 'الشحن الجوي السريع' : 'Express Air Freight'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'حلول شحن جوي فوري وموثوق للبضائع العاجلة والمعدات الطبية الحساسة مع ضمان التسليم في الموعد المحدد.'
-                    : 'Express priority air charter and scheduled flights for time-sensitive and high-value cargo.'}
-                </p>
-              </div>
-
-              {/* Card 4: Warehousing */}
-              <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/20 hover:border-gold shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                  <Warehouse className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white">
-                  {lang === 'ar' ? 'التخزين والتوزيع الذكي' : 'Smart Warehousing & Distribution'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'مستودعات مركزية ومبردة في الخرطوم وبورتسودان مجهزة بأنظمة إدارة المخزون المتقدمة (WMS).'
-                    : 'Climate-controlled warehouse facilities in Khartoum and Port Sudan with automated WMS.'}
-                </p>
-              </div>
-
-              {/* Card 5: Customs Clearance */}
-              <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/20 hover:border-gold shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
-                  <FileCheck className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white">
-                  {lang === 'ar' ? 'التخليص الجمركي والاستشارات' : 'Customs Clearance & Advisory'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'فريق متخصص لإنهاء كافة الإجراءات الجمركية والتصاريح المعقدة في الموانئ والمنافذ بأسرع وقت.'
-                    : 'Dedicated broker teams handling rapid customs clearance, duty valuation, and cross-border compliance.'}
-                </p>
-              </div>
-
-              {/* Card 6: Backhaul Deals */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 border border-gold/40 shadow-xl space-y-4 transition-all hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-gold/30 flex items-center justify-center text-gold">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-gold">
-                  {lang === 'ar' ? 'محرك الرحلات العائدة (-28%)' : 'Backhaul Engine (-28% Savings)'}
-                </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'توفير فوري عبر مطابقة الشحنات مع الشاحنات العائدة فارغة من الموانئ للقضاء على الهدر المالي.'
-                    : 'Smart algorithmic matching of return loads with empty trucks to slash shipping expenses.'}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* WHY CHOOSE SUDANIL (لماذا سودانيل؟) */}
-          <section className="rounded-3xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-gold/30 p-8 sm:p-12 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-4">
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/30">
-                  {lang === 'ar' ? 'لماذا تختارنا؟' : 'Why Sudanil?'}
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-black text-white">
-                  {lang === 'ar' ? 'نبتكر معايير جديدة للوجستيات في السودان' : 'Setting New Standards for Regional Freight'}
-                </h2>
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'نجمع بين الخبرة الميدانية العميقة وأحدث التقنيات الرقمية لنمنحك رؤية كاملة وتحكماً مطلقاً في كل مرحلة من مراحل الشحن.'
-                    : 'Combining extensive on-the-ground operational strength with modern real-time tracking architecture.'}
-                </p>
-                <div className="pt-2">
-                  <button
-                    onClick={() => setCurrentView('control_tower')}
-                    className="px-6 py-3 rounded-xl bg-gold hover:bg-gold/90 text-navy-950 font-extrabold text-xs shadow-lg transition-transform hover:scale-105 cursor-pointer"
-                  >
-                    {lang === 'ar' ? 'استكشف لوحة التحكم المباشرة' : 'Explore Live Operations Tower'}
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-2">
-                  <ShieldCheck className="w-6 h-6 text-emerald-400" />
-                  <h4 className="font-bold text-white text-sm">{lang === 'ar' ? 'أمان وضمان 100%' : '100% Insured & Verified'}</h4>
-                  <p className="text-[11px] text-gray-400">{lang === 'ar' ? 'فحص كامل لسجلات السائقين وبوالص تأمين شاملة.' : 'Full driver background checks and cargo coverage.'}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-2">
-                  <Zap className="w-6 h-6 text-gold" />
-                  <h4 className="font-bold text-white text-sm">{lang === 'ar' ? 'تتبع لحظي GPS' : 'Real-time GPS Telemetry'}</h4>
-                  <p className="text-[11px] text-gray-400">{lang === 'ar' ? 'متابعة حية للسرعة ومواقع الشاحنات على الخريطة.' : 'Continuous location and speed telemetry pings.'}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-2">
-                  <Building2 className="w-6 h-6 text-sky-400" />
-                  <h4 className="font-bold text-white text-sm">{lang === 'ar' ? 'شبكة ممرات شاملة' : 'Corridor Coverage'}</h4>
-                  <p className="text-[11px] text-gray-400">{lang === 'ar' ? 'تغطية لكافة الولايات والموانئ والمنافذ الحدودية.' : 'Connecting Khartoum, Port Sudan, Gedaref, and beyond.'}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-2">
-                  <Clock className="w-6 h-6 text-purple-400" />
-                  <h4 className="font-bold text-white text-sm">{lang === 'ar' ? 'التزام تام بالمواعيد' : 'On-Time Delivery'}</h4>
-                  <p className="text-[11px] text-gray-400">{lang === 'ar' ? 'دقة وصول تتجاوز 97.4% بفضل التوجيه الذكي.' : 'Predictive ETA algorithm minimizing delays.'}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* PARTNERS (شركاء النجاح) */}
-          <section className="text-center space-y-6 pt-4">
-            <h3 className="text-xs font-bold text-gray-400 tracking-widest uppercase">
-              {lang === 'ar' ? 'شركاء النجاح والخطوط الملاحية' : 'Global Shipping Partners'}
-            </h3>
-            <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-70">
-              <span className="font-mono text-sm sm:text-base font-bold text-gray-300">MAERSK</span>
-              <span className="font-mono text-sm sm:text-base font-bold text-gray-300">MSC MEDITERRANEAN</span>
-              <span className="font-mono text-sm sm:text-base font-bold text-gray-300">DP WORLD</span>
-              <span className="font-mono text-sm sm:text-base font-bold text-gray-300">DHL LOGISTICS</span>
-              <span className="font-mono text-sm sm:text-base font-bold text-gray-300">ARAMEX</span>
-            </div>
-          </section>
-        </div>
-      )}
-
-      {/* ===== 2. ABOUT US (من نحن) ===== */}
-      {activeNav === 'about' && (
-        <section className="rounded-3xl bg-navy-900/90 border border-gold/25 p-8 sm:p-12 shadow-2xl space-y-8 animate-in fade-in">
-          <div className="space-y-2">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/30">
-              {lang === 'ar' ? 'من نحن' : 'About Us'}
+            <span
+              className={`text-[15px] font-[500] tracking-[0.25em] uppercase ${
+                isScrolled ? 'text-[#171A20]' : 'text-white'
+              }`}
+            >
+              {lang === 'ar' ? 'سـودانـيـل' : 'S U D A N E E L'}
             </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-white">
-              {lang === 'ar' ? 'سودانيل لوجيستك — الريادة والتميز في عالم النقل' : 'Sudanil Logistic — Leaders in Freight & Supply Chains'}
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-400">
-              {lang === 'ar' ? 'نبني البنية التحتية اللوجستية الرقمية التي تدعم التجارة والصناعة في السودان والمنطقة.' : 'Building the digital logistics backbone of Sudan.'}
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs sm:text-sm text-gray-300 leading-relaxed">
-            <div className="space-y-4 bg-navy-950/80 p-6 rounded-2xl border border-navy-800">
-              <h3 className="font-bold text-gold text-base">
-                {lang === 'ar' ? 'رؤيتنا ورسالتنا' : 'Our Vision & Mission'}
-              </h3>
-              <p>
-                {lang === 'ar'
-                  ? 'تأسست شركة سودانيل لوجيستك لتكون الشريك الاستراتيجي الأول للشركات والمصانع والمستوردين والمصدرين في السودان، من خلال تقديم خدمات شحن متطورة تجمع بين السرعة والأمان التام والشفافية في التسعير.'
-                  : 'Sudanil Logistic was founded to be the strategic supply chain partner for enterprises and traders across Sudan, providing unmatched speed, security, and transparent pricing.'}
-              </p>
-              <p>
-                {lang === 'ar'
-                  ? 'نمتلك أسطولاً متنوعاً من الشاحنات العادية والمبردة ومقطورات الحاويات، مع شبكة محطات تغطي بورتسودان، الخرطوم، عطبرة، القضارف، وود مدني.'
-                  : 'We manage a modern multi-modal fleet covering Port Sudan, Khartoum, Atbara, Gedaref, and Wad Madani.'}
-              </p>
-            </div>
+          {/* Center Navigation Links (14px / 500 / Carbon Dark) */}
+          <nav className="hidden lg:flex items-center gap-1">
+            <button
+              onMouseEnter={() => setActiveMegaMenu('fleet')}
+              onClick={() => setCurrentView('fleet')}
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              {lang === 'ar' ? 'الأسطول والخدمات' : 'Fleet & Services'}
+            </button>
 
-            <div className="space-y-4 bg-navy-950/80 p-6 rounded-2xl border border-navy-800">
-              <h3 className="font-bold text-sky-400 text-base">
-                {lang === 'ar' ? 'فريق العمل والقيادة' : 'Leadership & Operational Excellence'}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-navy-900 border border-navy-800">
-                  <div className="w-10 h-10 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold">م.ع</div>
-                  <div>
-                    <div className="font-bold text-white text-xs">محمد عثمان</div>
-                    <div className="text-[11px] text-gray-400">{lang === 'ar' ? 'المدير التنفيذي' : 'Chief Executive Officer'}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-navy-900 border border-navy-800">
-                  <div className="w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">س.إ</div>
-                  <div>
-                    <div className="font-bold text-white text-xs">سارة إبراهيم</div>
-                    <div className="text-[11px] text-gray-400">{lang === 'ar' ? 'مدير العمليات وسلاسل الإمداد' : 'Chief Operating Officer'}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-navy-900 border border-navy-800">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">خ.ح</div>
-                  <div>
-                    <div className="font-bold text-white text-xs">خالد حسن</div>
-                    <div className="text-[11px] text-gray-400">{lang === 'ar' ? 'مدير الشراكات والموانئ' : 'Head of Global Port Partnerships'}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+            <button
+              onMouseEnter={() => setActiveMegaMenu('ports')}
+              onClick={() => setCurrentView('port_sudan')}
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              {lang === 'ar' ? 'الموانئ والتخليص' : 'Ports & Customs'}
+            </button>
 
-      {/* ===== 3. SERVICES (خدماتنا) ===== */}
-      {activeNav === 'services' && (
-        <section className="space-y-8 animate-in fade-in">
-          <div className="text-center space-y-3">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/30">
-              {lang === 'ar' ? 'حلول متكاملة' : 'Our Capabilities'}
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-white">
-              {lang === 'ar' ? 'خدمات الشحن والنقل اللوجستي' : 'Logistics & Cargo Transport Services'}
-            </h2>
-          </div>
+            <button
+              onMouseEnter={() => setActiveMegaMenu('warehouses')}
+              onClick={() => setCurrentView('warehousing')}
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              {lang === 'ar' ? 'المستودعات والمراكز' : 'Warehousing & Hubs'}
+            </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/25 space-y-3 shadow-xl">
-              <Truck className="w-8 h-8 text-gold" />
-              <h3 className="text-lg font-bold text-white">{lang === 'ar' ? 'النقل الثقيل والرافعات' : 'Heavy Haulage & Flatbeds'}</h3>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                {lang === 'ar' ? 'نقل الآليات الثقيلة، مولدات الطاقة، ومعدات المشاريع الصناعية عبر كافة المحاور الوعرة.' : 'Specialized transport for heavy industrial equipment and power generation machinery.'}
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/25 space-y-3 shadow-xl">
-              <Ship className="w-8 h-8 text-sky-400" />
-              <h3 className="text-lg font-bold text-white">{lang === 'ar' ? 'مناولة الحاويات بميناء بورتسودان' : 'Port Sudan Terminal Drayage'}</h3>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                {lang === 'ar' ? 'سحب فوري للحاويات (20ft & 40ft) من الأرصفة ونقلها إلى الموانئ الجافة والمستودعات.' : 'Container drayage and rapid clearance directly from Port Sudan berths.'}
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-navy-900/90 border border-gold/25 space-y-3 shadow-xl">
-              <Warehouse className="w-8 h-8 text-emerald-400" />
-              <h3 className="text-lg font-bold text-white">{lang === 'ar' ? 'سلاسل التبريد والتخزين' : 'Cold Chain & Reefer Fleet'}</h3>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                {lang === 'ar' ? 'شاحنات ومستودعات مبردة ومجمدة مع مراقبة حرارية مستمرة لضمان سلامة الأغذية والأدوية.' : 'Temperature-controlled reefer fleet with continuous sensor monitoring.'}
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
+            <button
+              onMouseEnter={() => setActiveMegaMenu('marketplace')}
+              onClick={() => setCurrentView('marketplace')}
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              {lang === 'ar' ? 'السوق اللوجستي' : 'Freight Exchange'}
+            </button>
 
-      {/* ===== 4. TRACK SHIPMENT (تتبع الشحنة) ===== */}
-      {activeNav === 'track' && (
-        <section className="rounded-3xl bg-navy-900/90 border border-gold/30 p-8 sm:p-14 shadow-2xl space-y-6 animate-in fade-in max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 rounded-2xl bg-gold/20 text-gold border border-gold/40 flex items-center justify-center mx-auto shadow-lg">
-            <Search className="w-8 h-8" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white">
-            {lang === 'ar' ? 'تتبع شحنتك لحظة بلحظة' : 'Track Your Shipment Live'}
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-md mx-auto">
-            {lang === 'ar'
-              ? 'أدخل رقم التتبع للاطلاع على الجواز الرقمي للشحنة وموقع السائق والسرعة وموعد الوصول الدقيق.'
-              : 'Enter your tracking code to view the live Digital Shipment Passport and timeline.'}
-          </p>
+            <button
+              onClick={() => setCurrentView('public_track')}
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              {lang === 'ar' ? 'تتبع الشحنات' : 'Tracking'}
+            </button>
+          </nav>
 
-          <form onSubmit={handleTrackSubmit} className="space-y-4">
-            <div className="flex items-center gap-2 bg-navy-950 p-2.5 rounded-2xl border border-gold/30 shadow-inner">
-              <Search className="w-5 h-5 text-gold ps-2" />
-              <input
-                value={trackingInput}
-                onChange={(e) => setTrackingInput(e.target.value)}
-                placeholder="SDN-88419 / SDN-99104 / SDN-77312"
-                className="flex-1 bg-transparent text-white font-mono text-sm sm:text-base outline-none px-2"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 rounded-xl bg-gold hover:bg-gold/90 text-navy-950 font-extrabold text-xs sm:text-sm shadow-lg cursor-pointer"
-              >
-                {lang === 'ar' ? 'بحث فوري' : 'Search Now'}
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
+          {/* Right Action Utilities (Language, Login / OS Switcher) */}
+          <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+              className={`text-[14px] font-[500] px-3 py-1 rounded-[4px] transition-colors duration-330 cursor-pointer flex items-center gap-1.5 ${
+                isScrolled
+                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
+            </button>
 
-      {/* ===== 5. CONTACT US (تواصل معنا — Exact match to screenshot) ===== */}
-      {activeNav === 'contact' && (
-        <section className="space-y-8 animate-in fade-in">
-          {/* Hero Banner: نحن هنا لخدمتك دائماً */}
-          <div className="relative rounded-3xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-gold/30 p-8 sm:p-14 shadow-2xl text-center space-y-4">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/30">
-              {lang === 'ar' ? 'دعم متكامل على مدار الساعة' : '24/7 Dedicated Logistics Support'}
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white">
-              {lang === 'ar' ? 'نحن هنا لخدمتك دائماً' : 'We Are Always Here For You'}
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              {lang === 'ar'
-                ? 'تواصل مع خبراء اللوجستيك لدينا للحصول على حلول مخصصة تدعم نمو أعمالك وتضمن وصول شحناتك بأمان واحترافية.'
-                : 'Connect with our logistics engineers for tailored corporate solutions that power your business growth.'}
-            </p>
-          </div>
-
-          {/* Contact Details & Form Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Direct Contact Card (4 cols) */}
-            <div className="lg:col-span-4 rounded-2xl bg-gradient-to-b from-navy-900 to-navy-950 border border-gold/25 p-6 sm:p-8 shadow-xl space-y-6">
-              <h3 className="font-black text-lg text-white flex items-center gap-2 pb-4 border-b border-gold/15">
-                <Building2 className="w-5 h-5 text-gold" />
-                <span>{lang === 'ar' ? 'بيانات التواصل المباشر' : 'Direct Contact Info'}</span>
-              </h3>
-
-              {/* Phone Numbers */}
-              <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-1.5">
-                <div className="flex items-center gap-2 text-gold text-xs font-bold">
-                  <Phone className="w-4 h-4" />
-                  <span>{lang === 'ar' ? 'أرقام الهاتف:' : 'Phone Numbers:'}</span>
-                </div>
-                <div className="font-mono text-sm text-white font-extrabold ps-6" dir="ltr">+249 123 456 789</div>
-                <div className="font-mono text-sm text-white font-extrabold ps-6" dir="ltr">+249 912 345 678</div>
-              </div>
-
-              {/* Email */}
-              <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-1.5">
-                <div className="flex items-center gap-2 text-gold text-xs font-bold">
-                  <Mail className="w-4 h-4" />
-                  <span>{lang === 'ar' ? 'البريد الإلكتروني:' : 'Email:'}</span>
-                </div>
-                <div className="font-mono text-xs text-gray-200 ps-6">info@sudanil-logistic.com</div>
-                <div className="font-mono text-xs text-gray-200 ps-6">sales@sudanil-logistic.com</div>
-              </div>
-
-              {/* Locations */}
-              <div className="p-4 rounded-xl bg-navy-950/80 border border-navy-800 space-y-1.5">
-                <div className="flex items-center gap-2 text-gold text-xs font-bold">
-                  <MapPin className="w-4 h-4" />
-                  <span>{lang === 'ar' ? 'المقر والفروع:' : 'Locations:'}</span>
-                </div>
-                <div className="text-xs text-gray-300 ps-6">
-                  {lang === 'ar' ? 'الخرطوم — المنطقة الصناعية بحري' : 'Khartoum — Bahri Industrial Area'}
-                </div>
-                <div className="text-xs text-gray-300 ps-6">
-                  {lang === 'ar' ? 'بورتسودان — الميناء الجنوبي والمنطقة الحرة' : 'Port Sudan — South Port Free Zone'}
-                </div>
-              </div>
-            </div>
-
-            {/* Send Message Form (8 cols) */}
-            <div className="lg:col-span-8 rounded-2xl bg-navy-900/90 border border-gold/25 p-6 sm:p-8 shadow-xl space-y-6">
-              <h3 className="font-black text-lg text-white flex items-center gap-2 pb-4 border-b border-gold/15">
-                <Send className="w-5 h-5 text-gold" />
-                <span>{lang === 'ar' ? 'أرسل لنا رسالة' : 'Send Us a Message'}</span>
-              </h3>
-
-              <form onSubmit={handleContactSubmit} className="space-y-4 text-xs">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-gray-300 font-bold">{lang === 'ar' ? 'الاسم الكامل' : 'Full Name'}</label>
-                    <input
-                      required
-                      value={contactName}
-                      onChange={(e) => setContactName(e.target.value)}
-                      placeholder={lang === 'ar' ? 'أدخل اسمك الكامل' : 'Your name'}
-                      className="w-full p-3.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none focus:border-gold"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-gray-300 font-bold">{lang === 'ar' ? 'البريد الإلكتروني' : 'Email'}</label>
-                    <input
-                      required
-                      type="email"
-                      value={contactEmail}
-                      onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="example@domain.com"
-                      className="w-full p-3.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none focus:border-gold"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-gray-300 font-bold">{lang === 'ar' ? 'الموضوع' : 'Subject'}</label>
-                    <select
-                      value={contactSubject}
-                      onChange={(e) => setContactSubject(e.target.value)}
-                      className="w-full p-3.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none focus:border-gold"
-                    >
-                      <option value="general">{lang === 'ar' ? 'استفسار عام' : 'General Inquiry'}</option>
-                      <option value="quote">{lang === 'ar' ? 'طلب عرض أسعار شحن' : 'Freight Quote Request'}</option>
-                      <option value="carrier">{lang === 'ar' ? 'تسجيل ناقل أو أسطول' : 'Register Carrier Fleet'}</option>
-                      <option value="customs">{lang === 'ar' ? 'تخليص جمركي وموانئ' : 'Port & Customs Clearance'}</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-gray-300 font-bold">{lang === 'ar' ? 'رقم الهاتف' : 'Phone'}</label>
-                    <input
-                      value={contactPhone}
-                      onChange={(e) => setContactPhone(e.target.value)}
-                      placeholder="+249 9X XXX XXX"
-                      className="w-full p-3.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none focus:border-gold"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-gray-300 font-bold">{lang === 'ar' ? 'نص الرسالة أو تفاصيل الشحنة' : 'Message Details'}</label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
-                    placeholder={lang === 'ar' ? 'اكتب تفاصيل استفسارك هنا...' : 'Write your inquiry here...'}
-                    className="w-full p-3.5 rounded-xl bg-navy-950 border border-gold/20 text-white outline-none focus:border-gold custom-scrollbar"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-gold via-amber-400 to-amber-500 hover:brightness-110 text-navy-950 font-black text-sm shadow-xl flex items-center justify-center gap-2 cursor-pointer transition-transform hover:scale-[1.01]"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{lang === 'ar' ? 'إرسال الرسالة' : 'Send Message'}</span>
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===== FOOTER ===== */}
-      <footer className="rounded-3xl bg-navy-900/90 border border-gold/20 p-8 sm:p-12 text-gray-300 space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <h4 className="font-black text-base text-white">{lang === 'ar' ? 'سودانيل لوجيستك' : 'Sudanil Logistic'}</h4>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              {lang === 'ar'
-                ? 'رائدون في عالم اللوجستيات، نقدم الحلول التي تربط العالم ببعضه البعض بدقة وموثوقية عالية.'
-                : 'Pioneers in logistics, connecting businesses with high precision and unmatched reliability.'}
-            </p>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white text-xs mb-4 uppercase tracking-widest">{lang === 'ar' ? 'روابط سريعة' : 'Quick Links'}</h5>
-            <ul className="space-y-2 text-xs">
-              <li><button onClick={() => setActiveNav('home')} className="hover:text-gold transition-colors">{lang === 'ar' ? 'الرئيسية' : 'Home'}</button></li>
-              <li><button onClick={() => setActiveNav('about')} className="hover:text-gold transition-colors">{lang === 'ar' ? 'من نحن' : 'About Us'}</button></li>
-              <li><button onClick={() => setActiveNav('services')} className="hover:text-gold transition-colors">{lang === 'ar' ? 'خدماتنا' : 'Services'}</button></li>
-              <li><button onClick={() => setActiveNav('track')} className="hover:text-gold transition-colors">{lang === 'ar' ? 'تتبع الشحنة' : 'Track Shipment'}</button></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white text-xs mb-4 uppercase tracking-widest">{lang === 'ar' ? 'اتصل بنا' : 'Contact'}</h5>
-            <ul className="space-y-2 text-xs">
-              <li className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-gold" /><span>الخرطوم، بورتسودان</span></li>
-              <li className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-gold" /><span dir="ltr">+249 123 456 789</span></li>
-              <li className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-gold" /><span>info@sudanil-logistic.com</span></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5 className="font-bold text-white text-xs mb-4 uppercase tracking-widest">{lang === 'ar' ? 'بوابة التشغيل' : 'Platform'}</h5>
+            {/* Internal OS Login Button (Tesla Secondary style) */}
             <button
               onClick={() => setCurrentView('control_tower')}
-              className="w-full py-2.5 px-4 rounded-xl bg-navy-950 border border-gold/30 hover:border-gold text-gold font-bold text-xs flex items-center justify-center gap-2 transition-all hover:scale-105"
+              className={`text-[14px] font-[500] px-4 py-1.5 rounded-[4px] transition-colors duration-330 cursor-pointer border ${
+                isScrolled
+                  ? 'border-[#D0D1D2] text-[#171A20] bg-white hover:bg-[#F4F4F4]'
+                  : 'border-white/30 text-white bg-black/20 hover:bg-white/20'
+              }`}
             >
-              <LogIn className="w-4 h-4" />
-              <span>{lang === 'ar' ? 'دخول لوحة التحكم' : 'Launch OS'}</span>
+              {lang === 'ar' ? 'نظام العمليات OS' : 'Operations OS'}
             </button>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-navy-800 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Sudanil Logistic. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+        {/* Mega Dropdown Panel (Tesla Style - Pure White, No Shadow, 3 Columns + Sidebar) */}
+        {activeMegaMenu && (
+          <div
+            onMouseLeave={() => setActiveMegaMenu(null)}
+            className="w-full bg-[#FFFFFF] border-b border-[#EEEEEE] py-10 px-6 text-[#171A20] animate-in fade-in duration-200"
+          >
+            <div className="max-w-[1383px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* 3-Column Vehicle Grid (70% width) */}
+              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {megaMenuContent[activeMegaMenu]?.columns.map((item, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      setCurrentView(item.view as any);
+                      setActiveMegaMenu(null);
+                    }}
+                    className="group cursor-pointer text-center space-y-3 p-2"
+                  >
+                    <div className="h-28 rounded-[4px] bg-[#F4F4F4] overflow-hidden flex items-center justify-center">
+                      <div
+                        className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-330"
+                        style={{ backgroundImage: `url('${item.img}')` }}
+                      ></div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[17px] font-[500] text-[#171A20] leading-snug">
+                        {item.name}
+                      </div>
+                      <div className="text-[13px] font-[400] text-[#5C5E62]">
+                        {item.type}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-4 text-[14px] font-[400] text-[#5C5E62] pt-1">
+                      <span className="hover:text-[#171A20] hover:underline transition-colors duration-330">
+                        {lang === 'ar' ? 'تفاصيل' : 'Learn'}
+                      </span>
+                      <span className="hover:text-[#171A20] hover:underline transition-colors duration-330">
+                        {lang === 'ar' ? 'طلب فوري' : 'Order'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Sub-links Sidebar (30% width) */}
+              <div className="lg:col-span-4 border-s border-[#EEEEEE] ps-8 space-y-4">
+                <div className="text-[13px] font-[500] text-[#8E8E8E] uppercase tracking-wider">
+                  {lang === 'ar' ? 'روابط سريعة' : 'Quick Navigation'}
+                </div>
+                <div className="space-y-2.5">
+                  {megaMenuContent[activeMegaMenu]?.sidebarLinks.map((link, lIdx) => (
+                    <button
+                      key={lIdx}
+                      onClick={() => {
+                        setCurrentView(link.view as any);
+                        setActiveMegaMenu(null);
+                      }}
+                      className="block w-full text-start text-[14px] font-[400] text-[#393C41] hover:text-[#3E6AE1] transition-colors duration-330 cursor-pointer"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* 2. Full-Viewport (100vh) Hero Sections Showroom */}
+      <div className="snap-container">
+        {heroSlides.map((slide, sIdx) => {
+          const isActive = activeHeroIndex === sIdx;
+
+          return (
+            <section
+              key={slide.id}
+              className="snap-section relative w-full h-screen overflow-hidden flex flex-col justify-between"
+            >
+              {/* Full-bleed Edge-to-Edge Cinematic Background */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+                style={{ backgroundImage: `url('${slide.bgImage}')` }}
+              >
+                {/* Subtle contrast mask for typography clarity */}
+                <div className="absolute inset-0 bg-black/35"></div>
+              </div>
+
+              {/* Top Spacing for Navigation */}
+              <div className="pt-24"></div>
+
+              {/* Center Hero Information (Tesla Typography: 40px/500 Title + 22px/400 Promo Subtitle) */}
+              <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-3">
+                <h1 className="text-[32px] sm:text-[40px] font-[500] text-white leading-[48px] tracking-normal">
+                  {lang === 'ar' ? slide.titleAr : slide.titleEn}
+                </h1>
+                <p className="text-[18px] sm:text-[22px] font-[400] text-[#3E6AE1] bg-black/30 backdrop-blur-sm inline-block px-4 py-1 rounded-[4px]">
+                  {lang === 'ar' ? slide.subtitleAr : slide.subtitleEn}
+                </p>
+              </div>
+
+              {/* Bottom Actions Container (Side-by-side Primary & Secondary CTAs) */}
+              <div className="relative z-10 max-w-xl mx-auto px-6 pb-20 sm:pb-24 w-full space-y-6 text-center">
+                {/* Side-by-side Button Pair */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  {/* Primary CTA (Electric Blue #3E6AE1, 4px radius, 40px height, 200px width) */}
+                  <button
+                    onClick={slide.primaryAction}
+                    className="btn-tesla-primary w-full sm:w-auto"
+                  >
+                    {lang === 'ar' ? slide.primaryBtnAr : slide.primaryBtnEn}
+                  </button>
+
+                  {/* Secondary CTA (Pure White #FFFFFF, Graphite text, 4px radius, 40px height, 200px width) */}
+                  <button
+                    onClick={slide.secondaryAction}
+                    className="btn-tesla-secondary w-full sm:w-auto"
+                  >
+                    {lang === 'ar' ? slide.secondaryBtnAr : slide.secondaryBtnEn}
+                  </button>
+                </div>
+
+                {/* Minimalist Shipment Search & Track Bar */}
+                <form
+                  onSubmit={handleTrackSubmit}
+                  className="max-w-md mx-auto flex items-center bg-[#FFFFFF] rounded-[4px] border border-[#D0D1D2] p-1 text-[14px]"
+                >
+                  <input
+                    type="text"
+                    value={trackingInput}
+                    onChange={(e) => setTrackingInput(e.target.value)}
+                    placeholder={lang === 'ar' ? 'أدخل رقم الشحنة أو بوليصة الشحن...' : 'Enter tracking # or B/L...'}
+                    className="flex-1 bg-transparent px-3 py-1.5 text-[#171A20] placeholder-[#8E8E8E] outline-none text-[14px] font-[400]"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-[#3E6AE1] text-white px-5 py-1.5 rounded-[4px] font-[500] text-[14px] hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
+                  >
+                    {lang === 'ar' ? 'تتبع' : 'Track'}
+                  </button>
+                </form>
+              </div>
+
+              {/* Carousel Dot Indicators (50% circles at bottom center) */}
+              <div className="absolute bottom-12 left-0 right-0 z-20 flex items-center justify-center gap-2">
+                {heroSlides.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => setActiveHeroIndex(dotIdx)}
+                    className={`w-2 h-2 rounded-full transition-all duration-330 cursor-pointer ${
+                      activeHeroIndex === dotIdx ? 'bg-white w-6' : 'bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Carousel Arrow Navigation on Edges */}
+              <button
+                onClick={() =>
+                  setActiveHeroIndex((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1))
+                }
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-[4px] bg-white/30 hover:bg-white/60 backdrop-blur-md flex items-center justify-center text-white transition-colors duration-330 cursor-pointer hidden sm:flex"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              <button
+                onClick={() =>
+                  setActiveHeroIndex((prev) => (prev + 1) % heroSlides.length)
+                }
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-[4px] bg-white/30 hover:bg-white/60 backdrop-blur-md flex items-center justify-center text-white transition-colors duration-330 cursor-pointer hidden sm:flex"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* 3. Category Cards Showcase (Tesla 2:1 Landscape Cards with 12px Border Radius) */}
+      <section className="bg-[#FFFFFF] py-20 px-6 max-w-[1383px] mx-auto space-y-12">
+        <div className="text-center space-y-2">
+          <h2 className="text-[32px] sm:text-[40px] font-[500] text-[#171A20]">
+            {lang === 'ar' ? 'حلول سلاسل الإمداد المتكاملة' : 'Integrated Supply Chain Solutions'}
+          </h2>
+          <p className="text-[17px] font-[400] text-[#5C5E62]">
+            {lang === 'ar'
+              ? 'بنية تحتية رقمية متطورة تربط النقل البري والبحري بالمستودعات الذكية'
+              : 'Advanced digital infrastructure bridging multimodal freight and smart hubs'}
+          </p>
         </div>
+
+        {/* 2-Up Horizontal Landscape Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1: النقل البري للممرات الحيوية */}
+          <div
+            onClick={() => setCurrentView('marketplace')}
+            className="relative h-[340px] sm:h-[400px] rounded-[12px] overflow-hidden cursor-pointer group"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/news-truck.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-black/25"></div>
+            </div>
+            {/* Top-Right Label (16px / 500 / White) */}
+            <div className="absolute top-6 start-6 z-10">
+              <span className="text-[16px] font-[500] text-white">
+                {lang === 'ar' ? 'ممرات النقل البري الوطنية' : 'National Highway Corridors'}
+              </span>
+            </div>
+            {/* Bottom Action */}
+            <div className="absolute bottom-6 start-6 z-10">
+              <button className="text-[14px] font-[500] text-white underline underline-offset-4 flex items-center gap-1">
+                <span>{lang === 'ar' ? 'استكشف الممرات والأسطول' : 'Explore Corridors'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: الموانئ والتجارة الدولية */}
+          <div
+            onClick={() => setCurrentView('port_sudan')}
+            className="relative h-[340px] sm:h-[400px] rounded-[12px] overflow-hidden cursor-pointer group"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/news-port.jpg')" }}
+            >
+              <div className="absolute inset-0 bg-black/25"></div>
+            </div>
+            {/* Top-Right Label (16px / 500 / White) */}
+            <div className="absolute top-6 start-6 z-10">
+              <span className="text-[16px] font-[500] text-white">
+                {lang === 'ar' ? 'التجارة الدولية وموانئ البحر الأحمر' : 'Maritime Ports & Red Sea Gateway'}
+              </span>
+            </div>
+            {/* Bottom Action */}
+            <div className="absolute bottom-6 start-6 z-10">
+              <button className="text-[14px] font-[500] text-white underline underline-offset-4 flex items-center gap-1">
+                <span>{lang === 'ar' ? 'إجراءات التخليص والمناولة' : 'Customs & Handling'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Fleet & Operational Specifications (3-Column Clean Tesla Grid) */}
+      <section className="bg-[#F4F4F4] py-20 px-6">
+        <div className="max-w-[1383px] mx-auto space-y-12">
+          <div className="text-center space-y-2">
+            <h2 className="text-[32px] sm:text-[40px] font-[500] text-[#171A20]">
+              {lang === 'ar' ? 'مواصفات ومعايير الأداء اللوجستي' : 'Logistics Standards & Capabilities'}
+            </h2>
+            <p className="text-[17px] font-[400] text-[#5C5E62]">
+              {lang === 'ar' ? 'أداء موثوق ومقاييس تشغيلية مبنية على أعلى معايير الجودة العالمية' : 'Engineered for extreme reliability, speed, and sovereign control'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Spec 1 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                +1,200
+              </div>
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'شحنة شهرية منجزة' : 'Monthly Dispatched Shipments'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'إدارة متكاملة للشحنات عبر نظام تتبع إلكتروني لحظي يربط 18 ولاية.'
+                  : 'End-to-end digital load coordination connecting 18 states with 97.4% on-time delivery.'}
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={() => setCurrentView('shipments')}
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
+                >
+                  {lang === 'ar' ? 'عرض تفاصيل الشحنات' : 'Learn More'}
+                </button>
+              </div>
+            </div>
+
+            {/* Spec 2 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                30%
+              </div>
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'وفورات في تكاليف الشحن' : 'Average Freight Cost Reduction'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'استغلال الطاقة الاستيعابية للشاحنات العائدة بأسعار تنافسية عبر بورصة الشحن.'
+                  : 'Optimized backhaul freight routing matching empty trucks with export loads in seconds.'}
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={() => setCurrentView('marketplace')}
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
+                >
+                  {lang === 'ar' ? 'استعراض بورصة الشحن' : 'Explore Backhauls'}
+                </button>
+              </div>
+            </div>
+
+            {/* Spec 3 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                120K MT
+              </div>
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'طاقة تخزينية استراتيجية' : 'Cold & Dry Warehousing Capacity'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'مستودعات مجهزة بالكامل وموزعة في الموانئ والمراكز الاقتصادية الرئيسية.'
+                  : 'Strategically located temperature-monitored hubs along all major trade corridors.'}
+              </p>
+              <div className="pt-2">
+                <button
+                  onClick={() => setCurrentView('warehousing')}
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
+                >
+                  {lang === 'ar' ? 'حجز مساحة تخزين' : 'Reserve Capacity'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Minimalist Footer */}
+      <footer className="bg-[#FFFFFF] border-t border-[#EEEEEE] py-12 px-6 pb-24 text-center text-[#5C5E62] text-[14px] space-y-4">
+        <div className="flex flex-wrap items-center justify-center gap-6 text-[14px] font-[400]">
+          <span className="text-[#171A20] font-[500]">Sudaneel Logistics © {new Date().getFullYear()}</span>
+          <button onClick={() => setCurrentView('support_center')} className="hover:text-[#171A20] hover:underline">
+            {lang === 'ar' ? 'الدعم الفني' : 'Support'}
+          </button>
+          <button onClick={() => setCurrentView('reports')} className="hover:text-[#171A20] hover:underline">
+            {lang === 'ar' ? 'التقارير المؤسسية' : 'Reports'}
+          </button>
+          <button onClick={() => setCurrentView('contracts_crm')} className="hover:text-[#171A20] hover:underline">
+            {lang === 'ar' ? 'العقود والشروط' : 'Terms & Contracts'}
+          </button>
+        </div>
+        <p className="text-[12px] text-[#8E8E8E]">
+          {lang === 'ar' ? 'المنصة اللوجستية الوطنية الموحدة — السودان' : 'Unified National Logistics Platform — Sudan'}
+        </p>
       </footer>
+
+      {/* 6. Persistent Bottom Chat Bar (Tesla "Ask a Question" Bar) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FFFFFF] border-t border-[#EEEEEE] px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-none">
+        {/* Left Side: Chat input with Send button */}
+        <form onSubmit={handleChatSubmit} className="flex-1 max-w-xl flex items-center gap-2">
+          <MessageSquare className="w-4 h-4 text-[#5C5E62] flex-shrink-0" />
+          <input
+            type="text"
+            value={chatInput}
+            onChange={(e) => setChatInput(e.target.value)}
+            placeholder={
+              lang === 'ar'
+                ? 'اسأل سؤالاً... (مثال: ما هي الشاحنات الفارغة المتاحة في بورتسودان؟)'
+                : 'Ask a question... (e.g. What backhauls are available in Port Sudan?)'
+            }
+            className="flex-1 bg-transparent text-[#171A20] placeholder-[#8E8E8E] text-[14px] font-[400] outline-none"
+          />
+          <button
+            type="submit"
+            className="text-[#3E6AE1] hover:text-[#345ac2] p-1.5 transition-colors duration-330 cursor-pointer"
+          >
+            <Send className="w-4 h-4" />
+          </button>
+        </form>
+
+        {/* Right Side: Secondary Consultation Action */}
+        <div className="hidden sm:flex items-center gap-2 ps-4 border-s border-[#EEEEEE]">
+          <button
+            onClick={() => setCurrentView('control_tower')}
+            className="text-[14px] font-[500] text-[#171A20] hover:text-[#3E6AE1] transition-colors duration-330 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Calendar className="w-3.5 h-3.5 text-[#3E6AE1]" />
+            <span>{lang === 'ar' ? 'احجز استشارة لوجستية' : 'Schedule Consultation'}</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

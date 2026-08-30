@@ -4,15 +4,8 @@ import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
 import {
   Bot,
-  Sparkles,
   Send,
   X,
-  AlertTriangle,
-  CheckCircle2,
-  TrendingUp,
-  Truck,
-  ArrowRight,
-  ShieldCheck,
   Zap,
 } from 'lucide-react';
 
@@ -35,10 +28,8 @@ export function AiCopilotDrawer() {
     setIsAiCopilotOpen,
     setCurrentView,
     setSelectedShipmentId,
-    t,
     lang,
     backhauls,
-    shipments,
   } = useApp();
 
   const [inputQuery, setInputQuery] = useState('');
@@ -167,89 +158,83 @@ export function AiCopilotDrawer() {
       setCurrentView('control_tower');
       setIsAiCopilotOpen(false);
     } else {
-      alert(lang === 'ar' ? 'تم تنفيذ الإجراء بنجاح وإرسال الإشعار الرقمي' : 'Action executed and digital notification dispatched');
+      alert(lang === 'ar' ? 'تم تنفيذ الإجراء بنجاح' : 'Action executed');
     }
   };
 
   return (
-    <div className="fixed inset-y-0 end-0 z-50 w-full sm:w-[460px] bg-navy-950/95 backdrop-blur-2xl border-s border-gold/30 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+    <div className="fixed inset-y-0 end-0 z-50 w-full sm:w-[440px] bg-[#FFFFFF] border-s border-[#EEEEEE] flex flex-col animate-in slide-in-from-right duration-330">
       {/* Drawer Header */}
-      <div className="p-4 border-b border-gold/20 flex items-center justify-between bg-gradient-to-r from-navy-900 via-navy-900 to-navy-950">
+      <div className="p-4 border-b border-[#EEEEEE] flex items-center justify-between bg-[#FFFFFF]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-gold/30 to-amber-500/20 border border-gold/50 flex items-center justify-center">
-            <Bot className="w-5 h-5 text-gold" />
+          <div className="w-8 h-8 rounded-[4px] bg-[#3E6AE1] flex items-center justify-center text-white">
+            <Bot className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-bold text-sm text-white flex items-center gap-2">
-              <span>Sudaneel AI Copilot</span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-mono">
-                Active
-              </span>
+            <div className="font-[500] text-[14px] text-[#171A20]">
+              Sudaneel AI Copilot
             </div>
-            <div className="text-[11px] text-gray-400">Logistics Decision Intelligence</div>
+            <div className="text-[12px] text-[#8E8E8E]">Logistics Decision Intelligence</div>
           </div>
         </div>
         <button
           onClick={() => setIsAiCopilotOpen(false)}
-          className="p-1.5 text-gray-400 hover:text-white rounded-lg hover:bg-navy-800"
+          className="p-1.5 text-[#8E8E8E] hover:text-[#171A20] rounded-[4px] hover:bg-[#F4F4F4]"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
       </div>
 
       {/* Suggested Quick Questions */}
-      <div className="p-3 bg-navy-900/60 border-b border-gold/10 flex items-center gap-2 overflow-x-auto custom-scrollbar">
+      <div className="p-3 bg-[#F4F4F4] border-b border-[#EEEEEE] flex items-center gap-2 overflow-x-auto custom-scrollbar">
         <button
           onClick={() => handleSend(lang === 'ar' ? 'ما المركبات التي تعود فارغة؟' : 'What vehicles are returning empty?')}
-          className="px-2.5 py-1 rounded-lg bg-navy-800 hover:bg-navy-700 text-[11px] text-gold border border-gold/20 whitespace-nowrap cursor-pointer"
+          className="px-3 py-1 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[12px] text-[#171A20] font-[400] whitespace-nowrap hover:bg-[#EEEEEE] transition-colors duration-330 cursor-pointer"
         >
-          🔄 {lang === 'ar' ? 'الرحلات العائدة (Backhaul)' : 'Empty Backhaul'}
+          {lang === 'ar' ? 'الرحلات العائدة (Backhaul)' : 'Empty Backhaul'}
         </button>
         <button
           onClick={() => handleSend(lang === 'ar' ? 'أعطني أفضل مركبة لشحنة سكر كنانة SDN-77312' : 'Best match for Kenana Sugar SDN-77312')}
-          className="px-2.5 py-1 rounded-lg bg-navy-800 hover:bg-navy-700 text-[11px] text-amber-300 border border-amber-500/20 whitespace-nowrap cursor-pointer"
+          className="px-3 py-1 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[12px] text-[#171A20] font-[400] whitespace-nowrap hover:bg-[#EEEEEE] transition-colors duration-330 cursor-pointer"
         >
-          ⚡ {lang === 'ar' ? 'مطابقة شحنة كنانة' : 'Kenana Match'}
+          {lang === 'ar' ? 'مطابقة شحنة كنانة' : 'Kenana Match'}
         </button>
       </div>
 
       {/* Conversation Thread */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-5 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-[#FFFFFF]">
         {conversation.map((msg, idx) => (
           <div key={idx} className="space-y-3">
             {/* User Query Bubble */}
-            <div className="flex items-start gap-2.5 justify-end">
-              <div className="max-w-[85%] p-3 rounded-2xl rounded-tr-none bg-gold/15 border border-gold/30 text-white text-xs sm:text-sm font-medium">
+            <div className="flex items-start gap-2 justify-end">
+              <div className="max-w-[85%] p-3 rounded-[4px] bg-[#F4F4F4] text-[#171A20] text-[14px] font-[400]">
                 {msg.query}
               </div>
             </div>
 
             {/* AI Structured Response */}
-            <div className="p-4 rounded-2xl bg-navy-900/90 border border-gold/25 space-y-3 shadow-lg">
+            <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-3">
               {/* Insight */}
-              <div className="flex items-start gap-2.5">
-                <Sparkles className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <div>
-                  <div className="text-[10px] font-bold uppercase text-gold tracking-wider">Insight</div>
-                  <div className="text-xs sm:text-sm text-gray-100 font-semibold">{msg.insight}</div>
-                </div>
+              <div className="space-y-1">
+                <div className="text-[11px] font-[500] uppercase text-[#3E6AE1] tracking-wider">Insight</div>
+                <div className="text-[14px] text-[#171A20] font-[500] leading-snug">{msg.insight}</div>
               </div>
 
               {/* Cause & Impact Grid */}
-              <div className="grid grid-cols-1 gap-2 pt-2 border-t border-gold/10 text-xs">
-                <div className="p-2 rounded-lg bg-navy-950/60 border border-navy-800">
-                  <span className="font-bold text-gray-400 text-[10px] uppercase block">Cause / السبب:</span>
-                  <span className="text-gray-300 text-[11px]">{msg.cause}</span>
+              <div className="grid grid-cols-1 gap-2 pt-2 border-t border-[#EEEEEE] text-[13px]">
+                <div className="p-2 rounded-[4px] bg-[#F4F4F4]">
+                  <span className="font-[500] text-[#5C5E62] text-[11px] block">Cause / السبب:</span>
+                  <span className="text-[#393C41]">{msg.cause}</span>
                 </div>
-                <div className="p-2 rounded-lg bg-navy-950/60 border border-navy-800">
-                  <span className="font-bold text-emerald-400 text-[10px] uppercase block">Business Impact / الأثر:</span>
-                  <span className="text-gray-300 text-[11px]">{msg.impact}</span>
+                <div className="p-2 rounded-[4px] bg-[#F4F4F4]">
+                  <span className="font-[500] text-[#5C5E62] text-[11px] block">Business Impact / الأثر:</span>
+                  <span className="text-[#393C41]">{msg.impact}</span>
                 </div>
               </div>
 
               {/* Recommendation */}
-              <div className="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/30 text-xs text-amber-200">
-                <span className="font-bold text-amber-400 text-[10px] uppercase block mb-1">AI Recommendation:</span>
+              <div className="p-2.5 rounded-[4px] bg-[#F4F4F4] border-s-2 border-[#3E6AE1] text-[13px] text-[#171A20]">
+                <span className="font-[500] text-[#171A20] text-[11px] block mb-0.5">Recommendation:</span>
                 {msg.recommendation}
               </div>
 
@@ -259,9 +244,8 @@ export function AiCopilotDrawer() {
                   <button
                     key={aIdx}
                     onClick={() => handleAction(act.actionType, act.payload)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-gold/30 to-amber-500/30 hover:from-gold/50 hover:to-amber-500/50 border border-gold/40 text-gold text-xs font-semibold shadow transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                    className="btn-tesla-primary text-[13px] !min-h-[32px] !min-w-[120px] !py-1 !px-3"
                   >
-                    <Zap className="w-3 h-3 text-gold" />
                     <span>{act.label}</span>
                   </button>
                 ))}
@@ -272,7 +256,7 @@ export function AiCopilotDrawer() {
       </div>
 
       {/* Input Form */}
-      <div className="p-3 border-t border-gold/20 bg-navy-950">
+      <div className="p-3 border-t border-[#EEEEEE] bg-[#FFFFFF]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -283,12 +267,12 @@ export function AiCopilotDrawer() {
           <input
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
-            placeholder={lang === 'ar' ? 'اسأل المساعد اللوجستي الذكي...' : 'Ask AI Copilot anything...'}
-            className="flex-1 px-3.5 py-2.5 rounded-xl bg-navy-900 border border-gold/20 text-white placeholder-gray-400 text-xs sm:text-sm outline-none focus:border-gold transition-colors"
+            placeholder={lang === 'ar' ? 'اسأل المساعد اللوجستي...' : 'Ask AI Copilot anything...'}
+            className="flex-1 px-3 py-2 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] placeholder-[#8E8E8E] text-[14px] outline-none"
           />
           <button
             type="submit"
-            className="p-2.5 rounded-xl bg-gradient-to-r from-gold to-amber-500 text-navy-950 font-bold hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+            className="p-2 rounded-[4px] bg-[#3E6AE1] text-white hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>

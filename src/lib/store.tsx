@@ -73,6 +73,9 @@ export type AppView =
   | 'analytics'
   | 'ai_center'
   | 'reports'
+  | 'locations'
+  | 'support_center'
+  | 'invoices_ledger'
   | 'settings_rbac';
 
 interface AppContextType {

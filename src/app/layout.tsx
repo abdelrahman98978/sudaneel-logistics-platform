@@ -18,11 +18,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500&family=Inter:wght@400;500&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950">
+      <body className="antialiased min-h-screen bg-[#FFFFFF] text-[#171A20] selection:bg-[#3E6AE1] selection:text-[#FFFFFF]">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
