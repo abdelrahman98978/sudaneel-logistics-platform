@@ -14,6 +14,7 @@ import {
   Lock,
   Globe,
   Download,
+  FileSpreadsheet,
 } from 'lucide-react';
 import { exportToCsv } from '@/lib/export-utils';
 
@@ -72,47 +73,48 @@ const defaultPermissions: RolePermission[] = [
 
 export function SettingsRbacView() {
   const { role, setRole, lang, setLang, resetToFactoryDefaults, showToast } = useApp();
-
-  const [activeTab, setActiveTab] = useState<'rbac' | 'preferences' | 'audit_log'>('rbac');
   const [permissions, setPermissions] = useState<RolePermission[]>(defaultPermissions);
+  const [activeTab, setActiveTab] = useState<'rbac' | 'preferences'>('rbac');
 
-  // Preference Settings
+  // Preferences state
   const [gpsIntervalSec, setGpsIntervalSec] = useState(4);
   const [autoDispatchThreshold, setAutoDispatchThreshold] = useState(85);
   const [enableSoundFx, setEnableSoundFx] = useState(true);
-  const [apiKey, setApiKey] = useState('sdn_live_sec_994827104928471204');
+  const [apiKey, setApiKey] = useState('sdn_live_sec_89f3a129e7b23c91');
 
   const allRoles: { id: UserRole; nameAr: string; nameEn: string; desc: string }[] = [
-    { id: 'super_admin', nameAr: 'المشرف العام (Super Admin)', nameEn: 'Super Administrator', desc: 'كامل الصلاحيات السيادية والمالية والتشغيلية' },
-    { id: 'shipper_customer', nameAr: 'الشاحن والشركات (Shipper)', nameEn: 'Enterprise Shipper', desc: 'إنشاء الشحنات، حجز المستودعات، وتتبع الحمولات' },
-    { id: 'carrier_admin', nameAr: 'الناقل وأصحاب الأساطيل (Carrier)', nameEn: 'Fleet Carrier', desc: 'إدارة الشاحنات، مطابقة العودة الفارغة، وسحب الأرباح' },
-    { id: 'driver', nameAr: 'السائق (Driver App)', nameEn: 'Fleet Driver', desc: 'تحديث مسار الرحلة، إثبات التسليم POD، وشاشة الأمان' },
-    { id: 'warehouse_manager', nameAr: 'مدير المستودعات (Warehouse)', nameEn: 'Warehouse Terminal Manager', desc: 'إدارة مساحات التخزين والمخزون والتفريغ' },
-    { id: 'customs_agent', nameAr: 'ضابط الجمارك (Customs Agent)', nameEn: 'Sovereign Customs Authority', desc: 'التدقيق الإجرائي والإفراج الجمركي الموثق' },
-    { id: 'operations_manager', nameAr: 'مدير العمليات (Ops Manager)', nameEn: 'Logistics Operations Director', desc: 'مراقبة برج التحكم والممرات ومعدلات OTD' },
+    { id: 'super_admin', nameAr: 'مدير المنصة التنفيذي', nameEn: 'Super Platform Admin', desc: 'تحكم وصلاحيات شاملة 100%' },
+    { id: 'operations_manager', nameAr: 'مدير العمليات اللوجستية', nameEn: 'Operations Manager', desc: 'إشراف على النقل والمستودعات' },
+    { id: 'dispatcher', nameAr: 'منسق الشحنات والتوزيع', nameEn: 'Freight Dispatcher', desc: 'تخصيص الشاحنات والمطابقات' },
+    { id: 'fleet_manager', nameAr: 'مدير أسطول المركبات', nameEn: 'Fleet Manager', desc: 'الصيانة والتيليماتري والسائقين' },
+    { id: 'finance_manager', nameAr: 'المدير المالي والتسويات', nameEn: 'Finance Manager', desc: 'الفواتير والمدفوعات والمحافظ' },
+    { id: 'carrier_admin', nameAr: 'بوابة الناقل المعتمد', nameEn: 'Carrier Partner Admin', desc: 'قبول الشحنات وإسناد المركبات' },
+    { id: 'driver', nameAr: 'سائق شاحنة معتمد', nameEn: 'Certified Truck Driver', desc: 'تطبيق السائق وتأكيد الوصول POD' },
+    { id: 'shipper_customer', nameAr: 'بوابة كبار الشاحنين (B2B)', nameEn: 'Enterprise Shipper', desc: 'إنشاء ومتابعة الشحنات وسداد الفواتير' },
+    { id: 'warehouse_manager', nameAr: 'مدير المستودعات والتخزين', nameEn: 'Warehouse Director', desc: 'إدارة المخزون وحجوزات الساحات' },
+    { id: 'customs_agent', nameAr: 'مخلص جمركي معتمد', nameEn: 'Customs Broker', desc: 'إجراءات ميناء بورتسودان الجمركية' },
+    { id: 'risk_auditor', nameAr: 'مسؤول المخاطر والامتثال', nameEn: 'Risk & Claims Auditor', desc: 'تسوية النزاعات والتأمين الشامل' },
   ];
 
-  const togglePermission = (permKey: string, roleId: UserRole) => {
+  const handleTogglePermission = (permKey: string, targetRole: UserRole) => {
     setPermissions((prev) =>
       prev.map((p) => {
-        if (p.key === permKey) {
-          const exists = p.allowedRoles.includes(roleId);
-          const updated = exists
-            ? p.allowedRoles.filter((r) => r !== roleId)
-            : [...p.allowedRoles, roleId];
-          return { ...p, allowedRoles: updated };
-        }
-        return p;
+        if (p.key !== permKey) return p;
+        const exists = p.allowedRoles.includes(targetRole);
+        const newRoles = exists
+          ? p.allowedRoles.filter((r) => r !== targetRole)
+          : [...p.allowedRoles, targetRole];
+        return { ...p, allowedRoles: newRoles };
       })
     );
     showToast(
-      lang === 'ar' ? 'تم تحديث مصفوفة الصلاحيات' : 'Permission Matrix Updated',
-      lang === 'ar' ? `تم تعديل إذن [${permKey}] للدور [${roleId}]` : `Updated [${permKey}] for [${roleId}]`,
-      'success'
+      lang === 'ar' ? 'تم تحديث مصفوفة الصلاحيات' : 'Permission Updated',
+      lang === 'ar' ? `تم تحديث صلاحية (${permKey}) للدور: ${targetRole}` : `Updated ${permKey} for ${targetRole}`,
+      'info'
     );
   };
 
-  const handleExportAudit = () => {
+  const handleExportRbacCsv = () => {
     const auditData = permissions.map((p) => ({
       permission: p.labelEn,
       permissionAr: p.labelAr,
@@ -137,39 +139,38 @@ export function SettingsRbacView() {
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="text-[17px] font-[500] text-[#171A20]">
-              {lang === 'ar' ? 'إدارة الصلاحيات وإعدادات المنظومة (RBAC & System Controls)' : 'Platform Settings & Access Control Matrix (RBAC)'}
-            </h2>
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-2xl">
+          <div className="shopify-tag-mint">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Enterprise Governance • إدارة الصلاحيات وإعدادات المنظومة</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
-            {lang === 'ar'
-              ? 'تخصيص أدوار المستخدمين السبعة، مصفوفة الصلاحيات، فترات بث الـ GPS، والتحكم بمفاتيح الربط البرمجي.'
-              : 'Configure 7 user roles, granular permission matrices, telemetry intervals, and security audit keys.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            مصفوفة الصلاحيات وإعدادات النظام (RBAC & System Controls)
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            تخصيص أدوار المستخدمين السبعة، مصفوفة الصلاحيات، فترات بث الـ GPS، والتحكم بمفاتيح الربط البرمجي.
           </p>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveTab('rbac')}
-            className={`px-3.5 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-              activeTab === 'rbac' ? 'bg-[#171A20] text-white font-[500]' : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4]'
+            className={`px-5 py-2 rounded-full text-[13px] font-[500] transition-all duration-200 cursor-pointer ${
+              activeTab === 'rbac' ? 'bg-[#000000] text-white shadow-sm' : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
             }`}
           >
-            {lang === 'ar' ? 'مصفوفة الصلاحيات (RBAC)' : 'Roles & Permissions'}
+            مصفوفة الصلاحيات (RBAC)
           </button>
           <button
             onClick={() => setActiveTab('preferences')}
-            className={`px-3.5 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-              activeTab === 'preferences' ? 'bg-[#3E6AE1] text-white font-[500]' : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4]'
+            className={`px-5 py-2 rounded-full text-[13px] font-[500] transition-all duration-200 cursor-pointer ${
+              activeTab === 'preferences' ? 'bg-[#000000] text-white shadow-sm' : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
             }`}
           >
-            {lang === 'ar' ? 'إعدادات التشغيل' : 'System Engine'}
+            إعدادات التشغيل والمفاتيح
           </button>
         </div>
       </div>
@@ -178,23 +179,23 @@ export function SettingsRbacView() {
       {activeTab === 'rbac' && (
         <div className="space-y-6">
           {/* Quick Role Simulator */}
-          <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+          <div className="p-8 shopify-card bg-[#ffffff] space-y-5">
+            <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
               <div>
-                <h3 className="font-[500] text-[15px] text-[#171A20]">
-                  {lang === 'ar' ? 'محاكي تبديل الدور الحالي للمنصة' : 'Active Workspace Role Simulator'}
+                <h3 className="font-[600] text-[16px] text-[#000000]">
+                  محاكي تبديل الدور الحالي للمنصة
                 </h3>
-                <p className="text-[12px] text-[#5C5E62]">
-                  {lang === 'ar' ? 'اختر الدور لاختبار تجربة المستخدم وصلاحيات الشاشات فورياً' : 'Switch your active role to simulate permissions live'}
+                <p className="text-[13px] text-[#71717a]">
+                  اختر الدور لاختبار تجربة المستخدم وصلاحيات الشاشات فورياً
                 </p>
               </div>
 
-              <span className="text-[12px] font-mono px-2.5 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#3E6AE1] border border-[#3E6AE1] font-[500]">
-                Current Role: {role.toUpperCase()}
+              <span className="shopify-tag-mint font-mono font-[600]">
+                Active: {role.toUpperCase()}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {allRoles.map((r) => {
                 const isActive = role === r.id;
                 return (
@@ -208,69 +209,69 @@ export function SettingsRbacView() {
                         'info'
                       );
                     }}
-                    className={`p-3.5 rounded-[4px] text-start border transition-colors duration-330 cursor-pointer ${
+                    className={`p-4 rounded-[12px] text-start transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? 'bg-[#F4F4F4] border-[#171A20]'
-                        : 'bg-white border-[#EEEEEE] hover:bg-[#F4F4F4]'
+                        ? 'shopify-card-aloe shadow-[0_8px_16px_rgba(193,251,212,0.4)]'
+                        : 'shopify-card hover:border-[#a1a1aa]'
                     }`}
                   >
-                    <div className="font-[500] text-[13px] text-[#171A20]">{lang === 'ar' ? r.nameAr : r.nameEn}</div>
-                    <div className="text-[11px] text-[#5C5E62] mt-1 line-clamp-2">{r.desc}</div>
+                    <div className="font-[600] text-[14px] text-[#000000]">{lang === 'ar' ? r.nameAr : r.nameEn}</div>
+                    <div className="text-[11.5px] text-[#71717a] mt-1 line-clamp-2">{r.desc}</div>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Granular Permission Matrix Table */}
-          <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+          {/* Granular RBAC Permissions Table */}
+          <div className="shopify-card overflow-hidden bg-[#ffffff]">
+            <div className="p-6 border-b border-[#e4e4e7] flex items-center justify-between">
               <div>
-                <h3 className="font-[500] text-[15px] text-[#171A20]">
-                  {lang === 'ar' ? 'جدول الصلاحيات الدقيقة لكل دور' : 'Granular Permissions Governance Matrix'}
+                <h3 className="font-[600] text-[16px] text-[#000000]">
+                  مصفوفة التحكم بالوصول (Access Control Matrix)
                 </h3>
-                <p className="text-[12px] text-[#5C5E62]">
-                  {lang === 'ar' ? 'انقر على المربعات لمنح أو حظر الصلاحيات لكل دور' : 'Click checkboxes to grant or revoke specific privileges'}
+                <p className="text-[13px] text-[#71717a]">
+                  انقر على المربعات لتفعيل أو تعطيل الصلاحية لكل دور بشكل فوري
                 </p>
               </div>
 
               <button
-                onClick={handleExportAudit}
-                className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
+                onClick={handleExportRbacCsv}
+                className="btn-shopify-outline !py-1.5 !px-3.5 text-[12px]"
               >
-                <Download className="w-3.5 h-3.5 text-[#3E6AE1]" />
-                <span>{lang === 'ar' ? 'تصدير تدقيق الصلاحيات (CSV)' : 'Export RBAC Audit'}</span>
+                <FileSpreadsheet className="w-4 h-4" />
+                <span>تصدير تقرير التدقيق CSV</span>
               </button>
             </div>
 
-            <div className="overflow-x-auto custom-scrollbar">
+            <div className="overflow-x-auto">
               <table className="w-full text-start text-[13px]">
                 <thead>
-                  <tr className="bg-[#F4F4F4] text-[#5C5E62] font-[500] text-[11px] uppercase border-b border-[#EEEEEE]">
-                    <th className="p-3 text-start">الوظيفة / الصلاحية</th>
-                    {allRoles.map((r) => (
-                      <th key={r.id} className="p-3 text-center">
-                        {r.id.replace('_', ' ')}
+                  <tr className="border-b border-[#e4e4e7] bg-[#fbfbf5] text-[#71717a] text-[12px]">
+                    <th className="p-4 text-start font-[600]">الصلاحية والعملية</th>
+                    {allRoles.slice(0, 6).map((r) => (
+                      <th key={r.id} className="p-4 text-center font-[600]">
+                        {lang === 'ar' ? r.nameAr.split(' ')[0] : r.nameEn.split(' ')[0]}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#EEEEEE]">
+                <tbody className="divide-y divide-[#e4e4e7]">
                   {permissions.map((perm) => (
-                    <tr key={perm.key} className="hover:bg-[#F4F4F4] transition-colors duration-330">
-                      <td className="p-3">
-                        <div className="font-[500] text-[#171A20]">{lang === 'ar' ? perm.labelAr : perm.labelEn}</div>
-                        <div className="text-[11px] text-[#5C5E62]">{perm.description}</div>
+                    <tr key={perm.key} className="hover:bg-[#fbfbf5] transition-colors">
+                      <td className="p-4">
+                        <div className="font-[600] text-[#000000]">{lang === 'ar' ? perm.labelAr : perm.labelEn}</div>
+                        <div className="text-[11.5px] text-[#71717a]">{perm.description}</div>
                       </td>
-                      {allRoles.map((r) => {
-                        const isGranted = perm.allowedRoles.includes(r.id);
+                      {allRoles.slice(0, 6).map((r) => {
+                        const isChecked = perm.allowedRoles.includes(r.id);
                         return (
-                          <td key={r.id} className="p-3 text-center">
+                          <td key={r.id} className="p-4 text-center">
                             <input
                               type="checkbox"
-                              checked={isGranted}
-                              onChange={() => togglePermission(perm.key, r.id)}
-                              className="w-4 h-4 accent-[#3E6AE1] cursor-pointer rounded-[2px]"
+                              checked={isChecked}
+                              onChange={() => handleTogglePermission(perm.key, r.id)}
+                              className="w-4 h-4 accent-[#000000] cursor-pointer rounded"
                             />
                           </td>
                         );
@@ -284,21 +285,20 @@ export function SettingsRbacView() {
         </div>
       )}
 
-      {/* Tab 2: Preferences & Engine Control */}
+      {/* Tab 2: System Preferences & Keys */}
       {activeTab === 'preferences' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Telemetry & Algorithm Tuning */}
-          <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
-            <h3 className="font-[500] text-[15px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-              <Sliders className="w-4 h-4 text-[#3E6AE1]" />
-              <span>{lang === 'ar' ? 'معايير محرك التوزيع والتتبع الحي' : 'Engine & Telemetry Parameters'}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Telemetry & Dispatch Tuning */}
+          <div className="p-8 shopify-card bg-[#ffffff] space-y-5">
+            <h3 className="font-[600] text-[16px] text-[#000000] pb-3 border-b border-[#e4e4e7]">
+              إعدادات المحرك والتيليماتري
             </h3>
 
-            <div className="space-y-4 text-[13px]">
+            <div className="space-y-4 text-[13.5px]">
               <div>
-                <label className="text-[#5C5E62] flex justify-between mb-1">
+                <label className="text-[#71717a] flex justify-between mb-1.5 font-[500]">
                   <span>فترة تحديث إحداثيات GPS الحية:</span>
-                  <span className="font-mono font-[500] text-[#3E6AE1]">{gpsIntervalSec} ثوانٍ</span>
+                  <span className="font-mono font-[700] text-[#000000] bg-[#c1fbd4] px-2 py-0.5 rounded-full">{gpsIntervalSec} ثوانٍ</span>
                 </label>
                 <input
                   type="range"
@@ -306,14 +306,14 @@ export function SettingsRbacView() {
                   max="15"
                   value={gpsIntervalSec}
                   onChange={(e) => setGpsIntervalSec(Number(e.target.value))}
-                  className="w-full accent-[#3E6AE1] cursor-pointer"
+                  className="w-full accent-[#000000] cursor-pointer"
                 />
               </div>
 
               <div>
-                <label className="text-[#5C5E62] flex justify-between mb-1">
+                <label className="text-[#71717a] flex justify-between mb-1.5 font-[500]">
                   <span>الحد الأدنى لدرجة التوزيع الآلي الذكي:</span>
-                  <span className="font-mono font-[500] text-[#3E6AE1]">{autoDispatchThreshold}% Match Score</span>
+                  <span className="font-mono font-[700] text-[#000000] bg-[#c1fbd4] px-2 py-0.5 rounded-full">{autoDispatchThreshold}% Match</span>
                 </label>
                 <input
                   type="range"
@@ -321,49 +321,48 @@ export function SettingsRbacView() {
                   max="98"
                   value={autoDispatchThreshold}
                   onChange={(e) => setAutoDispatchThreshold(Number(e.target.value))}
-                  className="w-full accent-[#3E6AE1] cursor-pointer"
+                  className="w-full accent-[#000000] cursor-pointer"
                 />
               </div>
 
-              <div className="pt-2 border-t border-[#EEEEEE] flex items-center justify-between">
+              <div className="pt-3 border-t border-[#e4e4e7] flex items-center justify-between">
                 <div>
-                  <div className="font-[500] text-[#171A20]">المؤثرات الصوتية والتنبيهات الحية</div>
-                  <div className="text-[11px] text-[#5C5E62]">تنبيه عند اقتراب شاحنة أو فتح بلاغ طارئ</div>
+                  <div className="font-[600] text-[#000000]">المؤثرات الصوتية والتنبيهات الحية</div>
+                  <div className="text-[12px] text-[#71717a]">تنبيه عند اقتراب شاحنة أو فتح بلاغ طارئ</div>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableSoundFx}
                   onChange={(e) => setEnableSoundFx(e.target.checked)}
-                  className="w-4 h-4 accent-[#3E6AE1] cursor-pointer rounded-[2px]"
+                  className="w-5 h-5 accent-[#000000] cursor-pointer rounded"
                 />
               </div>
             </div>
           </div>
 
           {/* API Security & Factory Reset */}
-          <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4 flex flex-col justify-between">
-            <div>
-              <h3 className="font-[500] text-[15px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-                <Key className="w-4 h-4 text-[#3E6AE1]" />
-                <span>{lang === 'ar' ? 'مفاتيح الربط والبيانات التجريبية' : 'Security Keys & Factory Reset'}</span>
+          <div className="p-8 shopify-card bg-[#ffffff] space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <h3 className="font-[600] text-[16px] text-[#000000] pb-3 border-b border-[#e4e4e7]">
+                مفاتيح الربط والبيانات
               </h3>
 
-              <div className="space-y-3 mt-3 text-[13px]">
+              <div className="space-y-3 text-[13px]">
                 <div>
-                  <label className="text-[#5C5E62] block mb-1">مفتاح الربط البرمجي (Sovereign API Webhook Secret)</label>
+                  <label className="text-[#71717a] block mb-1 font-[500]">مفتاح الربط البرمجي (Webhook Secret)</label>
                   <div className="flex items-center gap-2">
                     <input
                       type="password"
                       value={apiKey}
                       readOnly
-                      className="w-full bg-[#F4F4F4] border border-[#D0D1D2] text-[#171A20] font-mono p-2 rounded-[4px] text-[12px]"
+                      className="w-full bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] font-mono p-2.5 rounded-[8px] text-[13px]"
                     />
                     <button
                       onClick={() => {
                         setApiKey(`sdn_live_sec_${Math.random().toString(36).slice(2, 12)}`);
                         showToast('تم تجديد المفتاح البرمجي', 'تم إصدار مفتاح API سري جديد للمنظومة بنجاح', 'success');
                       }}
-                      className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[12px] whitespace-nowrap"
+                      className="btn-shopify-outline !py-2 !px-4 text-[12px] whitespace-nowrap"
                     >
                       تجديد
                     </button>
@@ -373,12 +372,12 @@ export function SettingsRbacView() {
             </div>
 
             {/* Factory Reset Action */}
-            <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2">
-              <div className="flex items-center gap-2 text-[#171A20] font-[500] text-[13px]">
-                <RotateCcw className="w-4 h-4 text-[#3E6AE1]" />
+            <div className="p-5 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-3">
+              <div className="flex items-center gap-2 text-[#000000] font-[600] text-[14px]">
+                <RotateCcw className="w-4 h-4" />
                 <span>استعادة البيانات الافتراضية (Factory Reset)</span>
               </div>
-              <p className="text-[12px] text-[#5C5E62]">
+              <p className="text-[12px] text-[#71717a]">
                 إعادة ضبط جميع الشحنات والفواتير وحجوزات المستودعات والمطالبات إلى بيانات المصنع الأولية وتفريغ التخزين المحلي.
               </p>
               <button
@@ -387,7 +386,7 @@ export function SettingsRbacView() {
                     resetToFactoryDefaults();
                   }
                 }}
-                className="btn-tesla-secondary w-full !min-h-[34px] text-[12px]"
+                className="btn-shopify-pill w-full !py-2 text-[12.5px]"
               >
                 تأكيد إعادة الضبط لقيم المصنع
               </button>

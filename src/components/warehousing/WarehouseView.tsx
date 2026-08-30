@@ -8,6 +8,13 @@ import {
   Building2,
   PlusCircle,
   Thermometer,
+  ShieldCheck,
+  MapPin,
+  Sparkles,
+  X,
+  CheckCircle2,
+  Layers,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export function WarehouseView() {
@@ -69,265 +76,183 @@ export function WarehouseView() {
   const avgOccupancy = Number((((totalCapacity - totalAvailable) / totalCapacity) * 100).toFixed(1));
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
-      {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <WarehouseIcon className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="text-[17px] font-[500] text-[#171A20]">
-              {lang === 'ar' ? 'سوق المستودعات وإدارة سلاسل الإمداد (WMS Engine)' : 'Warehouse Marketplace & WMS Operations'}
-            </h2>
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-8 shopify-card bg-[#ffffff]">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <WarehouseIcon className="w-4 h-4" />
+            <span>Fulfillment Hubs & WMS • شبكة المستودعات الذكية</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
-            {lang === 'ar'
-              ? 'احجز مساحات التخزين الجاف والمبرد والجمركي (Bonded) في بورتسودان والخرطوم، مع تتبع آلي للمخزون والأرصدة والباركود.'
-              : 'Reserve bonded, cold-chain, and dry storage in Port Sudan & Khartoum with live inventory telemetry.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            سوق المستودعات وإدارة المخزون (WMS)
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            شبكة متطورة من المستودعات الجافة والمبردة في الخرطوم، بورتسودان، سنار، ودنقلا مع حجز فوري للمساحات ونظام ذكي لإدارة المخزون.
           </p>
         </div>
 
-        {/* Aggregate Stats */}
-        <div className="flex items-center gap-4 bg-[#F4F4F4] border border-[#EEEEEE] p-3 rounded-[4px] text-[12px]">
-          <div>
-            <span className="text-[#8E8E8E] block">Total Footprint</span>
-            <span className="font-[500] font-mono text-[#171A20]">{totalCapacity.toLocaleString()} m²</span>
-          </div>
-          <div className="h-6 w-px bg-[#D0D1D2]"></div>
-          <div>
-            <span className="text-[#8E8E8E] block">Occupancy Rate</span>
-            <span className="font-[500] font-mono text-[#3E6AE1]">{avgOccupancy}%</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs & Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-2 border-b border-[#EEEEEE]">
-        <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setActiveTab('marketplace')}
-            className={`px-4 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-              activeTab === 'marketplace' ? 'bg-[#171A20] text-white font-[500]' : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4] font-[400]'
+            className={`px-5 py-2.5 rounded-full text-[13.5px] font-[500] transition-all duration-200 cursor-pointer ${
+              activeTab === 'marketplace'
+                ? 'bg-[#000000] text-white shadow-sm'
+                : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
             }`}
           >
-            {lang === 'ar' ? 'دليل ومساحات المستودعات' : 'Warehouses Guide'} ({warehouses.length})
+            سوق المساحات التخزينية
           </button>
           <button
             onClick={() => setActiveTab('wms_inventory')}
-            className={`px-4 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-              activeTab === 'wms_inventory' ? 'bg-[#171A20] text-white font-[500]' : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4] font-[400]'
+            className={`px-5 py-2.5 rounded-full text-[13.5px] font-[500] transition-all duration-200 cursor-pointer ${
+              activeTab === 'wms_inventory'
+                ? 'bg-[#000000] text-white shadow-sm'
+                : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
             }`}
           >
-            {lang === 'ar' ? 'أرصدة المخزون الحي' : 'Live WMS Inventory'} ({warehouseItems.length})
+            مخزون البضائع (WMS)
           </button>
-          <button
-            onClick={() => setActiveTab('reservations')}
-            className={`px-4 py-1.5 rounded-[4px] text-[13px] transition-colors duration-330 cursor-pointer ${
-              activeTab === 'reservations' ? 'bg-[#3E6AE1] text-white font-[500]' : 'text-[#5C5E62] hover:text-[#171A20] hover:bg-[#F4F4F4] font-[400]'
-            }`}
-          >
-            {lang === 'ar' ? 'الحجوزات والعقود' : 'Reservations & Leases'} ({warehouseReservations.length})
-          </button>
-        </div>
-
-        {/* Filters */}
-        <div className="flex items-center gap-2">
-          <select
-            value={searchCity}
-            onChange={(e) => setSearchCity(e.target.value)}
-            className="bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] text-[#171A20] px-3 py-1.5 rounded-[4px] outline-none"
-          >
-            <option value="all">{lang === 'ar' ? 'جميع المدن والمحطات' : 'All Hub Cities'}</option>
-            <option value="Port Sudan">Port Sudan</option>
-            <option value="Khartoum">Khartoum</option>
-            <option value="Wad Madani">Wad Madani</option>
-            <option value="Atbara">Atbara</option>
-          </select>
-
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] text-[#171A20] px-3 py-1.5 rounded-[4px] outline-none"
-          >
-            <option value="all">{lang === 'ar' ? 'جميع أنواع التخزين' : 'All Storage Types'}</option>
-            <option value="bonded">Bonded (جمركي معفى)</option>
-            <option value="reefer">Reefer (مبرّد)</option>
-            <option value="dry">Dry (جاف)</option>
-            <option value="silo">Silo (صوامع)</option>
-          </select>
         </div>
       </div>
 
-      {/* Warehouse Visual Facility Showcase Banner */}
-      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
-        <div className="md:col-span-5 relative min-h-[200px] md:min-h-[240px] bg-[#171A20]">
+      {/* Official Warehouse Hub Showcase Banner (Shopify 20px Card) */}
+      <div className="shopify-card overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 bg-[#ffffff]">
+        <div className="md:col-span-5 relative min-h-[220px] bg-[#000000] p-6 flex items-center justify-center">
           <img
             src="/images/warehouse-hub.jpg"
-            alt="Sudaneel Smart Warehouse Terminal"
-            className="w-full h-full object-cover object-center"
+            alt="Sudaneel Smart Warehouse Interior"
+            className="w-full h-auto max-h-[200px] object-cover rounded-[12px]"
           />
-          <div className="absolute top-3 start-3">
-            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
-              A01 - A02 / B01 Racks
+          <div className="absolute top-4 start-4">
+            <span className="shopify-tag-mint !text-[10px]">
+              Class A+ High-Bay Warehouse
             </span>
           </div>
         </div>
-        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-4">
-          <div>
-            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
-              <span>Quality in Every Step • الجودة في كل خطوة</span>
+
+        <div className="md:col-span-7 p-8 flex flex-col justify-between space-y-4">
+          <div className="space-y-2">
+            <div className="shopify-tag-pistachio !text-[11px]">
+              Multi-Temperature Storage • حلول التخزين الجاف والمبرد
             </div>
-            <h3 className="text-[18px] font-[500] text-[#171A20]">
-              مجمع المستودعات الذكية والتخزين المبرد والمجمرك
+            <h3 className="text-[20px] font-[600] text-[#000000] tracking-tight">
+              مراكز لوجستية استراتيجية مجهزة بأنظمة أرفف A01/B01 ومراقبة حرارية 24/7
             </h3>
-            <p className="text-[13px] text-[#5C5E62] mt-1 leading-relaxed">
-              مرافق تخزين حديثة ومجهزة برافعات آلية ومراقبة درجات الحرارة على مدار الساعة (Cold-Chain)، مع أنظمة باركود ومناولة سريعة لنقل بضائع الصادر والوارد بكفاءة وأمان كامل.
+            <p className="text-[14px] text-[#71717a] leading-relaxed">
+              توفر مستودعاتنا في الموانئ والولايات أعلى معايير الأمان، مع ربط إلكتروني مباشر بنظام الفواتير والتسويات، وتأمين شامل لكافة البضائع المخزنة.
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">مساحة التخزين</span>
-              <span className="font-[500] font-mono text-[#171A20]">120,000 m²</span>
+          {/* 3 Metric Pills */}
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#e4e4e7] text-center">
+            <div className="p-2.5 rounded-[8px] bg-[#fbfbf5]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">{totalCapacity.toLocaleString()} م²</div>
+              <div className="text-[11px] text-[#71717a]">السعة التخزينية الكلية</div>
             </div>
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">معايير السلامة</span>
-              <span className="font-[500] text-[#3E6AE1]">Safety First 100%</span>
+            <div className="p-2.5 rounded-[8px] bg-[#c1fbd4]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">{totalAvailable.toLocaleString()} م²</div>
+              <div className="text-[11px] text-[#000000] font-[500]">المساحة المتاحة الآن</div>
             </div>
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">سرعة المناولة</span>
-              <span className="font-[500] font-mono text-[#171A20]">24/7 Rapid Dock</span>
+            <div className="p-2.5 rounded-[8px] bg-[#fbfbf5]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">{avgOccupancy}%</div>
+              <div className="text-[11px] text-[#71717a]">معدل الإشغال العام</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tab 1: Marketplace Cards Grid */}
+      {/* Warehouse Marketplace Cards */}
       {activeTab === 'marketplace' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredWarehouses.map((wh) => (
-            <div
-              key={wh.id}
-              className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4 flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-[15px] font-[500] text-[#171A20]">{wh.nameAr || wh.name}</h3>
-                    <p className="text-[13px] text-[#5C5E62] flex items-center gap-1 mt-0.5">
-                      <Building2 className="w-3.5 h-3.5" />
-                      <span>{wh.city} — {wh.address}</span>
-                    </p>
-                  </div>
-                  <span className="text-[11px] px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] font-mono uppercase">
-                    {wh.storageType}
-                  </span>
-                </div>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-[18px] font-[600] text-[#000000]">المستودعات المتاحة للحجز الفوري ({filteredWarehouses.length})</h2>
+            <span className="shopify-tag-shade !text-[11px]">جاهزية التشغيل 100%</span>
+          </div>
 
-                {/* Capacity breakdown */}
-                <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2 text-[12px]">
-                  <div className="flex justify-between text-[#171A20]">
-                    <span>المساحة الإجمالية:</span>
-                    <span className="font-mono font-[500]">{wh.totalAreaM2.toLocaleString()} م²</span>
-                  </div>
-                  <div className="flex justify-between text-[#3E6AE1]">
-                    <span>المساحة الشاغرة للحجز:</span>
-                    <span className="font-mono font-[500]">{wh.availableAreaM2.toLocaleString()} م²</span>
-                  </div>
-                  {wh.temperatureCelsius && (
-                    <div className="flex items-center gap-1 text-[#5C5E62] pt-1 border-t border-[#EEEEEE]">
-                      <Thermometer className="w-3.5 h-3.5 text-[#3E6AE1]" />
-                      <span>تحكم حراري: {wh.temperatureCelsius}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredWarehouses.map((wh) => (
+              <div key={wh.id} className="shopify-card p-6 space-y-4 hover:border-[#a1a1aa] transition-colors flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                        <Building2 className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="font-[600] text-[15px] text-[#000000]">{wh.nameAr || wh.name}</div>
+                        <div className="text-[11px] text-[#71717a] flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#71717a]" />
+                          <span>{wh.city}</span>
+                        </div>
+                      </div>
                     </div>
-                  )}
+                    <span className="shopify-tag-mint !text-[11px]">
+                      {wh.storageType}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 text-[13px] text-[#000000]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">المساحة الكلية:</span>
+                      <span className="font-mono font-[600]">{wh.totalAreaM2.toLocaleString()} م²</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">المساحة المتاحة:</span>
+                      <span className="font-mono font-[700] text-[#000000]">{wh.availableAreaM2.toLocaleString()} م²</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">التعرفة الشهرية:</span>
+                      <span className="font-mono font-[700] text-[#000000]">{wh.ratePerM2Monthly} SDG / م²</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    onClick={() => handleOpenReserve(wh)}
+                    className="w-full btn-shopify-pill !py-2.5 text-[13px]"
+                  >
+                    <span>حجز مساحة تخزينية فورية</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
-
-              <div className="pt-3 border-t border-[#EEEEEE] flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] text-[#8E8E8E] block">سعر المتر المربع</span>
-                  <span className="text-[15px] font-[500] font-mono text-[#171A20]">
-                    {wh.ratePerM2Monthly.toLocaleString()} SDG <span className="text-[11px] text-[#5C5E62]">/ شهر</span>
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => handleOpenReserve(wh)}
-                  className="btn-tesla-primary !min-w-[110px] !min-h-[34px] !py-1 !px-3 text-[13px] flex items-center gap-1.5"
-                >
-                  <PlusCircle className="w-4 h-4" />
-                  <span>حجز مساحة</span>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Tab 2: Live Inventory */}
-      {activeTab === 'wms_inventory' && (
-        <div className="rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] overflow-hidden">
-          <div className="overflow-x-auto custom-scrollbar">
-            <table className="w-full text-start text-[13px]">
-              <thead className="bg-[#F4F4F4] text-[#5C5E62] font-[500] uppercase border-b border-[#EEEEEE] text-[11px]">
-                <tr>
-                  <th className="p-3.5 text-start">SKU / Item</th>
-                  <th className="p-3.5 text-start">Client</th>
-                  <th className="p-3.5 text-start">Quantity</th>
-                  <th className="p-3.5 text-start">Batch #</th>
-                  <th className="p-3.5 text-start">Location Bin</th>
-                  <th className="p-3.5 text-end">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#EEEEEE] font-[400] text-[#171A20]">
-                {warehouseItems.map((it) => (
-                  <tr key={it.id} className="hover:bg-[#F4F4F4] transition-colors duration-330">
-                    <td className="p-3.5 font-mono font-[500] text-[#3E6AE1]">{it.sku} - {it.nameAr || it.name}</td>
-                    <td className="p-3.5">{it.clientName}</td>
-                    <td className="p-3.5 font-mono font-[500]">{it.quantity.toLocaleString()} {it.unit}</td>
-                    <td className="p-3.5 font-mono text-[#5C5E62]">{it.batchNumber}</td>
-                    <td className="p-3.5 font-mono font-[500]">{it.locationBin}</td>
-                    <td className="p-3.5 text-end">
-                      <span className="px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] text-[11px] font-mono uppercase">
-                        {it.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Tab 3: Reservations */}
-      {activeTab === 'reservations' && (
-        <div className="rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] overflow-hidden">
-          <div className="overflow-x-auto custom-scrollbar">
-            <table className="w-full text-start text-[13px]">
-              <thead className="bg-[#F4F4F4] text-[#5C5E62] font-[500] uppercase border-b border-[#EEEEEE] text-[11px]">
-                <tr>
-                  <th className="p-3.5 text-start">Lease ID</th>
-                  <th className="p-3.5 text-start">Warehouse Hub</th>
-                  <th className="p-3.5 text-start">Client</th>
-                  <th className="p-3.5 text-start">Reserved Area</th>
-                  <th className="p-3.5 text-start">Contract Period</th>
-                  <th className="p-3.5 text-start">Monthly Rent</th>
-                  <th className="p-3.5 text-end">Status</th>
+      {/* WMS Inventory Table */}
+      {activeTab === 'wms_inventory' && (
+        <div className="shopify-card overflow-hidden bg-[#ffffff]">
+          <div className="p-6 border-b border-[#e4e4e7] flex items-center justify-between">
+            <h2 className="text-[18px] font-[600] text-[#000000]">سجل مخزون البضائع في المستودعات (WMS Inventory)</h2>
+            <span className="shopify-tag-mint">{warehouseItems.length} صنف مسجل</span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-start text-[13.5px]">
+              <thead>
+                <tr className="border-b border-[#e4e4e7] bg-[#fbfbf5] text-[#71717a] text-[12px]">
+                  <th className="p-4 text-start font-[600]">SKU / الباركود</th>
+                  <th className="p-4 text-start font-[600]">اسم الصنف</th>
+                  <th className="p-4 text-start font-[600]">العميل / المودع</th>
+                  <th className="p-4 text-start font-[600]">الكمية والوحدة</th>
+                  <th className="p-4 text-start font-[600]">الموقع التخزيني (Bin)</th>
+                  <th className="p-4 text-end font-[600]">الحالة</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#EEEEEE] font-[400] text-[#171A20]">
-                {warehouseReservations.map((res) => (
-                  <tr key={res.id} className="hover:bg-[#F4F4F4] transition-colors duration-330">
-                    <td className="p-3.5 font-mono font-[500] text-[#3E6AE1]">{res.id}</td>
-                    <td className="p-3.5 font-[500]">{res.warehouseName}</td>
-                    <td className="p-3.5">{res.clientName}</td>
-                    <td className="p-3.5 font-mono font-[500]">{res.reservedAreaM2.toLocaleString()} m²</td>
-                    <td className="p-3.5 font-mono text-[12px]">{res.startDate} ➔ {res.endDate}</td>
-                    <td className="p-3.5 font-mono font-[500]">{res.monthlyCost.toLocaleString()} SDG</td>
-                    <td className="p-3.5 text-end">
-                      <span className="px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#3E6AE1] border border-[#3E6AE1] text-[11px] font-mono font-[500]">
-                        {res.status}
-                      </span>
+              <tbody className="divide-y divide-[#e4e4e7] font-[420]">
+                {warehouseItems.map((item) => (
+                  <tr key={item.id} className="hover:bg-[#fbfbf5] transition-colors">
+                    <td className="p-4 font-mono font-[600] text-[#000000]">{item.sku}</td>
+                    <td className="p-4 font-[500] text-[#000000]">{item.name}</td>
+                    <td className="p-4 text-[#71717a]">{item.clientName}</td>
+                    <td className="p-4 font-mono font-[600] text-[#000000]">{item.quantity.toLocaleString()} {item.unit}</td>
+                    <td className="p-4 font-mono text-[12px] text-[#71717a]">{item.locationBin}</td>
+                    <td className="p-4 text-end">
+                      <span className="shopify-tag-mint !text-[11px]">{item.status}</span>
                     </td>
                   </tr>
                 ))}
@@ -339,73 +264,71 @@ export function WarehouseView() {
 
       {/* Reservation Modal */}
       {isReserveModalOpen && reserveWarehouseTarget && (
-        <div className="fixed inset-0 z-50 bg-[#171A20]/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
-              <h3 className="text-[15px] font-[500] text-[#171A20]">
-                حجز مساحة تخزين في {reserveWarehouseTarget.nameAr || reserveWarehouseTarget.name}
-              </h3>
-              <button onClick={() => setIsReserveModalOpen(false)} className="text-[#8E8E8E] hover:text-[#171A20]">✕</button>
+        <div className="fixed inset-0 z-50 bg-[#000000]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-lg bg-[#ffffff] border border-[#e4e4e7] rounded-[20px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] p-8 space-y-6">
+            <div className="flex items-center justify-between border-b border-[#e4e4e7] pb-4">
+              <div className="space-y-1">
+                <div className="shopify-tag-mint !text-[10px]">حجز مساحة تخزينية</div>
+                <h3 className="font-[600] text-[18px] text-[#000000]">{reserveWarehouseTarget.nameAr || reserveWarehouseTarget.name}</h3>
+              </div>
+              <button onClick={() => setIsReserveModalOpen(false)} className="p-1.5 rounded-full hover:bg-[#fbfbf5] text-[#71717a]">
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            <form onSubmit={handleConfirmReservation} className="space-y-3 text-[13px]">
+            <form onSubmit={handleConfirmReservation} className="space-y-4 text-[13px]">
               <div>
-                <label className="text-[#5C5E62] block mb-1">اسم العميل / المؤسسة</label>
+                <label className="text-[12px] font-[500] text-[#71717a] block mb-1">اسم العميل / الشركة</label>
                 <input
                   type="text"
                   value={reserveClientName}
                   onChange={(e) => setReserveClientName(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
-                  required
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none focus:border-[#000000]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#5C5E62] block mb-1">المساحة المطلوبة (م²)</label>
+                  <label className="text-[12px] font-[500] text-[#71717a] block mb-1">المساحة المطلوبة (م²)</label>
                   <input
                     type="number"
                     value={reserveArea}
                     onChange={(e) => setReserveArea(Number(e.target.value))}
                     max={reserveWarehouseTarget.availableAreaM2}
-                    className="w-full bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] font-mono p-2.5 rounded-[4px] outline-none"
-                    required
+                    min={50}
+                    className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none focus:border-[#000000]"
                   />
                 </div>
                 <div>
-                  <label className="text-[#5C5E62] block mb-1">مدة العقد (أشهر)</label>
+                  <label className="text-[12px] font-[500] text-[#71717a] block mb-1">مدة العقد (أشهر)</label>
                   <input
                     type="number"
                     value={reserveMonths}
                     onChange={(e) => setReserveMonths(Number(e.target.value))}
                     min={1}
-                    max={24}
-                    className="w-full bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] font-mono p-2.5 rounded-[4px] outline-none"
-                    required
+                    max={36}
+                    className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none focus:border-[#000000]"
                   />
                 </div>
               </div>
 
-              <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-1">
-                <div className="flex justify-between text-[#5C5E62]">
-                  <span>التكلفة الشهرية:</span>
-                  <span className="font-mono text-[#171A20] font-[500]">{(reserveArea * reserveWarehouseTarget.ratePerM2Monthly).toLocaleString()} SDG</span>
+              <div className="p-4 rounded-[12px] bg-[#c1fbd4] border border-[#a8f5c2] space-y-1">
+                <div className="flex justify-between text-[#000000]">
+                  <span>التكلفة الشهرية التقديرية:</span>
+                  <span className="font-mono font-[700]">{(reserveArea * reserveWarehouseTarget.ratePerM2Monthly).toLocaleString()} SDG</span>
+                </div>
+                <div className="flex justify-between text-[#000000] text-[12px]">
+                  <span>إجمالي قيمة العقد ({reserveMonths} أشهر):</span>
+                  <span className="font-mono font-[700]">{(reserveArea * reserveWarehouseTarget.ratePerM2Monthly * reserveMonths).toLocaleString()} SDG</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsReserveModalOpen(false)}
-                  className="btn-tesla-secondary !min-w-[80px] !min-h-[34px] !py-1 !px-3"
-                >
+              <div className="flex items-center gap-3 pt-2">
+                <button type="button" onClick={() => setIsReserveModalOpen(false)} className="btn-shopify-outline flex-1">
                   إلغاء
                 </button>
-                <button
-                  type="submit"
-                  className="btn-tesla-primary !min-w-[140px] !min-h-[34px] !py-1 !px-3"
-                >
-                  تأكيد الحجز
+                <button type="submit" className="btn-shopify-pill flex-1">
+                  تأكيد الحجز الفوري
                 </button>
               </div>
             </form>

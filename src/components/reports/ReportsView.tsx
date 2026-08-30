@@ -14,6 +14,7 @@ import {
   Leaf,
   ShieldCheck,
   Printer,
+  Sparkles,
 } from 'lucide-react';
 import { exportToCsv, printDocument } from '@/lib/export-utils';
 
@@ -63,203 +64,164 @@ export function ReportsView() {
     }
 
     setIsExporting(true);
-
-    if (selectedReportType === 'operations' || selectedReportType === 'fleet_fuel' || selectedReportType === 'esg_carbon') {
-      exportToCsv(`sudaneel-${selectedReportType}-report`, [
-        { header: 'Tracking Reference', accessor: (s) => s.trackingNumber },
-        { header: 'Customer', accessor: (s) => s.customerNameAr || s.customerName },
-        { header: 'Origin', accessor: (s) => s.origin.city },
-        { header: 'Destination', accessor: (s) => s.destination.city },
-        { header: 'Cargo Type', accessor: (s) => s.cargoType },
-        { header: 'Weight (KG)', accessor: (s) => s.totalWeightKg },
-        { header: 'Price (SDG)', accessor: (s) => s.price },
-        { header: 'Status', accessor: (s) => s.status },
-        { header: 'Pickup Date', accessor: (s) => s.pickupDate },
-      ], shipments);
-    } else {
-      exportToCsv(`sudaneel-financial-report`, [
-        { header: 'Invoice Number', accessor: (i) => i.invoiceNumber },
-        { header: 'Customer', accessor: (i) => i.customerNameAr || i.customerName },
-        { header: 'Subtotal (SDG)', accessor: (i) => i.amount },
-        { header: 'Tax (SDG)', accessor: (i) => i.tax },
-        { header: 'Total (SDG)', accessor: (i) => i.total },
-        { header: 'Status', accessor: (i) => i.status },
-        { header: 'Issue Date', accessor: (i) => i.issueDate },
-      ], invoices);
-    }
-
-    setIsExporting(false);
-    showToast(
-      lang === 'ar' ? 'تم تصدير التقرير' : 'Report Exported',
-      lang === 'ar'
-        ? `تم إنشاء وتنزيل ملف ${format.toUpperCase()} بنجاح لتقرير: ${selectedReportType}`
-        : `Downloaded ${format.toUpperCase()} file successfully for: ${selectedReportType}`,
-      'success'
-    );
+    setTimeout(() => {
+      if (selectedReportType === 'operations') {
+        exportToCsv('sudaneel-operations-report', [
+          { header: 'Tracking Number', accessor: (s) => s.trackingNumber },
+          { header: 'Customer', accessor: (s) => s.customerName },
+          { header: 'Origin', accessor: (s) => s.origin.city },
+          { header: 'Destination', accessor: (s) => s.destination.city },
+          { header: 'Weight (kg)', accessor: (s) => s.totalWeightKg },
+          { header: 'Price (SDG)', accessor: (s) => s.price },
+          { header: 'Status', accessor: (s) => s.status },
+        ], shipments);
+      } else {
+        exportToCsv('sudaneel-financial-report', [
+          { header: 'Invoice No', accessor: (i) => i.invoiceNumber },
+          { header: 'Customer', accessor: (i) => i.customerNameAr || i.customerName },
+          { header: 'Total (SDG)', accessor: (i) => i.total },
+          { header: 'Status', accessor: (i) => i.status },
+          { header: 'Date', accessor: (i) => i.issueDate },
+        ], invoices);
+      }
+      setIsExporting(false);
+      showToast('تم تصدير التقرير', `تم تحميل التقرير بصيغة ${format.toUpperCase()} بنجاح`, 'success');
+    }, 400);
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <FileDown className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="text-[17px] font-[500] text-[#171A20]">
-              {lang === 'ar' ? 'مركز التقارير وتصدير البيانات (Reports & Data Export Center)' : 'Executive Reports & Data Export Center'}
-            </h2>
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>Executive Reporting Engine • مركز التقارير والتصدير</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
-            {lang === 'ar'
-              ? 'إنشاء وتصدير التقارير التشغيلية والمالية وتدقيق انبعاثات الكربون بصيغ PDF وExcel وCSV.'
-              : 'Generate and download certified operational, financial, and ESG audit reports with custom date windows.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            مركز التقارير والتحليلات المتقدمة (Reports & Exports)
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            توليد وتصدير التقارير التنفيذية والتشغيلية والمالية وحسابات الانبعاثات الكربونية بصيغ Excel و CSV و PDF.
           </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => handleExport('csv')}
+            disabled={isExporting}
+            className="btn-shopify-outline"
+          >
+            <FileDown className="w-4 h-4" />
+            <span>تصدير CSV</span>
+          </button>
+
+          <button
+            onClick={() => handleExport('pdf')}
+            className="btn-shopify-pill"
+          >
+            <Printer className="w-4 h-4" />
+            <span>طباعة تقرير رسمي PDF</span>
+          </button>
         </div>
       </div>
 
-      {/* Grid: Report Config & Templates */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Templates Selection (4 cols) */}
-        <div className="lg:col-span-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <Filter className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Select Report Template</span>
-          </h3>
+      {/* Report Templates Selection (Shopify Cards) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {reportTemplates.map((tpl) => {
+          const Icon = tpl.icon;
+          const isSelected = selectedReportType === tpl.id;
+          return (
+            <div
+              key={tpl.id}
+              onClick={() => setSelectedReportType(tpl.id)}
+              className={`p-6 rounded-[12px] transition-all duration-200 cursor-pointer flex flex-col justify-between ${
+                isSelected
+                  ? 'shopify-card-aloe shadow-[0_8px_16px_rgba(193,251,212,0.4)]'
+                  : 'shopify-card hover:border-[#a1a1aa]'
+              }`}
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-white border border-[#000000]/10 flex items-center justify-center text-[#000000]">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-[600] text-[15px] text-[#000000]">{tpl.nameAr}</h3>
+                  <p className="text-[12px] text-[#71717a] mt-1 line-clamp-2">{tpl.desc}</p>
+                </div>
+              </div>
 
-          <div className="space-y-2">
-            {reportTemplates.map((tmpl) => {
-              const Icon = tmpl.icon;
-              return (
-                <button
-                  key={tmpl.id}
-                  onClick={() => setSelectedReportType(tmpl.id)}
-                  className={`w-full p-4 rounded-[4px] text-start transition-colors duration-330 cursor-pointer border ${
-                    selectedReportType === tmpl.id
-                      ? 'bg-[#F4F4F4] border-[#171A20]'
-                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4 text-[#3E6AE1]" />
-                    <span className="font-[500] text-[#171A20] text-[13px]">{lang === 'ar' ? tmpl.nameAr : tmpl.name}</span>
-                  </div>
-                  <p className="text-[11px] text-[#5C5E62] mt-1">{tmpl.desc}</p>
-                </button>
-              );
-            })}
+              <div className="pt-4 mt-2 border-t border-[#000000]/10 flex items-center justify-between text-[11.5px] font-[600]">
+                <span>{isSelected ? 'التقرير المختار' : 'اختر التقرير'}</span>
+                <span>➔</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Printable Report Canvas Area */}
+      <div id="printable-report-area" className="shopify-card p-8 sm:p-10 space-y-8 bg-[#ffffff]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#e4e4e7]">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-[10px] bg-white p-0.5 flex items-center justify-center border border-[#e4e4e7] shadow-sm">
+              <img src="/images/brand-logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+            </div>
+            <div>
+              <h2 className="font-[600] text-[18px] text-[#000000]">
+                {reportTemplates.find((r) => r.id === selectedReportType)?.nameAr}
+              </h2>
+              <p className="text-[12px] text-[#71717a]">
+                Sudaneel Intelligence Report • {new Date().toLocaleDateString('ar-SD')}
+              </p>
+            </div>
+          </div>
+
+          <span className="shopify-tag-mint font-mono font-[600]">
+            Official Audit Verified
+          </span>
+        </div>
+
+        {/* Dynamic Summary Cards */}
+        <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7]">
+            <div className="font-mono font-[700] text-[20px] text-[#000000]">{shipments.length}</div>
+            <div className="text-[12px] text-[#71717a] mt-0.5">إجمالي الشحنات المضمنة</div>
+          </div>
+          <div className="p-4 rounded-[12px] bg-[#c1fbd4] border border-[#a8f5c2]">
+            <div className="font-mono font-[700] text-[20px] text-[#000000]">99.4%</div>
+            <div className="text-[12px] text-[#000000] font-[500] mt-0.5">دقة التسليم في الموعد (OTD)</div>
+          </div>
+          <div className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7]">
+            <div className="font-mono font-[700] text-[20px] text-[#000000]">12.8M SDG</div>
+            <div className="text-[12px] text-[#71717a] mt-0.5">القيمة اللوجستية الإجمالية</div>
           </div>
         </div>
 
-        {/* Configuration & Preview Window (8 cols) */}
-        <div className="lg:col-span-8 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-6 space-y-5">
-          <div className="flex items-start justify-between pb-3 border-b border-[#EEEEEE]">
-            <div>
-              <h3 className="text-[16px] font-[500] text-[#171A20]">Report Configuration & Live Sample</h3>
-              <p className="text-[13px] text-[#5C5E62]">Configure parameters before exporting certified ledger</p>
-            </div>
-
-            {/* Export Buttons */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleExport('pdf')}
-                disabled={isExporting}
-                className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
-              >
-                <Printer className="w-3.5 h-3.5 text-[#3E6AE1]" />
-                <span>PDF Print</span>
-              </button>
-              <button
-                onClick={() => handleExport('excel')}
-                disabled={isExporting}
-                className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
-              >
-                <FileSpreadsheet className="w-3.5 h-3.5 text-[#3E6AE1]" />
-                <span>Excel</span>
-              </button>
-              <button
-                onClick={() => handleExport('csv')}
-                disabled={isExporting}
-                className="btn-tesla-primary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>CSV</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Filter Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-[13px]">
-            <div>
-              <label className="text-[#5C5E62] block mb-1">Time Horizon</label>
-              <select
-                value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
-                className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] outline-none"
-              >
-                <option value="today">Today</option>
-                <option value="this_week">This Week</option>
-                <option value="this_month">This Month (August 2026)</option>
-                <option value="last_quarter">Last Quarter (Q2 2026)</option>
-                <option value="ytd">Year to Date (2026)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="text-[#5C5E62] block mb-1">Freight Corridor</label>
-              <select
-                value={selectedCorridor}
-                onChange={(e) => setSelectedCorridor(e.target.value)}
-                className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] outline-none"
-              >
-                <option value="all">All Corridors (Consolidated)</option>
-                <option value="krt_psd">Khartoum ➔ Port Sudan</option>
-                <option value="psd_krt">Port Sudan ➔ Khartoum</option>
-                <option value="cross_border">Cross-Border (Egypt & Ethiopia)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="text-[#5C5E62] block mb-1">Audit Stamp</label>
-              <div className="p-2 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] text-[12px] text-[#171A20] font-mono flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" /> Sovereign Verified
-              </div>
-            </div>
-          </div>
-
-          {/* Sample Data Preview Table */}
-          <div className="space-y-2">
-            <span className="text-[13px] font-[500] text-[#171A20] block">Preview Sample Data Records</span>
-            <div className="overflow-x-auto rounded-[4px] border border-[#EEEEEE]">
-              <table className="w-full text-[13px] text-start">
-                <thead>
-                  <tr className="border-b border-[#EEEEEE] text-[#5C5E62] text-[11px] uppercase bg-[#F4F4F4]">
-                    <th className="p-3 text-start">Reference #</th>
-                    <th className="p-3 text-start">Corridor</th>
-                    <th className="p-3 text-start">Consignee</th>
-                    <th className="p-3 text-start">Tonnage</th>
-                    <th className="p-3 text-start">Revenue (SDG)</th>
-                    <th className="p-3 text-end">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EEEEEE]">
-                  {shipments.slice(0, 4).map((s) => (
-                    <tr key={s.id} className="hover:bg-[#F4F4F4] transition-colors duration-330">
-                      <td className="p-3 font-mono text-[#3E6AE1] font-[500]">{s.trackingNumber}</td>
-                      <td className="p-3 text-[#5C5E62]">{s.origin.city} ➔ {s.destination.city}</td>
-                      <td className="p-3 text-[#171A20]">{s.customerName}</td>
-                      <td className="p-3 font-mono">{(s.totalWeightKg / 1000).toFixed(1)} T</td>
-                      <td className="p-3 font-mono text-[#171A20] font-[500]">{s.price.toLocaleString()}</td>
-                      <td className="p-3 text-end">
-                        <span className="px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] border border-[#D0D1D2] text-[11px] text-[#171A20] font-mono">
-                          {s.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+        {/* Data Sample Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-start text-[13px]">
+            <thead>
+              <tr className="border-b border-[#e4e4e7] bg-[#fbfbf5] text-[#71717a] text-[12px]">
+                <th className="p-3.5 text-start font-[600]">المرجع / البوليصة</th>
+                <th className="p-3.5 text-start font-[600]">العميل / الشاحن</th>
+                <th className="p-3.5 text-start font-[600]">المسار</th>
+                <th className="p-3.5 text-start font-[600]">الحمولة والوزن</th>
+                <th className="p-3.5 text-end font-[600]">القيمة (SDG)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#e4e4e7] font-[420]">
+              {shipments.slice(0, 5).map((s) => (
+                <tr key={s.id} className="hover:bg-[#fbfbf5]">
+                  <td className="p-3.5 font-mono font-[600] text-[#000000]">{s.trackingNumber}</td>
+                  <td className="p-3.5 text-[#000000]">{s.customerName}</td>
+                  <td className="p-3.5 text-[#71717a]">{s.origin.city} ➔ {s.destination.city}</td>
+                  <td className="p-3.5 text-[#000000]">{s.cargoType} ({(s.totalWeightKg / 1000).toFixed(1)} طن)</td>
+                  <td className="p-3.5 text-end font-mono font-[700] text-[#000000]">{s.price.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

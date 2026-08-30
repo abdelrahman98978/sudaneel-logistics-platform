@@ -12,10 +12,12 @@ import {
   Truck,
   Search,
   DollarSign,
+  ShieldCheck,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export function PortSudanView() {
-  const { portContainers, updateContainerStatus, showToast, lang } = useApp();
+  const { portContainers, updateContainerStatus, showToast, lang, setCurrentView } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -48,285 +50,180 @@ export function PortSudanView() {
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <Anchor className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="text-[17px] font-[500] text-[#171A20]">
-              {lang === 'ar' ? 'عمليات ميناء بورتسودان والجمارك (Port Sudan Terminal)' : 'Port Sudan Terminal & Customs Clearance Hub'}
-            </h2>
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-2xl">
+          <div className="shopify-tag-mint">
+            <Anchor className="w-4 h-4" />
+            <span>Port Sudan Terminal & Customs • محطة ميناء بورتسودان والتخليص الجمركي</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
-            {lang === 'ar'
-              ? 'مراقبة الحاويات الواردة والصادرة، عداد أيام السماح وغرامات الأرضيات (Demurrage)، وتخصيص شاحنات النقل الفوري.'
-              : 'Real-time ISO container yard tracking, customs inspection stages, demurrage fee alarms, and direct truck dispatch.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            عمليات ميناء بورتسودان والجمارك
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            مراقبة الحاويات الواردة والصادرة، عداد أيام السماح وغرامات الأرضيات (Demurrage)، وتخصيص شاحنات النقل الفوري نحو الولايات.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1 rounded-[4px] bg-[#F4F4F4] border border-[#D0D1D2] text-[12px] font-mono text-[#171A20] flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#3E6AE1]"></span>
-            Red Sea Gateway Live
-          </span>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setCurrentView('smart_dispatch')}
+            className="btn-shopify-pill"
+          >
+            <Truck className="w-4 h-4" />
+            <span>تخصيص شاحنات فورية</span>
+          </button>
         </div>
       </div>
-      {/* Port Sudan Container Terminal Visual Showcase */}
-      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
-        <div className="md:col-span-5 relative min-h-[220px] bg-[#171A20]">
+
+      {/* Port Sudan Container Terminal Visual Showcase (Shopify 20px Card) */}
+      <div className="shopify-card overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 bg-[#ffffff]">
+        <div className="md:col-span-5 relative min-h-[220px] bg-[#000000]">
           <img
             src="/images/port-sudan-terminal.jpg"
             alt="Port Sudan Maritime Container Terminal"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute top-3 start-3">
-            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
+          <div className="absolute top-4 start-4">
+            <span className="shopify-tag-mint !text-[10px]">
               South Container Terminal (SCT)
             </span>
           </div>
         </div>
 
-        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-4">
-          <div>
-            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
-              <span>Maritime Gate & Demurrage Mitigation • بوابة البحر الأحمر والمناولة السريعة</span>
+        <div className="md:col-span-7 p-8 flex flex-col justify-between space-y-4">
+          <div className="space-y-2">
+            <div className="shopify-tag-pistachio !text-[11px]">
+              Red Sea Logistics Gateway • بوابة البحر الأحمر اللوجستية
             </div>
-            <h3 className="text-[18px] font-[500] text-[#171A20]">
-              محطة الحاويات الجنوبية ورصيف التخليص الجمركي الفوري
+            <h3 className="text-[20px] font-[600] text-[#000000] tracking-tight">
+              أرصفة الحاويات الجنوبية والمنطقة الحرة ومحطة الفحص الجمركي بالأشعة السينية
             </h3>
-            <p className="text-[13px] text-[#5C5E62] mt-1 leading-relaxed">
-              ربط مباشر بين أرصفة البواخر العملاقة، رافعات الجانتري، وساحات التخزين المؤقت، مع تنسيق آلي لتوجيه الشاحنات المسطحة لتفريغ الحاويات وتفادي غرامات الأرضيات (Zero Demurrage).
+            <p className="text-[14px] text-[#71717a] leading-relaxed">
+              ربط إلكتروني مباشر مع هيئة الموانئ البحرية والجمارك السودانية لتسريع الإفراج الجمركي وتقليل غرامات التأخير وتأمين حمولات الصادر والوارد.
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">طاقة المناولة</span>
-              <span className="font-[500] font-mono text-[#171A20]">650K TEU/Yr</span>
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#e4e4e7] text-center">
+            <div className="p-2.5 rounded-[8px] bg-[#fbfbf5]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">{portContainers.length}</div>
+              <div className="text-[11px] text-[#71717a]">حاويات تحت المتابعة</div>
             </div>
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">متوسط الإخلاء</span>
-              <span className="font-[500] text-[#3E6AE1]">4.2 Hours</span>
+            <div className="p-2.5 rounded-[8px] bg-[#c1fbd4]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">${totalDemurrage.toLocaleString()}</div>
+              <div className="text-[11px] text-[#000000] font-[500]">غرامات أرضيات متراكمة</div>
             </div>
-            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
-              <span className="text-[#8E8E8E] block text-[11px]">الربط الجمركي</span>
-              <span className="font-[500] font-mono text-[#171A20]">100% Digital</span>
+            <div className="p-2.5 rounded-[8px] bg-[#fbfbf5]">
+              <div className="font-mono text-[16px] font-[700] text-[#000000]">{demurrageRiskCount}</div>
+              <div className="text-[11px] text-[#71717a]">حاويات معرضة للغرامة</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Containers in Terminal</span>
-            <Container className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{portContainers.length} Units</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">40HC / 40RF / 20GP</div>
+      {/* Search & Filter Bar */}
+      <div className="shopify-card p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#ffffff]">
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 absolute start-4 top-1/2 -translate-y-1/2 text-[#71717a]" />
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="بحث برقم الحاوية أو المستورد..."
+            className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-full ps-10 pe-4 py-2 text-[13.5px] outline-none text-[#000000] placeholder-[#71717a] focus:border-[#000000]"
+          />
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Demurrage Risk</span>
-            <AlertTriangle className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{demurrageRiskCount} Units</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">≤ 1 Free Day Left</div>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Accrued Demurrage</span>
-            <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">${totalDemurrage} USD</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Storage penalties</div>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Clearance Rate</span>
-            <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">96.8%</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Avg 18h turnaround</div>
+        <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1">
+          {['all', 'discharged', 'customs_hold', 'cleared', 'gate_out'].map((st) => (
+            <button
+              key={st}
+              onClick={() => setStatusFilter(st)}
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-[500] whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                statusFilter === st
+                  ? 'bg-[#000000] text-white shadow-sm'
+                  : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
+              }`}
+            >
+              {st === 'all' && (lang === 'ar' ? 'الكل' : 'All')}
+              {st === 'discharged' && (lang === 'ar' ? 'تم التفريغ' : 'Discharged')}
+              {st === 'customs_hold' && (lang === 'ar' ? 'حجز جمركي' : 'Hold')}
+              {st === 'cleared' && (lang === 'ar' ? 'مخلصة جاهزة' : 'Cleared')}
+              {st === 'gate_out' && (lang === 'ar' ? 'خرجت من البوابة' : 'Gate Out')}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Main Containers Ledger & Details Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Container List (7 cols) */}
-        <div className="lg:col-span-7 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-3 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
-              <Container className="w-4 h-4 text-[#3E6AE1]" />
-              <span>{lang === 'ar' ? 'سجل الحاويات والجمارك' : 'Container Yard & Customs Ledger'}</span>
-            </h3>
-
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[12px]">
-                <Search className="w-3.5 h-3.5 text-[#8E8E8E]" />
-                <input
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Container or Consignee..."
-                  className="bg-transparent text-[#171A20] outline-none w-28 sm:w-36 text-[12px]"
-                />
+      {/* Containers Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredContainers.map((c) => (
+          <div
+            key={c.id}
+            onClick={() => setSelectedContainer(c)}
+            className={`shopify-card p-6 space-y-4 transition-all duration-200 cursor-pointer flex flex-col justify-between ${
+              selectedContainer?.id === c.id ? 'border-[#000000] ring-2 ring-[#c1fbd4]' : 'hover:border-[#a1a1aa]'
+            }`}
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                    <Container className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="font-mono font-[700] text-[15px] text-[#000000]">{c.containerNumber}</div>
+                    <div className="text-[11px] text-[#71717a] font-mono">{c.isoCode} • {c.shippingLine}</div>
+                  </div>
+                </div>
+                <span className={c.customsStatus === 'cleared' ? 'shopify-tag-mint' : c.customsStatus === 'under_inspection' ? 'shopify-tag-shade' : 'shopify-tag-pistachio'}>
+                  {c.customsStatus}
+                </span>
               </div>
 
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-[#FFFFFF] border border-[#D0D1D2] text-[12px] text-[#171A20] px-2.5 py-1.5 rounded-[4px] outline-none"
-              >
-                <option value="all">All Statuses</option>
-                <option value="cleared">Cleared</option>
-                <option value="under_inspection">Under Inspection</option>
-                <option value="demurrage_warning">Demurrage Warning</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="space-y-2.5">
-            {filteredContainers.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => setSelectedContainer(c)}
-                className={`w-full p-4 rounded-[4px] text-start transition-colors duration-330 cursor-pointer border ${
-                  selectedContainer?.id === c.id
-                    ? 'bg-[#F4F4F4] border-[#171A20]'
-                    : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
-                }`}
-              >
+              <div className="space-y-2 text-[13px] text-[#000000]">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-[500] font-mono text-[#171A20] text-[14px]">{c.containerNumber}</span>
-                    <span className="text-[11px] px-1.5 py-0.2 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] font-mono font-[500]">
-                      {c.isoCode}
-                    </span>
-                  </div>
-
-                  <span
-                    className={`text-[11px] px-2 py-0.5 rounded-[2px] font-[500] border ${
-                      c.customsStatus === 'cleared'
-                        ? 'bg-[#F4F4F4] text-[#171A20] border-[#D0D1D2]'
-                        : c.customsStatus === 'demurrage_warning'
-                        ? 'bg-[#F4F4F4] text-[#3E6AE1] border-[#3E6AE1]'
-                        : 'bg-[#F4F4F4] text-[#5C5E62] border-[#D0D1D2]'
-                    }`}
-                  >
-                    {c.customsStatus}
+                  <span className="text-[#71717a]">المستورد / الشاحن:</span>
+                  <span className="font-[600]">{c.consignee}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[#71717a]">حالة البوابة والساحة:</span>
+                  <span className="font-mono font-[600]">{c.gateStatus}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[#71717a]">أيام السماح المتبقية:</span>
+                  <span className={`font-mono font-[700] ${c.freeDaysRemaining <= 1 ? 'text-[#000000] bg-[#c1fbd4] px-2 py-0.5 rounded-full' : ''}`}>
+                    {c.freeDaysRemaining} أيام
                   </span>
                 </div>
-
-                <div className="text-[13px] text-[#5C5E62] mt-1">{c.consignee} • {c.cargoDescription}</div>
-
-                <div className="grid grid-cols-3 gap-2 text-[11px] text-[#5C5E62] mt-2 pt-2 border-t border-[#EEEEEE]">
-                  <div>
-                    <span className="block text-[10px] text-[#8E8E8E]">Shipping Line</span>
-                    <span className="font-[500] text-[#171A20]">{c.shippingLine}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-[#8E8E8E]">Free Days Left</span>
-                    <span className={`font-mono font-[500] ${c.freeDaysRemaining <= 1 ? 'text-[#3E6AE1]' : 'text-[#171A20]'}`}>
-                      {c.freeDaysRemaining} Days
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] text-[#8E8E8E]">Gate State</span>
-                    <span className="font-mono text-[#171A20]">{c.gateStatus}</span>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Container Inspection & Direct Dispatch Detail (5 cols) */}
-        {selectedContainer && (
-          <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-            <div className="flex items-start justify-between pb-3 border-b border-[#EEEEEE]">
-              <div>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] uppercase font-[500]">
-                  {selectedContainer.shippingLine} • {selectedContainer.isoCode}
-                </span>
-                <h3 className="text-[18px] font-[500] text-[#171A20] font-mono mt-1">{selectedContainer.containerNumber}</h3>
-                <p className="text-[13px] text-[#5C5E62]">{selectedContainer.vesselName}</p>
-              </div>
-
-              <div className="text-end">
-                <span className="text-[10px] text-[#8E8E8E] block">Seal Number</span>
-                <span className="text-[12px] font-mono font-[500] text-[#171A20]">{selectedContainer.sealNumber}</span>
               </div>
             </div>
 
-            {/* Demurrage Clock Widget */}
-            <div className="p-4 rounded-[4px] border border-[#EEEEEE] bg-[#F4F4F4] space-y-2">
-              <div className="flex items-center justify-between text-[12px]">
-                <span className="font-[500] text-[#171A20] flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-[#3E6AE1]" />
-                  <span>Demurrage Countdown</span>
-                </span>
-                <span className="text-[12px] font-mono font-[500] text-[#171A20]">
-                  ${selectedContainer.demurrageRatePerDayUSD} / Day
-                </span>
-              </div>
-
-              <div className="text-[24px] font-[500] font-mono text-[#171A20]">
-                {selectedContainer.freeDaysRemaining} <span className="text-[13px] font-sans text-[#5C5E62]">Free Days Remaining</span>
-              </div>
-
-              {selectedContainer.demurrageAccruedUSD > 0 && (
-                <div className="text-[12px] text-[#3E6AE1] font-[500] flex items-center gap-1">
-                  <AlertTriangle className="w-3.5 h-3.5" /> Total Penalties: ${selectedContainer.demurrageAccruedUSD} USD
-                </div>
+            <div className="pt-2 flex items-center gap-2">
+              {c.customsStatus !== 'cleared' && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpdateCustoms(c.id, 'cleared');
+                  }}
+                  className="flex-1 btn-shopify-pill !py-2 text-[12px]"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>اعتماد التخليص</span>
+                </button>
               )}
-            </div>
-
-            {/* Customs Clearance Actions */}
-            <div className="space-y-2">
-              <span className="text-[12px] font-[500] text-[#171A20] block">Customs Progress Actions</span>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => handleUpdateCustoms(selectedContainer.id, 'under_inspection')}
-                  className="p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] hover:bg-[#F4F4F4] text-[12px] text-[#171A20] text-center cursor-pointer transition-colors duration-330 font-[500]"
-                >
-                  Mark Under Inspection
-                </button>
-                <button
-                  onClick={() => handleUpdateCustoms(selectedContainer.id, 'cleared')}
-                  className="btn-tesla-primary !min-h-[36px] !py-1 !px-3 text-[12px] !min-w-0"
-                >
-                  Verify Customs Release
-                </button>
-              </div>
-            </div>
-
-            {/* Truck Assignment Status */}
-            <div className="p-3.5 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2 text-[12px]">
-              <div className="text-[#5C5E62] font-[500] flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-[#3E6AE1]" />
-                <span>Assigned Evacuation Truck</span>
-              </div>
-              <div className="flex justify-between items-center text-[#171A20]">
-                <span className="font-mono">{selectedContainer.assignedTruckPlate || 'No truck locked yet'}</span>
-                <button
-                  onClick={() => showToast(
-                    lang === 'ar' ? 'تعيين شاحنة إخلاء' : 'Flatbed Assigned',
-                    lang === 'ar' ? `تم توجيه أقرب شاحنة مسطحة شاغرة لإخلاء الحاوية ${selectedContainer.containerNumber}` : `Assigning nearest empty flatbed to ${selectedContainer.containerNumber}`,
-                    'success'
-                  )}
-                  className="btn-tesla-primary !min-w-[100px] !min-h-[30px] !py-0.5 !px-3 text-[12px]"
-                >
-                  Assign Flatbed
-                </button>
-              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentView('smart_dispatch');
+                }}
+                className="btn-shopify-outline !py-2 !px-3 text-[12px]"
+              >
+                <span>شاحنة نقل</span>
+              </button>
             </div>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

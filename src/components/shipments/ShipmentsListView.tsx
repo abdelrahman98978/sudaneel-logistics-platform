@@ -9,6 +9,8 @@ import {
   PlusCircle,
   ArrowRight,
   Eye,
+  SlidersHorizontal,
+  FileSpreadsheet,
 } from 'lucide-react';
 
 export function ShipmentsListView() {
@@ -39,143 +41,158 @@ export function ShipmentsListView() {
   const getStatusBadge = (status: ShipmentStatus) => {
     switch (status) {
       case 'in_transit':
-        return 'bg-[#F4F4F4] text-[#3E6AE1] border-[#3E6AE1]';
+        return 'shopify-tag-mint';
       case 'delivered':
       case 'completed':
       case 'pod_verified':
-        return 'bg-[#F4F4F4] text-[#171A20] border-[#D0D1D2]';
+        return 'shopify-tag-mint';
       case 'delayed':
       case 'failed':
-        return 'bg-[#F4F4F4] text-[#393C41] border-[#D0D1D2]';
+        return 'shopify-tag-shade';
       case 'awaiting_carrier':
       case 'quote_requested':
-        return 'bg-[#F4F4F4] text-[#5C5E62] border-[#D0D1D2]';
+        return 'shopify-tag-pistachio';
       default:
-        return 'bg-[#F4F4F4] text-[#5C5E62] border-[#EEEEEE]';
+        return 'shopify-tag-shade';
     }
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-        <div>
-          <h2 className="font-[500] text-[17px] text-[#171A20] flex items-center gap-2">
-            <Package className="w-5 h-5 text-[#3E6AE1]" />
-            <span>{t.shipments} ({shipments.length})</span>
-          </h2>
-          <p className="text-[13px] font-[400] text-[#5C5E62]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-8 shopify-card bg-[#ffffff]">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <Package className="w-4 h-4" />
+            <span>Digital Ledger • سجل البوالص الإلكترونية</span>
+          </div>
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            {t.shipments} ({shipments.length})
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
             {lang === 'ar'
-              ? 'إدارة دورة حياة الشحنات الكاملة عبر محرك الـ State Machine وجواز السفر الرقمي.'
+              ? 'إدارة دورة حياة الشحنات الكاملة عبر محرك الـ State Machine وجواز السفر الرقمي للبضائع.'
               : 'End-to-end shipment lifecycle management with state machine events and digital passport.'}
           </p>
         </div>
 
-        <button
-          onClick={() => setCurrentView('create_shipment')}
-          className="btn-tesla-primary !min-w-[140px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span>{t.createShipment}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setCurrentView('create_shipment')}
+            className="btn-shopify-pill"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span>{t.createShipment}</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentView('bulk_orders')}
+            className="btn-shopify-outline"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>استيراد جماعي CSV</span>
+          </button>
+        </div>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-        <div className="flex-1 flex items-center gap-2 px-3.5 py-2 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2]">
-          <Search className="w-4 h-4 text-[#8E8E8E]" />
+      {/* Filter and Search Bar (Shopify Pill Controls) */}
+      <div className="shopify-card p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#ffffff]">
+        {/* Pill Search Input */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 absolute start-4 top-1/2 -translate-y-1/2 text-[#71717a]" />
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t.searchPlaceholder}
-            className="flex-1 bg-transparent text-[#171A20] text-[14px] outline-none placeholder-[#8E8E8E]"
+            placeholder="بحث برقم الشحنة، العميل، أو المدينة..."
+            className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-full ps-10 pe-4 py-2 text-[13.5px] outline-none text-[#000000] placeholder-[#71717a] focus:border-[#000000]"
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3.5 py-2 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] text-[#171A20] outline-none cursor-pointer"
-          >
-            <option value="all">All Statuses ({shipments.length})</option>
-            <option value="in_transit">In Transit</option>
-            <option value="loading">Loading</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="awaiting_carrier">Awaiting Carrier</option>
-            <option value="delivered">Delivered</option>
-            <option value="completed">Completed</option>
-          </select>
+        {/* Status Pill Tabs */}
+        <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1">
+          {['all', 'in_transit', 'delivered', 'awaiting_carrier', 'delayed'].map((st) => (
+            <button
+              key={st}
+              onClick={() => setStatusFilter(st)}
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-[500] whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                statusFilter === st
+                  ? 'bg-[#000000] text-white shadow-sm'
+                  : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
+              }`}
+            >
+              {st === 'all' && (lang === 'ar' ? 'جميع الشحنات' : 'All')}
+              {st === 'in_transit' && (lang === 'ar' ? 'على الطريق' : 'In Transit')}
+              {st === 'delivered' && (lang === 'ar' ? 'مكتملة' : 'Delivered')}
+              {st === 'awaiting_carrier' && (lang === 'ar' ? 'بانتظار ناقل' : 'Awaiting Carrier')}
+              {st === 'delayed' && (lang === 'ar' ? 'متأخرة' : 'Delayed')}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Table Data Grid */}
-      <div className="rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] overflow-hidden">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-start text-[13px]">
-            <thead className="bg-[#F4F4F4] text-[#5C5E62] font-[500] uppercase border-b border-[#EEEEEE] text-[11px]">
-              <tr>
-                <th className="p-3.5 text-start font-[500]">Tracking #</th>
-                <th className="p-3.5 text-start font-[500]">Customer</th>
-                <th className="p-3.5 text-start font-[500]">Route</th>
-                <th className="p-3.5 text-start font-[500]">Cargo & Weight</th>
-                <th className="p-3.5 text-start font-[500]">Assigned Fleet</th>
-                <th className="p-3.5 text-start font-[500]">Status</th>
-                <th className="p-3.5 text-start font-[500]">Price</th>
-                <th className="p-3.5 text-end font-[500]">Passport</th>
+      {/* Shipments Data Table (Shopify 12px Card with Level 3 Halo) */}
+      <div className="shopify-card overflow-hidden bg-[#ffffff]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-start text-[13.5px]">
+            <thead>
+              <tr className="border-b border-[#e4e4e7] bg-[#fbfbf5] text-[#71717a] text-[12px]">
+                <th className="p-4 text-start font-[600]">رقم البوليصة</th>
+                <th className="p-4 text-start font-[600]">العميل والشاحن</th>
+                <th className="p-4 text-start font-[600]">المسار اللوجستي</th>
+                <th className="p-4 text-start font-[600]">نوع الحمولة</th>
+                <th className="p-4 text-start font-[600]">الحالة</th>
+                <th className="p-4 text-start font-[600]">القيمة</th>
+                <th className="p-4 text-end font-[600]">الإجراء</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EEEEEE] text-[#171A20] font-[400]">
+            <tbody className="divide-y divide-[#e4e4e7] font-[420]">
               {filtered.map((s) => (
-                <tr key={s.id} className="hover:bg-[#F4F4F4] transition-colors duration-330">
-                  <td className="p-3.5 font-mono font-[500] text-[#3E6AE1]">
+                <tr
+                  key={s.id}
+                  onClick={() => {
+                    setSelectedShipmentId(s.id);
+                    setCurrentView('tracking_detail');
+                  }}
+                  className="hover:bg-[#fbfbf5] transition-colors duration-200 cursor-pointer"
+                >
+                  <td className="p-4 font-mono font-[600] text-[#000000]">
                     {s.trackingNumber}
                   </td>
-                  <td className="p-3.5 font-[500] text-[#171A20]">
-                    {s.customerNameAr || s.customerName}
+                  <td className="p-4">
+                    <div className="font-[500] text-[#000000]">{s.customerName}</div>
+                    <div className="text-[11px] text-[#71717a]">{s.customerNameAr}</div>
                   </td>
-                  <td className="p-3.5">
-                    <div className="flex items-center gap-1.5 font-[400]">
+                  <td className="p-4">
+                    <div className="text-[#000000] font-[500] flex items-center gap-1.5">
                       <span>{s.origin.city}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#8E8E8E]" />
-                      <span className="text-[#171A20]">{s.destination.city}</span>
+                      <span className="text-[#71717a]">➔</span>
+                      <span>{s.destination.city}</span>
                     </div>
-                    <span className="text-[11px] text-[#8E8E8E] font-mono">{s.distanceKm} km</span>
+                    <div className="text-[11px] text-[#71717a] font-mono">{s.distanceKm} كم</div>
                   </td>
-                  <td className="p-3.5">
-                    <div className="truncate max-w-[160px] text-[#393C41]">{s.cargoDescription}</div>
-                    <div className="text-[11px] text-[#5C5E62] font-mono">{(s.totalWeightKg / 1000).toFixed(1)} T</div>
+                  <td className="p-4 text-[#000000]">
+                    <div>{s.cargoType}</div>
+                    <div className="text-[11px] text-[#71717a] font-mono">{s.totalWeightKg.toLocaleString()} كجم</div>
                   </td>
-                  <td className="p-3.5">
-                    {s.vehiclePlate ? (
-                      <div>
-                        <div className="font-mono font-[500] text-[#171A20] text-[12px]">{s.vehiclePlate}</div>
-                        <div className="text-[11px] text-[#5C5E62]">{s.driverName}</div>
-                      </div>
-                    ) : (
-                      <span className="text-[11px] text-[#5C5E62] font-mono bg-[#F4F4F4] px-2 py-0.5 rounded-[2px] border border-[#D0D1D2]">
-                        Unassigned
-                      </span>
-                    )}
-                  </td>
-                  <td className="p-3.5">
-                    <span className={`text-[11px] px-2 py-0.5 rounded-[2px] border font-mono font-[500] ${getStatusBadge(s.status)}`}>
+                  <td className="p-4">
+                    <span className={getStatusBadge(s.status)}>
                       {s.status}
                     </span>
                   </td>
-                  <td className="p-3.5 font-mono font-[500] text-[#171A20]">
-                    {s.price.toLocaleString()} {s.currency}
+                  <td className="p-4 font-mono font-[600] text-[#000000]">
+                    {s.price.toLocaleString()} SDG
                   </td>
-                  <td className="p-3.5 text-end">
+                  <td className="p-4 text-end">
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setSelectedShipmentId(s.id);
                         setCurrentView('tracking_detail');
                       }}
-                      className="px-3 py-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] text-[#171A20] font-[500] text-[12px] border border-[#D0D1D2] transition-colors duration-330 cursor-pointer flex items-center gap-1 ms-auto"
+                      className="p-2 rounded-full hover:bg-[#c1fbd4] hover:text-[#000000] text-[#71717a] transition-colors"
+                      title="عرض الجواز الرقمي"
                     >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>{lang === 'ar' ? 'الجواز' : 'Passport'}</span>
+                      <Eye className="w-4 h-4" />
                     </button>
                   </td>
                 </tr>

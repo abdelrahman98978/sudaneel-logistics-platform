@@ -13,6 +13,8 @@ import {
   Clock,
   Camera,
   ShieldCheck,
+  X,
+  Sparkles,
 } from 'lucide-react';
 
 export function ClaimsView() {
@@ -58,217 +60,180 @@ export function ClaimsView() {
     );
   };
 
-  const handleApprovePayout = (claimId: string, amount: number) => {
-    updateClaimStatus(claimId, 'approved_payout', amount);
-    showToast(
-      lang === 'ar' ? 'تم اعتماد التعويض المالي' : 'Compensation Approved',
-      lang === 'ar'
-        ? `تم اعتماد تعويض بقيمة ${amount.toLocaleString()} SDG وقيده كرصيد تسوية فورية للمطالبة.`
-        : `Approved compensation of ${amount.toLocaleString()} SDG credited directly to customer wallet.`,
-      'success'
-    );
-  };
+  const totalClaimAmount = claims.reduce((acc, c) => acc + c.amountRequested, 0);
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="text-[17px] font-[500] text-[#171A20]">
-              {lang === 'ar' ? 'مركز إدارة المطالبات والتعويضات (Claims & Disputes)' : 'Claims Management & Dispute Resolution Hub'}
-            </h2>
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Insurance & Claims Escrow • مركز تسوية المطالبات والتأمين</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
-            {lang === 'ar'
-              ? 'معالجة نزاعات تلف أو تأخير البضائع، مراجعة الأدلة المصورة وبوالص الـ POD، وصرف التعويضات المالية التلقائية.'
-              : 'End-to-end cargo insurance claims, photo evidence investigation, and automated compensation.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            مركز تسوية المطالبات والتأمين اللوجستي
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            معالجة نزاعات الشحنات، تقييم أضرار الحمولات، وصرف التعويضات المالية الفورية عبر الضمان السيادي.
           </p>
         </div>
 
-        <button
-          onClick={() => setIsNewClaimModalOpen(true)}
-          className="btn-tesla-primary !min-w-[160px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span>{lang === 'ar' ? 'فتح مطالبة تعويض جديدة' : 'File New Claim'}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setIsNewClaimModalOpen(true)}
+            className="btn-shopify-pill"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span>تسجيل مطالبة جديدة</span>
+          </button>
+        </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Total Claims Filed</span>
-            <FileCheck className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{claims.length} Tickets</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Active Cargo Disputes</div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600]">إجمالي المطالبات النشطة</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{claims.length}</div>
+          <div className="text-[12px] text-[#71717a]">مطالبات قيد التحقيق والتقييم</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Under Review</span>
-            <Clock className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">
-            {claims.filter((c) => c.status === 'open' || c.status === 'evidence_review').length} Tickets
-          </div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Adjuster reviewing POD</div>
+        <div className="shopify-card-aloe p-6 space-y-2 shadow-[0_8px_20px_rgba(193,251,212,0.4)]">
+          <div className="text-[12px] text-[#000000] font-[600]">إجمالي مبالغ التعويضات المطالب بها</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{totalClaimAmount.toLocaleString()} SDG</div>
+          <div className="text-[12px] text-[#000000]/80 font-[500]">تغطية تأمينية شاملة 100%</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Approved Compensation</span>
-            <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">
-            {(claims.reduce((acc, c) => acc + (c.compensationOffered || 0), 0) / 1000).toFixed(0)}k SDG
-          </div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Direct settlements</div>
-        </div>
-
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Resolution SLA</span>
-            <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" />
-          </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">24.5 Hours</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Target SLA: 48h</div>
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600]">متوسط زمن فض النزاع والتسوية</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">24 ساعة</div>
+          <div className="text-[12px] text-[#71717a]">صرف فوري عبر المحفظة</div>
         </div>
       </div>
 
-      {/* Claims List and Inspector Grid */}
+      {/* Claims List & Inspector Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Claims List (5 cols) */}
-        <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <AlertTriangle className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Active Claims Tickets</span>
+        <div className="lg:col-span-5 shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <h3 className="font-[600] text-[16px] text-[#000000] pb-3 border-b border-[#e4e4e7]">
+            سجل المطالبات المفتوحة ({claims.length})
           </h3>
 
-          <div className="space-y-2">
-            {claims.map((clm) => (
-              <button
-                key={clm.id}
-                onClick={() => setSelectedClaim(clm)}
-                className={`w-full p-4 rounded-[4px] text-start transition-colors duration-330 cursor-pointer border ${
-                  selectedClaim?.id === clm.id
-                    ? 'bg-[#F4F4F4] border-[#171A20]'
-                    : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
-                }`}
-              >
-                <div className="flex items-center justify-between text-[12px] mb-1">
-                  <span className="font-mono font-[500] text-[#3E6AE1]">{clm.claimNumber}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-[2px] bg-white text-[#171A20] border border-[#D0D1D2] font-mono font-[500]">
-                    {clm.status}
-                  </span>
+          <div className="space-y-3">
+            {claims.map((clm) => {
+              const isSelected = clm.id === selectedClaim?.id;
+              return (
+                <div
+                  key={clm.id}
+                  onClick={() => setSelectedClaim(clm)}
+                  className={`p-4 rounded-[12px] text-start transition-all duration-200 cursor-pointer border ${
+                    isSelected
+                      ? 'bg-[#ffffff] border-[#000000] ring-2 ring-[#c1fbd4] shadow-sm'
+                      : 'bg-[#fbfbf5] border-[#e4e4e7] hover:border-[#a1a1aa]'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-[700] text-[14px] text-[#000000]">{clm.claimNumber}</span>
+                    <span className={clm.status === 'approved_payout' ? 'shopify-tag-mint !text-[10px]' : 'shopify-tag-shade !text-[10px]'}>
+                      {clm.status}
+                    </span>
+                  </div>
+
+                  <div className="font-[600] text-[13.5px] text-[#000000] mt-2">{clm.claimType}</div>
+                  <div className="text-[12px] text-[#71717a] mt-1">الشحنة: {clm.trackingNumber} • {clm.customerName}</div>
+                  <div className="font-mono font-[700] text-[#000000] text-[14px] mt-2">{clm.amountRequested.toLocaleString()} SDG</div>
                 </div>
-                <div className="font-[500] text-[#171A20] text-[13px]">{clm.customerName}</div>
-                <div className="text-[11px] text-[#5C5E62] mt-1 truncate">{clm.description}</div>
-                <div className="flex items-center justify-between text-[11px] text-[#8E8E8E] mt-2 pt-1 border-t border-[#EEEEEE]">
-                  <span>Shipment: {clm.trackingNumber}</span>
-                  <span className="font-mono text-[#171A20] font-[500]">{clm.amountRequested.toLocaleString()} {clm.currency}</span>
-                </div>
-              </button>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* Claim Details & Resolution Actions (7 cols) */}
-        {selectedClaim && (
-          <div className="lg:col-span-7 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-6 space-y-4">
-            <div className="flex items-start justify-between pb-3 border-b border-[#EEEEEE]">
-              <div>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] uppercase font-[500]">
-                  {selectedClaim.claimType}
-                </span>
-                <h3 className="text-[18px] font-[500] text-[#171A20] mt-1">{selectedClaim.claimNumber}</h3>
-                <p className="text-[13px] text-[#5C5E62]">Filed on: {selectedClaim.createdAt}</p>
+        {/* Selected Claim Inspector (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          {selectedClaim ? (
+            <div className="shopify-card p-8 space-y-6 bg-[#ffffff]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
+                <div>
+                  <span className="shopify-tag-mint !text-[11px]">Claim Adjudication Dossier</span>
+                  <h3 className="font-[600] text-[18px] text-[#000000] mt-1">{selectedClaim.claimNumber}</h3>
+                </div>
+                <span className="font-mono text-[12px] text-[#71717a]">{selectedClaim.createdAt}</span>
               </div>
 
-              <div className="text-end">
-                <span className="text-[11px] text-[#8E8E8E] block">Requested Value</span>
-                <span className="text-[16px] font-[500] font-mono text-[#171A20]">
-                  {selectedClaim.amountRequested.toLocaleString()} {selectedClaim.currency}
-                </span>
+              <div className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-3 text-[13px]">
+                <div className="flex justify-between">
+                  <span className="text-[#71717a]">رقم الشحنة:</span>
+                  <span className="font-mono font-[700] text-[#000000]">{selectedClaim.trackingNumber}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#71717a]">العميل الشاحن:</span>
+                  <span className="font-[600] text-[#000000]">{selectedClaim.customerName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#71717a]">الناقل المسؤول:</span>
+                  <span className="font-[600] text-[#000000]">{selectedClaim.carrierName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#71717a]">مبلغ التعويض المطلوب:</span>
+                  <span className="font-mono font-[800] text-[16px] text-[#000000]">{selectedClaim.amountRequested.toLocaleString()} SDG</span>
+                </div>
+                <div className="pt-2 border-t border-[#e4e4e7]">
+                  <span className="text-[#71717a] block mb-1 font-[500]">شرح الضرر والحادثة:</span>
+                  <p className="text-[#000000] leading-relaxed">{selectedClaim.description}</p>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-[12px] bg-[#c1fbd4] border border-[#a8f5c2] flex items-center justify-between text-[13px]">
+                <span className="font-[600] text-[#000000]">الحالة التأمينية:</span>
+                <span className="font-[700] text-[#000000]">معتمدة تحت مظلة التأمين السيادي</span>
+              </div>
+
+              <div className="pt-2 flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    updateClaimStatus(selectedClaim.id, 'approved_payout');
+                    showToast('تم اعتماد صرف التعويض', `تمت الموافقة على تعويض المطالبة ${selectedClaim.claimNumber} وتحويل المبلغ للمحفظة فوراً`, 'success');
+                  }}
+                  className="flex-1 btn-shopify-pill !py-3 text-[13.5px]"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-[#c1fbd4]" />
+                  <span>اعتماد المطالبة وصرف التعويض الفوري</span>
+                </button>
               </div>
             </div>
-
-            {/* Description & Proof */}
-            <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2 text-[13px]">
-              <div className="text-[#5C5E62] font-[500]">Incident Description & Evidence</div>
-              <p className="text-[#171A20] leading-relaxed">{selectedClaim.description}</p>
-              <div className="flex items-center gap-2 pt-2 text-[12px] text-[#3E6AE1]">
-                <Camera className="w-4 h-4" />
-                <span>{selectedClaim.evidencePhotosCount} Geo-Tagged Photos Attached to POD</span>
-              </div>
+          ) : (
+            <div className="shopify-card p-8 text-center text-[#71717a]">
+              اختر مطالبة من القائمة
             </div>
-
-            {/* Compensation & Resolution Card */}
-            {selectedClaim.compensationOffered ? (
-              <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2">
-                <div className="flex items-center justify-between text-[13px] text-[#171A20] font-[500]">
-                  <span>Approved Settlement</span>
-                  <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
-                </div>
-                <div className="text-[20px] font-[500] font-mono text-[#3E6AE1]">
-                  {selectedClaim.compensationOffered.toLocaleString()} SDG
-                </div>
-                {selectedClaim.resolutionNotes && (
-                  <p className="text-[12px] text-[#5C5E62]">{selectedClaim.resolutionNotes}</p>
-                )}
-              </div>
-            ) : (
-              <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-3">
-                <div className="text-[13px] font-[500] text-[#171A20]">Adjuster Compensation Recommendation</div>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="number"
-                    defaultValue={selectedClaim.amountRequested * 0.9}
-                    id="compInput"
-                    className="flex-1 bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] text-[13px] font-mono outline-none"
-                  />
-                  <button
-                    onClick={() => {
-                      const input = document.getElementById('compInput') as HTMLInputElement;
-                      handleApprovePayout(selectedClaim.id, Number(input?.value || selectedClaim.amountRequested));
-                    }}
-                    className="btn-tesla-primary !min-w-[160px] !min-h-[36px] !py-1 !px-3 text-[13px]"
-                  >
-                    Approve Payout
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* New Claim Modal */}
       {isNewClaimModalOpen && (
-        <div className="fixed inset-0 z-50 bg-[#171A20]/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
-              <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
-                <ShieldAlert className="w-5 h-5 text-[#3E6AE1]" />
-                <span>File New Cargo Damage / SLA Claim</span>
-              </h3>
-              <button onClick={() => setIsNewClaimModalOpen(false)} className="text-[#8E8E8E] hover:text-[#171A20]">✕</button>
+        <div className="fixed inset-0 z-50 bg-[#000000]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-lg bg-[#ffffff] border border-[#e4e4e7] rounded-[20px] p-8 space-y-6 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+            <div className="flex items-center justify-between border-b border-[#e4e4e7] pb-4">
+              <div className="space-y-1">
+                <div className="shopify-tag-mint !text-[10px]">تسجيل مطالبة تأمينية</div>
+                <h3 className="font-[600] text-[18px] text-[#000000]">فتح ملف تعويض شحنة متضررة</h3>
+              </div>
+              <button onClick={() => setIsNewClaimModalOpen(false)} className="p-1 rounded-full hover:bg-[#fbfbf5] text-[#71717a]">
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            <form onSubmit={handleCreateClaim} className="space-y-3 text-[13px]">
+            <form onSubmit={handleCreateClaim} className="space-y-4 text-[13px]">
               <div>
-                <label className="text-[#5C5E62] block mb-1">Select Shipment</label>
+                <label className="text-[#71717a] block mb-1 font-[500]">الشحنة المعنية</label>
                 <select
                   value={selectedShipmentId}
                   onChange={(e) => setSelectedShipmentId(e.target.value)}
-                  className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none text-[#000000] focus:border-[#000000]"
                 >
                   {shipments.map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.trackingNumber} - {s.customerName} ({s.cargoDescription})
+                      {s.trackingNumber} — {s.customerName} ({s.cargoType})
                     </option>
                   ))}
                 </select>
@@ -276,56 +241,49 @@ export function ClaimsView() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#5C5E62] block mb-1">Claim Type</label>
+                  <label className="text-[#71717a] block mb-1 font-[500]">نوع الضرر</label>
                   <select
                     value={claimType}
-                    onChange={(e) => setClaimType(e.target.value as ClaimType)}
-                    className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
+                    onChange={(e) => setClaimType(e.target.value as any)}
+                    className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none text-[#000000] focus:border-[#000000]"
                   >
-                    <option value="cargo_damage">Cargo Damage (تلف بضاعة)</option>
-                    <option value="delay_compensation">SLA Delay (تعويض تأخير)</option>
-                    <option value="missing_quantity">Missing Qty (نقص كمية)</option>
-                    <option value="temp_violation">Temperature Alert (حرارة)</option>
+                    <option value="cargo_damage">تلف / كسر في البضاعة</option>
+                    <option value="temp_breach">خلل في درجة حرارة التبريد</option>
+                    <option value="shortage">نقص في عدد الطرود</option>
+                    <option value="delay">تأخير حرج أضر بالصلاحية</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="text-[#5C5E62] block mb-1">Claim Amount (SDG)</label>
+                  <label className="text-[#71717a] block mb-1 font-[500]">مبلغ التعويض المقدر (SDG)</label>
                   <input
                     type="number"
                     value={claimAmount}
                     onChange={(e) => setClaimAmount(Number(e.target.value))}
-                    className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none font-mono"
+                    className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] px-3.5 py-2.5 outline-none font-mono text-[#000000] focus:border-[#000000]"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[#5C5E62] block mb-1">Detailed Description of Damage</label>
+                <label className="text-[#71717a] block mb-1 font-[500]">تفاصيل الحادثة ووصف الأضرار</label>
                 <textarea
                   rows={3}
                   value={claimDesc}
                   onChange={(e) => setClaimDesc(e.target.value)}
-                  placeholder="Describe evidence noted on POD delivery note..."
-                  className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
+                  placeholder="يرجى كتابة تفاصيل المعاينة الفنية وحالة الطرود عند الاستلام..."
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] rounded-[8px] p-3 outline-none text-[#000000] focus:border-[#000000]"
                   required
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsNewClaimModalOpen(false)}
-                  className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[13px]"
-                >
-                  Cancel
+              <div className="flex items-center gap-3 pt-2">
+                <button type="button" onClick={() => setIsNewClaimModalOpen(false)} className="btn-shopify-outline flex-1">
+                  إلغاء
                 </button>
-                <button
-                  type="submit"
-                  className="btn-tesla-primary !min-h-[34px] !py-1 !px-4 text-[13px]"
-                >
-                  Submit Official Claim
+                <button type="submit" className="btn-shopify-pill flex-1">
+                  إرسال ملف المطالبة
                 </button>
               </div>
             </form>

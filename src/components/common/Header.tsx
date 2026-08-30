@@ -10,6 +10,7 @@ import {
   Bell,
   Shield,
   Settings,
+  Smartphone,
 } from 'lucide-react';
 
 export function Header() {
@@ -53,61 +54,71 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 h-14 border-b border-[#EEEEEE] bg-[#FFFFFF]/90 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between transition-all duration-330">
-      {/* Search trigger (4px radius, minimalist border #D0D1D2) */}
+    <header className="sticky top-0 z-30 h-16 border-b border-[#e4e4e7] bg-[#ffffff]/95 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between transition-all duration-200 shopify-theme">
+      {/* Search trigger (Shopify Pill Search Input) */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <button
           onClick={() => setCurrentView('landing')}
-          className="flex lg:hidden items-center gap-2 p-1 rounded-[4px] hover:bg-[#F4F4F4] transition-colors flex-shrink-0"
+          className="flex lg:hidden items-center gap-2 p-1 rounded-full hover:bg-[#fbfbf5] transition-colors flex-shrink-0"
           title="الرئيسية"
         >
-          <img src="/images/brand-logo.jpg" alt="Logo" className="w-8 h-8 rounded-[4px] object-contain border border-[#EEEEEE]" />
+          <img src="/images/brand-logo.jpg" alt="Logo" className="w-8 h-8 rounded-full object-contain border border-[#e4e4e7]" />
         </button>
+        
         <button
           onClick={() => setIsCommandPaletteOpen(true)}
-          className="flex items-center gap-2.5 w-full bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#393C41] px-3 py-1.5 rounded-[4px] text-[14px] transition-colors duration-330 cursor-pointer"
+          className="flex items-center gap-2.5 w-full bg-[#ffffff] hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] px-4 py-2 rounded-full text-[14px] transition-colors duration-200 cursor-pointer shadow-[0_2px_4px_rgba(0,0,0,0.02)]"
         >
-          <Search className="w-4 h-4 text-[#8E8E8E] flex-shrink-0" />
-          <span className="text-[#8E8E8E] text-[13px] truncate">
+          <Search className="w-4 h-4 text-[#71717a] flex-shrink-0" />
+          <span className="text-[#71717a] text-[13px] truncate font-[420]">
             {t.searchPlaceholder}
           </span>
-          <kbd className="hidden sm:inline-block ms-auto px-1.5 py-0.5 text-[11px] font-mono bg-[#F4F4F4] border border-[#EEEEEE] text-[#5C5E62] rounded-[2px]">
+          <kbd className="hidden sm:inline-block ms-auto px-2 py-0.5 text-[11px] font-mono bg-[#fbfbf5] border border-[#e4e4e7] text-[#71717a] rounded-full">
             Ctrl + K
           </kbd>
         </button>
       </div>
 
-      {/* Right control utilities */}
+      {/* Right control utilities (Shopify Pill Buttons & Badges) */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Active Backhaul Badge */}
+        {/* Active Backhaul Badge (Aloe-10 Mint Pill) */}
         {backhauls.length > 0 && (
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-[#F4F4F4] text-[#171A20] text-[12px] font-[500]">
-            <span className="w-2 h-2 rounded-full bg-[#3E6AE1]"></span>
+          <div className="hidden lg:flex items-center gap-1.5 shopify-tag-mint">
+            <span className="w-2 h-2 rounded-full bg-[#000000] animate-pulse"></span>
             <span>{backhauls.length} {t.emptyTrucksTracked}</span>
           </div>
         )}
 
+        {/* Mobile App Showroom Quick Pill */}
+        <button
+          onClick={() => setCurrentView('mobile_app')}
+          className="hidden xl:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#fbfbf5] hover:bg-white border border-[#e4e4e7] text-[#000000] text-[13px] font-[500] transition-colors duration-200 cursor-pointer"
+        >
+          <Smartphone className="w-3.5 h-3.5" />
+          <span>{lang === 'ar' ? 'تطبيق الجوال' : 'Mobile App'}</span>
+        </button>
+
         {/* Control Tower Quick Jump Button */}
         <button
           onClick={() => setCurrentView('control_tower')}
-          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#F4F4F4] hover:bg-[#EEEEEE] border border-[#D0D1D2] text-[#171A20] text-[13px] font-[500] transition-colors duration-330 cursor-pointer"
+          className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#000000] hover:bg-[#3f3f46] text-white text-[13px] font-[500] transition-colors duration-200 cursor-pointer"
         >
           <span>{lang === 'ar' ? 'لوحة التحكم' : 'Control Tower'}</span>
         </button>
 
-        {/* AI Copilot Trigger (Tesla Accent Style) */}
+        {/* AI Copilot Trigger (Shopify Aloe Pill) */}
         <button
           onClick={() => setIsAiCopilotOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#3E6AE1] hover:bg-[#345ac2] text-white text-[13px] font-[500] transition-colors duration-330 cursor-pointer"
+          className="btn-shopify-aloe !py-1.5 !px-3.5 !text-[13px]"
         >
           <Bot className="w-4 h-4" />
           <span className="hidden sm:inline">AI Copilot</span>
         </button>
 
-        {/* Role Selector */}
+        {/* Role Selector (Shopify Pill Dropdown) */}
         <div className="relative">
-          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] text-[#171A20] cursor-pointer hover:bg-[#F4F4F4] transition-colors duration-330">
-            <Shield className="w-3.5 h-3.5 text-[#5C5E62] flex-shrink-0" />
+          <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#ffffff] border border-[#e4e4e7] text-[13px] text-[#000000] cursor-pointer hover:bg-[#fbfbf5] transition-colors duration-200 shadow-sm">
+            <Shield className="w-3.5 h-3.5 text-[#71717a] flex-shrink-0" />
             <select
               value={role}
               onChange={(e) => {
@@ -119,10 +130,10 @@ export function Header() {
                   'info'
                 );
               }}
-              className="bg-transparent text-[13px] font-[400] text-[#171A20] outline-none cursor-pointer pr-1"
+              className="bg-transparent border-0 text-[12px] font-[500] text-[#000000] cursor-pointer outline-none pe-2"
             >
               {rolesList.map((r) => (
-                <option key={r.key} value={r.key} className="bg-white text-[#171A20]">
+                <option key={r.key} value={r.key} className="text-[#000000] bg-white">
                   {r.label}
                 </option>
               ))}
@@ -130,39 +141,38 @@ export function Header() {
           </div>
         </div>
 
-        {/* Settings & RBAC Button */}
-        <button
-          onClick={() => setCurrentView('settings_rbac')}
-          className="p-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#5C5E62] hover:text-[#171A20] transition-colors duration-330 cursor-pointer"
-          title="Platform Settings & RBAC"
-        >
-          <Settings className="w-4 h-4" />
-        </button>
-
-        {/* Language Switcher */}
+        {/* Language switcher (Shopify Pill) */}
         <button
           onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[13px] font-[500] text-[#171A20] transition-colors duration-330 cursor-pointer"
-          title="Toggle Language"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[12px] font-[500] text-[#000000] transition-colors duration-200 cursor-pointer shadow-sm"
+          title={lang === 'ar' ? 'Switch to English' : 'التحويل للعربية'}
         >
-          <Globe className="w-3.5 h-3.5 text-[#5C5E62]" />
+          <Globe className="w-3.5 h-3.5 text-[#71717a]" />
           <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
         </button>
 
-        {/* Notification Bell */}
-        <div className="relative">
-          <button
-            onClick={handleNotificationClick}
-            className="p-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#5C5E62] hover:text-[#171A20] transition-colors duration-330 relative cursor-pointer"
-          >
-            <Bell className="w-4 h-4" />
-            {incidents.length > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#3E6AE1] text-[9px] text-white flex items-center justify-center font-[500]">
-                {incidents.length}
-              </span>
-            )}
-          </button>
-        </div>
+        {/* Emergency radar notifications */}
+        <button
+          onClick={handleNotificationClick}
+          className="relative p-2 rounded-full bg-[#ffffff] hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] transition-colors duration-200 cursor-pointer shadow-sm"
+          title={lang === 'ar' ? 'التنبيهات' : 'Notifications'}
+        >
+          <Bell className="w-4 h-4" />
+          {(incidents.length > 0 || claims.length > 0) && (
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#000000] text-white text-[9px] font-bold flex items-center justify-center">
+              {incidents.length + claims.length}
+            </span>
+          )}
+        </button>
+
+        {/* Quick Settings Icon */}
+        <button
+          onClick={() => setCurrentView('settings_rbac')}
+          className="p-2 rounded-full bg-[#ffffff] hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] transition-colors duration-200 cursor-pointer shadow-sm"
+          title={t.settings}
+        >
+          <Settings className="w-4 h-4" />
+        </button>
       </div>
     </header>
   );

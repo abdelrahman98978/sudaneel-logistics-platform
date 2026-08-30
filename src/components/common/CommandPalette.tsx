@@ -22,6 +22,7 @@ import {
   FileDown,
   X,
   FileSpreadsheet,
+  Smartphone,
 } from 'lucide-react';
 
 export function CommandPalette() {
@@ -32,6 +33,7 @@ export function CommandPalette() {
     shipments,
     setSelectedShipmentId,
     t,
+    lang,
   } = useApp();
 
   const [query, setQuery] = useState('');
@@ -45,6 +47,7 @@ export function CommandPalette() {
     category: string;
   }[] = [
     { title: t.createShipment, icon: PlusCircle, view: 'create_shipment', category: 'Actions' },
+    { title: 'تطبيق الجوال الذكي (Mobile App)', icon: Smartphone, view: 'mobile_app', category: 'Mobile Suite' },
     { title: t.bulkOrders, icon: FileSpreadsheet, view: 'bulk_orders', category: 'Actions' },
     { title: t.controlTower, icon: Compass, view: 'control_tower', category: 'Operations' },
     { title: t.marketplace, icon: Repeat, view: 'marketplace', category: 'Operations' },
@@ -76,51 +79,49 @@ export function CommandPalette() {
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#171A20]/60 backdrop-blur-sm flex items-start justify-center pt-20 p-4 animate-in fade-in duration-200">
-      <div className="w-full max-w-2xl bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 bg-[#000000]/60 backdrop-blur-sm flex items-start justify-center pt-20 p-4 animate-in fade-in duration-200 shopify-theme">
+      <div className="w-full max-w-2xl bg-[#ffffff] border border-[#e4e4e7] rounded-[20px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden flex flex-col">
         {/* Input bar */}
-        <div className="p-4 border-b border-[#EEEEEE] flex items-center gap-3 bg-[#FFFFFF]">
-          <Search className="w-5 h-5 text-[#3E6AE1]" />
+        <div className="p-4 border-b border-[#e4e4e7] flex items-center gap-3 bg-[#ffffff]">
+          <Search className="w-5 h-5 text-[#000000]" />
           <input
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t.searchPlaceholder}
-            className="flex-1 bg-transparent text-[#171A20] placeholder-[#8E8E8E] outline-none text-[14px] font-[400]"
+            className="flex-1 bg-transparent text-[#000000] placeholder-[#71717a] outline-none text-[15px] font-[420]"
           />
           <button
             onClick={() => setIsCommandPaletteOpen(false)}
-            className="p-1 text-[#8E8E8E] hover:text-[#171A20] rounded-[4px] hover:bg-[#F4F4F4]"
+            className="p-1.5 text-[#71717a] hover:text-[#000000] rounded-full hover:bg-[#fbfbf5]"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Results */}
-        <div className="max-h-96 overflow-y-auto p-3 space-y-4 custom-scrollbar">
+        <div className="max-h-96 overflow-y-auto p-4 space-y-4 custom-scrollbar">
           {/* Quick Actions */}
-          <div>
-            <div className="text-[11px] font-[500] uppercase text-[#8E8E8E] px-3 py-1">
-              Modules & Quick Navigation ({filteredActions.length})
+          <div className="space-y-1">
+            <div className="px-3 pb-1 text-[11px] font-[600] text-[#71717a] uppercase tracking-wider">
+              {lang === 'ar' ? 'الإجراءات السريعة' : 'Quick Actions'}
             </div>
-            <div className="space-y-1">
-              {filteredActions.map((action, idx) => {
-                const Icon = action.icon;
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              {filteredActions.map((act, idx) => {
+                const Icon = act.icon;
                 return (
                   <button
                     key={idx}
                     onClick={() => {
-                      setCurrentView(action.view);
+                      setCurrentView(act.view);
                       setIsCommandPaletteOpen(false);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-[4px] text-[14px] text-[#393C41] hover:bg-[#F4F4F4] hover:text-[#171A20] transition-colors duration-330 text-start cursor-pointer font-[400]"
+                    className="flex items-center gap-3 px-3.5 py-2.5 rounded-full hover:bg-[#c1fbd4] hover:text-[#000000] text-[#000000] text-[13px] text-start transition-all duration-200 cursor-pointer"
                   >
-                    <div className="flex items-center gap-3">
-                      <Icon className="w-4 h-4 text-[#3E6AE1] flex-shrink-0" />
-                      <span>{action.title}</span>
-                    </div>
-                    <span className="text-[11px] px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#5C5E62]">
-                      {action.category}
+                    <Icon className="w-4 h-4 text-[#71717a] flex-shrink-0" />
+                    <span className="truncate flex-1 font-[500]">{act.title}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] text-[#71717a]">
+                      {act.category}
                     </span>
                   </button>
                 );
@@ -128,14 +129,14 @@ export function CommandPalette() {
             </div>
           </div>
 
-          {/* Shipments Match */}
+          {/* Search Shipments */}
           {filteredShipments.length > 0 && (
-            <div>
-              <div className="text-[11px] font-[500] uppercase text-[#8E8E8E] px-3 py-1">
-                Shipments ({filteredShipments.length})
+            <div className="space-y-1 border-t border-[#e4e4e7] pt-3">
+              <div className="px-3 pb-1 text-[11px] font-[600] text-[#71717a] uppercase tracking-wider">
+                {t.shipments}
               </div>
               <div className="space-y-1">
-                {filteredShipments.map((s) => (
+                {filteredShipments.slice(0, 4).map((s) => (
                   <button
                     key={s.id}
                     onClick={() => {
@@ -143,28 +144,22 @@ export function CommandPalette() {
                       setCurrentView('tracking_detail');
                       setIsCommandPaletteOpen(false);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-[4px] text-[14px] bg-[#F4F4F4] hover:bg-[#EEEEEE] text-[#171A20] border border-[#EEEEEE] transition-colors duration-330 text-start cursor-pointer"
+                    className="w-full flex items-center justify-between p-3 rounded-[12px] hover:bg-[#fbfbf5] border border-transparent hover:border-[#e4e4e7] transition-all duration-200 text-start cursor-pointer"
                   >
-                    <div className="flex items-center gap-3">
-                      <Package className="w-4 h-4 text-[#3E6AE1]" />
+                    <div className="flex items-center gap-2.5">
+                      <Package className="w-4 h-4 text-[#000000]" />
                       <div>
-                        <div className="font-[500] text-[#171A20] flex items-center gap-2">
-                          <span>{s.trackingNumber}</span>
-                          <span className="text-[11px] px-1.5 py-0.5 rounded-[2px] bg-white text-[#171A20] border border-[#D0D1D2] font-mono">
-                            {s.status}
-                          </span>
+                        <div className="font-mono text-[13px] font-[600] text-[#000000]">
+                          {s.trackingNumber}
                         </div>
-                        <div className="text-[12px] text-[#5C5E62]">
-                          {s.origin.city} ➔ {s.destination.city} ({s.customerNameAr || s.customerName})
+                        <div className="text-[11px] text-[#71717a]">
+                          {s.customerName} • {s.origin.city} ➔ {s.destination.city}
                         </div>
                       </div>
                     </div>
-                    <div className="text-end">
-                      <div className="text-[13px] font-[500] text-[#171A20] font-mono">
-                        {s.price.toLocaleString()} {s.currency}
-                      </div>
-                      <div className="text-[11px] text-[#8E8E8E]">{s.estimatedEta}</div>
-                    </div>
+                    <span className="shopify-tag-mint !text-[10px]">
+                      {s.status}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -172,10 +167,16 @@ export function CommandPalette() {
           )}
         </div>
 
-        {/* Footer info */}
-        <div className="px-4 py-2 border-t border-[#EEEEEE] bg-[#F4F4F4] flex items-center justify-between text-[12px] text-[#5C5E62]">
-          <span>Navigate with arrows, Enter to select</span>
-          <span className="font-mono text-[#3E6AE1]">ESC to exit</span>
+        {/* Footer info bar */}
+        <div className="p-3 bg-[#fbfbf5] border-t border-[#e4e4e7] flex items-center justify-between text-[11px] text-[#71717a]">
+          <div className="flex items-center gap-3">
+            <span>↑↓ للتنقل</span>
+            <span>↵ للاختيار</span>
+            <span>ESC للإغلاق</span>
+          </div>
+          <span className="shopify-tag-shade !text-[10px]">
+            SUDANIL OS
+          </span>
         </div>
       </div>
     </div>

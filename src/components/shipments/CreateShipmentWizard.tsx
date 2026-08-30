@@ -124,35 +124,38 @@ export function CreateShipmentWizard() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 font-sans text-[#171A20]">
-      {/* Stepper Wizard Header */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
+    <div className="max-w-4xl mx-auto space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Stepper Wizard Header (Shopify 12px Card) */}
+      <div className="p-8 shopify-card bg-[#ffffff] space-y-5">
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-[17px] font-[500] text-[#171A20] flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#3E6AE1]" />
-              <span>{lang === 'ar' ? 'معالج إنشاء الشحنة الذكية' : 'Smart Shipment Creator'}</span>
-            </h2>
-            <p className="text-[13px] font-[400] text-[#5C5E62]">
+          <div className="space-y-1">
+            <div className="shopify-tag-mint !text-[11px]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Smart Booking • حجز شحنة ذكية</span>
+            </div>
+            <h1 className="text-[24px] font-[500] text-[#000000] tracking-tight">
+              {lang === 'ar' ? 'معالج إنشاء الشحنة الذكية' : 'Smart Shipment Creator'}
+            </h1>
+            <p className="text-[14px] font-[420] text-[#71717a]">
               {lang === 'ar' ? `المرحلة ${step} من 10: إعداد الشحنة والتسعير التنافسي` : `Step ${step} of 10: Logistics parameters & pricing`}
             </p>
           </div>
-          <span className="font-mono text-[#3E6AE1] text-[13px] font-[500] bg-[#F4F4F4] px-3 py-1 rounded-[2px] border border-[#EEEEEE]">
+          <span className="shopify-tag-shade !text-[12px] font-mono font-[600]">
             Step {step} / 10
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-[#F4F4F4] rounded-[2px] h-1.5 overflow-hidden">
+        <div className="w-full bg-[#fbfbf5] rounded-full h-2 overflow-hidden border border-[#e4e4e7]">
           <div
-            className="bg-[#3E6AE1] h-full transition-all duration-330"
+            className="bg-[#000000] h-full transition-all duration-300 rounded-full"
             style={{ width: `${(step / 10) * 100}%` }}
           ></div>
         </div>
       </div>
 
       {/* Step Content */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] min-h-[380px] flex flex-col justify-between">
+      <div className="p-8 shopify-card bg-[#ffffff] min-h-[400px] flex flex-col justify-between">
         {/* STEP 1: Pickup Location */}
         {step === 1 && (
           <div className="space-y-4">
@@ -546,13 +549,13 @@ export function CreateShipmentWizard() {
           </div>
         )}
 
-        {/* Stepper Navigation Buttons */}
-        <div className="flex items-center justify-between pt-4 border-t border-[#EEEEEE] mt-4">
+        {/* Stepper Navigation Buttons (Shopify Pill CTAs) */}
+        <div className="flex items-center justify-between pt-6 border-t border-[#e4e4e7] mt-6">
           <button
             type="button"
             disabled={step === 1}
             onClick={() => setStep((prev) => Math.max(1, prev - 1))}
-            className="btn-tesla-secondary !min-w-[100px] !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1 disabled:opacity-30"
+            className="btn-shopify-outline !py-2 !px-5 text-[13px] flex items-center gap-1.5 disabled:opacity-30"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{lang === 'ar' ? 'السابق' : 'Previous'}</span>
@@ -562,7 +565,7 @@ export function CreateShipmentWizard() {
             <button
               type="button"
               onClick={() => setStep((prev) => Math.min(10, prev + 1))}
-              className="btn-tesla-primary !min-w-[120px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-1"
+              className="btn-shopify-pill !py-2 !px-6 text-[13px] flex items-center gap-1.5"
             >
               <span>{lang === 'ar' ? 'التالي' : 'Next Step'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -571,9 +574,9 @@ export function CreateShipmentWizard() {
             <button
               type="button"
               onClick={handleFinish}
-              className="btn-tesla-primary !min-w-[200px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
+              className="btn-shopify-pill !py-2.5 !px-7 text-[13.5px] flex items-center gap-2 bg-[#000000] text-[#ffffff]"
             >
-              <Zap className="w-4 h-4" />
+              <Zap className="w-4 h-4 text-[#c1fbd4]" />
               <span>{lang === 'ar' ? 'إصدار الشحنة وتفعيل التتبع المباشر' : 'Launch Shipment & Live Tracking'}</span>
             </button>
           )}

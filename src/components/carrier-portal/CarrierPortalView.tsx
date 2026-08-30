@@ -9,130 +9,124 @@ import {
   DollarSign,
   Users,
   Award,
+  Sparkles,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export function CarrierPortalView() {
-  const { carriers, vehicles, drivers } = useApp();
+  const { carriers, vehicles, drivers, setCurrentView } = useApp();
   const currentCarrier = carriers[0];
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir="rtl">
       {/* Carrier Top Profile Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-[4px] bg-[#3E6AE1] flex items-center justify-center text-white">
-            <Building2 className="w-6 h-6" />
+          <div className="w-14 h-14 rounded-full bg-[#000000] flex items-center justify-center text-[#c1fbd4]">
+            <Building2 className="w-7 h-7" />
           </div>
-          <div>
+          <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <h2 className="text-[17px] font-[500] text-[#171A20]">{currentCarrier.name}</h2>
-              <span className="text-[11px] px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] font-[500] font-mono">
+              <h1 className="text-[24px] font-[600] text-[#000000]">{currentCarrier.name}</h1>
+              <span className="shopify-tag-mint !text-[11px] font-mono">
                 {currentCarrier.ratingCategory} Certified
               </span>
             </div>
-            <p className="text-[13px] text-[#5C5E62] mt-0.5">
-              {currentCarrier.city}, Sudan • {currentCarrier.phone} • {currentCarrier.email}
+            <p className="text-[13.5px] text-[#71717a]">
+              {currentCarrier.city} • هاتف: {currentCarrier.phone} • بريد: {currentCarrier.email}
             </p>
           </div>
         </div>
 
         {/* Trust Score */}
-        <div className="flex items-center gap-3 bg-[#F4F4F4] p-3 rounded-[4px] border border-[#EEEEEE]">
-          <Award className="w-6 h-6 text-[#3E6AE1]" />
+        <div className="flex items-center gap-3 bg-[#c1fbd4] p-4 rounded-[12px] border border-[#a8f5c2] shadow-sm">
+          <Award className="w-7 h-7 text-[#000000]" />
           <div>
-            <div className="text-[11px] text-[#8E8E8E] uppercase font-[500]">Sudaneel Trust Score</div>
-            <div className="text-[18px] font-[500] font-mono text-[#171A20]">{currentCarrier.trustScore} / 100</div>
+            <div className="text-[11px] text-[#000000]/70 uppercase font-[600]">مؤشر الموثوقية السيادي</div>
+            <div className="text-[22px] font-[800] font-mono text-[#000000]">{currentCarrier.trustScore} / 100</div>
           </div>
         </div>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Fleet Size</span>
-            <Truck className="w-4 h-4 text-[#3E6AE1]" />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600] flex items-center justify-between">
+            <span>حجم الأسطول</span>
+            <Truck className="w-4 h-4 text-[#000000]" />
           </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{currentCarrier.fleetCount} Trucks</div>
-          <div className="text-[11px] text-[#3E6AE1] mt-1">{currentCarrier.activeTrips} On Trips</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{currentCarrier.fleetCount} شاحنات</div>
+          <div className="text-[12px] text-[#000000] font-[500]">{currentCarrier.activeTrips} في رحلات نشطة</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>On-Time Delivery</span>
-            <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
+        <div className="shopify-card-aloe p-6 space-y-2 shadow-[0_8px_20px_rgba(193,251,212,0.4)]">
+          <div className="text-[12px] text-[#000000] font-[600] flex items-center justify-between">
+            <span>الرحلات المكتملة</span>
+            <CheckCircle2 className="w-4 h-4 text-[#000000]" />
           </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{currentCarrier.onTimeDeliveryRate}%</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">1,840 Total Trips</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{currentCarrier.totalTrips}</div>
+          <div className="text-[12px] text-[#000000]/80 font-[500]">نسبة نجاح التسليم 99.2%</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Monthly Payouts</span>
-            <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600] flex items-center justify-between">
+            <span>رصيد المحفظة المتاح</span>
+            <DollarSign className="w-4 h-4 text-[#000000]" />
           </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">48.5M <span className="text-[12px]">SDG</span></div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Settled within 24h</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">8.4M SDG</div>
+          <div className="text-[12px] text-[#71717a]">تسوية فورية عبر EBS</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
-            <span>Active Drivers</span>
-            <Users className="w-4 h-4 text-[#3E6AE1]" />
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600] flex items-center justify-between">
+            <span>السائقون المعتمدون</span>
+            <Users className="w-4 h-4 text-[#000000]" />
           </div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">30 Drivers</div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">100% License Verified</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">{drivers.length}</div>
+          <div className="text-[12px] text-[#71717a]">رخص مهنية سارية</div>
         </div>
       </div>
 
-      {/* Carrier Drivers & Fleet List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Active Drivers */}
-        <div className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <Users className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Assigned Drivers & Scores</span>
-          </h3>
-          <div className="space-y-2">
-            {drivers.slice(0, 3).map((d) => (
-              <div
-                key={d.id}
-                className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] flex items-center justify-between text-[13px]"
-              >
+      {/* Carrier Vehicles & Driver Assignment Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="shopify-card p-8 space-y-6 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
+            <h3 className="font-[600] text-[16px] text-[#000000]">الشاحنات المسجلة في أسطول الناقل</h3>
+            <span className="shopify-tag-mint">{vehicles.length} شاحنات</span>
+          </div>
+
+          <div className="space-y-3">
+            {vehicles.slice(0, 4).map((v) => (
+              <div key={v.id} className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-between">
                 <div>
-                  <div className="font-[500] text-[#171A20]">{d.nameAr || d.name}</div>
-                  <div className="text-[11px] text-[#5C5E62]">{d.phone} • {d.totalTrips} Trips</div>
+                  <div className="font-mono font-[700] text-[#000000] text-[14px]">{v.plateNumber}</div>
+                  <div className="text-[12px] text-[#71717a]">{v.makeModel} • {v.capacityTons} طن</div>
                 </div>
-                <div className="text-end">
-                  <span className="font-mono font-[500] text-[#171A20] bg-white px-2 py-0.5 rounded-[2px] border border-[#D0D1D2] text-[11px]">
-                    Trust: {d.trustScore}
-                  </span>
-                  <div className="text-[11px] text-[#3E6AE1] mt-1 font-mono">{d.onTimeRate}% OTD</div>
-                </div>
+                <span className={v.status === 'available' ? 'shopify-tag-mint' : 'shopify-tag-shade'}>
+                  {v.status}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Assigned Trucks */}
-        <div className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
-          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
-            <Truck className="w-4 h-4 text-[#3E6AE1]" />
-            <span>Fleet Availability</span>
-          </h3>
-          <div className="space-y-2">
-            {vehicles.slice(0, 3).map((v) => (
-              <div
-                key={v.id}
-                className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] flex items-center justify-between text-[13px]"
-              >
+        <div className="shopify-card p-8 space-y-6 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
+            <h3 className="font-[600] text-[16px] text-[#000000]">السائقون وفرق القيادة المعتمدة</h3>
+            <span className="shopify-tag-pistachio">{drivers.length} سائقين</span>
+          </div>
+
+          <div className="space-y-3">
+            {drivers.map((d) => (
+              <div key={d.id} className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-between">
                 <div>
-                  <div className="font-mono font-[500] text-[#171A20]">{v.plateNumber}</div>
-                  <div className="text-[11px] text-[#5C5E62]">{v.makeModel} ({v.capacityTons}T)</div>
+                  <div className="font-[600] text-[#000000] text-[14px]">{d.name}</div>
+                  <div className="text-[12px] text-[#71717a] font-mono">{d.phone} • {d.licenseNumber}</div>
                 </div>
-                <span className="text-[11px] px-2 py-0.5 rounded-[2px] font-[500] font-mono bg-white border border-[#D0D1D2]">
-                  {v.status}
-                </span>
+                <div className="text-end">
+                  <div className="font-mono font-[700] text-[#000000] text-[13px]">★ {d.rating}</div>
+                  <div className="text-[11px] text-[#71717a]">{d.totalTrips} رحلة</div>
+                </div>
               </div>
             ))}
           </div>

@@ -10,6 +10,8 @@ import {
   Sparkles,
   MapPin,
   Leaf,
+  CheckCircle2,
+  ArrowRight,
 } from 'lucide-react';
 
 export function SmartDispatchView() {
@@ -22,6 +24,7 @@ export function SmartDispatchView() {
     showToast,
     t,
     lang,
+    setCurrentView,
   } = useApp();
 
   const unassignedShipments = shipments.filter(
@@ -64,226 +67,204 @@ export function SmartDispatchView() {
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Smart Dispatch Header */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#3E6AE1]" />
-            <h2 className="font-[500] text-[17px] text-[#171A20]">
-              {lang === 'ar' ? 'مركز التوزيع الذكي وخوارزميات المطابقة (AI Dispatch)' : 'AI Smart Dispatch & Fleet Allocation Center'}
-            </h2>
+      <div className="p-8 shopify-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-[#ffffff]">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <Cpu className="w-4 h-4" />
+            <span>AI Automated Matchmaking • محرك التوجيه الذكي</span>
           </div>
-          <p className="text-[13px] font-[400] text-[#5C5E62] mt-1">
-            {lang === 'ar'
-              ? 'تخصيص الشاحنات والسائقين بناءً على المسافة، السعة، مؤشر الثقة (Trust Score)، والرحلات العائدة.'
-              : 'Allocate fleet assets dynamically based on proximity, payload, trust score, and backhaul optimization.'}
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            {t.smartDispatch}
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
+            محرك خوارزمي متقدم لمطابقة الشحنات مع أنسب أصول الأسطول، وتحسين رحلات العودة الفارغة (Backhaul) وخفض تكاليف الوقود.
           </p>
         </div>
 
-        <button
-          onClick={handleAutoDispatch}
-          disabled={isAutoDispatching || matches.length === 0}
-          className="btn-tesla-primary !min-w-[160px] !min-h-[38px] !py-1 !px-4 text-[13px] flex items-center gap-2 disabled:opacity-50"
-        >
-          <Sparkles className="w-4 h-4" />
-          <span>{isAutoDispatching ? 'Optimizing Fleet...' : t.autoDispatchBtn}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={handleAutoDispatch}
+            disabled={isAutoDispatching || matches.length === 0}
+            className="btn-shopify-pill disabled:opacity-50"
+          >
+            <Sparkles className="w-4 h-4 text-[#c1fbd4]" />
+            <span>
+              {isAutoDispatching
+                ? (lang === 'ar' ? 'جاري التوزيع الخوارزمي...' : 'Optimizing Dispatch...')
+                : (lang === 'ar' ? 'توزيع آلي فوري (AI Dispatch)' : 'Auto-Dispatch Optimal Asset')}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setCurrentView('marketplace')}
+            className="btn-shopify-outline"
+          >
+            <span>بورصة الشحن والعودة</span>
+          </button>
+        </div>
       </div>
 
-      {/* 3-Panel Dispatch Workspace */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Panel 1: Unassigned Shipments Queue (3.5 cols) */}
-        <div className="lg:col-span-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
-              <Package className="w-4 h-4 text-[#3E6AE1]" />
-              <span>قائمة انتظار التوزيع ({unassignedShipments.length})</span>
-            </h3>
-          </div>
+      {/* Unassigned Shipments Carousel (Shopify Pill Tabs) */}
+      <div className="shopify-card p-5 space-y-3">
+        <div className="text-[12px] font-[600] text-[#71717a] uppercase tracking-wider">
+          الشحنات الجاهزة للتكليف والتوجيه
+        </div>
+        <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
+          {shipments.map((s) => {
+            const isSelected = s.id === activeShipmentId;
+            return (
+              <button
+                key={s.id}
+                onClick={() => setActiveShipmentId(s.id)}
+                className={`flex items-center gap-2.5 px-4 py-2 rounded-full border text-[13px] whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#000000] text-white border-[#000000] font-[500] shadow-sm'
+                    : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7] hover:bg-[#fbfbf5]'
+                }`}
+              >
+                <Package className="w-4 h-4" />
+                <span className="font-mono">{s.trackingNumber}</span>
+                <span className="text-[11px] opacity-75">
+                  ({s.origin.city} ➔ {s.destination.city})
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
-          <div className="space-y-2.5 max-h-[500px] overflow-y-auto custom-scrollbar">
-            {unassignedShipments.map((shp) => {
-              const isSelected = shp.id === activeShipmentId;
-              return (
-                <button
-                  key={shp.id}
-                  onClick={() => {
-                    setActiveShipmentId(shp.id);
-                    setSelectedEvaluation(null);
-                  }}
-                  className={`w-full p-3.5 rounded-[4px] text-start transition-colors duration-330 border cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#F4F4F4] border-[#171A20]'
-                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
-                  }`}
-                >
+      {/* Selected Shipment Summary Card (Shopify 12px rounded card) */}
+      {currentShipment && (
+        <div className="shopify-card p-6 bg-[#fbfbf5] border border-[#e4e4e7] grid grid-cols-1 sm:grid-cols-4 gap-4 text-[13px]">
+          <div>
+            <span className="text-[#71717a] text-[11px] block">رقم البوليصة</span>
+            <span className="font-mono text-[#000000] font-[600] text-[15px]">{currentShipment.trackingNumber}</span>
+          </div>
+          <div>
+            <span className="text-[#71717a] text-[11px] block">المسار والمسافة</span>
+            <span className="font-[500] text-[#000000]">
+              {currentShipment.origin.city} ➔ {currentShipment.destination.city} ({currentShipment.distanceKm} كم)
+            </span>
+          </div>
+          <div>
+            <span className="text-[#71717a] text-[11px] block">الحمولة والوزن</span>
+            <span className="font-[500] text-[#000000]">
+              {currentShipment.totalWeightKg.toLocaleString()} كجم • {currentShipment.cargoType}
+            </span>
+          </div>
+          <div>
+            <span className="text-[#71717a] text-[11px] block">حالة الشحنة</span>
+            <span className="shopify-tag-mint !mt-1">
+              {currentShipment.status}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Match Engine Results List */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[18px] font-[600] text-[#000000]">
+            المركبات المرشحة والمطابقات الخوارزمية ({matches.length})
+          </h2>
+          <span className="shopify-tag-shade !text-[11px]">
+            خوارزمية Sudaneel Matrix 3.0
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {matches.map((match, idx) => {
+            const isTopMatch = idx === 0;
+            return (
+              <div
+                key={match.vehicle.id}
+                className={`p-6 rounded-[12px] transition-all duration-200 flex flex-col justify-between space-y-4 ${
+                  isTopMatch
+                    ? 'shopify-card-aloe shadow-[0_8px_20px_rgba(193,251,212,0.5)]'
+                    : 'shopify-card hover:border-[#a1a1aa]'
+                }`}
+              >
+                <div className="space-y-3">
+                  {/* Top Score Badge */}
                   <div className="flex items-center justify-between">
-                    <span className="font-mono font-[500] text-[#171A20] text-[13px]">{shp.trackingNumber}</span>
-                    <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-[2px] bg-white border border-[#D0D1D2]">
-                      {(shp.totalWeightKg / 1000).toFixed(1)} T
+                    <div className="flex items-center gap-2">
+                      <Truck className="w-5 h-5 text-[#000000]" />
+                      <span className="font-[600] text-[15px] font-mono text-[#000000]">
+                        {match.vehicle.plateNumber}
+                      </span>
+                    </div>
+                    <span
+                      className={`px-3 py-1 rounded-full text-[12px] font-mono font-[700] ${
+                        isTopMatch
+                          ? 'bg-[#000000] text-[#c1fbd4]'
+                          : 'bg-[#fbfbf5] text-[#000000] border border-[#e4e4e7]'
+                      }`}
+                    >
+                      {match.matchScore}% تطابق
                     </span>
                   </div>
-                  <div className="text-[13px] font-[500] text-[#171A20] mt-1">{shp.customerNameAr || shp.customerName}</div>
-                  <div className="text-[12px] text-[#5C5E62] flex items-center gap-1 mt-0.5">
-                    <MapPin className="w-3 h-3 text-[#3E6AE1]" />
-                    <span>{shp.origin.city} ➔ {shp.destination.city}</span>
+
+                  {/* Vehicle specs */}
+                  <div className="text-[12.5px] space-y-1.5 pt-1 text-[#000000]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">نوع المركبة:</span>
+                      <span className="font-[500]">{match.vehicle.makeModel} ({match.vehicle.capacityTons} طن)</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">الموقع الحالي:</span>
+                      <span className="font-[500]">{match.vehicle.currentCity} ({match.distanceToPickupKm} كم عن المنشأ)</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">السائق المقترح:</span>
+                      <span className="font-[500]">{match.driver?.name || 'سائق معتمد'}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#71717a]">التكلفة المقدرة:</span>
+                      <span className="font-mono font-[600]">
+                        {Math.round(currentShipment.price * (1 - match.expectedSavingsPercent / 100)).toLocaleString()} SDG
+                      </span>
+                    </div>
                   </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Panel 2: Ranked AI Matches (5 cols) */}
-        <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
-            <div>
-              <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
-                <Truck className="w-4 h-4 text-[#3E6AE1]" />
-                <span>المركبات المطابقة آلياً</span>
-              </h3>
-              <span className="text-[12px] text-[#5C5E62]">{currentShipment?.trackingNumber}</span>
-            </div>
-            <span className="text-[12px] font-mono font-[500] text-[#3E6AE1]">{matches.length} Candidates</span>
-          </div>
+                  {/* Backhaul Match indicator */}
+                  {match.isBackhaul && (
+                    <div className="p-2.5 rounded-[8px] bg-white/70 border border-[#a8f5c2] flex items-center gap-2 text-[11.5px] font-[500] text-[#000000]">
+                      <Leaf className="w-4 h-4 text-[#000000]" />
+                      <span>مطابقة عودة فارغة (وفر 28% في الوقود)</span>
+                    </div>
+                  )}
+                </div>
 
-          <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar">
-            {matches.map((match, idx) => {
-              const isSelected = selectedEvaluation?.vehicle.id === match.vehicle.id;
-              return (
-                <div
-                  key={match.vehicle.id}
-                  onClick={() => setSelectedEvaluation(match)}
-                  className={`p-4 rounded-[4px] border transition-colors duration-330 cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#F4F4F4] border-[#3E6AE1]'
-                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
+                {/* Dispatch Button */}
+                <button
+                  onClick={() => {
+                    assignVehicleToShipment(
+                      currentShipment.id,
+                      match.vehicle.id,
+                      match.driver?.id || drivers[0].id
+                    );
+                    showToast(
+                      lang === 'ar' ? 'تم تكليف الشاحنة' : 'Asset Assigned',
+                      lang === 'ar'
+                        ? `تم تكليف الشاحنة ${match.vehicle.plateNumber} بالشحنة ${currentShipment.trackingNumber} بنجاح.`
+                        : `Assigned ${match.vehicle.plateNumber} to ${currentShipment.trackingNumber}.`,
+                      'success'
+                    );
+                  }}
+                  className={`w-full py-2.5 rounded-full text-[13px] font-[600] transition-colors cursor-pointer flex items-center justify-center gap-2 ${
+                    isTopMatch
+                      ? 'bg-[#000000] text-white hover:bg-[#3f3f46]'
+                      : 'btn-shopify-outline'
                   }`}
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-[500] font-mono text-[14px] text-[#171A20]">{match.vehicle.plateNumber}</span>
-                        {idx === 0 && (
-                          <span className="text-[10px] px-2 py-0.5 rounded-[2px] bg-[#171A20] text-white font-[500]">
-                            BEST FIT
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-[13px] text-[#5C5E62] mt-0.5">{match.carrier?.name} • {match.driver?.name}</div>
-                    </div>
-
-                    <div className="text-end">
-                      <span className="text-[18px] font-[500] font-mono text-[#3E6AE1]">
-                        {match.matchScore}%
-                      </span>
-                      <span className="text-[10px] text-[#8E8E8E] block">AI Match Score</span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2 text-[11px] text-[#5C5E62] mt-2 pt-2 border-t border-[#EEEEEE]">
-                    <div>
-                      <span className="block text-[10px] text-[#8E8E8E]">Location</span>
-                      <span className="font-[500] text-[#171A20]">{match.vehicle.currentCity}</span>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-[#8E8E8E]">Capacity</span>
-                      <span className="font-mono font-[500] text-[#171A20]">{match.vehicle.capacityTons} T</span>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-[#8E8E8E]">Trust Score</span>
-                      <span className="font-mono font-[500] text-[#3E6AE1]">{match.carrier?.trustScore}/100</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-3 mt-2 border-t border-[#EEEEEE]">
-                    {match.isBackhaul ? (
-                      <span className="text-[11px] text-[#3E6AE1] flex items-center gap-1 font-[500]">
-                        <Leaf className="w-3.5 h-3.5" /> Backhaul Optimization (-{match.expectedSavingsPercent}%)
-                      </span>
-                    ) : (
-                      <span className="text-[11px] text-[#8E8E8E]">Standard Routing</span>
-                    )}
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        assignVehicleToShipment(
-                          currentShipment.id,
-                          match.vehicle.id,
-                          match.driver?.id || drivers[0].id
-                        );
-                        showToast(
-                          lang === 'ar' ? 'تم تعيين المركبة' : 'Vehicle Assigned',
-                          lang === 'ar' ? `تم إسناد الشاحنة ${match.vehicle.plateNumber} للشحنة ${currentShipment.trackingNumber} بنجاح` : `Assigned ${match.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`,
-                          'success'
-                        );
-                      }}
-                      className="btn-tesla-primary !min-w-[100px] !min-h-[30px] !py-0.5 !px-3 text-[12px]"
-                    >
-                      تثبيت التعيين
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Panel 3: Match Evaluation Details (3 cols) */}
-        <div className="lg:col-span-3 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="pb-3 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20]">تفاصيل التحليل الخوارزمي</h3>
-            <span className="text-[12px] text-[#5C5E62]">Multi-Criteria Weighting</span>
-          </div>
-
-          {selectedEvaluation ? (
-            <div className="space-y-4 text-[13px]">
-              <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-1">
-                <span className="text-[11px] text-[#8E8E8E] block">Selected Fleet Unit</span>
-                <div className="font-[500] text-[#171A20]">{selectedEvaluation.vehicle.plateNumber}</div>
-                <div className="text-[12px] text-[#5C5E62]">{selectedEvaluation.carrier?.name}</div>
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>تكليف فوري وإصدار البوليصة</span>
+                </button>
               </div>
-
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-[#5C5E62]">Match Score:</span>
-                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.matchScore}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#5C5E62]">Distance to Pickup:</span>
-                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.distanceToPickupKm} km</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#5C5E62]">Carrier Trust:</span>
-                  <span className="font-mono font-[500] text-[#171A20]">{selectedEvaluation.carrier?.trustScore}%</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  assignVehicleToShipment(
-                    currentShipment.id,
-                    selectedEvaluation.vehicle.id,
-                    selectedEvaluation.driver?.id || drivers[0].id
-                  );
-                  showToast(
-                    lang === 'ar' ? 'تم تأكيد التعيين الفوري' : 'Assignment Confirmed',
-                    lang === 'ar' ? `تم إسناد الشاحنة ${selectedEvaluation.vehicle.plateNumber} للشحنة ${currentShipment.trackingNumber}` : `Assigned ${selectedEvaluation.vehicle.plateNumber} to ${currentShipment.trackingNumber}!`,
-                    'success'
-                  );
-                }}
-                className="btn-tesla-primary w-full !min-h-[36px] text-[13px]"
-              >
-                تأكيد التعيين الفوري
-              </button>
-            </div>
-          ) : (
-            <div className="text-center py-12 text-[#8E8E8E] text-[13px]">
-              اختر مركبة من القائمة لعرض تفاصيل التحليل الرياضي
-            </div>
-          )}
+            );
+          })}
         </div>
       </div>
     </div>

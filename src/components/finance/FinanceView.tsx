@@ -11,6 +11,8 @@ import {
   Zap,
   Download,
   PlusCircle,
+  TrendingUp,
+  Sparkles,
 } from 'lucide-react';
 import { mockWalletTransactions } from '@/lib/mock-data';
 import { exportToCsv } from '@/lib/export-utils';
@@ -53,7 +55,7 @@ export function FinanceView() {
   };
 
   return (
-    <div className="space-y-6 font-sans text-[#171A20]">
+    <div className="space-y-6 font-sans text-[#000000] shopify-theme" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Top-up Modal */}
       <EbsPaymentModal
         isOpen={isTopUpOpen}
@@ -63,149 +65,158 @@ export function FinanceView() {
       />
 
       {/* Top Banner */}
-      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-[17px] font-[500] text-[#171A20] flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-[#3E6AE1]" />
-            <span>{t.financeWallets}</span>
-          </h2>
-          <p className="text-[13px] font-[400] text-[#5C5E62] mt-1">
+      <div className="p-8 shopify-card bg-[#ffffff] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="shopify-tag-mint">
+            <Wallet className="w-4 h-4" />
+            <span>Digital Escrow & Multi-Party Wallets • منظومة المحافظ والتسويات</span>
+          </div>
+          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+            {t.financeWallets}
+          </h1>
+          <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
             {lang === 'ar'
               ? 'نظام التسويات المالية الآلي والمحافظ المتعددة (عملاء، ناقلون، سائقون) مع فواتير فورية بعد إثبات التسليم POD.'
               : 'Automated settlement engine & multi-party wallets with instant post-POD release.'}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setIsTopUpOpen(true)}
-            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1.5"
+            className="btn-shopify-outline"
           >
-            <PlusCircle className="w-4 h-4 text-[#3E6AE1]" />
+            <PlusCircle className="w-4 h-4" />
             <span>{lang === 'ar' ? 'شحن المحفظة (EBS)' : 'Top-up Wallet'}</span>
           </button>
           <button
             onClick={handleExecuteSettlements}
-            className="btn-tesla-primary !min-w-[170px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
+            className="btn-shopify-pill"
           >
-            <Zap className="w-4 h-4" />
+            <Zap className="w-4 h-4 text-[#c1fbd4]" />
             <span>{lang === 'ar' ? 'تنفيذ التسويات الآلية' : 'Execute Settlements'}</span>
           </button>
         </div>
       </div>
 
       {/* Financial KPIs */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] mb-1">Total Invoiced Volume</div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">
-            {(totalRevenue / 1000000).toFixed(2)}M <span className="text-[12px] text-[#3E6AE1]">SDG</span>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600]">حجم الفواتير الكلي</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">
+            {(totalRevenue / 1000000).toFixed(2)}M <span className="text-[12px] text-[#71717a]">SDG</span>
           </div>
-          <div className="text-[11px] text-[#3E6AE1] mt-1">+18.4% MoM</div>
+          <div className="text-[11.5px] text-[#000000] font-[500]">+18.4% نمو شهري</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] mb-1">Settled & Paid</div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">
+        <div className="shopify-card-aloe p-6 space-y-2 shadow-[0_8px_20px_rgba(193,251,212,0.4)]">
+          <div className="text-[12px] text-[#000000] font-[600]">تم تسويته وسداده بالكامل</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">
             {(paidRevenue / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span>
           </div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">100% On-time Payouts</div>
+          <div className="text-[11.5px] text-[#000000]/80 font-[500]">دفع فوري 100% في الموعد</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] mb-1">Pending Receivables</div>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">
-            {(pendingRevenue / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span>
+        <div className="shopify-card p-6 space-y-2 bg-[#ffffff]">
+          <div className="text-[12px] text-[#71717a] font-[600]">مستحقات قيد التحصيل</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">
+            {(pendingRevenue / 1000000).toFixed(2)}M <span className="text-[12px] text-[#71717a]">SDG</span>
           </div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Due within 30 days</div>
+          <div className="text-[11.5px] text-[#71717a]">استحقاق خلال 30 يوماً</div>
         </div>
 
-        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
-          <div className="text-[12px] text-[#5C5E62] mb-1">Net Margin (10%)</div>
-          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">
+        <div className="shopify-card-pistachio p-6 space-y-2">
+          <div className="text-[12px] text-[#000000] font-[600]">عمولة المنصة الصافية (10%)</div>
+          <div className="text-[28px] font-[700] font-mono text-[#000000]">
             {((totalRevenue * 0.1) / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span>
           </div>
-          <div className="text-[11px] text-[#8E8E8E] mt-1">Platform Fee</div>
+          <div className="text-[11.5px] text-[#000000]/80 font-[500]">رسوم التبادل والضمان</div>
         </div>
       </div>
 
       {/* Multi-Party Wallets Breakdown */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Shipper Corporate Wallet */}
-        <div className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <div className="flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-[#3E6AE1]" />
-              <span className="font-[500] text-[#171A20] text-[14px]">Shipper Wallet (B2B)</span>
+        <div className="shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <span className="font-[600] text-[#000000] text-[15px]">محفظة الشاحنين (B2B)</span>
             </div>
-            <span className="text-[11px] text-[#3E6AE1] font-mono font-[500]">Active</span>
+            <span className="shopify-tag-mint !text-[11px]">Active</span>
           </div>
-          <div className="text-[24px] font-[500] font-mono text-[#171A20]">
-            18,450,000 <span className="text-[12px] text-[#5C5E62]">SDG</span>
+          <div className="text-[26px] font-[700] font-mono text-[#000000]">
+            18,450,000 <span className="text-[12px] text-[#71717a]">SDG</span>
           </div>
-          <div className="text-[12px] text-[#5C5E62]">Escrow Reserved: 6,900,000 SDG</div>
+          <div className="text-[12px] text-[#71717a]">رصيد الضمان المحجوز: 6,900,000 SDG</div>
         </div>
 
         {/* Carrier Earnings Wallet */}
-        <div className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <div className="flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-[#3E6AE1]" />
-              <span className="font-[500] text-[#171A20] text-[14px]">Carrier Payout Wallet</span>
+        <div className="shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <span className="font-[600] text-[#000000] text-[15px]">محفظة مستحقات الناقلين</span>
             </div>
-            <span className="text-[11px] text-[#171A20] font-mono font-[500]">Verified</span>
+            <span className="shopify-tag-mint !text-[11px]">Verified</span>
           </div>
-          <div className="text-[24px] font-[500] font-mono text-[#171A20]">
-            48,500,000 <span className="text-[12px] text-[#5C5E62]">SDG</span>
+          <div className="text-[26px] font-[700] font-mono text-[#000000]">
+            48,500,000 <span className="text-[12px] text-[#71717a]">SDG</span>
           </div>
-          <div className="text-[12px] text-[#5C5E62]">Ready for Bankak Transfer</div>
+          <div className="text-[12px] text-[#71717a]">جاهزة للتحويل الفوري إلى بنكك</div>
         </div>
 
         {/* Driver Immediate Wallet */}
-        <div className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#3E6AE1]" />
-              <span className="font-[500] text-[#171A20] text-[14px]">Driver Instant Wallets</span>
+        <div className="shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-center text-[#000000]">
+                <Users className="w-4 h-4" />
+              </div>
+              <span className="font-[600] text-[#000000] text-[15px]">محافظ السائقين الفورية</span>
             </div>
-            <span className="text-[11px] text-[#3E6AE1] font-mono font-[500]">Daily Pay</span>
+            <span className="shopify-tag-pistachio !text-[11px]">Daily Pay</span>
           </div>
-          <div className="text-[24px] font-[500] font-mono text-[#171A20]">
-            1,245,000 <span className="text-[12px] text-[#5C5E62]">SDG</span>
+          <div className="text-[26px] font-[700] font-mono text-[#000000]">
+            1,245,000 <span className="text-[12px] text-[#71717a]">SDG</span>
           </div>
-          <div className="text-[12px] text-[#5C5E62]">Per-trip bonus & diesel stipend</div>
+          <div className="text-[12px] text-[#71717a]">حوافز الرحلات ومخصصات الوقود</div>
         </div>
       </div>
 
       {/* Ledger Tables (Invoices & Wallet Transactions) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Invoices List (7 cols) */}
-        <div className="lg:col-span-7 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#3E6AE1]" />
-              <span>Digital Invoices & Billing</span>
+        <div className="lg:col-span-7 shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+            <h3 className="font-[600] text-[16px] text-[#000000] flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#000000]" />
+              <span>الفواتير الرقمية وسجل المطالبات</span>
             </h3>
-            <span className="text-[12px] text-[#5C5E62]">{invoices.length} Invoices</span>
+            <span className="shopify-tag-mint">{invoices.length} فواتير</span>
           </div>
 
-          <div className="space-y-2 max-h-80 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2.5 max-h-80 overflow-y-auto custom-scrollbar pe-1">
             {invoices.map((inv) => (
               <div
                 key={inv.id}
-                className="p-3.5 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] flex items-center justify-between text-[13px]"
+                className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] flex items-center justify-between text-[13px] hover:border-[#a1a1aa] transition-colors"
               >
                 <div>
-                  <div className="font-mono font-[500] text-[#3E6AE1]">{inv.invoiceNumber}</div>
-                  <div className="font-[500] text-[#171A20] mt-0.5">{inv.customerNameAr || inv.customerName}</div>
-                  <div className="text-[11px] text-[#5C5E62] font-mono">Ref: {inv.trackingNumber}</div>
+                  <div className="font-mono font-[700] text-[#000000]">{inv.invoiceNumber}</div>
+                  <div className="font-[600] text-[#000000] mt-0.5">{inv.customerNameAr || inv.customerName}</div>
+                  <div className="text-[11.5px] text-[#71717a] font-mono">Ref: {inv.trackingNumber}</div>
                 </div>
 
                 <div className="text-end space-y-1">
-                  <div className="font-mono font-[500] text-[#171A20] text-[14px]">
+                  <div className="font-mono font-[700] text-[#000000] text-[14px]">
                     {inv.total.toLocaleString()} SDG
                   </div>
-                  <span className="text-[11px] px-2 py-0.5 rounded-[2px] font-[500] bg-white border border-[#D0D1D2]">
+                  <span className={inv.status === 'paid' ? 'shopify-tag-mint !text-[10px]' : 'shopify-tag-shade !text-[10px]'}>
                     {inv.status}
                   </span>
                 </div>
@@ -215,37 +226,37 @@ export function FinanceView() {
         </div>
 
         {/* Real-time Ledger Transactions (5 cols) */}
-        <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-            <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#3E6AE1]" />
-              <span>Wallet Settlement Activity</span>
+        <div className="lg:col-span-5 shopify-card p-6 space-y-4 bg-[#ffffff]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+            <h3 className="font-[600] text-[16px] text-[#000000] flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#000000]" />
+              <span>نشاط تسويات المحافظ الحية</span>
             </h3>
 
             <button
               onClick={handleExportTransactions}
-              className="text-[12px] text-[#3E6AE1] hover:underline flex items-center gap-1 font-[500]"
+              className="text-[12px] text-[#000000] hover:underline flex items-center gap-1 font-[600]"
             >
-              <Download className="w-3 h-3" />
+              <Download className="w-3.5 h-3.5" />
               <span>تصدير CSV</span>
             </button>
           </div>
 
-          <div className="space-y-2 max-h-80 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2.5 max-h-80 overflow-y-auto custom-scrollbar pe-1">
             {mockWalletTransactions.map((tx) => (
               <div
                 key={tx.id}
-                className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] text-[12px] space-y-1"
+                className="p-3.5 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] text-[12.5px] space-y-1"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-[500] text-[#171A20]">
+                  <span className="font-[600] text-[#000000]">
                     {lang === 'ar' ? tx.descriptionAr : tx.descriptionEn}
                   </span>
-                  <span className="font-mono font-[500] text-[#3E6AE1]">
+                  <span className="font-mono font-[700] text-[#000000]">
                     +{tx.amount.toLocaleString()} SDG
                   </span>
                 </div>
-                <div className="text-[11px] text-[#8E8E8E] font-mono">{tx.date}</div>
+                <div className="text-[11px] text-[#71717a] font-mono">{tx.date}</div>
               </div>
             ))}
           </div>
