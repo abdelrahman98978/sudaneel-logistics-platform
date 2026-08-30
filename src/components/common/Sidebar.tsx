@@ -195,22 +195,26 @@ export function Sidebar() {
       {/* Brand logo container */}
       <div
         onClick={() => setCurrentView('landing')}
-        className="h-16 border-b border-[#2A2E35] px-5 flex items-center justify-between cursor-pointer hover:bg-[#20242C] transition-colors duration-330"
+        className="h-16 border-b border-[#2A2E35] px-4 flex items-center justify-between cursor-pointer hover:bg-[#20242C] transition-colors duration-330"
       >
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-[4px] bg-[#3E6AE1] flex items-center justify-center text-white">
-            <span className="font-[500] text-sm">S</span>
+        <div className="flex items-center gap-2.5">
+          <div className="w-10 h-10 rounded-[4px] bg-white p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <img
+              src="/images/brand-logo.jpg"
+              alt="سودانيل لوجيستك"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <div>
-            <h1 className="font-[500] text-[14px] tracking-[0.1em] text-white">
+          <div className="leading-tight">
+            <h1 className="font-[500] text-[13px] tracking-wide text-white">
               {t.brandName}
             </h1>
-            <p className="text-[11px] text-[#8E8E8E] truncate">
+            <p className="text-[10px] text-[#8E8E8E] truncate">
               {t.brandTagline}
             </p>
           </div>
         </div>
-        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded-[4px] bg-white/10 text-white font-mono">
+        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded-[2px] bg-white/10 text-[#3E6AE1] font-mono">
           OS 3.0
         </span>
       </div>

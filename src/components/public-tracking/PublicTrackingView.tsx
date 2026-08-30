@@ -52,12 +52,22 @@ export function PublicTrackingView() {
     <div className="max-w-4xl mx-auto space-y-6 font-sans py-4 text-[#171A20]">
       {/* Search Header Banner */}
       <div className="p-8 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] text-center space-y-4">
+        <div className="flex justify-center mb-1">
+          <div className="w-16 h-16 rounded-[4px] bg-white p-1 flex items-center justify-center border border-[#EEEEEE]">
+            <img
+              src="/images/brand-logo.jpg"
+              alt="سودانيل لوجيستك"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-[#F4F4F4] text-[#171A20] border border-[#EEEEEE] text-[12px] font-[500]">
           <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" />
           <span>Sudaneel Sovereign Public Tracking Gateway</span>
         </div>
 
-        <h2 className="text-[28px] sm:text-[36px] font-[500] text-[#171A20]">
+        <h2 className="text-[24px] sm:text-[32px] font-[500] text-[#171A20]">
           {lang === 'ar' ? 'تتبع شحنتك المباشر في أي وقت' : 'Track Your Shipment Live Worldwide'}
         </h2>
 
@@ -68,7 +78,7 @@ export function PublicTrackingView() {
               type="text"
               value={inputCode}
               onChange={(e) => setInputCode(e.target.value)}
-              placeholder="e.g. SDN-88419 or SDN-55102"
+              placeholder="e.g. SDN-88419 or SDN-2024-1256"
               className="w-full bg-transparent text-[#171A20] font-mono outline-none text-[14px] placeholder-[#8E8E8E]"
             />
           </div>
@@ -162,6 +172,27 @@ export function PublicTrackingView() {
           </div>
         </div>
       )}
+
+      {/* Services Matrix Visual Trust Card */}
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-4">
+        <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
+          <div>
+            <h3 className="font-[500] text-[15px] text-[#171A20]">خدمات سودانيل اللوجستية المعتمدة</h3>
+            <p className="text-[12px] text-[#5C5E62]">منظومة نقل وتخزين وتخليص جمركي شاملة لخدمة قطاعات التجارة والصناعة</p>
+          </div>
+          <span className="text-[11px] font-mono px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#3E6AE1]">
+            9 Certified Services
+          </span>
+        </div>
+
+        <div className="flex justify-center p-2">
+          <img
+            src="/images/services-badges-2.jpg"
+            alt="خدمات سودانيل لوجيستك"
+            className="w-full max-w-lg h-auto rounded-[4px]"
+          />
+        </div>
+      </div>
     </div>
   );
 }

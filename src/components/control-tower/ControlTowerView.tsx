@@ -126,15 +126,45 @@ export function ControlTowerView() {
             منصة سودانيل اللوجستية — رصد وإدارة حركة الشحنات والأسطول في الوقت الفعلي
           </p>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] font-[400] text-[#171A20]">
-            <Calendar className="w-3.5 h-3.5 text-[#5C5E62]" />
-            <span>{dateFilter}</span>
+      {/* Multimodal Logistics Hero Banner */}
+      <div className="relative rounded-[4px] overflow-hidden border border-[#EEEEEE] bg-[#171A20] min-h-[220px] sm:min-h-[260px] flex items-end p-6 group">
+        <img
+          src="/images/hero-multimodal.jpg"
+          alt="Sudaneel Multimodal Logistics Fleet"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-70 group-hover:scale-[1.02] transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/40 to-transparent"></div>
+
+        <div className="relative z-10 w-full flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+          <div className="space-y-1.5 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md text-white text-[11px] font-[500] uppercase font-mono">
+              <span className="w-2 h-2 rounded-full bg-[#3E6AE1] animate-pulse"></span>
+              <span>Sovereign Multimodal Network</span>
+            </div>
+            <h1 className="text-[22px] sm:text-[28px] font-[500] text-white tracking-tight">
+              نقل بثقة .. نوصل باحتراف
+            </h1>
+            <p className="text-[13px] text-[#D0D1D2] font-[400] leading-relaxed">
+              منظومة لوجستية متكاملة تربط الموانئ البحرية، النقل البري، الشحن الجوي، والمستودعات الذكية عبر ممرات السودان الاستراتيجية.
+            </p>
           </div>
-          <button className="btn-tesla-primary !min-w-[80px] !min-h-[32px] !py-1 !px-3 text-[13px]">
-            اليوم
-          </button>
+
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md p-2 rounded-[4px] border border-white/20 text-white text-[12px] font-mono">
+            <div className="text-center px-3 border-e border-white/20">
+              <div className="text-[16px] font-[500] text-[#3E6AE1]">99.4%</div>
+              <div className="text-[10px] text-[#D0D1D2]">OTD Rate</div>
+            </div>
+            <div className="text-center px-3 border-e border-white/20">
+              <div className="text-[16px] font-[500]">48</div>
+              <div className="text-[10px] text-[#D0D1D2]">Live Convoys</div>
+            </div>
+            <div className="text-center px-3">
+              <div className="text-[16px] font-[500] text-white">2.4M T</div>
+              <div className="text-[10px] text-[#D0D1D2]">YTD Freight</div>
+            </div>
+          </div>
         </div>
       </div>
 

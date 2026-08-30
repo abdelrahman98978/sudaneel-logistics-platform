@@ -157,6 +157,50 @@ export function WarehouseView() {
         </div>
       </div>
 
+      {/* Warehouse Visual Facility Showcase Banner */}
+      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
+        <div className="md:col-span-5 relative min-h-[200px] md:min-h-[240px] bg-[#171A20]">
+          <img
+            src="/images/warehouse-hub.jpg"
+            alt="Sudaneel Smart Warehouse Terminal"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute top-3 start-3">
+            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
+              A01 - A02 / B01 Racks
+            </span>
+          </div>
+        </div>
+        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
+              <span>Quality in Every Step • الجودة في كل خطوة</span>
+            </div>
+            <h3 className="text-[18px] font-[500] text-[#171A20]">
+              مجمع المستودعات الذكية والتخزين المبرد والمجمرك
+            </h3>
+            <p className="text-[13px] text-[#5C5E62] mt-1 leading-relaxed">
+              مرافق تخزين حديثة ومجهزة برافعات آلية ومراقبة درجات الحرارة على مدار الساعة (Cold-Chain)، مع أنظمة باركود ومناولة سريعة لنقل بضائع الصادر والوارد بكفاءة وأمان كامل.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">مساحة التخزين</span>
+              <span className="font-[500] font-mono text-[#171A20]">120,000 m²</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">معايير السلامة</span>
+              <span className="font-[500] text-[#3E6AE1]">Safety First 100%</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">سرعة المناولة</span>
+              <span className="font-[500] font-mono text-[#171A20]">24/7 Rapid Dock</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Tab 1: Marketplace Cards Grid */}
       {activeTab === 'marketplace' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -72,6 +72,50 @@ export function PortSudanView() {
           </span>
         </div>
       </div>
+      {/* Port Sudan Container Terminal Visual Showcase */}
+      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
+        <div className="md:col-span-5 relative min-h-[220px] bg-[#171A20]">
+          <img
+            src="/images/port-sudan-terminal.jpg"
+            alt="Port Sudan Maritime Container Terminal"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute top-3 start-3">
+            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
+              South Container Terminal (SCT)
+            </span>
+          </div>
+        </div>
+
+        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
+              <span>Maritime Gate & Demurrage Mitigation • بوابة البحر الأحمر والمناولة السريعة</span>
+            </div>
+            <h3 className="text-[18px] font-[500] text-[#171A20]">
+              محطة الحاويات الجنوبية ورصيف التخليص الجمركي الفوري
+            </h3>
+            <p className="text-[13px] text-[#5C5E62] mt-1 leading-relaxed">
+              ربط مباشر بين أرصفة البواخر العملاقة، رافعات الجانتري، وساحات التخزين المؤقت، مع تنسيق آلي لتوجيه الشاحنات المسطحة لتفريغ الحاويات وتفادي غرامات الأرضيات (Zero Demurrage).
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">طاقة المناولة</span>
+              <span className="font-[500] font-mono text-[#171A20]">650K TEU/Yr</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">متوسط الإخلاء</span>
+              <span className="font-[500] text-[#3E6AE1]">4.2 Hours</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">الربط الجمركي</span>
+              <span className="font-[500] font-mono text-[#171A20]">100% Digital</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
