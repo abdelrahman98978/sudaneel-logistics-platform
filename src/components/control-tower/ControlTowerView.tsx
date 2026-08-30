@@ -17,10 +17,11 @@ import {
   Plus,
   Minus,
   Star,
+  Smartphone,
 } from 'lucide-react';
 
 export function ControlTowerView() {
-  const { shipments, lang } = useApp();
+  const { shipments, lang, setCurrentView } = useApp();
 
   const [dateFilter] = useState('20 مايو - 27 مايو 2024');
   const [, setSelectedCityNode] = useState<string | null>(null);
@@ -490,6 +491,43 @@ export function ControlTowerView() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Official Mobile App Suite Showcase Card */}
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[2px] bg-[#F4F4F4] text-[#3E6AE1] text-[11px] font-mono font-[500]">
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>Sudanil Mobile App Suite (iOS & Android)</span>
+          </div>
+          <h3 className="text-[18px] font-[500] text-[#171A20]">
+            تطبيق الجوال الذكي — تتبع لحظي، طلب شحنات، ومحفظة إلكترونية
+          </h3>
+          <p className="text-[13px] text-[#5C5E62] leading-relaxed">
+            تمتع بتجربة متكاملة عبر هاتفك الذكي لإدارة الشحنات، متابعة مراحل النقل على الخريطة التفاعلية، سداد الفواتير عبر بنكك، وتصدير التقارير.
+          </p>
+          <div className="pt-2">
+            <button
+              onClick={() => setCurrentView('mobile_app')}
+              className="btn-tesla-primary !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span>استعراض محاكي تطبيق الجوال (8 شاشات)</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          onClick={() => setCurrentView('mobile_app')}
+          className="w-full md:w-[320px] h-[160px] rounded-[4px] overflow-hidden bg-[#F4F4F4] border border-[#EEEEEE] cursor-pointer group flex items-center justify-center p-2"
+        >
+          <img
+            src="/images/mobile-app-showcase.png"
+            alt="Mobile App Preview"
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-330"
+          />
         </div>
       </div>
     </div>
