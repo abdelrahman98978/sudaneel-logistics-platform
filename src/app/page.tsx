@@ -41,10 +41,10 @@ import { LandingView } from '@/components/landing/LandingView';
 export default function Home() {
   const { currentView } = useApp();
 
-  // If in public landing mode, render the full-width public website
+  // If in public landing mode, render the full-viewport edge-to-edge digital showroom
   if (currentView === 'landing') {
     return (
-      <div className="min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <div className="min-h-screen bg-[#FFFFFF] text-[#171A20] selection:bg-[#3E6AE1] selection:text-[#FFFFFF] font-sans">
         <CommandPalette />
         <AiCopilotDrawer />
         <LandingView />
@@ -110,7 +110,7 @@ export default function Home() {
 
   // Internal Operations OS Layout (Sidebar + Topbar + Content)
   return (
-    <div className="flex min-h-screen bg-navy-950 text-gray-100 selection:bg-gold selection:text-navy-950 font-sans">
+    <div className="flex min-h-screen bg-[#F4F4F4] text-[#171A20] selection:bg-[#3E6AE1] selection:text-[#FFFFFF] font-sans">
       {/* Global Command Palette */}
       <CommandPalette />
 
@@ -123,7 +123,7 @@ export default function Home() {
       {/* Main Operations Dynamic Viewport */}
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar">
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar bg-[#F4F4F4]">
           {renderActiveView()}
         </main>
       </div>

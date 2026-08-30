@@ -10,10 +10,6 @@ import {
   Bell,
   Sparkles,
   Shield,
-  Layers,
-  Moon,
-  Sun,
-  ShieldAlert,
 } from 'lucide-react';
 
 export function Header() {
@@ -22,8 +18,6 @@ export function Header() {
     setRole,
     lang,
     setLang,
-    theme,
-    setTheme,
     t,
     setIsAiCopilotOpen,
     setIsCommandPaletteOpen,
@@ -47,18 +41,18 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-30 h-16 border-b border-gold/15 bg-navy-900/80 backdrop-blur-xl px-4 lg:px-6 flex items-center justify-between transition-all">
-      {/* Search trigger */}
-      <div className="flex items-center gap-3 flex-1 max-w-xl">
+    <header className="sticky top-0 z-30 h-14 border-b border-[#EEEEEE] bg-[#FFFFFF]/90 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between transition-all duration-330">
+      {/* Search trigger (4px radius, minimalist border #D0D1D2) */}
+      <div className="flex items-center gap-3 flex-1 max-w-md">
         <button
           onClick={() => setIsCommandPaletteOpen(true)}
-          className="flex items-center gap-3 w-full bg-navy-800/80 hover:bg-navy-800 border border-gold/20 hover:border-gold/40 text-gray-300 px-3.5 py-2 rounded-xl text-sm transition-all shadow-inner group cursor-pointer"
+          className="flex items-center gap-2.5 w-full bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#393C41] px-3 py-1.5 rounded-[4px] text-[14px] transition-colors duration-330 cursor-pointer"
         >
-          <Search className="w-4 h-4 text-gold group-hover:scale-110 transition-transform flex-shrink-0" />
-          <span className="text-gray-400 text-xs sm:text-sm truncate">
+          <Search className="w-4 h-4 text-[#8E8E8E] flex-shrink-0" />
+          <span className="text-[#8E8E8E] text-[13px] truncate">
             {t.searchPlaceholder}
           </span>
-          <kbd className="hidden sm:inline-block ms-auto px-2 py-0.5 text-[10px] font-mono bg-navy-950/80 border border-gold/20 text-gold rounded-md">
+          <kbd className="hidden sm:inline-block ms-auto px-1.5 py-0.5 text-[11px] font-mono bg-[#F4F4F4] border border-[#EEEEEE] text-[#5C5E62] rounded-[2px]">
             Ctrl + K
           </kbd>
         </button>
@@ -68,33 +62,32 @@ export function Header() {
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Active Backhaul Badge */}
         {backhauls.length > 0 && (
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-[#F4F4F4] text-[#171A20] text-[12px] font-[500]">
+            <span className="w-2 h-2 rounded-full bg-[#3E6AE1]"></span>
             <span>{backhauls.length} {t.emptyTrucksTracked}</span>
           </div>
         )}
 
-        {/* AI Copilot Trigger */}
+        {/* AI Copilot Trigger (Tesla Accent Style) */}
         <button
           onClick={() => setIsAiCopilotOpen(true)}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-gold/20 to-amber-500/20 hover:from-gold/30 hover:to-amber-500/30 border border-gold/40 text-gold font-medium text-xs sm:text-sm shadow-lg shadow-gold/5 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#3E6AE1] hover:bg-[#345ac2] text-white text-[13px] font-[500] transition-colors duration-330 cursor-pointer"
         >
-          <Bot className="w-4 h-4 text-gold animate-bounce" />
-          <span className="hidden sm:inline font-semibold">AI Copilot</span>
-          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+          <Bot className="w-4 h-4" />
+          <span className="hidden sm:inline">AI Copilot</span>
         </button>
 
-        {/* Role Selector (Simulate RBAC views) */}
-        <div className="relative group">
-          <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-navy-800/90 border border-gold/20 text-xs text-gray-200 cursor-pointer hover:border-gold/40 transition-colors">
-            <Shield className="w-3.5 h-3.5 text-gold flex-shrink-0" />
+        {/* Role Selector */}
+        <div className="relative">
+          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[13px] text-[#171A20] cursor-pointer hover:bg-[#F4F4F4] transition-colors duration-330">
+            <Shield className="w-3.5 h-3.5 text-[#5C5E62] flex-shrink-0" />
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as UserRole)}
-              className="bg-transparent text-xs text-gray-200 outline-none cursor-pointer pr-1"
+              className="bg-transparent text-[13px] font-[400] text-[#171A20] outline-none cursor-pointer pr-1"
             >
               {rolesList.map((r) => (
-                <option key={r.key} value={r.key} className="bg-navy-900 text-gray-100">
+                <option key={r.key} value={r.key} className="bg-white text-[#171A20]">
                   {r.label}
                 </option>
               ))}
@@ -105,10 +98,10 @@ export function Header() {
         {/* Language Switcher */}
         <button
           onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-xs font-semibold text-gray-200 transition-colors cursor-pointer"
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[13px] font-[500] text-[#171A20] transition-colors duration-330 cursor-pointer"
           title="Toggle Language"
         >
-          <Globe className="w-3.5 h-3.5 text-gold" />
+          <Globe className="w-3.5 h-3.5 text-[#5C5E62]" />
           <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
         </button>
 
@@ -116,11 +109,11 @@ export function Header() {
         <div className="relative">
           <button
             onClick={() => alert(`Notifications: ${incidents.length} active emergency incidents, ${claims.length} pending claims`)}
-            className="p-2 rounded-xl bg-navy-800/80 hover:bg-navy-800 border border-gold/20 text-gray-300 hover:text-gold transition-colors relative cursor-pointer"
+            className="p-1.5 rounded-[4px] bg-[#FFFFFF] hover:bg-[#F4F4F4] border border-[#D0D1D2] text-[#5C5E62] hover:text-[#171A20] transition-colors duration-330 relative cursor-pointer"
           >
             <Bell className="w-4 h-4" />
             {incidents.length > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] text-white flex items-center justify-center font-bold">
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#3E6AE1] text-[9px] text-white flex items-center justify-center font-[500]">
                 {incidents.length}
               </span>
             )}

@@ -31,7 +31,7 @@ import {
 } from 'lucide-react';
 
 export function Sidebar() {
-  const { currentView, setCurrentView, t, backhauls, incidents, claims, portContainers, role } = useApp();
+  const { currentView, setCurrentView, t, backhauls, incidents, claims, portContainers } = useApp();
 
   const navigationSections: {
     title: string;
@@ -40,7 +40,6 @@ export function Sidebar() {
       label: string;
       icon: React.ElementType;
       badge?: string | number;
-      badgeColor?: string;
     }[];
   }[] = [
     {
@@ -51,14 +50,12 @@ export function Sidebar() {
           label: t.controlTower,
           icon: Compass,
           badge: 'Live',
-          badgeColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
         },
         {
           view: 'marketplace',
           label: t.marketplace,
           icon: Repeat,
-          badge: backhauls.length > 0 ? `${backhauls.length} Deals` : undefined,
-          badgeColor: 'bg-gold/20 text-gold border-gold/30',
+          badge: backhauls.length > 0 ? `${backhauls.length}` : undefined,
         },
         {
           view: 'smart_dispatch',
@@ -94,8 +91,7 @@ export function Sidebar() {
           view: 'locations',
           label: t.locationsHubs,
           icon: MapPin,
-          badge: '10 Hubs',
-          badgeColor: 'bg-gold/20 text-gold border-gold/30',
+          badge: '10',
         },
         {
           view: 'warehousing',
@@ -106,8 +102,7 @@ export function Sidebar() {
           view: 'port_sudan',
           label: t.portSudan,
           icon: Anchor,
-          badge: portContainers.length > 0 ? `${portContainers.length} ISO` : undefined,
-          badgeColor: 'bg-sky-500/20 text-sky-400 border-sky-500/30',
+          badge: portContainers.length > 0 ? `${portContainers.length}` : undefined,
         },
         {
           view: 'cross_border',
@@ -144,14 +139,12 @@ export function Sidebar() {
           label: t.incidentCenter,
           icon: ShieldAlert,
           badge: incidents.length > 0 ? incidents.length : undefined,
-          badgeColor: 'bg-rose-500/20 text-rose-400 border-rose-500/30',
         },
         {
           view: 'claims',
           label: t.claimsCenter,
           icon: FileCheck2,
           badge: claims.length > 0 ? claims.length : undefined,
-          badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
         },
         {
           view: 'finance',
@@ -193,33 +186,35 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 lg:w-72 bg-navy-950/95 border-e border-gold/15 flex flex-col shrink-0 min-h-screen text-gray-200">
+    <aside className="w-64 lg:w-72 bg-[#171A20] border-e border-[#2A2E35] flex flex-col shrink-0 min-h-screen text-[#FFFFFF]">
       {/* Brand logo container */}
       <div
         onClick={() => setCurrentView('landing')}
-        className="h-16 border-b border-gold/15 px-5 flex items-center gap-3 bg-gradient-to-r from-navy-900/60 to-transparent cursor-pointer hover:bg-navy-900/40 transition-colors"
+        className="h-16 border-b border-[#2A2E35] px-5 flex items-center justify-between cursor-pointer hover:bg-[#20242C] transition-colors duration-330"
       >
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-navy-800 to-navy-900 border border-gold/40 flex items-center justify-center shadow-lg shadow-gold/10">
-          <Radio className="w-5 h-5 text-gold animate-pulse" />
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-[4px] bg-[#3E6AE1] flex items-center justify-center text-white">
+            <span className="font-[500] text-sm">S</span>
+          </div>
+          <div>
+            <h1 className="font-[500] text-[14px] tracking-[0.1em] text-white">
+              {t.brandName}
+            </h1>
+            <p className="text-[11px] text-[#8E8E8E] truncate">
+              {t.brandTagline}
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="font-bold text-base tracking-tight text-white flex items-center gap-1.5">
-            <span>{t.brandName}</span>
-            <span className="text-[10px] uppercase px-1.5 py-0.5 rounded bg-gold/20 text-gold border border-gold/30 font-mono">
-              OS 3.0
-            </span>
-          </h1>
-          <p className="text-[10px] text-gray-400 truncate max-w-[170px]">
-            {t.brandTagline}
-          </p>
-        </div>
+        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded-[4px] bg-white/10 text-white font-mono">
+          OS 3.0
+        </span>
       </div>
 
       {/* Navigation list */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-4 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5 custom-scrollbar">
         {navigationSections.map((sec, sIdx) => (
           <div key={sIdx} className="space-y-1">
-            <div className="px-3 pb-1 text-[10px] font-bold tracking-wider text-gold/60 uppercase">
+            <div className="px-3 pb-1 text-[11px] font-[500] tracking-wider text-[#8E8E8E] uppercase">
               {sec.title}
             </div>
 
@@ -231,22 +226,20 @@ export function Sidebar() {
                 <button
                   key={item.view}
                   onClick={() => setCurrentView(item.view)}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all group relative cursor-pointer ${
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-[4px] text-[14px] transition-colors duration-330 cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-r from-gold/20 via-navy-800 to-navy-800 text-white font-semibold shadow-md border border-gold/40'
-                      : 'text-gray-400 hover:text-gray-100 hover:bg-navy-900/80 border border-transparent'
+                      ? 'bg-[#3E6AE1] text-white font-[500]'
+                      : 'text-[#D0D1D2] hover:text-white hover:bg-[#20242C] font-[400]'
                   }`}
                 >
-                  <Icon
-                    className={`w-4 h-4 transition-transform group-hover:scale-110 flex-shrink-0 ${
-                      isActive ? 'text-gold' : 'text-gray-400 group-hover:text-gold'
-                    }`}
-                  />
+                  <Icon className="w-4 h-4 flex-shrink-0" />
                   <span className="truncate flex-1 text-start">{item.label}</span>
                   {item.badge && (
                     <span
-                      className={`text-[10px] px-2 py-0.5 rounded-full border font-mono font-medium ${
-                        item.badgeColor || 'bg-navy-800 text-gray-300'
+                      className={`text-[11px] px-1.5 py-0.2 rounded-[4px] font-mono ${
+                        isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-white/10 text-[#D0D1D2]'
                       }`}
                     >
                       {item.badge}
@@ -260,16 +253,16 @@ export function Sidebar() {
       </div>
 
       {/* Footer Status card */}
-      <div className="p-3.5 border-t border-gold/15 bg-navy-900/40">
-        <div className="p-3 rounded-xl bg-navy-900/90 border border-gold/20 flex items-center justify-between">
+      <div className="p-3 border-t border-[#2A2E35] bg-[#171A20]">
+        <div className="p-2.5 rounded-[4px] bg-[#20242C] border border-[#2A2E35] flex items-center justify-between text-[12px]">
           <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
+            <div className="w-2 h-2 rounded-full bg-[#3E6AE1]"></div>
             <div>
-              <div className="text-xs font-semibold text-white">Sovereign Corridors</div>
-              <div className="text-[10px] text-gray-400">Khartoum ↔ Port Sudan</div>
+              <div className="font-[500] text-white">Sovereign Corridors</div>
+              <div className="text-[10px] text-[#8E8E8E]">Khartoum ↔ Port Sudan</div>
             </div>
           </div>
-          <Sparkles className="w-4 h-4 text-gold" />
+          <span className="text-[10px] text-[#3E6AE1] font-[500]">ACTIVE</span>
         </div>
       </div>
     </aside>
