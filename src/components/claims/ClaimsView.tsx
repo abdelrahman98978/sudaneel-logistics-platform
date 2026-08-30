@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
-import { Claim, ClaimType, ClaimStatus } from '@/types';
+import { Claim, ClaimType } from '@/types';
 import {
   ShieldAlert,
   FileCheck,
@@ -12,13 +12,11 @@ import {
   PlusCircle,
   Clock,
   Camera,
-  ArrowRight,
   ShieldCheck,
-  MessageSquare,
 } from 'lucide-react';
 
 export function ClaimsView() {
-  const { claims, submitClaim, updateClaimStatus, shipments, t, lang } = useApp();
+  const { claims, submitClaim, updateClaimStatus, shipments, lang } = useApp();
 
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(claims[0] || null);
   const [isNewClaimModalOpen, setIsNewClaimModalOpen] = useState(false);
@@ -68,28 +66,26 @@ export function ClaimsView() {
   };
 
   return (
-    <div className="space-y-5 font-sans">
+    <div className="space-y-6 font-sans text-[#171A20]">
       {/* Top Banner */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-gold/30 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40">
-              <ShieldAlert className="w-5 h-5" />
-            </div>
-            <h2 className="text-lg sm:text-xl font-bold text-white">
+            <ShieldAlert className="w-5 h-5 text-[#3E6AE1]" />
+            <h2 className="text-[17px] font-[500] text-[#171A20]">
               {lang === 'ar' ? 'مركز إدارة المطالبات والتعويضات (Claims & Disputes)' : 'Claims Management & Dispute Resolution Hub'}
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-2xl mt-1">
+          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
             {lang === 'ar'
               ? 'معالجة نزاعات تلف أو تأخير البضائع، مراجعة الأدلة المصورة وبوالص الـ POD، وصرف التعويضات المالية التلقائية.'
-              : 'End-to-end cargo insurance claims, photo evidence investigation, carrier defense, and automated compensation.'}
+              : 'End-to-end cargo insurance claims, photo evidence investigation, and automated compensation.'}
           </p>
         </div>
 
         <button
           onClick={() => setIsNewClaimModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:brightness-110 text-navy-950 font-bold text-xs shadow-lg flex items-center gap-2 cursor-pointer"
+          className="btn-tesla-primary !min-w-[160px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
         >
           <PlusCircle className="w-4 h-4" />
           <span>{lang === 'ar' ? 'فتح مطالبة تعويض جديدة' : 'File New Claim'}</span>
@@ -97,54 +93,54 @@ export function ClaimsView() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl bg-navy-900/80 border border-gold/20 shadow-lg">
-          <div className="text-xs text-gray-400 flex items-center justify-between mb-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
+          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
             <span>Total Claims Filed</span>
-            <FileCheck className="w-4 h-4 text-gold" />
+            <FileCheck className="w-4 h-4 text-[#3E6AE1]" />
           </div>
-          <div className="text-xl font-bold font-mono text-white">{claims.length} Tickets</div>
-          <div className="text-[10px] text-gray-400 mt-1">Active Cargo Disputes</div>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{claims.length} Tickets</div>
+          <div className="text-[11px] text-[#8E8E8E] mt-1">Active Cargo Disputes</div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-navy-900/80 border border-amber-500/30 shadow-lg">
-          <div className="text-xs text-amber-300 flex items-center justify-between mb-1">
-            <span>Under Investigation</span>
-            <Clock className="w-4 h-4 text-amber-400" />
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
+          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
+            <span>Under Review</span>
+            <Clock className="w-4 h-4 text-[#3E6AE1]" />
           </div>
-          <div className="text-xl font-bold font-mono text-amber-300">
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">
             {claims.filter((c) => c.status === 'open' || c.status === 'evidence_review').length} Tickets
           </div>
-          <div className="text-[10px] text-gray-400 mt-1">Adjuster reviewing POD</div>
+          <div className="text-[11px] text-[#8E8E8E] mt-1">Adjuster reviewing POD</div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-navy-900/80 border border-emerald-500/30 shadow-lg">
-          <div className="text-xs text-emerald-300 flex items-center justify-between mb-1">
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
+          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
             <span>Approved Compensation</span>
-            <DollarSign className="w-4 h-4 text-emerald-400" />
+            <DollarSign className="w-4 h-4 text-[#3E6AE1]" />
           </div>
-          <div className="text-xl font-bold font-mono text-emerald-300">
+          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">
             {(claims.reduce((acc, c) => acc + (c.compensationOffered || 0), 0) / 1000).toFixed(0)}k SDG
           </div>
-          <div className="text-[10px] text-emerald-400 mt-1">Direct wallet settlements</div>
+          <div className="text-[11px] text-[#8E8E8E] mt-1">Direct settlements</div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-navy-900/80 border border-sky-500/30 shadow-lg">
-          <div className="text-xs text-sky-300 flex items-center justify-between mb-1">
-            <span>Avg Resolution Time</span>
-            <ShieldCheck className="w-4 h-4 text-sky-400" />
+        <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE]">
+          <div className="text-[12px] text-[#5C5E62] flex items-center justify-between mb-1">
+            <span>Resolution SLA</span>
+            <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" />
           </div>
-          <div className="text-xl font-bold font-mono text-sky-400">24.5 Hours</div>
-          <div className="text-[10px] text-gray-400 mt-1">Standard SLA: 48 hours</div>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">24.5 Hours</div>
+          <div className="text-[11px] text-[#8E8E8E] mt-1">Target SLA: 48h</div>
         </div>
       </div>
 
       {/* Claims List and Inspector Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Claims List (5 cols) */}
-        <div className="lg:col-span-5 rounded-2xl bg-navy-900/90 border border-gold/20 p-5 shadow-xl space-y-3">
-          <h3 className="font-bold text-sm text-white flex items-center gap-2 pb-2 border-b border-gold/15">
-            <AlertTriangle className="w-4 h-4 text-rose-400" />
+        <div className="lg:col-span-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
+          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
+            <AlertTriangle className="w-4 h-4 text-[#3E6AE1]" />
             <span>Active Claims Tickets</span>
           </h3>
 
@@ -153,23 +149,23 @@ export function ClaimsView() {
               <button
                 key={clm.id}
                 onClick={() => setSelectedClaim(clm)}
-                className={`w-full p-3.5 rounded-xl text-start transition-all cursor-pointer border ${
+                className={`w-full p-4 rounded-[4px] text-start transition-colors duration-330 cursor-pointer border ${
                   selectedClaim?.id === clm.id
-                    ? 'bg-navy-950 border-rose-500/60 shadow-lg'
-                    : 'bg-navy-950/60 border-navy-800 hover:bg-navy-800 text-gray-300'
+                    ? 'bg-[#F4F4F4] border-[#171A20]'
+                    : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
                 }`}
               >
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="font-mono font-bold text-rose-400">{clm.claimNumber}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-navy-800 text-gray-300 font-mono">
+                <div className="flex items-center justify-between text-[12px] mb-1">
+                  <span className="font-mono font-[500] text-[#3E6AE1]">{clm.claimNumber}</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-[2px] bg-white text-[#171A20] border border-[#D0D1D2] font-mono font-[500]">
                     {clm.status}
                   </span>
                 </div>
-                <div className="font-bold text-white text-xs">{clm.customerName}</div>
-                <div className="text-[11px] text-gray-400 mt-1 truncate">{clm.description}</div>
-                <div className="flex items-center justify-between text-[10px] text-gray-500 mt-2 pt-1 border-t border-navy-800">
+                <div className="font-[500] text-[#171A20] text-[13px]">{clm.customerName}</div>
+                <div className="text-[11px] text-[#5C5E62] mt-1 truncate">{clm.description}</div>
+                <div className="flex items-center justify-between text-[11px] text-[#8E8E8E] mt-2 pt-1 border-t border-[#EEEEEE]">
                   <span>Shipment: {clm.trackingNumber}</span>
-                  <span className="font-mono text-gold font-bold">{clm.amountRequested.toLocaleString()} {clm.currency}</span>
+                  <span className="font-mono text-[#171A20] font-[500]">{clm.amountRequested.toLocaleString()} {clm.currency}</span>
                 </div>
               </button>
             ))}
@@ -178,29 +174,29 @@ export function ClaimsView() {
 
         {/* Claim Details & Resolution Actions (7 cols) */}
         {selectedClaim && (
-          <div className="lg:col-span-7 rounded-2xl bg-navy-900/90 border border-gold/25 p-5 shadow-xl space-y-4">
-            <div className="flex items-start justify-between pb-3 border-b border-gold/15">
+          <div className="lg:col-span-7 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-6 space-y-4">
+            <div className="flex items-start justify-between pb-3 border-b border-[#EEEEEE]">
               <div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 uppercase font-bold">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] text-[#171A20] border border-[#D0D1D2] uppercase font-[500]">
                   {selectedClaim.claimType}
                 </span>
-                <h3 className="text-lg font-bold text-white mt-1">{selectedClaim.claimNumber}</h3>
-                <p className="text-xs text-gray-400">Filed on: {selectedClaim.createdAt}</p>
+                <h3 className="text-[18px] font-[500] text-[#171A20] mt-1">{selectedClaim.claimNumber}</h3>
+                <p className="text-[13px] text-[#5C5E62]">Filed on: {selectedClaim.createdAt}</p>
               </div>
 
               <div className="text-end">
-                <span className="text-[10px] text-gray-400 block">Requested Value</span>
-                <span className="text-base font-bold font-mono text-rose-400">
+                <span className="text-[11px] text-[#8E8E8E] block">Requested Value</span>
+                <span className="text-[16px] font-[500] font-mono text-[#171A20]">
                   {selectedClaim.amountRequested.toLocaleString()} {selectedClaim.currency}
                 </span>
               </div>
             </div>
 
             {/* Description & Proof */}
-            <div className="p-4 rounded-xl bg-navy-950 border border-navy-800 space-y-2 text-xs">
-              <div className="text-gray-400 font-semibold">Incident Description & Evidence</div>
-              <p className="text-gray-200 leading-relaxed">{selectedClaim.description}</p>
-              <div className="flex items-center gap-2 pt-2 text-[11px] text-gold">
+            <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2 text-[13px]">
+              <div className="text-[#5C5E62] font-[500]">Incident Description & Evidence</div>
+              <p className="text-[#171A20] leading-relaxed">{selectedClaim.description}</p>
+              <div className="flex items-center gap-2 pt-2 text-[12px] text-[#3E6AE1]">
                 <Camera className="w-4 h-4" />
                 <span>{selectedClaim.evidencePhotosCount} Geo-Tagged Photos Attached to POD</span>
               </div>
@@ -208,36 +204,36 @@ export function ClaimsView() {
 
             {/* Compensation & Resolution Card */}
             {selectedClaim.compensationOffered ? (
-              <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-2">
-                <div className="flex items-center justify-between text-xs text-emerald-300 font-semibold">
-                  <span>Approved Direct Settlement</span>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2">
+                <div className="flex items-center justify-between text-[13px] text-[#171A20] font-[500]">
+                  <span>Approved Settlement</span>
+                  <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
                 </div>
-                <div className="text-xl font-bold font-mono text-emerald-400">
+                <div className="text-[20px] font-[500] font-mono text-[#3E6AE1]">
                   {selectedClaim.compensationOffered.toLocaleString()} SDG
                 </div>
                 {selectedClaim.resolutionNotes && (
-                  <p className="text-xs text-gray-300">{selectedClaim.resolutionNotes}</p>
+                  <p className="text-[12px] text-[#5C5E62]">{selectedClaim.resolutionNotes}</p>
                 )}
               </div>
             ) : (
-              <div className="p-4 rounded-xl bg-navy-950 border border-gold/30 space-y-3">
-                <div className="text-xs font-semibold text-white">Adjuster Compensation Recommendation</div>
+              <div className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-3">
+                <div className="text-[13px] font-[500] text-[#171A20]">Adjuster Compensation Recommendation</div>
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
                     defaultValue={selectedClaim.amountRequested * 0.9}
                     id="compInput"
-                    className="flex-1 bg-navy-900 border border-gold/20 text-white p-2 rounded-xl text-xs font-mono outline-none"
+                    className="flex-1 bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] text-[13px] font-mono outline-none"
                   />
                   <button
                     onClick={() => {
                       const input = document.getElementById('compInput') as HTMLInputElement;
                       handleApprovePayout(selectedClaim.id, Number(input?.value || selectedClaim.amountRequested));
                     }}
-                    className="px-4 py-2 rounded-xl bg-emerald-500 hover:brightness-110 text-navy-950 font-bold text-xs shadow-lg cursor-pointer"
+                    className="btn-tesla-primary !min-w-[160px] !min-h-[36px] !py-1 !px-3 text-[13px]"
                   >
-                    Approve Compensation Payout
+                    Approve Payout
                   </button>
                 </div>
               </div>
@@ -248,23 +244,23 @@ export function ClaimsView() {
 
       {/* New Claim Modal */}
       {isNewClaimModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-navy-900 border border-gold/30 rounded-2xl shadow-2xl p-6 space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-gold/15">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <ShieldAlert className="w-5 h-5 text-rose-400" />
+        <div className="fixed inset-0 z-50 bg-[#171A20]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-lg bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4 animate-in fade-in">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+              <h3 className="text-[15px] font-[500] text-[#171A20] flex items-center gap-2">
+                <ShieldAlert className="w-5 h-5 text-[#3E6AE1]" />
                 <span>File New Cargo Damage / SLA Claim</span>
               </h3>
-              <button onClick={() => setIsNewClaimModalOpen(false)} className="text-gray-400 hover:text-white">✕</button>
+              <button onClick={() => setIsNewClaimModalOpen(false)} className="text-[#8E8E8E] hover:text-[#171A20]">✕</button>
             </div>
 
-            <form onSubmit={handleCreateClaim} className="space-y-3 text-xs">
+            <form onSubmit={handleCreateClaim} className="space-y-3 text-[13px]">
               <div>
-                <label className="text-gray-300 block mb-1">Select Shipment</label>
+                <label className="text-[#5C5E62] block mb-1">Select Shipment</label>
                 <select
                   value={selectedShipmentId}
                   onChange={(e) => setSelectedShipmentId(e.target.value)}
-                  className="w-full bg-navy-950 border border-gold/20 text-white p-2.5 rounded-xl outline-none"
+                  className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
                 >
                   {shipments.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -276,11 +272,11 @@ export function ClaimsView() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-gray-300 block mb-1">Claim Type</label>
+                  <label className="text-[#5C5E62] block mb-1">Claim Type</label>
                   <select
                     value={claimType}
                     onChange={(e) => setClaimType(e.target.value as ClaimType)}
-                    className="w-full bg-navy-950 border border-gold/20 text-white p-2.5 rounded-xl outline-none"
+                    className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
                   >
                     <option value="cargo_damage">Cargo Damage (تلف بضاعة)</option>
                     <option value="delay_compensation">SLA Delay (تعويض تأخير)</option>
@@ -290,25 +286,25 @@ export function ClaimsView() {
                 </div>
 
                 <div>
-                  <label className="text-gray-300 block mb-1">Claim Amount (SDG)</label>
+                  <label className="text-[#5C5E62] block mb-1">Claim Amount (SDG)</label>
                   <input
                     type="number"
                     value={claimAmount}
                     onChange={(e) => setClaimAmount(Number(e.target.value))}
-                    className="w-full bg-navy-950 border border-gold/20 text-white p-2.5 rounded-xl outline-none font-mono"
+                    className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none font-mono"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-gray-300 block mb-1">Detailed Description of Damage</label>
+                <label className="text-[#5C5E62] block mb-1">Detailed Description of Damage</label>
                 <textarea
                   rows={3}
                   value={claimDesc}
                   onChange={(e) => setClaimDesc(e.target.value)}
                   placeholder="Describe evidence noted on POD delivery note..."
-                  className="w-full bg-navy-950 border border-gold/20 text-white p-2.5 rounded-xl outline-none"
+                  className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2.5 rounded-[4px] outline-none"
                   required
                 />
               </div>
@@ -317,13 +313,13 @@ export function ClaimsView() {
                 <button
                   type="button"
                   onClick={() => setIsNewClaimModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-navy-800 text-gray-300"
+                  className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[13px]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-rose-500 text-white font-bold hover:brightness-110 shadow-lg cursor-pointer"
+                  className="btn-tesla-primary !min-h-[34px] !py-1 !px-4 text-[13px]"
                 >
                   Submit Official Claim
                 </button>

@@ -12,12 +12,10 @@ import {
   Search,
   Send,
   CheckCircle2,
-  AlertCircle,
   FileText,
   LifeBuoy,
   MessageSquare,
   Clock,
-  ChevronDown,
 } from 'lucide-react';
 
 interface Ticket {
@@ -62,37 +60,31 @@ export function SupportCenterView() {
       icon: HelpCircle,
       title: 'الأسئلة الشائعة',
       desc: 'إجابات وافية على أكثر استفسارات العملاء والناقلين تكراراً.',
-      category: 'faq',
     },
     {
       icon: PackageSearch,
       title: 'تتبع الشحنات',
       desc: 'إرشادات حول أجهزة التتبع الفضائية وتحديثات الـ ETA.',
-      category: 'tracking',
     },
     {
       icon: Receipt,
       title: 'الفواتير والمدفوعات',
       desc: 'تسويات نظام EBS، الدفع عبر بنكك، والمطالبات الضريبية.',
-      category: 'billing',
     },
     {
       icon: UserCog,
       title: 'الحساب والصلاحيات',
       desc: 'إدارة أدوار RBAC، التحقق الثنائي MFA، وتراخيص الناقلين.',
-      category: 'account',
     },
     {
       icon: Boxes,
       title: 'خدمات التخزين والموانئ',
       desc: 'شروط الإيداع بميناء بورتسودان وسعات المستودعات المركزية.',
-      category: 'warehousing',
     },
     {
       icon: PhoneCall,
       title: 'الاتصال المباشر 24/7',
       desc: 'غرفة العمليات المركزية: 9200-SUDAN / support@sudaneel.sd',
-      category: 'contact',
     },
   ];
 
@@ -117,23 +109,23 @@ export function SupportCenterView() {
   };
 
   return (
-    <div className="space-y-6 pb-12 font-sans" dir="rtl">
+    <div className="space-y-6 font-sans text-[#171A20]" dir="rtl">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-navy-900 border border-gold/30 p-6 rounded-2xl shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#FFFFFF] border border-[#EEEEEE] p-6 rounded-[4px]">
         <div>
-          <div className="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase tracking-wider mb-1">
             <LifeBuoy className="w-4 h-4" />
             <span>مركز الدعم والمساعدة الفنية الموحد</span>
           </div>
-          <h1 className="text-2xl font-black text-white">كيف يمكننا مساعدتك اليوم؟</h1>
-          <p className="text-xs text-gray-300 mt-1">
+          <h1 className="text-[20px] font-[500] text-[#171A20]">كيف يمكننا مساعدتك اليوم؟</h1>
+          <p className="text-[13px] text-[#5C5E62] mt-1">
             فريق الدعم الفني وغرفة العمليات اللوجستية في خدمتك على مدار 24 ساعة طوال أيام الأسبوع.
           </p>
         </div>
 
         <button
           onClick={() => setCurrentView('control_tower')}
-          className="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-white rounded-xl text-xs font-bold border border-white/10 transition-colors"
+          className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px]"
         >
           العودة لبرج المراقبة
         </button>
@@ -141,13 +133,13 @@ export function SupportCenterView() {
 
       {/* Search Input */}
       <div className="relative max-w-3xl mx-auto">
-        <Search className="w-5 h-5 absolute right-4 top-3.5 text-gray-400" />
+        <Search className="w-4 h-4 absolute right-4 top-3.5 text-[#8E8E8E]" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="ابحث عن إجابة لسؤالك، دليل إجراءات الجمارك، أو رقم تذكرة..."
-          className="w-full bg-navy-900 border border-white/10 rounded-2xl pr-12 pl-4 py-3 text-sm text-white placeholder-gray-400 outline-none focus:border-gold shadow-lg"
+          className="w-full bg-[#FFFFFF] border border-[#D0D1D2] rounded-[4px] pr-11 pl-4 py-2.5 text-[14px] text-[#171A20] placeholder-[#8E8E8E] outline-none"
         />
       </div>
 
@@ -158,42 +150,42 @@ export function SupportCenterView() {
           return (
             <div
               key={c.title}
-              className="p-5 rounded-2xl bg-navy-900/80 border border-white/5 hover:border-gold/50 transition-all hover:-translate-y-1 cursor-pointer group shadow-lg"
+              className="p-5 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] hover:bg-[#F4F4F4] transition-colors duration-330 cursor-pointer space-y-2"
             >
-              <div className="w-11 h-11 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 rounded-[4px] bg-[#F4F4F4] text-[#3E6AE1] flex items-center justify-center">
                 <Icon className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-sm text-white">{c.title}</h3>
-              <p className="text-xs text-gray-400 mt-1 leading-relaxed">{c.desc}</p>
+              <h3 className="font-[500] text-[14px] text-[#171A20]">{c.title}</h3>
+              <p className="text-[12px] text-[#5C5E62] leading-relaxed">{c.desc}</p>
             </div>
           );
         })}
       </div>
 
-      {/* Grid: Create Ticket (Left) + Active Tickets (Right) */}
+      {/* Grid: Create Ticket (7 cols) + Active Tickets (5 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Create Ticket Form (7 cols) */}
-        <div className="lg:col-span-7 bg-navy-900 border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-gold" />
-            <h2 className="font-extrabold text-base text-white">فتح تذكرة دعم فني جديدة</h2>
+        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
+            <MessageSquare className="w-4 h-4 text-[#3E6AE1]" />
+            <h2 className="font-[500] text-[15px] text-[#171A20]">فتح تذكرة دعم فني جديدة</h2>
           </div>
 
           {submitted && (
-            <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-bold flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#3E6AE1] text-[#171A20] text-[12px] font-[500] flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#3E6AE1]" />
               <span>تم استلام التذكرة بنجاح وجارٍ المتابعة الفورية من قبل فريق العمليات!</span>
             </div>
           )}
 
-          <form onSubmit={handleCreateTicket} className="space-y-4">
+          <form onSubmit={handleCreateTicket} className="space-y-4 text-[13px]">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-300">التصنيف</label>
+              <div className="space-y-1">
+                <label className="text-[#5C5E62]">التصنيف</label>
                 <select
                   value={ticketCategory}
                   onChange={(e) => setTicketCategory(e.target.value)}
-                  className="w-full bg-navy-950 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-gold"
+                  className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
                 >
                   <option value="shipment">شحنة وتتبع</option>
                   <option value="invoice">فاتورة ومدفوعات</option>
@@ -203,12 +195,12 @@ export function SupportCenterView() {
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-300">الأولوية</label>
+              <div className="space-y-1">
+                <label className="text-[#5C5E62]">الأولوية</label>
                 <select
                   value={ticketPriority}
                   onChange={(e) => setTicketPriority(e.target.value)}
-                  className="w-full bg-navy-950 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-gold"
+                  className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
                 >
                   <option value="low">منخفضة (استفسار عام)</option>
                   <option value="medium">متوسطة</option>
@@ -218,33 +210,33 @@ export function SupportCenterView() {
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-300">موضوع التذكرة</label>
+            <div className="space-y-1">
+              <label className="text-[#5C5E62]">موضوع التذكرة</label>
               <input
                 type="text"
                 value={ticketSubject}
                 onChange={(e) => setTicketSubject(e.target.value)}
                 placeholder="مثال: طلب تغيير نقطة تسليم الشحنة SDN-2024-1258..."
-                className="w-full bg-navy-950 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-gold"
+                className="w-full bg-white border border-[#D0D1D2] rounded-[4px] px-3 py-2 text-[#171A20] outline-none"
                 required
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-300">تفاصيل البلاغ / الاستفسار</label>
+            <div className="space-y-1">
+              <label className="text-[#5C5E62]">تفاصيل البلاغ / الاستفسار</label>
               <textarea
                 rows={4}
                 value={ticketDescription}
                 onChange={(e) => setTicketDescription(e.target.value)}
                 placeholder="يرجى كتابة التفاصيل الكاملة ورقم الشحنة أو المركبة المعنية..."
-                className="w-full bg-navy-950 border border-white/10 rounded-xl p-3 text-xs text-white outline-none focus:border-gold"
+                className="w-full bg-white border border-[#D0D1D2] rounded-[4px] p-3 text-[#171A20] outline-none"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 bg-gold hover:bg-gold-light text-navy-950 font-black text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] cursor-pointer"
+              className="btn-tesla-primary w-full !min-h-[38px] text-[13px] flex items-center justify-center gap-2"
             >
               <Send className="w-4 h-4" />
               <span>إرسال التذكرة إلى غرفة العمليات</span>
@@ -253,39 +245,31 @@ export function SupportCenterView() {
         </div>
 
         {/* Active Tickets List (5 cols) */}
-        <div className="lg:col-span-5 bg-navy-900 border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
             <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gold" />
-              <h2 className="font-extrabold text-base text-white">تذاكر الدعم النشطة</h2>
+              <FileText className="w-4 h-4 text-[#3E6AE1]" />
+              <h2 className="font-[500] text-[15px] text-[#171A20]">تذاكر الدعم النشطة</h2>
             </div>
-            <span className="text-xs font-mono text-gold font-bold">{activeTickets.length} تذاكر</span>
+            <span className="text-[12px] font-mono text-[#3E6AE1] font-[500]">{activeTickets.length} تذاكر</span>
           </div>
 
           <div className="space-y-3">
             {activeTickets.map((t) => (
-              <div key={t.id} className="p-4 rounded-xl bg-navy-950/80 border border-white/5 space-y-2">
+              <div key={t.id} className="p-4 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-gold">{t.id}</span>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                      t.status === 'resolved'
-                        ? 'bg-emerald-500/20 text-emerald-400'
-                        : t.status === 'in_progress'
-                        ? 'bg-blue-500/20 text-blue-400'
-                        : 'bg-amber-500/20 text-amber-400'
-                    }`}
-                  >
+                  <span className="text-[12px] font-mono font-[500] text-[#3E6AE1]">{t.id}</span>
+                  <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-[500] bg-white border border-[#D0D1D2]">
                     {t.status === 'resolved' ? 'تم الحل' : t.status === 'in_progress' ? 'قيد المعالجة' : 'مفتوحة'}
                   </span>
                 </div>
 
-                <h4 className="font-bold text-xs text-white leading-snug">{t.subject}</h4>
+                <h4 className="font-[500] text-[13px] text-[#171A20] leading-snug">{t.subject}</h4>
 
-                <div className="flex items-center justify-between text-[11px] text-gray-400 pt-1 border-t border-white/5">
+                <div className="flex items-center justify-between text-[11px] text-[#5C5E62] pt-1 border-t border-[#EEEEEE]">
                   <span>{t.category}</span>
-                  <span className="flex items-center gap-1 font-mono">
-                    <Clock className="w-3 h-3 text-gray-500" />
+                  <span className="flex items-center gap-1 font-mono text-[#8E8E8E]">
+                    <Clock className="w-3 h-3" />
                     {t.createdAt}
                   </span>
                 </div>

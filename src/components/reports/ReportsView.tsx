@@ -6,9 +6,7 @@ import {
   FileDown,
   FileSpreadsheet,
   FileText,
-  Calendar,
   Filter,
-  CheckCircle2,
   Download,
   BarChart3,
   TrendingUp,
@@ -18,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export function ReportsView() {
-  const { shipments, invoices, vehicles, t, lang } = useApp();
+  const { shipments, lang } = useApp();
 
   const [selectedReportType, setSelectedReportType] = useState('operations');
   const [dateRange, setDateRange] = useState('this_month');
@@ -69,19 +67,17 @@ export function ReportsView() {
   };
 
   return (
-    <div className="space-y-5 font-sans">
+    <div className="space-y-6 font-sans text-[#171A20]">
       {/* Top Banner */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-gold/30 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-6 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-gold/20 text-gold border border-gold/40">
-              <FileDown className="w-5 h-5" />
-            </div>
-            <h2 className="text-lg sm:text-xl font-bold text-white">
+            <FileDown className="w-5 h-5 text-[#3E6AE1]" />
+            <h2 className="text-[17px] font-[500] text-[#171A20]">
               {lang === 'ar' ? 'مركز التقارير وتصدير البيانات (Reports & Data Export Center)' : 'Executive Reports & Data Export Center'}
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-2xl mt-1">
+          <p className="text-[13px] font-[400] text-[#5C5E62] max-w-2xl mt-1">
             {lang === 'ar'
               ? 'إنشاء وتصدير التقارير التشغيلية والمالية وتدقيق انبعاثات الكربون بصيغ PDF وExcel وCSV.'
               : 'Generate and download certified operational, financial, and ESG audit reports with custom date windows.'}
@@ -90,11 +86,11 @@ export function ReportsView() {
       </div>
 
       {/* Grid: Report Config & Templates */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Templates Selection (4 cols) */}
-        <div className="lg:col-span-4 rounded-2xl bg-navy-900/90 border border-gold/20 p-5 shadow-xl space-y-3">
-          <h3 className="font-bold text-sm text-white flex items-center gap-2 pb-2 border-b border-gold/15">
-            <Filter className="w-4 h-4 text-gold" />
+        <div className="lg:col-span-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-5 space-y-4">
+          <h3 className="font-[500] text-[14px] text-[#171A20] flex items-center gap-2 pb-2 border-b border-[#EEEEEE]">
+            <Filter className="w-4 h-4 text-[#3E6AE1]" />
             <span>Select Report Template</span>
           </h3>
 
@@ -105,17 +101,17 @@ export function ReportsView() {
                 <button
                   key={tmpl.id}
                   onClick={() => setSelectedReportType(tmpl.id)}
-                  className={`w-full p-4 rounded-xl text-start transition-all cursor-pointer border ${
+                  className={`w-full p-4 rounded-[4px] text-start transition-colors duration-330 cursor-pointer border ${
                     selectedReportType === tmpl.id
-                      ? 'bg-navy-950 border-gold shadow-lg'
-                      : 'bg-navy-950/60 border-navy-800 hover:bg-navy-800 text-gray-300'
+                      ? 'bg-[#F4F4F4] border-[#171A20]'
+                      : 'bg-[#FFFFFF] border-[#EEEEEE] hover:bg-[#F4F4F4]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4 text-gold" />
-                    <span className="font-bold text-white text-xs">{lang === 'ar' ? tmpl.nameAr : tmpl.name}</span>
+                    <Icon className="w-4 h-4 text-[#3E6AE1]" />
+                    <span className="font-[500] text-[#171A20] text-[13px]">{lang === 'ar' ? tmpl.nameAr : tmpl.name}</span>
                   </div>
-                  <p className="text-[11px] text-gray-400 mt-1">{tmpl.desc}</p>
+                  <p className="text-[11px] text-[#5C5E62] mt-1">{tmpl.desc}</p>
                 </button>
               );
             })}
@@ -123,11 +119,11 @@ export function ReportsView() {
         </div>
 
         {/* Configuration & Preview Window (8 cols) */}
-        <div className="lg:col-span-8 rounded-2xl bg-navy-900/90 border border-gold/25 p-5 shadow-xl space-y-5">
-          <div className="flex items-start justify-between pb-3 border-b border-gold/15">
+        <div className="lg:col-span-8 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] p-6 space-y-5">
+          <div className="flex items-start justify-between pb-3 border-b border-[#EEEEEE]">
             <div>
-              <h3 className="text-base font-bold text-white">Report Configuration & Live Sample</h3>
-              <p className="text-xs text-gray-400">Configure parameters before exporting certified ledger</p>
+              <h3 className="text-[16px] font-[500] text-[#171A20]">Report Configuration & Live Sample</h3>
+              <p className="text-[13px] text-[#5C5E62]">Configure parameters before exporting certified ledger</p>
             </div>
 
             {/* Export Buttons */}
@@ -135,23 +131,23 @@ export function ReportsView() {
               <button
                 onClick={() => handleExport('pdf')}
                 disabled={isExporting}
-                className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
               >
-                <FileText className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5 text-[#3E6AE1]" />
                 <span>PDF</span>
               </button>
               <button
                 onClick={() => handleExport('excel')}
                 disabled={isExporting}
-                className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
               >
-                <FileSpreadsheet className="w-3.5 h-3.5" />
+                <FileSpreadsheet className="w-3.5 h-3.5 text-[#3E6AE1]" />
                 <span>Excel</span>
               </button>
               <button
                 onClick={() => handleExport('csv')}
                 disabled={isExporting}
-                className="px-3.5 py-1.5 rounded-xl bg-gold/20 text-gold border border-gold/40 hover:bg-gold/30 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                className="btn-tesla-primary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>CSV</span>
@@ -160,13 +156,13 @@ export function ReportsView() {
           </div>
 
           {/* Filter Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-[13px]">
             <div>
-              <label className="text-gray-400 block mb-1">Time Horizon</label>
+              <label className="text-[#5C5E62] block mb-1">Time Horizon</label>
               <select
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
-                className="w-full bg-navy-950 border border-gold/20 text-white p-2 rounded-xl outline-none"
+                className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] outline-none"
               >
                 <option value="today">Today</option>
                 <option value="this_week">This Week</option>
@@ -177,11 +173,11 @@ export function ReportsView() {
             </div>
 
             <div>
-              <label className="text-gray-400 block mb-1">Freight Corridor</label>
+              <label className="text-[#5C5E62] block mb-1">Freight Corridor</label>
               <select
                 value={selectedCorridor}
                 onChange={(e) => setSelectedCorridor(e.target.value)}
-                className="w-full bg-navy-950 border border-gold/20 text-white p-2 rounded-xl outline-none"
+                className="w-full bg-white border border-[#D0D1D2] text-[#171A20] p-2 rounded-[4px] outline-none"
               >
                 <option value="all">All Corridors (Consolidated)</option>
                 <option value="krt_psd">Khartoum ➔ Port Sudan</option>
@@ -191,38 +187,38 @@ export function ReportsView() {
             </div>
 
             <div>
-              <label className="text-gray-400 block mb-1">Audit Stamp</label>
-              <div className="p-2 rounded-xl bg-navy-950 border border-navy-800 text-[11px] text-emerald-400 font-mono flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4" /> Sovereign Verified
+              <label className="text-[#5C5E62] block mb-1">Audit Stamp</label>
+              <div className="p-2 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE] text-[12px] text-[#171A20] font-mono flex items-center gap-1">
+                <ShieldCheck className="w-4 h-4 text-[#3E6AE1]" /> Sovereign Verified
               </div>
             </div>
           </div>
 
           {/* Sample Data Preview Table */}
           <div className="space-y-2">
-            <span className="text-xs font-semibold text-gray-300 block">Preview Sample Data Records</span>
-            <div className="overflow-x-auto rounded-xl border border-navy-800">
-              <table className="w-full text-xs text-start bg-navy-950/60">
+            <span className="text-[13px] font-[500] text-[#171A20] block">Preview Sample Data Records</span>
+            <div className="overflow-x-auto rounded-[4px] border border-[#EEEEEE]">
+              <table className="w-full text-[13px] text-start">
                 <thead>
-                  <tr className="border-b border-navy-800 text-gray-400 text-[11px] bg-navy-950">
-                    <th className="p-2.5 text-start">Reference #</th>
-                    <th className="p-2.5 text-start">Corridor / Asset</th>
-                    <th className="p-2.5 text-start">Consignee</th>
-                    <th className="p-2.5 text-start">Tonnage</th>
-                    <th className="p-2.5 text-start">Revenue (SDG)</th>
-                    <th className="p-2.5 text-end">Status</th>
+                  <tr className="border-b border-[#EEEEEE] text-[#5C5E62] text-[11px] uppercase bg-[#F4F4F4]">
+                    <th className="p-3 text-start">Reference #</th>
+                    <th className="p-3 text-start">Corridor</th>
+                    <th className="p-3 text-start">Consignee</th>
+                    <th className="p-3 text-start">Tonnage</th>
+                    <th className="p-3 text-start">Revenue (SDG)</th>
+                    <th className="p-3 text-end">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-navy-800/60">
+                <tbody className="divide-y divide-[#EEEEEE]">
                   {shipments.slice(0, 4).map((s) => (
-                    <tr key={s.id} className="hover:bg-navy-800/30">
-                      <td className="p-2.5 font-mono text-gold font-bold">{s.trackingNumber}</td>
-                      <td className="p-2.5 text-gray-300">{s.origin.city} ➔ {s.destination.city}</td>
-                      <td className="p-2.5 text-white">{s.customerName}</td>
-                      <td className="p-2.5 font-mono">{(s.totalWeightKg / 1000).toFixed(1)} T</td>
-                      <td className="p-2.5 font-mono text-emerald-400 font-bold">{s.price.toLocaleString()}</td>
-                      <td className="p-2.5 text-end">
-                        <span className="px-2 py-0.5 rounded bg-navy-900 border border-gold/20 text-[10px] text-gold font-mono">
+                    <tr key={s.id} className="hover:bg-[#F4F4F4] transition-colors duration-330">
+                      <td className="p-3 font-mono text-[#3E6AE1] font-[500]">{s.trackingNumber}</td>
+                      <td className="p-3 text-[#5C5E62]">{s.origin.city} ➔ {s.destination.city}</td>
+                      <td className="p-3 text-[#171A20]">{s.customerName}</td>
+                      <td className="p-3 font-mono">{(s.totalWeightKg / 1000).toFixed(1)} T</td>
+                      <td className="p-3 font-mono text-[#171A20] font-[500]">{s.price.toLocaleString()}</td>
+                      <td className="p-3 text-end">
+                        <span className="px-2 py-0.5 rounded-[2px] bg-[#F4F4F4] border border-[#D0D1D2] text-[11px] text-[#171A20] font-mono">
                           {s.status}
                         </span>
                       </td>
