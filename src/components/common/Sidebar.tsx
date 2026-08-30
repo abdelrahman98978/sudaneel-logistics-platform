@@ -177,6 +177,11 @@ export function Sidebar() {
           icon: FileDown,
         },
         {
+          view: 'settings_rbac',
+          label: 'الإعدادات والصلاحيات (Settings)',
+          icon: ShieldAlert,
+        },
+        {
           view: 'landing',
           label: t.publicPortal,
           icon: Globe,

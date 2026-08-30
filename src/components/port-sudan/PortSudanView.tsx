@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export function PortSudanView() {
-  const { portContainers, updateContainerStatus, lang } = useApp();
+  const { portContainers, updateContainerStatus, showToast, lang } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -38,10 +38,12 @@ export function PortSudanView() {
 
   const handleUpdateCustoms = (containerId: string, status: PortCustomsStatus) => {
     updateContainerStatus(containerId, status);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم تحديث الإجراء الجمركي' : 'Customs Status Updated',
       lang === 'ar'
         ? `تم تحديث الحالة الجمركية للحاوية إلى: ${status}`
-        : `Customs clearance status updated to: ${status}`
+        : `Customs clearance status updated to: ${status}`,
+      'success'
     );
   };
 
@@ -268,7 +270,11 @@ export function PortSudanView() {
               <div className="flex justify-between items-center text-[#171A20]">
                 <span className="font-mono">{selectedContainer.assignedTruckPlate || 'No truck locked yet'}</span>
                 <button
-                  onClick={() => alert(`Assigning nearest empty flatbed to ${selectedContainer.containerNumber}`)}
+                  onClick={() => showToast(
+                    lang === 'ar' ? 'تعيين شاحنة إخلاء' : 'Flatbed Assigned',
+                    lang === 'ar' ? `تم توجيه أقرب شاحنة مسطحة شاغرة لإخلاء الحاوية ${selectedContainer.containerNumber}` : `Assigning nearest empty flatbed to ${selectedContainer.containerNumber}`,
+                    'success'
+                  )}
                   className="btn-tesla-primary !min-w-[100px] !min-h-[30px] !py-0.5 !px-3 text-[12px]"
                 >
                   Assign Flatbed

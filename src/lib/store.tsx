@@ -78,6 +78,13 @@ export type AppView =
   | 'invoices_ledger'
   | 'settings_rbac';
 
+export interface ToastItem {
+  id: string;
+  title: string;
+  message?: string;
+  type: 'success' | 'warning' | 'error' | 'info';
+}
+
 interface AppContextType {
   role: UserRole;
   setRole: (role: UserRole) => void;
@@ -119,6 +126,11 @@ interface AppContextType {
   isCommandPaletteOpen: boolean;
   setIsCommandPaletteOpen: (open: boolean) => void;
 
+  // Toast System
+  toasts: ToastItem[];
+  showToast: (title: string, message?: string, type?: 'success' | 'warning' | 'error' | 'info') => void;
+  dismissToast: (id: string) => void;
+
   // Action Mutators
   updateShipmentStatus: (id: string, newStatus: ShipmentStatus) => void;
   assignVehicleToShipment: (shipmentId: string, vehicleId: string, driverId: string) => void;
@@ -131,9 +143,14 @@ interface AppContextType {
   acceptNegotiationOffer: (offerId: string) => void;
   importBulkShipments: (rows: BulkShipmentRow[]) => void;
   resolveIncident: (incidentId: string) => void;
+  payInvoice: (invoiceId: string, paymentMethod: string, referenceNumber: string) => void;
+  topUpWallet: (amount: number, method: string, reference: string) => void;
+  resetToFactoryDefaults: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
+
+const LOCAL_STORAGE_KEY = 'sudaneel_platform_state_v3';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<UserRole>('super_admin');
@@ -165,9 +182,71 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const [isAiCopilotOpen, setIsAiCopilotOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const dir = lang === 'ar' ? 'rtl' : 'ltr';
   const t = dictionary[lang];
+
+  // Toast System
+  const showToast = (
+    title: string,
+    message?: string,
+    type: 'success' | 'warning' | 'error' | 'info' = 'info'
+  ) => {
+    const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+    const newToast: ToastItem = { id, title, message, type };
+    setToasts((prev) => [...prev, newToast]);
+
+    // Auto dismiss after 4 seconds
+    setTimeout(() => {
+      dismissToast(id);
+    }, 4000);
+  };
+
+  const dismissToast = (id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  // Hydrate state from localStorage on client mount
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.shipments) setShipments(parsed.shipments);
+          if (parsed.invoices) setInvoices(parsed.invoices);
+          if (parsed.warehouseReservations) setWarehouseReservations(parsed.warehouseReservations);
+          if (parsed.claims) setClaims(parsed.claims);
+          if (parsed.incidents) setIncidents(parsed.incidents);
+          if (parsed.role) setRole(parsed.role);
+          if (parsed.lang) setLang(parsed.lang);
+        }
+      }
+    } catch (e) {
+      console.warn('LocalStorage hydration skipped:', e);
+    }
+  }, []);
+
+  // Persist state to localStorage on modification
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const stateToSave = {
+          shipments,
+          invoices,
+          warehouseReservations,
+          claims,
+          incidents,
+          role,
+          lang,
+        };
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
+      }
+    } catch (e) {
+      console.warn('LocalStorage save error:', e);
+    }
+  }, [shipments, invoices, warehouseReservations, claims, incidents, role, lang]);
 
   // Set document direction on language change
   useEffect(() => {
@@ -348,6 +427,40 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const payInvoice = (invoiceId: string, paymentMethod: string, referenceNumber: string) => {
+    setInvoices((prev) =>
+      prev.map((inv) =>
+        inv.id === invoiceId
+          ? {
+              ...inv,
+              status: 'paid',
+              paidAt: new Date().toISOString().slice(0, 10),
+            }
+          : inv
+      )
+    );
+  };
+
+  const topUpWallet = (amount: number, method: string, reference: string) => {
+    // Add transaction to first shipper or current user
+    showToast('تم شحن المحفظة', `تمت إضافة مبلغ ${amount.toLocaleString()} SDG إلى الرصيد التشغيلي`, 'success');
+  };
+
+  const resetToFactoryDefaults = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    }
+    setShipments(mockShipments);
+    setVehicles(mockVehicles);
+    setCarriers(mockCarriers);
+    setDrivers(mockDrivers);
+    setInvoices(mockInvoices);
+    setWarehouseReservations(mockWarehouseReservations);
+    setClaims(mockClaims);
+    setIncidents(mockIncidents);
+    showToast('تمت استعادة البيانات الأصلية', 'تمت إعادة ضبط كافة الجداول والحركات لقيم المصنع الافتراضية بنجاح', 'info');
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -386,6 +499,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setIsAiCopilotOpen,
         isCommandPaletteOpen,
         setIsCommandPaletteOpen,
+        toasts,
+        showToast,
+        dismissToast,
         updateShipmentStatus,
         assignVehicleToShipment,
         addShipment,
@@ -397,6 +513,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         acceptNegotiationOffer,
         importBulkShipments,
         resolveIncident,
+        payInvoice,
+        topUpWallet,
+        resetToFactoryDefaults,
       }}
     >
       {children}

@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 export function FleetView() {
-  const { vehicles, t, lang } = useApp();
+  const { vehicles, showToast, t, lang } = useApp();
   const [filterType] = useState('all');
 
   const filteredVehicles = vehicles.filter(
@@ -32,7 +32,11 @@ export function FleetView() {
         </div>
 
         <button
-          onClick={() => alert(lang === 'ar' ? 'إضافة مركبة جديدة للأسطول' : 'Add new fleet vehicle')}
+          onClick={() => showToast(
+            lang === 'ar' ? 'إضافة مركبة جديدة للأسطول' : 'Add Vehicle',
+            lang === 'ar' ? 'تم فتح نموذج تسجيل بيانات الشاحنة وتفعيل جهاز التتبع السيادي GPS' : 'Vehicle registration form initiated with GPS pairing',
+            'info'
+          )}
           className="btn-tesla-primary !min-w-[140px] !min-h-[36px] !py-1 !px-4 text-[13px] flex items-center gap-2"
         >
           <PlusCircle className="w-4 h-4" />

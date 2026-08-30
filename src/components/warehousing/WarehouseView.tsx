@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export function WarehouseView() {
-  const { warehouses, warehouseItems, warehouseReservations, reserveWarehouseSpace, lang } = useApp();
+  const { warehouses, warehouseItems, warehouseReservations, reserveWarehouseSpace, showToast, lang } = useApp();
 
   const [activeTab, setActiveTab] = useState<'marketplace' | 'wms_inventory' | 'reservations'>('marketplace');
   const [searchCity, setSearchCity] = useState('all');
@@ -55,10 +55,12 @@ export function WarehouseView() {
 
     reserveWarehouseSpace(newReservation);
     setIsReserveModalOpen(false);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم تأكيد حجز المستودع' : 'Warehouse Space Reserved',
       lang === 'ar'
         ? `تم تأكيد حجز مساحة ${reserveArea} م² في ${reserveWarehouseTarget.nameAr || reserveWarehouseTarget.name} بنجاح!`
-        : `Successfully reserved ${reserveArea} m² at ${reserveWarehouseTarget.name}!`
+        : `Successfully reserved ${reserveArea} m² at ${reserveWarehouseTarget.name}!`,
+      'success'
     );
   };
 

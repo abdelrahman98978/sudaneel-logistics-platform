@@ -6,6 +6,7 @@ import { Sidebar } from '@/components/common/Sidebar';
 import { Header } from '@/components/common/Header';
 import { CommandPalette } from '@/components/common/CommandPalette';
 import { AiCopilotDrawer } from '@/components/common/AiCopilotDrawer';
+import { TeslaToastContainer } from '@/components/common/TeslaToast';
 
 // Operations & Core Views
 import { ControlTowerView } from '@/components/control-tower/ControlTowerView';
@@ -36,6 +37,7 @@ import { ReportsView } from '@/components/reports/ReportsView';
 import { LocationsView } from '@/components/locations/LocationsView';
 import { SupportCenterView } from '@/components/support/SupportCenterView';
 import { InvoicesLedgerView } from '@/components/finance/InvoicesLedgerView';
+import { SettingsRbacView } from '@/components/settings/SettingsRbacView';
 import { LandingView } from '@/components/landing/LandingView';
 
 export default function Home() {
@@ -47,6 +49,7 @@ export default function Home() {
       <div className="min-h-screen bg-[#FFFFFF] text-[#171A20] selection:bg-[#3E6AE1] selection:text-[#FFFFFF] font-sans">
         <CommandPalette />
         <AiCopilotDrawer />
+        <TeslaToastContainer />
         <LandingView />
       </div>
     );
@@ -103,6 +106,8 @@ export default function Home() {
         return <SupportCenterView />;
       case 'invoices_ledger':
         return <InvoicesLedgerView />;
+      case 'settings_rbac':
+        return <SettingsRbacView />;
       default:
         return <ControlTowerView />;
     }
@@ -116,6 +121,9 @@ export default function Home() {
 
       {/* Global AI Copilot Assistant Drawer */}
       <AiCopilotDrawer />
+
+      {/* Global Tesla Toast Notifications Container */}
+      <TeslaToastContainer />
 
       {/* Left / Right Sidebar */}
       <Sidebar />

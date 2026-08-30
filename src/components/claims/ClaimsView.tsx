@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export function ClaimsView() {
-  const { claims, submitClaim, updateClaimStatus, shipments, lang } = useApp();
+  const { claims, submitClaim, updateClaimStatus, shipments, showToast, lang } = useApp();
 
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(claims[0] || null);
   const [isNewClaimModalOpen, setIsNewClaimModalOpen] = useState(false);
@@ -49,19 +49,23 @@ export function ClaimsView() {
 
     submitClaim(newClaim);
     setIsNewClaimModalOpen(false);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم تسجيل المطالبة' : 'Claim Submitted',
       lang === 'ar'
-        ? `تم تسجيل المطالبة رقم ${newClaim.claimNumber} بنجاح! تم إرسال إشعار للمحقق التأميني.`
-        : `Claim ${newClaim.claimNumber} submitted! Assigned to insurance adjuster.`
+        ? `تم تسجيل المطالبة رقم ${newClaim.claimNumber} بنجاح وإحالتها للمحقق التأميني.`
+        : `Claim ${newClaim.claimNumber} submitted! Assigned to insurance adjuster.`,
+      'success'
     );
   };
 
   const handleApprovePayout = (claimId: string, amount: number) => {
     updateClaimStatus(claimId, 'approved_payout', amount);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم اعتماد التعويض المالي' : 'Compensation Approved',
       lang === 'ar'
-        ? `تم اعتماد تعويض بقيمة ${amount.toLocaleString()} ج.س وقيده كرصيد تسوية فورية للمطالبة.`
-        : `Approved compensation of ${amount.toLocaleString()} SDG credited directly to customer wallet.`
+        ? `تم اعتماد تعويض بقيمة ${amount.toLocaleString()} SDG وقيده كرصيد تسوية فورية للمطالبة.`
+        : `Approved compensation of ${amount.toLocaleString()} SDG credited directly to customer wallet.`,
+      'success'
     );
   };
 

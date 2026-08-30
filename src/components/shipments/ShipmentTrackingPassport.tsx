@@ -9,20 +9,24 @@ import {
   Clock,
   Navigation,
   Download,
-  Camera,
+  Printer,
+  PenTool,
+  X,
 } from 'lucide-react';
+import { printDocument } from '@/lib/export-utils';
+import { SignaturePad } from '@/components/common/SignaturePad';
 
 export function ShipmentTrackingPassport() {
   const {
     shipments,
     selectedShipmentId,
     updateShipmentStatus,
+    showToast,
     t,
     lang,
   } = useApp();
 
   const [isPodModalOpen, setIsPodModalOpen] = useState(false);
-  const [podInputOtp, setPodInputOtp] = useState('');
   const [podReceiverName, setPodReceiverName] = useState('');
 
   const shipment =
@@ -36,17 +40,23 @@ export function ShipmentTrackingPassport() {
     );
   }
 
-  const handleVerifyPod = () => {
-    if (!podReceiverName) {
-      alert(lang === 'ar' ? 'الرجاء إدخال اسم المستلم' : 'Please enter receiver name');
+  const handleSaveSignature = (dataUrl: string) => {
+    if (!podReceiverName.trim()) {
+      showToast(
+        lang === 'ar' ? 'اسم المستلم مطلوب' : 'Receiver Name Required',
+        lang === 'ar' ? 'يرجى إدخال اسم المستلم المعتمد قبل حفظ التوقيع' : 'Please enter the receiver name',
+        'warning'
+      );
       return;
     }
     updateShipmentStatus(shipment.id, 'pod_verified');
     setIsPodModalOpen(false);
-    alert(
+    showToast(
+      lang === 'ar' ? 'تم توثيق إثبات التسليم الرقمي' : 'Digital POD Confirmed',
       lang === 'ar'
-        ? `تم توثيق إثبات التسليم الرقمي بنجاح للشحنة ${shipment.trackingNumber}! تم إطلاق التسوية المالية تلقائياً.`
-        : `Digital Proof of Delivery verified for ${shipment.trackingNumber}! Automated settlement triggered.`
+        ? `تم اعتماد توقيع (${podReceiverName}) للشحنة ${shipment.trackingNumber} وإطلاق التسوية المالية تلقائياً`
+        : `POD verified for ${shipment.trackingNumber}. Automated escrow settlement triggered.`,
+      'success'
     );
   };
 
@@ -87,11 +97,11 @@ export function ShipmentTrackingPassport() {
           )}
 
           <button
-            onClick={() => alert(lang === 'ar' ? 'جاري تصدير شهادة الجواز الرقمي PDF...' : 'Exporting Digital Passport Certificate PDF...')}
+            onClick={() => printDocument(`Sudaneel-Passport-${shipment.trackingNumber}`)}
             className="p-2 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] hover:bg-[#F4F4F4] transition-colors duration-330 cursor-pointer"
-            title="Download Certificate"
+            title="Print Passport Certificate"
           >
-            <Download className="w-4 h-4 text-[#3E6AE1]" />
+            <Printer className="w-4 h-4 text-[#3E6AE1]" />
           </button>
         </div>
       </div>
@@ -208,51 +218,23 @@ export function ShipmentTrackingPassport() {
                 <span>{lang === 'ar' ? 'توثيق إثبات التسليم الرقمي (Digital POD)' : 'Digital POD Verification'}</span>
               </h3>
               <button onClick={() => setIsPodModalOpen(false)} className="text-[#8E8E8E] hover:text-[#171A20]">
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3 text-[13px]">
               <div className="space-y-1">
-                <label className="text-[#5C5E62] block">{lang === 'ar' ? 'اسم المستلم المعتمد:' : 'Receiver Name:'}</label>
+                <label className="text-[#5C5E62] block font-[500]">{lang === 'ar' ? 'اسم المستلم المعتمد:' : 'Receiver Name:'}</label>
                 <input
                   value={podReceiverName}
                   onChange={(e) => setPodReceiverName(e.target.value)}
-                  placeholder="e.g. Ustaz Sami Hamad"
+                  placeholder="مثال: الأستاذ / سامي حمد"
                   className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] outline-none"
+                  required
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[#5C5E62] block">{lang === 'ar' ? 'رمز التسليم السري (OTP):' : 'Delivery OTP Code:'}</label>
-                <input
-                  value={podInputOtp}
-                  onChange={(e) => setPodInputOtp(e.target.value)}
-                  placeholder="Enter 6-digit OTP"
-                  className="w-full p-2.5 rounded-[4px] bg-[#FFFFFF] border border-[#D0D1D2] text-[#171A20] font-mono text-center tracking-widest text-[16px] outline-none"
-                />
-              </div>
-
-              <div className="p-4 rounded-[4px] border border-dashed border-[#D0D1D2] bg-[#F4F4F4] text-center space-y-1">
-                <Camera className="w-6 h-6 text-[#3E6AE1] mx-auto" />
-                <div className="text-[#171A20] font-[500] text-[12px]">Attach Cargo Photo & Sign POD</div>
-                <div className="text-[11px] text-[#5C5E62]">Captured with GPS Coordinates (19.61°N, 37.21°E)</div>
-              </div>
-            </div>
-
-            <div className="flex gap-2 pt-2">
-              <button
-                onClick={() => setIsPodModalOpen(false)}
-                className="btn-tesla-secondary flex-1 !min-h-[36px] text-[13px]"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleVerifyPod}
-                className="btn-tesla-primary flex-1 !min-h-[36px] text-[13px]"
-              >
-                Confirm POD & Settle
-              </button>
+              <SignaturePad onSave={handleSaveSignature} />
             </div>
           </div>
         </div>

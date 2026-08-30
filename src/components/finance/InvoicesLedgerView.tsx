@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
+import { Invoice } from '@/types';
 import {
   Download,
   Send,
@@ -10,112 +11,87 @@ import {
   CreditCard,
   Search,
   TrendingUp,
+  FileSpreadsheet,
+  Zap,
 } from 'lucide-react';
-
-interface LedgerInvoice {
-  id: string;
-  client: string;
-  shipmentId: string;
-  date: string;
-  subtotal: number;
-  tax: number;
-  fees: number;
-  total: number;
-  status: 'paid' | 'unpaid' | 'late';
-  dueDate: string;
-}
+import { exportToCsv, printDocument } from '@/lib/export-utils';
+import { EbsPaymentModal } from './EbsPaymentModal';
 
 export function InvoicesLedgerView() {
-  const { setCurrentView } = useApp();
-  const [activeTab, setActiveTab] = useState<'all' | 'paid' | 'unpaid' | 'late'>('all');
+  const { invoices, setCurrentView, showToast, lang } = useApp();
+  const [activeTab, setActiveTab] = useState<'all' | 'paid' | 'pending' | 'overdue'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedInvoice, setSelectedInvoice] = useState<LedgerInvoice>({
-    id: 'INV-2026-0421',
-    client: 'شركة النيل للحبوب الزيتية',
-    shipmentId: 'SDN-2024-1256',
-    date: '20 أغسطس 2026',
-    subtotal: 1150,
-    tax: 57.5,
-    fees: 32.5,
-    total: 1240,
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice>(invoices[0] || {
+    id: 'inv-001',
+    invoiceNumber: 'INV-2026-0421',
+    shipmentId: 'shp-001',
+    trackingNumber: 'SDN-2024-1256',
+    customerName: 'Nile Oilseeds Export Co.',
+    customerNameAr: 'شركة النيل للحبوب الزيتية',
+    amount: 1150000,
+    tax: 57500,
+    total: 1240000,
+    currency: 'SDG',
     status: 'paid',
-    dueDate: '25 أغسطس 2026',
+    issueDate: '2026-08-20',
+    dueDate: '2026-08-25',
   });
 
-  const invoices: LedgerInvoice[] = [
-    {
-      id: 'INV-2026-0421',
-      client: 'شركة النيل للحبوب الزيتية',
-      shipmentId: 'SDN-2024-1256',
-      date: '20 أغسطس 2026',
-      subtotal: 1150,
-      tax: 57.5,
-      fees: 32.5,
-      total: 1240,
-      status: 'paid',
-      dueDate: '25 أغسطس 2026',
-    },
-    {
-      id: 'INV-2026-0420',
-      client: 'مصنع سكر سنار',
-      shipmentId: 'SDN-2024-1257',
-      date: '18 أغسطس 2026',
-      subtotal: 910,
-      tax: 45.5,
-      fees: 24.5,
-      total: 980,
-      status: 'unpaid',
-      dueDate: '28 أغسطس 2026',
-    },
-    {
-      id: 'INV-2026-0419',
-      client: 'مجموعة دارفور للإعمار والتجارة',
-      shipmentId: 'SDN-2024-1258',
-      date: '12 أغسطس 2026',
-      subtotal: 1450,
-      tax: 72.5,
-      fees: 37.5,
-      total: 1560,
-      status: 'late',
-      dueDate: '19 أغسطس 2026',
-    },
-    {
-      id: 'INV-2026-0418',
-      client: 'شركة نور الهندسية للمعدات',
-      shipmentId: 'SDN-2024-1259',
-      date: '10 أغسطس 2026',
-      subtotal: 670,
-      tax: 33.5,
-      fees: 16.5,
-      total: 720,
-      status: 'paid',
-      dueDate: '15 أغسطس 2026',
-    },
-    {
-      id: 'INV-2026-0417',
-      client: 'مؤسسة البحر الأحمر للملاحة',
-      shipmentId: 'SDN-2024-1260',
-      date: '05 أغسطس 2026',
-      subtotal: 3100,
-      tax: 155,
-      fees: 65,
-      total: 3320,
-      status: 'paid',
-      dueDate: '10 أغسطس 2026',
-    },
-  ];
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const filteredInvoices = invoices.filter((inv) => {
     const matchesTab = activeTab === 'all' || inv.status === activeTab;
     const matchesSearch =
-      inv.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      inv.client.includes(searchQuery) ||
-      inv.shipmentId.includes(searchQuery);
+      inv.invoiceNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      inv.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      inv.customerNameAr?.includes(searchQuery) ||
+      inv.trackingNumber.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesTab && matchesSearch;
   });
 
+  const totalCollected = invoices.filter((i) => i.status === 'paid').reduce((acc, i) => acc + i.total, 0);
+  const totalPending = invoices.filter((i) => i.status === 'pending').reduce((acc, i) => acc + i.total, 0);
+
+  const handleExportCsv = () => {
+    exportToCsv('sudaneel-invoices-ledger', [
+      { header: 'Invoice Number', accessor: (i) => i.invoiceNumber },
+      { header: 'Tracking Reference', accessor: (i) => i.trackingNumber },
+      { header: 'Customer (AR)', accessor: (i) => i.customerNameAr || i.customerName },
+      { header: 'Customer (EN)', accessor: (i) => i.customerName },
+      { header: 'Net Amount (SDG)', accessor: (i) => i.amount },
+      { header: 'Tax (SDG)', accessor: (i) => i.tax },
+      { header: 'Total (SDG)', accessor: (i) => i.total },
+      { header: 'Status', accessor: (i) => i.status },
+      { header: 'Issue Date', accessor: (i) => i.issueDate },
+      { header: 'Due Date', accessor: (i) => i.dueDate },
+    ], invoices);
+
+    showToast(
+      lang === 'ar' ? 'تم تصدير دفتر الفواتير' : 'Invoices Exported',
+      lang === 'ar' ? 'تم تنزيل ملف CSV موثق لجميع الفواتير بنجاح' : 'Downloaded CSV ledger with UTF-8 support',
+      'success'
+    );
+  };
+
+  const handleSendReminder = () => {
+    showToast(
+      lang === 'ar' ? 'تم إرسال إشعار السداد' : 'Payment Reminder Sent',
+      lang === 'ar'
+        ? `تم إرسال رابط سداد الفاتورة ${selectedInvoice.invoiceNumber} إلى ${selectedInvoice.customerNameAr || selectedInvoice.customerName} عبر SMS والبريد`
+        : `Sent invoice ${selectedInvoice.invoiceNumber} reminder to ${selectedInvoice.customerName}`,
+      'success'
+    );
+  };
+
   return (
     <div className="space-y-6 font-sans text-[#171A20]" dir="rtl">
+      {/* EBS Payment Modal */}
+      <EbsPaymentModal
+        isOpen={isPaymentModalOpen}
+        invoice={selectedInvoice}
+        onClose={() => setIsPaymentModalOpen(false)}
+      />
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#FFFFFF] border border-[#EEEEEE] p-6 rounded-[4px]">
         <div>
@@ -129,7 +105,14 @@ export function InvoicesLedgerView() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleExportCsv}
+            className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px] flex items-center gap-1.5"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5 text-[#3E6AE1]" />
+            <span>تصدير CSV</span>
+          </button>
           <button
             onClick={() => setCurrentView('finance')}
             className="btn-tesla-secondary !min-h-[36px] !py-1 !px-3 text-[13px]"
@@ -149,7 +132,7 @@ export function InvoicesLedgerView() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
           <span className="text-[12px] text-[#5C5E62] block">إجمالي المبالغ المستلمة</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$284,500</div>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{(totalCollected / 1000000).toFixed(2)}M <span className="text-[12px] text-[#3E6AE1]">SDG</span></div>
           <span className="text-[11px] text-[#3E6AE1] flex items-center gap-1">
             <TrendingUp className="w-3.5 h-3.5" />
             +14.2% هذا الشهر
@@ -158,20 +141,20 @@ export function InvoicesLedgerView() {
 
         <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
           <span className="text-[12px] text-[#5C5E62] block">فواتير مستحقة الدفع</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$32,100</div>
-          <span className="text-[11px] text-[#5C5E62]">3 فواتير خلال 48 ساعة</span>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">{(totalPending / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span></div>
+          <span className="text-[11px] text-[#5C5E62]">{invoices.filter((i) => i.status === 'pending').length} فواتير قيد التحصيل</span>
         </div>
 
         <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">مستحقات الناقلين</span>
-          <div className="text-[22px] font-[500] font-mono text-[#171A20]">$48,200</div>
+          <span className="text-[12px] text-[#5C5E62] block">مستحقات الناقلين المعتمدة</span>
+          <div className="text-[22px] font-[500] font-mono text-[#171A20]">48.2M <span className="text-[12px]">SDG</span></div>
           <span className="text-[11px] text-[#8E8E8E]">18 أمر نقل تم التحقق من POD</span>
         </div>
 
         <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#EEEEEE] space-y-1">
-          <span className="text-[12px] text-[#5C5E62] block">مستحقات السائقين</span>
-          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">$12,400</div>
-          <span className="text-[11px] text-[#8E8E8E]">حوافز التوصيل السريع</span>
+          <span className="text-[12px] text-[#5C5E62] block">عمولات المنصة المحصلة (10%)</span>
+          <div className="text-[22px] font-[500] font-mono text-[#3E6AE1]">12.4M <span className="text-[12px]">SDG</span></div>
+          <span className="text-[11px] text-[#8E8E8E]">تسوية آلية فورية</span>
         </div>
       </div>
 
@@ -181,8 +164,8 @@ export function InvoicesLedgerView() {
           {[
             { id: 'all', label: 'كل الفواتير' },
             { id: 'paid', label: 'مدفوعة' },
-            { id: 'unpaid', label: 'غير مدفوعة' },
-            { id: 'late', label: 'متأخرة' },
+            { id: 'pending', label: 'قيد التحصيل' },
+            { id: 'overdue', label: 'متأخرة' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -226,7 +209,7 @@ export function InvoicesLedgerView() {
                   <th className="p-3 text-start">رقم الفاتورة</th>
                   <th className="p-3 text-start">العميل</th>
                   <th className="p-3 text-start">التاريخ</th>
-                  <th className="p-3 text-start">المبلغ</th>
+                  <th className="p-3 text-start">المبلغ (SDG)</th>
                   <th className="p-3 text-start">الحالة</th>
                   <th className="p-3 text-start">إجراء</th>
                 </tr>
@@ -242,33 +225,47 @@ export function InvoicesLedgerView() {
                         isSelected ? 'bg-[#F4F4F4]' : ''
                       }`}
                     >
-                      <td className="p-3 font-mono font-[500] text-[#3E6AE1]">{inv.id}</td>
-                      <td className="p-3 text-[#171A20] max-w-[140px] truncate">{inv.client}</td>
-                      <td className="p-3 text-[#5C5E62] font-mono">{inv.date}</td>
-                      <td className="p-3 font-mono font-[500] text-[#171A20]">${inv.total.toLocaleString()}</td>
+                      <td className="p-3 font-mono font-[500] text-[#3E6AE1]">{inv.invoiceNumber}</td>
+                      <td className="p-3 text-[#171A20] max-w-[140px] truncate">{inv.customerNameAr || inv.customerName}</td>
+                      <td className="p-3 text-[#5C5E62] font-mono">{inv.issueDate}</td>
+                      <td className="p-3 font-mono font-[500] text-[#171A20]">{inv.total.toLocaleString()}</td>
                       <td className="p-3">
                         <span
                           className={`px-2 py-0.5 rounded-[2px] text-[11px] font-[500] border ${
                             inv.status === 'paid'
                               ? 'bg-white text-[#171A20] border-[#D0D1D2]'
-                              : inv.status === 'unpaid'
+                              : inv.status === 'pending'
                               ? 'bg-white text-[#3E6AE1] border-[#3E6AE1]'
                               : 'bg-white text-[#393C41] border-[#D0D1D2]'
                           }`}
                         >
-                          {inv.status === 'paid' ? 'مدفوعة' : inv.status === 'unpaid' ? 'غير مدفوعة' : 'متأخرة'}
+                          {inv.status === 'paid' ? 'مدفوعة' : inv.status === 'pending' ? 'قيد التحصيل' : 'متأخرة'}
                         </span>
                       </td>
                       <td className="p-3">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedInvoice(inv);
-                          }}
-                          className="px-2.5 py-1 rounded-[2px] bg-[#FFFFFF] hover:bg-[#F4F4F4] text-[#171A20] text-[11px] border border-[#D0D1D2]"
-                        >
-                          معاينة
-                        </button>
+                        {inv.status === 'pending' ? (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedInvoice(inv);
+                              setIsPaymentModalOpen(true);
+                            }}
+                            className="px-2.5 py-1 rounded-[2px] bg-[#171A20] hover:bg-[#393C41] text-white text-[11px] font-[500] flex items-center gap-1"
+                          >
+                            <Zap className="w-3 h-3 text-[#3E6AE1]" />
+                            <span>سداد EBS</span>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedInvoice(inv);
+                            }}
+                            className="px-2.5 py-1 rounded-[2px] bg-[#FFFFFF] hover:bg-[#F4F4F4] text-[#171A20] text-[11px] border border-[#D0D1D2]"
+                          >
+                            معاينة
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
@@ -279,36 +276,36 @@ export function InvoicesLedgerView() {
         </div>
 
         {/* Selected Invoice Details Card (5 cols) */}
-        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
+        <div id="printable-invoice-card" className="lg:col-span-5 bg-[#FFFFFF] border border-[#EEEEEE] rounded-[4px] p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-4">
             <div className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#3E6AE1]" />
               <div>
-                <h3 className="font-[500] text-[15px] text-[#171A20]">تفاصيل الفاتورة</h3>
-                <span className="font-mono text-[12px] text-[#3E6AE1] font-[500]">{selectedInvoice.id}</span>
+                <h3 className="font-[500] text-[15px] text-[#171A20]">تفاصيل الفاتورة الضريبية</h3>
+                <span className="font-mono text-[12px] text-[#3E6AE1] font-[500]">{selectedInvoice.invoiceNumber}</span>
               </div>
             </div>
             <span
               className={`px-2.5 py-1 rounded-[2px] text-[11px] font-[500] border ${
                 selectedInvoice.status === 'paid'
                   ? 'bg-[#F4F4F4] text-[#171A20] border-[#D0D1D2]'
-                  : selectedInvoice.status === 'unpaid'
+                  : selectedInvoice.status === 'pending'
                   ? 'bg-[#F4F4F4] text-[#3E6AE1] border-[#3E6AE1]'
                   : 'bg-[#F4F4F4] text-[#393C41] border-[#D0D1D2]'
               }`}
             >
-              {selectedInvoice.status === 'paid' ? 'مدفوعة بالكامل' : selectedInvoice.status === 'unpaid' ? 'غير مدفوعة' : 'متأخرة السداد'}
+              {selectedInvoice.status === 'paid' ? 'مدفوعة بالكامل' : selectedInvoice.status === 'pending' ? 'قيد التحصيل' : 'متأخرة السداد'}
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-[13px]">
             <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
               <span className="text-[11px] text-[#8E8E8E] block">العميل الشاحن</span>
-              <span className="font-[500] text-[#171A20] block mt-0.5">{selectedInvoice.client}</span>
+              <span className="font-[500] text-[#171A20] block mt-0.5">{selectedInvoice.customerNameAr || selectedInvoice.customerName}</span>
             </div>
             <div className="p-3 rounded-[4px] bg-[#F4F4F4] border border-[#EEEEEE]">
               <span className="text-[11px] text-[#8E8E8E] block">رقم بوليصة الشحنة</span>
-              <span className="font-[500] font-mono text-[#3E6AE1] block mt-0.5">{selectedInvoice.shipmentId}</span>
+              <span className="font-[500] font-mono text-[#3E6AE1] block mt-0.5">{selectedInvoice.trackingNumber}</span>
             </div>
           </div>
 
@@ -316,40 +313,46 @@ export function InvoicesLedgerView() {
           <div className="space-y-2 pt-2 border-t border-[#EEEEEE] text-[13px]">
             <div className="flex justify-between text-[#5C5E62]">
               <span>المجموع الفرعي (تكلفة النقل)</span>
-              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.subtotal.toFixed(2)}</span>
+              <span className="font-mono font-[500] text-[#171A20]">{selectedInvoice.amount.toLocaleString()} SDG</span>
             </div>
             <div className="flex justify-between text-[#5C5E62]">
-              <span>ضريبة القيمة المضافة (5%)</span>
-              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.tax.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between text-[#5C5E62]">
-              <span>رسوم المنصة والتأمين</span>
-              <span className="font-mono font-[500] text-[#171A20]">${selectedInvoice.fees.toFixed(2)}</span>
+              <span>ضريبة القيمة المضافة السيادية (5%)</span>
+              <span className="font-mono font-[500] text-[#171A20]">{selectedInvoice.tax.toLocaleString()} SDG</span>
             </div>
             <div className="flex justify-between text-[15px] font-[500] pt-2 border-t border-[#EEEEEE] text-[#171A20]">
               <span>الإجمالي الكلي المطلوب</span>
-              <span className="font-mono text-[18px] text-[#171A20]">${selectedInvoice.total.toFixed(2)}</span>
+              <span className="font-mono text-[18px] text-[#3E6AE1]">{selectedInvoice.total.toLocaleString()} SDG</span>
             </div>
           </div>
 
           {/* Actions */}
           <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#EEEEEE]">
+            {selectedInvoice.status === 'pending' ? (
+              <button
+                onClick={() => setIsPaymentModalOpen(true)}
+                className="col-span-3 btn-tesla-primary !min-h-[36px] !py-1 text-[13px] flex items-center justify-center gap-1.5 mb-1"
+              >
+                <CreditCard className="w-4 h-4" />
+                <span>سداد الفاتورة عبر بوابة EBS الآن</span>
+              </button>
+            ) : null}
+
             <button
-              onClick={() => alert(`جاري تحميل الفاتورة ${selectedInvoice.id} بصيغة PDF...`)}
+              onClick={handleExportCsv}
               className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
               <Download className="w-3.5 h-3.5 text-[#3E6AE1]" />
-              <span>PDF</span>
+              <span>تصدير</span>
             </button>
             <button
-              onClick={() => window.print()}
+              onClick={() => printDocument(`Sudaneel-Invoice-${selectedInvoice.invoiceNumber}`)}
               className="btn-tesla-secondary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>طباعة</span>
             </button>
             <button
-              onClick={() => alert(`تم إرسال إشعار السداد إلى ${selectedInvoice.client} عبر البريد والرسائل النصية.`)}
+              onClick={handleSendReminder}
               className="btn-tesla-primary !min-h-[34px] !py-1 !px-2 text-[12px] flex items-center justify-center gap-1"
             >
               <Send className="w-3.5 h-3.5" />

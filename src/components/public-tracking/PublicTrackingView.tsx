@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export function PublicTrackingView() {
-  const { shipments, setSelectedShipmentId, setCurrentView, lang } = useApp();
+  const { shipments, setSelectedShipmentId, setCurrentView, showToast, lang } = useApp();
 
   const [inputCode, setInputCode] = useState('SDN-88419');
   const [searchedShipment, setSearchedShipment] = useState<Shipment | null>(
@@ -26,8 +26,17 @@ export function PublicTrackingView() {
     );
     if (match) {
       setSearchedShipment(match);
+      showToast(
+        lang === 'ar' ? 'تم العثور على الشحنة' : 'Shipment Located',
+        lang === 'ar' ? `شحنة ${match.trackingNumber} من ${match.origin.city} إلى ${match.destination.city}` : `Shipment ${match.trackingNumber} found`,
+        'success'
+      );
     } else {
-      alert(lang === 'ar' ? 'لم يتم العثور على الشحنة برقم التتبع المدخل' : 'Tracking number not found');
+      showToast(
+        lang === 'ar' ? 'لم يتم العثور على الشحنة' : 'Shipment Not Found',
+        lang === 'ar' ? 'يرجى التأكد من رقم التتبع المدخل أو تجربة رقم تجريبي مثل SDN-2024-1256' : 'Please verify the tracking number and try again',
+        'warning'
+      );
     }
   };
 

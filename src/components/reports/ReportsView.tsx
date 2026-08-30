@@ -13,10 +13,12 @@ import {
   Truck,
   Leaf,
   ShieldCheck,
+  Printer,
 } from 'lucide-react';
+import { exportToCsv, printDocument } from '@/lib/export-utils';
 
 export function ReportsView() {
-  const { shipments, lang } = useApp();
+  const { shipments, invoices, showToast, lang } = useApp();
 
   const [selectedReportType, setSelectedReportType] = useState('operations');
   const [dateRange, setDateRange] = useState('this_month');
@@ -55,15 +57,45 @@ export function ReportsView() {
   ];
 
   const handleExport = (format: 'pdf' | 'excel' | 'csv') => {
+    if (format === 'pdf') {
+      printDocument(`Sudaneel-Report-${selectedReportType}`);
+      return;
+    }
+
     setIsExporting(true);
-    setTimeout(() => {
-      setIsExporting(false);
-      alert(
-        lang === 'ar'
-          ? `تم إنشاء وتصدير ملف ${format.toUpperCase()} بنجاح لتقرير: ${selectedReportType}`
-          : `Exported ${format.toUpperCase()} file successfully for: ${selectedReportType}`
-      );
-    }, 1000);
+
+    if (selectedReportType === 'operations' || selectedReportType === 'fleet_fuel' || selectedReportType === 'esg_carbon') {
+      exportToCsv(`sudaneel-${selectedReportType}-report`, [
+        { header: 'Tracking Reference', accessor: (s) => s.trackingNumber },
+        { header: 'Customer', accessor: (s) => s.customerNameAr || s.customerName },
+        { header: 'Origin', accessor: (s) => s.origin.city },
+        { header: 'Destination', accessor: (s) => s.destination.city },
+        { header: 'Cargo Type', accessor: (s) => s.cargoType },
+        { header: 'Weight (KG)', accessor: (s) => s.totalWeightKg },
+        { header: 'Price (SDG)', accessor: (s) => s.price },
+        { header: 'Status', accessor: (s) => s.status },
+        { header: 'Pickup Date', accessor: (s) => s.pickupDate },
+      ], shipments);
+    } else {
+      exportToCsv(`sudaneel-financial-report`, [
+        { header: 'Invoice Number', accessor: (i) => i.invoiceNumber },
+        { header: 'Customer', accessor: (i) => i.customerNameAr || i.customerName },
+        { header: 'Subtotal (SDG)', accessor: (i) => i.amount },
+        { header: 'Tax (SDG)', accessor: (i) => i.tax },
+        { header: 'Total (SDG)', accessor: (i) => i.total },
+        { header: 'Status', accessor: (i) => i.status },
+        { header: 'Issue Date', accessor: (i) => i.issueDate },
+      ], invoices);
+    }
+
+    setIsExporting(false);
+    showToast(
+      lang === 'ar' ? 'تم تصدير التقرير' : 'Report Exported',
+      lang === 'ar'
+        ? `تم إنشاء وتنزيل ملف ${format.toUpperCase()} بنجاح لتقرير: ${selectedReportType}`
+        : `Downloaded ${format.toUpperCase()} file successfully for: ${selectedReportType}`,
+      'success'
+    );
   };
 
   return (
@@ -133,8 +165,8 @@ export function ReportsView() {
                 disabled={isExporting}
                 className="btn-tesla-secondary !min-h-[34px] !py-1 !px-3 text-[12px] flex items-center gap-1.5"
               >
-                <FileText className="w-3.5 h-3.5 text-[#3E6AE1]" />
-                <span>PDF</span>
+                <Printer className="w-3.5 h-3.5 text-[#3E6AE1]" />
+                <span>PDF Print</span>
               </button>
               <button
                 onClick={() => handleExport('excel')}

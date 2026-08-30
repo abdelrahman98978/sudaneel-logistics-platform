@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export function CrossBorderView() {
-  const { borderCrossings, lang } = useApp();
+  const { borderCrossings, showToast, lang } = useApp();
   const [selectedStation, setSelectedStation] = useState<BorderCrossing | null>(borderCrossings[0] || null);
 
   return (
@@ -187,7 +187,11 @@ export function CrossBorderView() {
             </div>
 
             <button
-              onClick={() => alert(`Initiating Pre-Clearance Customs Escort for ${selectedStation.name}`)}
+              onClick={() => showToast(
+                lang === 'ar' ? 'إصدار بوليصة العبور الجمركي' : 'Customs Escort Bond Issued',
+                lang === 'ar' ? `تم إصدار وثيقة التخليص المسبق والضمان الجمركي لمحطة ${selectedStation.nameAr || selectedStation.name}` : `Digital Transit Escort Bond issued for ${selectedStation.name}`,
+                'success'
+              )}
               className="btn-tesla-primary w-full !min-h-[38px] text-[13px] flex items-center justify-center gap-2"
             >
               <Zap className="w-4 h-4" />
