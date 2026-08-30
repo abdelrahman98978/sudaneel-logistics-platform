@@ -14,6 +14,10 @@ import {
   DollarSign,
   ShieldCheck,
   ArrowUpRight,
+  FileText,
+  FileCheck2,
+  X,
+  Zap,
 } from 'lucide-react';
 
 export function PortSudanView() {
@@ -22,6 +26,7 @@ export function PortSudanView() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedContainer, setSelectedContainer] = useState<PortContainer | null>(portContainers[0] || null);
+  const [isDossierModalOpen, setIsDossierModalOpen] = useState(false);
 
   const filteredContainers = portContainers.filter((c) => {
     if (statusFilter !== 'all' && c.customsStatus !== statusFilter) return false;
@@ -41,9 +46,9 @@ export function PortSudanView() {
   const handleUpdateCustoms = (containerId: string, status: PortCustomsStatus) => {
     updateContainerStatus(containerId, status);
     showToast(
-      lang === 'ar' ? 'تم تحديث الإجراء الجمركي' : 'Customs Status Updated',
+      lang === 'ar' ? 'تم اعتماد الإجراء الجمركي' : 'Customs Status Updated',
       lang === 'ar'
-        ? `تم تحديث الحالة الجمركية للحاوية إلى: ${status}`
+        ? `تم تحديث حالة الحاوية الجمركية إلى: ${status} وإصدار إذن التسليم DO`
         : `Customs clearance status updated to: ${status}`,
       'success'
     );
@@ -58,11 +63,11 @@ export function PortSudanView() {
             <Anchor className="w-4 h-4" />
             <span>Port Sudan Terminal & Customs • محطة ميناء بورتسودان والتخليص الجمركي</span>
           </div>
-          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+          <h1 className="text-[26px] font-[600] text-[#000000] tracking-tight">
             عمليات ميناء بورتسودان والجمارك
           </h1>
           <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
-            مراقبة الحاويات الواردة والصادرة، عداد أيام السماح وغرامات الأرضيات (Demurrage)، وتخصيص شاحنات النقل الفوري نحو الولايات.
+            مراقبة الحاويات الواردة والصادرة، عداد أيام السماح وتفادي غرامات الأرضيات (Demurrage)، وتخصيص شاحنات النقل الفوري نحو الولايات.
           </p>
         </div>
 
@@ -135,21 +140,22 @@ export function PortSudanView() {
         </div>
 
         <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1">
-          {['all', 'discharged', 'customs_hold', 'cleared', 'gate_out'].map((st) => (
+          {['all', 'manifest_received', 'under_inspection', 'duty_assessed', 'cleared', 'released'].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3.5 py-1.5 rounded-full text-[12px] font-[500] whitespace-nowrap transition-all duration-200 cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-[600] whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 statusFilter === st
-                  ? 'bg-[#000000] text-white shadow-sm'
+                  ? 'bg-[#000000] text-[#c1fbd4] shadow-sm'
                   : 'bg-[#fbfbf5] text-[#71717a] hover:text-[#000000] border border-[#e4e4e7]'
               }`}
             >
               {st === 'all' && (lang === 'ar' ? 'الكل' : 'All')}
-              {st === 'discharged' && (lang === 'ar' ? 'تم التفريغ' : 'Discharged')}
-              {st === 'customs_hold' && (lang === 'ar' ? 'حجز جمركي' : 'Hold')}
-              {st === 'cleared' && (lang === 'ar' ? 'مخلصة جاهزة' : 'Cleared')}
-              {st === 'gate_out' && (lang === 'ar' ? 'خرجت من البوابة' : 'Gate Out')}
+              {st === 'manifest_received' && 'استلام المنافست'}
+              {st === 'under_inspection' && 'فحص أشعة سريعة'}
+              {st === 'duty_assessed' && 'تقييم الرسوم'}
+              {st === 'cleared' && 'مخلصة جاهزة'}
+              {st === 'released' && 'إفراج وخروج'}
             </button>
           ))}
         </div>
@@ -160,7 +166,10 @@ export function PortSudanView() {
         {filteredContainers.map((c) => (
           <div
             key={c.id}
-            onClick={() => setSelectedContainer(c)}
+            onClick={() => {
+              setSelectedContainer(c);
+              setIsDossierModalOpen(true);
+            }}
             className={`shopify-card p-6 space-y-4 transition-all duration-200 cursor-pointer flex flex-col justify-between ${
               selectedContainer?.id === c.id ? 'border-[#000000] ring-2 ring-[#c1fbd4]' : 'hover:border-[#a1a1aa]'
             }`}
@@ -193,7 +202,7 @@ export function PortSudanView() {
                 <div className="flex items-center justify-between">
                   <span className="text-[#71717a]">أيام السماح المتبقية:</span>
                   <span className={`font-mono font-[700] ${c.freeDaysRemaining <= 1 ? 'text-[#000000] bg-[#c1fbd4] px-2 py-0.5 rounded-full' : ''}`}>
-                    {c.freeDaysRemaining} أيام
+                    {c.freeDaysRemaining} أيام (غرامة: ${c.demurrageAccruedUSD})
                   </span>
                 </div>
               </div>
@@ -206,10 +215,10 @@ export function PortSudanView() {
                     e.stopPropagation();
                     handleUpdateCustoms(c.id, 'cleared');
                   }}
-                  className="flex-1 btn-shopify-pill !py-2 text-[12px]"
+                  className="flex-1 btn-shopify-pill !py-2 text-[12px] flex items-center justify-center gap-1.5"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>اعتماد التخليص</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#c1fbd4]" />
+                  <span>اعتماد التخليص الفوري</span>
                 </button>
               )}
               <button
@@ -225,6 +234,55 @@ export function PortSudanView() {
           </div>
         ))}
       </div>
+
+      {/* Container Customs Dossier Modal */}
+      {isDossierModalOpen && selectedContainer && (
+        <div className="fixed inset-0 z-50 bg-[#000000]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-lg bg-[#ffffff] border border-[#e4e4e7] rounded-[20px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] p-8 space-y-6 animate-in fade-in duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+              <div>
+                <span className="shopify-tag-mint !text-[11px]">Port Customs Dossier</span>
+                <h3 className="font-[600] text-[18px] text-[#000000] font-mono mt-1">{selectedContainer.containerNumber}</h3>
+              </div>
+              <button onClick={() => setIsDossierModalOpen(false)} className="p-1 rounded-full hover:bg-[#fbfbf5] text-[#71717a]">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-4 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-2.5 text-[13px]">
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">الخط الملاحي:</span>
+                <span className="font-[600] text-[#000000]">{selectedContainer.shippingLine} ({selectedContainer.vesselName})</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">رقم القفل الجمركي (Seal#):</span>
+                <span className="font-mono font-[700] text-[#000000]">{selectedContainer.sealNumber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">المستورد المعتمد:</span>
+                <span className="font-[600] text-[#000000]">{selectedContainer.consignee}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#71717a]">غرامة الأرضيات اليومية:</span>
+                <span className="font-mono font-[700] text-[#000000]">${selectedContainer.demurrageRatePerDayUSD} / يوم</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2 pt-2 border-t border-[#e4e4e7]">
+              <button
+                onClick={() => {
+                  handleUpdateCustoms(selectedContainer.id, 'cleared');
+                  setIsDossierModalOpen(false);
+                }}
+                className="flex-1 btn-shopify-pill !py-3 text-[13px] flex items-center justify-center gap-1.5"
+              >
+                <Zap className="w-4 h-4 text-[#c1fbd4]" />
+                <span>إصدار إذن التسليم DO الفوري</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

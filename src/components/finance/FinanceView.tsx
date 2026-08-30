@@ -13,39 +13,101 @@ import {
   PlusCircle,
   TrendingUp,
   Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  Lock,
+  Unlock,
 } from 'lucide-react';
 import { mockWalletTransactions } from '@/lib/mock-data';
 import { exportToCsv } from '@/lib/export-utils';
 import { EbsPaymentModal } from './EbsPaymentModal';
 
+interface EscrowDeal {
+  id: string;
+  shipmentRef: string;
+  shipperName: string;
+  carrierName: string;
+  amount: number;
+  status: 'locked' | 'pod_verified' | 'released';
+  lockedAt: string;
+}
+
 export function FinanceView() {
   const { invoices, showToast, t, lang } = useApp();
   const [isTopUpOpen, setIsTopUpOpen] = useState(false);
+
+  const [escrowDeals, setEscrowDeals] = useState<EscrowDeal[]>([
+    {
+      id: 'esc-01',
+      shipmentRef: 'SDN-889120',
+      shipperName: 'شركة النيل للواردات',
+      carrierName: 'أسطول سودانيل السريع',
+      amount: 850000,
+      status: 'locked',
+      lockedAt: 'اليوم • 09:30 ص',
+    },
+    {
+      id: 'esc-02',
+      shipmentRef: 'SDN-774102',
+      shipperName: 'مطاحن سيقا للغلال',
+      carrierName: 'شركة النقل الثقيل المتحد',
+      amount: 1450000,
+      status: 'pod_verified',
+      lockedAt: 'اليوم • 07:15 ص',
+    },
+    {
+      id: 'esc-03',
+      shipmentRef: 'SDN-330198',
+      shipperName: 'مجموعة كنانة للسكر',
+      carrierName: 'الأسطول الإفريقي للنقل',
+      amount: 2100000,
+      status: 'released',
+      lockedAt: 'أمس • 04:00 م',
+    },
+  ]);
 
   const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
   const paidRevenue = invoices.filter((i) => i.status === 'paid').reduce((sum, inv) => sum + inv.amount, 0);
   const pendingRevenue = invoices.filter((i) => i.status === 'pending').reduce((sum, inv) => sum + inv.amount, 0);
 
+  const handleReleaseEscrow = (dealId: string) => {
+    setEscrowDeals((prev) =>
+      prev.map((d) => (d.id === dealId ? { ...d, status: 'released' } : d))
+    );
+    showToast(
+      lang === 'ar' ? 'تم الإفراج عن مبلغ الضمان' : 'Escrow Released',
+      lang === 'ar' ? 'تم تحويل المستحقات فورياً لحساب الناقل عبر مقاصة EBS بنجاح' : 'Funds settled to carrier via EBS',
+      'success'
+    );
+  };
+
   const handleExecuteSettlements = () => {
+    setEscrowDeals((prev) =>
+      prev.map((d) => (d.status === 'pod_verified' ? { ...d, status: 'released' } : d))
+    );
     showToast(
       lang === 'ar' ? 'تم تشغيل دورة التسويات الآلية' : 'Settlements Executed',
       lang === 'ar'
-        ? 'تمت مطابقة 18 إشعار تسليم POD وتحويل المستحقات فورياً لحسابات الناقلين المصرفية عبر بنكك وفوري'
+        ? 'تمت مطابقة كافة إشعارات التسليم POD وتحويل المستحقات فورياً لحسابات الناقلين المصرفية عبر بنكك وفوري'
         : 'Automated settlement cycle completed. Payouts transferred via EBS network.',
       'success'
     );
   };
 
   const handleExportTransactions = () => {
-    exportToCsv('sudaneel-wallet-transactions', [
-      { header: 'Transaction ID', accessor: (t) => t.id },
-      { header: 'Type', accessor: (t) => t.type },
-      { header: 'Amount (SDG)', accessor: (t) => t.amount },
-      { header: 'Status', accessor: (t) => t.status },
-      { header: 'Date', accessor: (t) => t.date },
-      { header: 'Description (AR)', accessor: (t) => t.descriptionAr },
-      { header: 'Description (EN)', accessor: (t) => t.descriptionEn },
-    ], mockWalletTransactions);
+    exportToCsv(
+      'sudaneel-wallet-transactions',
+      [
+        { header: 'Transaction ID', accessor: (t) => t.id },
+        { header: 'Type', accessor: (t) => t.type },
+        { header: 'Amount (SDG)', accessor: (t) => t.amount },
+        { header: 'Status', accessor: (t) => t.status },
+        { header: 'Date', accessor: (t) => t.date },
+        { header: 'Description (AR)', accessor: (t) => t.descriptionAr },
+        { header: 'Description (EN)', accessor: (t) => t.descriptionEn },
+      ],
+      mockWalletTransactions
+    );
 
     showToast(
       lang === 'ar' ? 'تم تصدير سجل المعاملات' : 'Transactions Exported',
@@ -71,12 +133,12 @@ export function FinanceView() {
             <Wallet className="w-4 h-4" />
             <span>Digital Escrow & Multi-Party Wallets • منظومة المحافظ والتسويات</span>
           </div>
-          <h1 className="text-[26px] font-[500] text-[#000000] tracking-tight">
+          <h1 className="text-[26px] font-[600] text-[#000000] tracking-tight">
             {t.financeWallets}
           </h1>
           <p className="text-[14px] text-[#71717a] font-[420] leading-relaxed">
             {lang === 'ar'
-              ? 'نظام التسويات المالية الآلي والمحافظ المتعددة (عملاء، ناقلون، سائقون) مع فواتير فورية بعد إثبات التسليم POD.'
+              ? 'نظام التسويات المالية الآلي والمحافظ المتعددة (عملاء، ناقلون، سائقون) مع حساب الضمان المشترك (Smart Escrow) وفواتير فورية بعد إثبات التسليم POD.'
               : 'Automated settlement engine & multi-party wallets with instant post-POD release.'}
           </p>
         </div>
@@ -131,6 +193,75 @@ export function FinanceView() {
             {((totalRevenue * 0.1) / 1000000).toFixed(2)}M <span className="text-[12px]">SDG</span>
           </div>
           <div className="text-[11.5px] text-[#000000]/80 font-[500]">رسوم التبادل والضمان</div>
+        </div>
+      </div>
+
+      {/* Smart Escrow Accounts Hub */}
+      <div className="shopify-card p-6 bg-[#ffffff] space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-[#e4e4e7]">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-[#000000]" />
+            <h3 className="font-[600] text-[16px] text-[#000000]">
+              حسابات الضمان المالي المشترك (Smart Escrow Protocol)
+            </h3>
+          </div>
+          <span className="shopify-tag-mint !text-[11px]">POD Smart Trigger</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {escrowDeals.map((deal) => (
+            <div
+              key={deal.id}
+              className="p-5 rounded-[12px] bg-[#fbfbf5] border border-[#e4e4e7] space-y-3 flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-[700] text-[13px] text-[#000000]">{deal.shipmentRef}</span>
+                  <span
+                    className={
+                      deal.status === 'released'
+                        ? 'shopify-tag-mint !text-[10px]'
+                        : deal.status === 'pod_verified'
+                        ? 'shopify-tag-pistachio !text-[10px]'
+                        : 'shopify-tag-shade !text-[10px]'
+                    }
+                  >
+                    {deal.status === 'released'
+                      ? 'محرر ومحول للناقل'
+                      : deal.status === 'pod_verified'
+                      ? 'تم التحقق من POD'
+                      : 'محجوز بالضمان'}
+                  </span>
+                </div>
+
+                <div className="text-[12.5px] space-y-1">
+                  <div className="text-[#000000] font-[600]">{deal.shipperName}</div>
+                  <div className="text-[#71717a] text-[11.5px]">الناقل: {deal.carrierName}</div>
+                </div>
+
+                <div className="font-mono font-[800] text-[18px] text-[#000000]">
+                  {deal.amount.toLocaleString()} SDG
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-[#e4e4e7]">
+                {deal.status !== 'released' ? (
+                  <button
+                    onClick={() => handleReleaseEscrow(deal.id)}
+                    className="w-full btn-shopify-pill !py-2 text-[12px] flex items-center justify-center gap-1.5"
+                  >
+                    <Unlock className="w-3.5 h-3.5 text-[#c1fbd4]" />
+                    <span>تحرير المبلغ للناقل فوراً</span>
+                  </button>
+                ) : (
+                  <div className="text-center text-[11.5px] text-emerald-700 font-[600] flex items-center justify-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>تم التحويل البنكي بنجاح</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

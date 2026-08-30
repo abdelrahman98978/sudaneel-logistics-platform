@@ -118,14 +118,14 @@ export default function Home() {
 
   // Internal Operations OS Layout (Sidebar + Topbar + Content)
   return (
-    <div className="flex min-h-screen bg-[#F4F4F4] text-[#171A20] selection:bg-[#3E6AE1] selection:text-[#FFFFFF] font-sans">
+    <div className="flex min-h-screen bg-[#fbfbf5] text-[#000000] selection:bg-[#c1fbd4] selection:text-[#000000] font-sans shopify-theme">
       {/* Global Command Palette */}
       <CommandPalette />
 
       {/* Global AI Copilot Assistant Drawer */}
       <AiCopilotDrawer />
 
-      {/* Global Tesla Toast Notifications Container */}
+      {/* Global Toast Notifications Container */}
       <TeslaToastContainer />
 
       {/* Left / Right Sidebar */}
@@ -134,7 +134,7 @@ export default function Home() {
       {/* Main Operations Dynamic Viewport */}
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar bg-[#F4F4F4]">
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto custom-scrollbar bg-[#fbfbf5]">
           {renderActiveView()}
         </main>
       </div>
