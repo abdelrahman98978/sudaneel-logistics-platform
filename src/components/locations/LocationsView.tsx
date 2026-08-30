@@ -211,6 +211,51 @@ export function LocationsView() {
         </div>
       </div>
 
+      {/* Corporate Headquarters & Logistics Hub Showcase */}
+      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
+        <div className="md:col-span-5 relative min-h-[220px] bg-[#171A20]">
+          <img
+            src="/images/hq-facility.jpg"
+            alt="Sudaneel Headquarters and Terminals"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute top-3 start-3">
+            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
+              Khartoum HQ & Port Sudan Gate
+            </span>
+          </div>
+        </div>
+
+        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
+              <span>National Operations Network • شبكة المراكز والمحطات المعتمدة</span>
+            </div>
+            <h3 className="text-[18px] font-[500] text-[#171A20]">
+              المقر الرئيسي ومحطات الاستقبال والمناولة في الولايات
+            </h3>
+            <p className="text-[13px] text-[#5C5E62] mt-1 leading-relaxed">
+              صالات خدمة عملاء مجهزة، مكاتب تخليص جمركي موحدة، وأرصفة تحميل وتفريغ سريعة للشاحنات (Docks) بمقاييس هندسية حديثة تضمن سرعة الاستجابة وربط كافة المدن السودانية.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">عدد المحطات</span>
+              <span className="font-[500] font-mono text-[#171A20]">10 Hubs Active</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">مكاتب الاستقبال</span>
+              <span className="font-[500] text-[#3E6AE1]">24/7 Service</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">أرصفة الشحن</span>
+              <span className="font-[500] font-mono text-[#171A20]">180+ Bay Docks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Grid: Interactive Map + Hubs List */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Hubs List (5 cols) */}

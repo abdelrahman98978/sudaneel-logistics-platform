@@ -44,6 +44,51 @@ export function FleetView() {
         </button>
       </div>
 
+      {/* Official Fleet Showcase Banner */}
+      <div className="rounded-[4px] border border-[#EEEEEE] bg-[#FFFFFF] overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
+        <div className="md:col-span-5 relative min-h-[220px] bg-[#171A20] p-4 flex items-center justify-center">
+          <img
+            src="/images/fleet-vehicles.jpg"
+            alt="Sudaneel Official Fleet"
+            className="w-full h-auto max-h-[200px] object-contain drop-shadow-md"
+          />
+          <div className="absolute top-3 start-3">
+            <span className="px-2.5 py-1 rounded-[2px] bg-[#171A20]/80 backdrop-blur-md text-white text-[11px] font-mono border border-white/20">
+              Euro 5/6 Heavy & Express Fleet
+            </span>
+          </div>
+        </div>
+
+        <div className="md:col-span-7 p-6 flex flex-col justify-between space-y-3">
+          <div>
+            <div className="flex items-center gap-2 text-[#3E6AE1] text-[12px] font-[500] uppercase font-mono mb-1">
+              <span>National & Cross-Border Fleet • أسطول النقل الوطني والإقليمي</span>
+            </div>
+            <h3 className="text-[17px] font-[500] text-[#171A20]">
+              شاحنات ثقيلة مبردة وجافة وفانات توصيل سريع موحدة الهوية
+            </h3>
+            <p className="text-[13px] text-[#5C5E62] leading-relaxed">
+              أسطول حديث ومزود بأجهزة تتبع لحظية للأقمار الصناعية (GPS/IoT)، حساسات حرارة للحمولات المبردة، وأختام إلكترونية مؤمنة تضمن سلامة وسرعة وصول الشحنات.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 pt-2 border-t border-[#EEEEEE] text-[12px]">
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">حجم الحمولة</span>
+              <span className="font-[500] font-mono text-[#171A20]">35 - 50 Ton</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">تتبع GPS حي</span>
+              <span className="font-[500] text-[#3E6AE1]">4s Refresh</span>
+            </div>
+            <div className="p-2.5 rounded-[2px] bg-[#F4F4F4]">
+              <span className="text-[#8E8E8E] block text-[11px]">جاهزية الرحلات</span>
+              <span className="font-[500] font-mono text-[#171A20]">98.6% Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Fleet Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredVehicles.map((v) => (
