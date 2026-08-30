@@ -124,6 +124,12 @@ export function Sidebar() {
           label: t.driverApp,
           icon: Smartphone,
         },
+        {
+          view: 'mobile_app',
+          label: t.mobileApp,
+          icon: Smartphone,
+          badge: 'App Suite',
+        },
       ],
     },
     {

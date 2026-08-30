@@ -39,6 +39,7 @@ import { SupportCenterView } from '@/components/support/SupportCenterView';
 import { InvoicesLedgerView } from '@/components/finance/InvoicesLedgerView';
 import { SettingsRbacView } from '@/components/settings/SettingsRbacView';
 import { LandingView } from '@/components/landing/LandingView';
+import { MobileAppShowcaseView } from '@/components/mobile-app/MobileAppShowcaseView';
 
 export default function Home() {
   const { currentView } = useApp();
@@ -80,6 +81,8 @@ export default function Home() {
       case 'driver_app':
       case 'driver_safety':
         return <DriverAppView />;
+      case 'mobile_app':
+        return <MobileAppShowcaseView />;
       case 'warehousing':
         return <WarehouseView />;
       case 'port_sudan':

@@ -75,6 +75,7 @@ export type AppView =
   | 'reports'
   | 'locations'
   | 'support_center'
+  | 'mobile_app'
   | 'invoices_ledger'
   | 'settings_rbac';
 
