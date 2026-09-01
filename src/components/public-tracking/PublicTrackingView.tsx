@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
 import { Shipment } from '@/types';
+import { TiltCard } from '@/components/3d/TiltCard';
+import { Cargo3DViewer } from '@/components/3d/Cargo3DViewer';
 import {
   Search,
   CheckCircle2,
@@ -98,73 +100,108 @@ export function PublicTrackingView() {
             <span>استعلام</span>
           </button>
         </form>
+
+        {/* 1-Click Quick Tracking Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] font-mono text-[#71717a] pt-1">
+          <span className="font-sans font-[500] text-[#000000]">شحنات تجريبية:</span>
+          {['SDN-88419', 'SDN-88219', 'SDN-90412'].map((code) => (
+            <button
+              key={code}
+              type="button"
+              onClick={() => {
+                setInputCode(code);
+                const found = shipments.find((s) => s.trackingNumber === code);
+                if (found) setSearchedShipment(found);
+              }}
+              className="px-3 py-1 rounded-full bg-[#fbfbf5] hover:bg-[#e4e4e7] border border-[#e4e4e7] text-[#000000] transition-colors cursor-pointer"
+            >
+              #{code}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Searched Shipment Result */}
       {searchedShipment && (
-        <div className="shopify-card p-8 sm:p-10 space-y-6 bg-[#ffffff]">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#e4e4e7]">
-            <div>
-              <span className="shopify-tag-mint !text-[11px]">بوليصة معتمدة وموثقة</span>
-              <h2 className="text-[22px] font-mono font-[700] text-[#000000] mt-1">{searchedShipment.trackingNumber}</h2>
+        <TiltCard maxRotation={4} scaleOnHover={1.01} glowColor="rgba(37, 99, 235, 0.15)">
+          <div className="shopify-card p-8 sm:p-10 space-y-6 bg-[#ffffff]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#e4e4e7]">
+              <div>
+                <span className="shopify-tag-mint !text-[11px]">بوليصة معتمدة وموثقة</span>
+                <h2 className="text-[22px] font-mono font-[700] text-[#000000] mt-1">{searchedShipment.trackingNumber}</h2>
+              </div>
+              <span className="shopify-tag-mint font-mono font-[600] text-[13px]">{searchedShipment.status}</span>
             </div>
-            <span className="shopify-tag-mint font-mono font-[600] text-[13px]">{searchedShipment.status}</span>
-          </div>
 
-          {/* Route Corridor */}
-          <div className="p-6 rounded-[12px] bg-[#d4f9e0] border border-[#bdf2cf] grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13.5px]">
-            <div className="space-y-1">
-              <span className="text-[11px] text-[#000000]/70 font-[600] block">منشأ الشحنة</span>
-              <div className="font-[700] text-[15px] text-[#000000]">{searchedShipment.origin.city}</div>
-              <div className="text-[12px] text-[#000000]/80">{searchedShipment.origin.address}</div>
+            {/* Route Corridor */}
+            <div className="p-6 rounded-[12px] bg-[#d4f9e0] border border-[#bdf2cf] grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13.5px]">
+              <div className="space-y-1">
+                <span className="text-[11px] text-[#000000]/70 font-[600] block">منشأ الشحنة</span>
+                <div className="font-[700] text-[15px] text-[#000000]">{searchedShipment.origin.city}</div>
+                <div className="text-[12px] text-[#000000]/80">{searchedShipment.origin.address}</div>
+              </div>
+              <div className="space-y-1 sm:text-end">
+                <span className="text-[11px] text-[#000000]/70 font-[600] block">وجهة التسليم</span>
+                <div className="font-[700] text-[15px] text-[#000000]">{searchedShipment.destination.city}</div>
+                <div className="text-[12px] text-[#000000]/80">{searchedShipment.destination.address}</div>
+              </div>
             </div>
-            <div className="space-y-1 sm:text-end">
-              <span className="text-[11px] text-[#000000]/70 font-[600] block">وجهة التسليم</span>
-              <div className="font-[700] text-[15px] text-[#000000]">{searchedShipment.destination.city}</div>
-              <div className="text-[12px] text-[#000000]/80">{searchedShipment.destination.address}</div>
-            </div>
-          </div>
 
-          {/* Shipment Progress Milestones */}
-          <div className="space-y-3 pt-2">
-            <h3 className="font-[600] text-[15px] text-[#000000]">مراحل دورة حياة الشحنة</h3>
-            <div className="space-y-2.5">
-              {stepsList.map((step, idx) => (
-                <div
-                  key={idx}
-                  className={`p-3.5 rounded-[12px] flex items-center justify-between transition-colors ${
-                    step.completed ? 'bg-[#fbfbf5] border border-[#e4e4e7]' : 'bg-transparent border border-dashed border-[#e4e4e7] opacity-60'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                      step.completed ? 'bg-[#c1fbd4] text-[#000000]' : 'bg-[#e4e4e7] text-[#71717a]'
-                    }`}>
-                      {step.completed ? <CheckCircle2 className="w-4 h-4" /> : idx + 1}
+            {/* 3D Container Digital Twin */}
+            <div className="space-y-2 pt-2">
+              <div className="flex items-center justify-between text-[13px]">
+                <span className="font-[600] text-[#000000]">المجسم الرقمي ثلاثي الأبعاد للحاوية الحاملة (3D Container Telemetry)</span>
+                <span className="text-[11.5px] text-[#71717a]">اسحب بالماوس للتدوير 360°</span>
+              </div>
+              <Cargo3DViewer
+                containerId="SUDU-88419-1"
+                sealNumber="SEAL-7741-KRT"
+                temperature={searchedShipment.isTempControlled ? 3.8 : 25.0}
+                isReefer={searchedShipment.isTempControlled}
+              />
+            </div>
+
+            {/* Shipment Progress Milestones */}
+            <div className="space-y-3 pt-2">
+              <h3 className="font-[600] text-[15px] text-[#000000]">مراحل دورة حياة الشحنة</h3>
+              <div className="space-y-2.5">
+                {stepsList.map((step, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-3.5 rounded-[12px] flex items-center justify-between transition-colors ${
+                      step.completed ? 'bg-[#fbfbf5] border border-[#e4e4e7]' : 'bg-transparent border border-dashed border-[#e4e4e7] opacity-60'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                        step.completed ? 'bg-[#c1fbd4] text-[#000000]' : 'bg-[#e4e4e7] text-[#71717a]'
+                      }`}>
+                        {step.completed ? <CheckCircle2 className="w-4 h-4" /> : idx + 1}
+                      </div>
+                      <span className={`text-[13.5px] ${step.completed ? 'font-[600] text-[#000000]' : 'text-[#71717a]'}`}>
+                        {step.titleAr}
+                      </span>
                     </div>
-                    <span className={`text-[13.5px] ${step.completed ? 'font-[600] text-[#000000]' : 'text-[#71717a]'}`}>
-                      {step.titleAr}
-                    </span>
+                    {step.completed && <span className="shopify-tag-mint !text-[10px]">مكتمل</span>}
                   </div>
-                  {step.completed && <span className="shopify-tag-mint !text-[10px]">مكتمل</span>}
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-[#e4e4e7] flex items-center justify-between">
+              <span className="text-[12px] text-[#71717a]">تحت مظلة الضمان اللوجستي والتأمين الشامل</span>
+              <button
+                onClick={() => {
+                  setSelectedShipmentId(searchedShipment.id);
+                  setCurrentView('tracking_detail');
+                }}
+                className="btn-shopify-pill !py-2 !px-5 text-[12.5px]"
+              >
+                <span>فتح الجواز الرقمي التفصيلي</span>
+              </button>
             </div>
           </div>
-
-          <div className="pt-4 border-t border-[#e4e4e7] flex items-center justify-between">
-            <span className="text-[12px] text-[#71717a]">تحت مظلة الضمان اللوجستي والتأمين الشامل</span>
-            <button
-              onClick={() => {
-                setSelectedShipmentId(searchedShipment.id);
-                setCurrentView('tracking_detail');
-              }}
-              className="btn-shopify-pill !py-2 !px-5 text-[12.5px]"
-            >
-              <span>فتح الجواز الرقمي التفصيلي</span>
-            </button>
-          </div>
-        </div>
+        </TiltCard>
       )}
     </div>
   );

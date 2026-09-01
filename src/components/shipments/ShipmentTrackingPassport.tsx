@@ -35,6 +35,7 @@ import { printDocument } from '@/lib/export-utils';
 import { SignaturePad } from '@/components/common/SignaturePad';
 import { exportShipmentWaybillPdf } from '@/lib/documents-service';
 import confetti from 'canvas-confetti';
+import { Cargo3DViewer } from '@/components/3d/Cargo3DViewer';
 
 type TabKey =
   | 'overview'
@@ -350,7 +351,7 @@ export function ShipmentTrackingPassport() {
           </div>
         )}
 
-        {/* TAB 4: CARGO SPECS */}
+        {/* TAB 4: CARGO SPECS & 3D CONTAINER DIGITAL TWIN */}
         {activeTab === 'cargo' && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -371,6 +372,20 @@ export function ShipmentTrackingPassport() {
                 <span className="font-[600] text-[#000000] text-[15px]">تغطية سيادية شاملة 100%</span>
                 <span className="text-[11px] text-[#71717a] block mt-1">بوليصة تأمين رقم: INS-2026-9912</span>
               </div>
+            </div>
+
+            {/* 3D Container Digital Twin */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[13px]">
+                <span className="font-[600] text-[#000000]">المجسم الرقمي ثلاثي الأبعاد للحاوية (3D Container Digital Twin)</span>
+                <span className="text-[11.5px] text-[#71717a]">اسحب بالماوس للتدوير 360°</span>
+              </div>
+              <Cargo3DViewer
+                containerId="SUDU-88219-4"
+                sealNumber="SEAL-9982-KRT"
+                temperature={shipment.isTempControlled ? 4.0 : 26.5}
+                isReefer={shipment.isTempControlled}
+              />
             </div>
           </div>
         )}
