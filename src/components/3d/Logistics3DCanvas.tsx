@@ -7,9 +7,9 @@ type Mode3D = 'truck' | 'port' | 'corridors';
 
 export function Logistics3DCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const angleRef = useRef<HTMLSpanElement>(null);
   const [activeMode, setActiveMode] = useState<Mode3D>('truck');
   const [isRotating, setIsRotating] = useState(true);
-  const [rotationAngle, setRotationAngle] = useState(0);
 
   // Mouse interaction state
   const isDragging = useRef(false);
@@ -58,7 +58,9 @@ export function Logistics3DCanvas() {
       if (isRotating && !isDragging.current) {
         rotation.current.y += 0.5;
         if (rotation.current.y >= 360) rotation.current.y = 0;
-        setRotationAngle(Math.round(rotation.current.y));
+        if (angleRef.current) {
+          angleRef.current.textContent = `${Math.round(rotation.current.y)}°`;
+        }
       }
 
       ctx.clearRect(0, 0, width, height);
@@ -179,7 +181,9 @@ export function Logistics3DCanvas() {
     rotation.current.x = Math.max(5, Math.min(60, rotation.current.x + deltaY * 0.4));
 
     previousMousePosition.current = { x: e.clientX, y: e.clientY };
-    setRotationAngle(Math.round(rotation.current.y % 360));
+    if (angleRef.current) {
+      angleRef.current.textContent = `${Math.round(rotation.current.y % 360)}°`;
+    }
   };
 
   const handleMouseUp = () => {
@@ -233,7 +237,7 @@ export function Logistics3DCanvas() {
         <div className="flex items-center gap-2 text-white/80">
           <span className="font-mono text-[11px] text-[#D7A11E] flex items-center gap-1">
             <Rotate3d className="w-3.5 h-3.5 animate-spin" />
-            {rotationAngle}°
+            <span ref={angleRef}>35°</span>
           </span>
 
           <button
