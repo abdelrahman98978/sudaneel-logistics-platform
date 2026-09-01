@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { availableLanguages } from '@/lib/i18n';
-import { TiltCard } from '@/components/3d/TiltCard';
-import { Logistics3DCanvas } from '@/components/3d/Logistics3DCanvas';
-import { SpotlightBentoCard } from '@/components/3d/SpotlightBento';
-import { HeroSpatialBackground, HeroFloatingBadges } from '@/components/3d/HeroSpatialHUD';
 import {
   Search,
   Globe,
@@ -25,7 +21,6 @@ import {
   MapPin,
   Clock,
   Package,
-  Sparkles,
 } from 'lucide-react';
 
 export function LandingView() {
@@ -425,99 +420,62 @@ export function LandingView() {
                 style={{ backgroundImage: `url('${slide.bgImage}')` }}
               >
                 {/* Subtle contrast mask for typography clarity */}
-                <div className="absolute inset-0 bg-black/45"></div>
-                {/* 3D Radial Glow Gradient */}
-                <div className="absolute inset-0 bg-radial from-transparent via-[#032C70]/30 to-[#010D26]/80"></div>
+                <div className="absolute inset-0 bg-black/35"></div>
               </div>
-
-              {/* 3D Interactive Spatial Particle Canvas */}
-              <HeroSpatialBackground />
-
-              {/* Floating 3D Spatial Telemetry HUD Badges */}
-              <HeroFloatingBadges />
 
               {/* Top Spacing for Navigation */}
               <div className="pt-24"></div>
 
-              {/* Center Hero Information (3D Spatial Typography) */}
-              <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#032C70]/70 border border-[#D7A11E]/40 text-[#D7A11E] text-[12px] font-mono shadow-[0_4px_20px_rgba(215,161,30,0.2)] backdrop-blur-md">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>SUDANEEL SPATIAL TELEMETRY • RED SEA GATEWAY</span>
-                </div>
-                <h1 className="text-[34px] sm:text-[50px] font-[600] text-white leading-[48px] sm:leading-[58px] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
+              {/* Center Hero Information (Tesla Typography: 40px/500 Title + 22px/400 Promo Subtitle) */}
+              <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-3">
+                <h1 className="text-[32px] sm:text-[40px] font-[500] text-white leading-[48px] tracking-normal">
                   {lang === 'ar' ? slide.titleAr : slide.titleEn}
                 </h1>
-                <p className="text-[16px] sm:text-[19px] font-[400] text-[#93C5FD] bg-[#032C70]/60 backdrop-blur-md inline-block px-5 py-1.5 rounded-full border border-white/10 shadow-lg">
+                <p className="text-[18px] sm:text-[22px] font-[400] text-[#3E6AE1] bg-black/30 backdrop-blur-sm inline-block px-4 py-1 rounded-[4px]">
                   {lang === 'ar' ? slide.subtitleAr : slide.subtitleEn}
                 </p>
               </div>
 
-              {/* Bottom Actions Container (3D Spatial Controls) */}
+              {/* Bottom Actions Container (Side-by-side Primary & Secondary CTAs) */}
               <div className="relative z-10 max-w-xl mx-auto px-6 pb-20 sm:pb-24 w-full space-y-6 text-center">
                 {/* Side-by-side Button Pair */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  {/* Primary CTA */}
+                  {/* Primary CTA (Electric Blue #3E6AE1, 4px radius, 40px height, 200px width) */}
                   <button
                     onClick={slide.primaryAction}
-                    className="btn-tesla-primary w-full sm:w-auto shadow-[0_0_25px_rgba(62,106,225,0.5)]"
+                    className="btn-tesla-primary w-full sm:w-auto"
                   >
                     {lang === 'ar' ? slide.primaryBtnAr : slide.primaryBtnEn}
                   </button>
 
-                  {/* Secondary CTA */}
+                  {/* Secondary CTA (Pure White #FFFFFF, Graphite text, 4px radius, 40px height, 200px width) */}
                   <button
                     onClick={slide.secondaryAction}
-                    className="btn-tesla-secondary w-full sm:w-auto hover:bg-white/90"
+                    className="btn-tesla-secondary w-full sm:w-auto"
                   >
                     {lang === 'ar' ? slide.secondaryBtnAr : slide.secondaryBtnEn}
                   </button>
                 </div>
 
-                {/* 3D Glass Floating Search & Track Console */}
-                <div className="max-w-lg mx-auto space-y-2.5">
-                  <form
-                    onSubmit={handleTrackSubmit}
-                    className="flex items-center bg-[#032C70]/75 backdrop-blur-xl rounded-full border border-[#2563EB]/40 p-1.5 text-[14px] shadow-[0_12px_36px_rgba(0,0,0,0.5)] focus-within:border-[#D7A11E] transition-all duration-300"
+                {/* Minimalist Shipment Search & Track Bar */}
+                <form
+                  onSubmit={handleTrackSubmit}
+                  className="max-w-md mx-auto flex items-center bg-[#FFFFFF] rounded-[4px] border border-[#D0D1D2] p-1 text-[14px]"
+                >
+                  <input
+                    type="text"
+                    value={trackingInput}
+                    onChange={(e) => setTrackingInput(e.target.value)}
+                    placeholder={lang === 'ar' ? 'أدخل رقم الشحنة أو بوليصة الشحن...' : 'Enter tracking # or B/L...'}
+                    className="flex-1 bg-transparent px-3 py-1.5 text-[#171A20] placeholder-[#8E8E8E] outline-none text-[14px] font-[400]"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-[#3E6AE1] text-white px-5 py-1.5 rounded-[4px] font-[500] text-[14px] hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
                   >
-                    <div className="ps-3 pe-2 text-[#93C5FD]">
-                      <Search className="w-4 h-4" />
-                    </div>
-                    <input
-                      type="text"
-                      value={trackingInput}
-                      onChange={(e) => setTrackingInput(e.target.value)}
-                      placeholder={lang === 'ar' ? 'تتبع لحظي: رقم الشحنة أو بوليصة الشحن B/L...' : 'Instant Tracking: Enter ID or B/L...'}
-                      className="flex-1 bg-transparent px-2 py-2 text-white placeholder-white/50 outline-none text-[14px] font-[400]"
-                    />
-                    <button
-                      type="submit"
-                      className="btn-shopify-pill !bg-[#2563EB] hover:!bg-[#1d4ed8] text-white px-6 py-2 rounded-full font-[500] text-[13.5px] transition-all duration-300 shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer flex items-center gap-1.5"
-                    >
-                      <span>{lang === 'ar' ? 'تتبع فوري' : 'Track'}</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                  </form>
-
-                  {/* 1-Click Quick Tracking Pills */}
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono text-white/70">
-                    <span className="text-[#D7A11E]">تجربة سريعة:</span>
-                    {['SDN-88219', 'B/L-44910', 'SDN-90412'].map((tag) => (
-                      <button
-                        key={tag}
-                        type="button"
-                        onClick={() => {
-                          setTrackingInput(tag);
-                          setSelectedShipmentId(tag);
-                          setCurrentView('shipments');
-                        }}
-                        className="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white transition-colors cursor-pointer"
-                      >
-                        #{tag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                    {lang === 'ar' ? 'تتبع' : 'Track'}
+                  </button>
+                </form>
               </div>
 
               {/* Carousel Dot Indicators (50% circles at bottom center) */}
@@ -556,34 +514,6 @@ export function LandingView() {
         })}
       </div>
 
-      {/* 2.5. 3D Interactive Cyber-Maritime Showcase (WebGL & 360 Canvas Simulator) */}
-      <section className="bg-[#010D26] py-20 px-6 relative overflow-hidden border-y border-[#2563EB]/20">
-        <div className="absolute top-1/4 -start-40 w-96 h-96 bg-[#0B5ED7]/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 -end-40 w-96 h-96 bg-[#D7A11E]/15 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-[1383px] mx-auto space-y-8 relative z-10">
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0849A8]/40 border border-[#2563EB]/40 text-[#D7A11E] text-[12px] font-mono font-[600]">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>SUDANEEL 3D DIGITAL TWIN & REAL-TIME SIMULATOR</span>
-            </div>
-            <h2 className="text-[32px] sm:text-[44px] font-[500] text-white tracking-tight leading-tight">
-              {lang === 'ar'
-                ? 'تجربة تفاعلية ثلاثية الأبعاد للأسطول والموانئ'
-                : '3D Interactive Experience: Fleet, Ports & Corridors'}
-            </h2>
-            <p className="text-[15px] sm:text-[17px] font-[400] text-[#93C5FD]/80 leading-relaxed">
-              {lang === 'ar'
-                ? 'استكشف شاحنات الأسطول الثقيل ومحطة حاويات ميناء بورتسودان وشبكة الممرات السيادية عبر مجسم تفاعلي 360° مدعوم بمصفوفة إحداثيات حية.'
-                : 'Explore heavy haulage fleet trucks, Port Sudan container terminal, and national corridors in full 360° interactive 3D.'}
-            </p>
-          </div>
-
-          {/* Interactive 3D Canvas Visualizer */}
-          <Logistics3DCanvas />
-        </div>
-      </section>
-
       {/* 3. Category Cards Showcase (Tesla 2:1 Landscape Cards with 12px Border Radius) */}
       <section className="bg-[#FFFFFF] py-20 px-6 max-w-[1383px] mx-auto space-y-12">
         <div className="text-center space-y-2">
@@ -597,151 +527,143 @@ export function LandingView() {
           </p>
         </div>
 
-        {/* 4-Up Horizontal Landscape Cards Grid with 3D Tilt & Lighting */}
+        {/* 4-Up Horizontal Landscape Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Card 1: النقل البري للممرات الحيوية */}
-          <TiltCard maxRotation={7} scaleOnHover={1.02} glowColor="rgba(8, 73, 168, 0.25)">
+          <div
+            onClick={() => setCurrentView('fleet')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
             <div
-              onClick={() => setCurrentView('fleet')}
-              className="relative h-[300px] sm:h-[340px] rounded-[14px] overflow-hidden cursor-pointer group border border-[#EEEEEE] shadow-sm"
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/fleet-highway.jpg')" }}
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                style={{ backgroundImage: "url('/images/fleet-highway.jpg')" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-              </div>
-              {/* Top Label */}
-              <div className="absolute top-5 start-5 z-10">
-                <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[4px] bg-white/20 backdrop-blur-md">
-                  Euro 5/6 Heavy Fleet
-                </span>
-              </div>
-              {/* Bottom Info */}
-              <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
-                <div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'ممرات النقل البري والشاحنات الثقيلة' : 'National Highway Freight Corridors'}
-                  </h3>
-                  <p className="text-[12px] text-[#D0D1D2] mt-0.5">
-                    {lang === 'ar' ? 'ربط لحظي لكافة الولايات وقوافل الشحن المؤمنة' : 'Real-time convoy routing across all sovereign corridors'}
-                  </p>
-                </div>
-                <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                  <span>{lang === 'ar' ? 'استكشف الأسطول' : 'Explore'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-          </TiltCard>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Euro 5/6 Heavy Fleet
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'ممرات النقل البري والشاحنات الثقيلة' : 'National Highway Freight Corridors'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'ربط لحظي لكافة الولايات وقوافل الشحن المؤمنة' : 'Real-time convoy routing across all sovereign corridors'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'استكشف الأسطول' : 'Explore'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
 
           {/* Card 2: الموانئ والتجارة الدولية */}
-          <TiltCard maxRotation={7} scaleOnHover={1.02} glowColor="rgba(215, 161, 30, 0.25)">
+          <div
+            onClick={() => setCurrentView('port_sudan')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
             <div
-              onClick={() => setCurrentView('port_sudan')}
-              className="relative h-[300px] sm:h-[340px] rounded-[14px] overflow-hidden cursor-pointer group border border-[#EEEEEE] shadow-sm"
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/port-sudan-terminal.jpg')" }}
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                style={{ backgroundImage: "url('/images/port-sudan-terminal.jpg')" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-              </div>
-              {/* Top Label */}
-              <div className="absolute top-5 start-5 z-10">
-                <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[4px] bg-white/20 backdrop-blur-md">
-                  Port Sudan Hub (SCT)
-                </span>
-              </div>
-              {/* Bottom Info */}
-              <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
-                <div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'التجارة الدولية وموانئ البحر الأحمر' : 'Maritime Ports & Red Sea Gateway'}
-                  </h3>
-                  <p className="text-[12px] text-[#D0D1D2] mt-0.5">
-                    {lang === 'ar' ? 'تخليص جمركي فوري وتفريغ مباشر للحاويات' : 'Direct container evacuation & automated customs clearance'}
-                  </p>
-                </div>
-                <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                  <span>{lang === 'ar' ? 'محطة الحاويات' : 'Ports Hub'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-          </TiltCard>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Port Sudan Hub (SCT)
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'التجارة الدولية وموانئ البحر الأحمر' : 'Maritime Ports & Red Sea Gateway'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'تخليص جمركي فوري وتفريغ مباشر للحاويات' : 'Direct container evacuation & automated customs clearance'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'محطة الحاويات' : 'Ports Hub'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
 
           {/* Card 3: المستودعات الذكية */}
-          <TiltCard maxRotation={7} scaleOnHover={1.02} glowColor="rgba(20, 164, 77, 0.25)">
+          <div
+            onClick={() => setCurrentView('warehousing')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
             <div
-              onClick={() => setCurrentView('warehousing')}
-              className="relative h-[300px] sm:h-[340px] rounded-[14px] overflow-hidden cursor-pointer group border border-[#EEEEEE] shadow-sm"
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/warehouse-hub.jpg')" }}
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                style={{ backgroundImage: "url('/images/warehouse-hub.jpg')" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-              </div>
-              {/* Top Label */}
-              <div className="absolute top-5 start-5 z-10">
-                <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[4px] bg-white/20 backdrop-blur-md">
-                  Smart WMS & Cold Chain
-                </span>
-              </div>
-              {/* Bottom Info */}
-              <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
-                <div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'المستودعات الذكية وسلاسل التبريد' : 'Smart Warehouses & Cold Chain'}
-                  </h3>
-                  <p className="text-[12px] text-[#D0D1D2] mt-0.5">
-                    {lang === 'ar' ? '120,000 م² مساحات تخزين جاف ومبرد ومجمرك' : 'Bonded & temperature-monitored strategic facilities'}
-                  </p>
-                </div>
-                <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                  <span>{lang === 'ar' ? 'حجز مساحة' : 'Reserve'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-          </TiltCard>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                Smart WMS & Cold Chain
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'المستودعات الذكية وسلاسل التبريد' : 'Smart Warehouses & Cold Chain'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? '120,000 م² مساحات تخزين جاف ومبرد ومجمرك' : 'Bonded & temperature-monitored strategic facilities'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'حجز مساحة' : 'Reserve'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
 
           {/* Card 4: المقر والمحطات */}
-          <TiltCard maxRotation={7} scaleOnHover={1.02} glowColor="rgba(37, 99, 235, 0.25)">
+          <div
+            onClick={() => setCurrentView('locations')}
+            className="relative h-[300px] sm:h-[340px] rounded-[8px] overflow-hidden cursor-pointer group border border-[#EEEEEE]"
+          >
             <div
-              onClick={() => setCurrentView('locations')}
-              className="relative h-[300px] sm:h-[340px] rounded-[14px] overflow-hidden cursor-pointer group border border-[#EEEEEE] shadow-sm"
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+              style={{ backgroundImage: "url('/images/hq-facility.jpg')" }}
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                style={{ backgroundImage: "url('/images/hq-facility.jpg')" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-              </div>
-              {/* Top Label */}
-              <div className="absolute top-5 start-5 z-10">
-                <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[4px] bg-white/20 backdrop-blur-md">
-                  10 Strategic Hubs
-                </span>
-              </div>
-              {/* Bottom Info */}
-              <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
-                <div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'المقر الرئيسي وشبكة المحطات في الولايات' : 'Corporate HQ & Regional Stations'}
-                  </h3>
-                  <p className="text-[12px] text-[#D0D1D2] mt-0.5">
-                    {lang === 'ar' ? 'صالات استقبال مجهزة وأرصفة مناولة سريعة' : '24/7 client reception centers & rapid truck loading docks'}
-                  </p>
-                </div>
-                <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                  <span>{lang === 'ar' ? 'دليل المحطات' : 'View Hubs'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
-          </TiltCard>
+            {/* Top Label */}
+            <div className="absolute top-5 start-5 z-10">
+              <span className="text-[12px] font-mono font-[500] text-white px-2.5 py-1 rounded-[2px] bg-white/20 backdrop-blur-md">
+                10 Strategic Hubs
+              </span>
+            </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-5 start-5 end-5 z-10 flex items-end justify-between">
+              <div>
+                <h3 className="text-[18px] font-[500] text-white">
+                  {lang === 'ar' ? 'المقر الرئيسي وشبكة المحطات في الولايات' : 'Corporate HQ & Regional Stations'}
+                </h3>
+                <p className="text-[12px] text-[#D0D1D2] mt-0.5">
+                  {lang === 'ar' ? 'صالات استقبال مجهزة وأرصفة مناولة سريعة' : '24/7 client reception centers & rapid truck loading docks'}
+                </p>
+              </div>
+              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
+                <span>{lang === 'ar' ? 'دليل المحطات' : 'View Hubs'}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Services Matrix Trust Showcase */}
@@ -770,189 +692,87 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* 4. 3D Spotlight Bento Grid (Operational Intelligence & KPIs) */}
-      <section className="bg-[#021333] py-24 px-6 relative overflow-hidden border-t border-[#2563EB]/20 text-white">
-        <div className="absolute top-10 end-10 w-96 h-96 bg-[#2563EB]/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 start-10 w-96 h-96 bg-[#D7A11E]/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-[1383px] mx-auto space-y-12 relative z-10">
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0849A8]/40 border border-[#2563EB]/40 text-[#D7A11E] text-[12px] font-mono font-[600]">
-              <Zap className="w-3.5 h-3.5" />
-              <span>SOVEREIGN OPERATIONAL BENCHMARKS & 3D TELEMETRY</span>
-            </div>
-            <h2 className="text-[32px] sm:text-[44px] font-[500] text-white tracking-tight leading-tight">
-              {lang === 'ar' ? 'مواصفات ومقاييس الأداء اللوجستي الذكي' : 'Smart Logistics Telemetry & Standards'}
+      {/* 4. Fleet & Operational Specifications (3-Column Clean Tesla Grid) */}
+      <section className="bg-[#F4F4F4] py-20 px-6">
+        <div className="max-w-[1383px] mx-auto space-y-12">
+          <div className="text-center space-y-2">
+            <h2 className="text-[32px] sm:text-[40px] font-[500] text-[#171A20]">
+              {lang === 'ar' ? 'مواصفات ومعايير الأداء اللوجستي' : 'Logistics Standards & Capabilities'}
             </h2>
-            <p className="text-[15px] sm:text-[17px] font-[400] text-[#93C5FD]/80">
-              {lang === 'ar'
-                ? 'مؤشرات أداء سيادية مبنية على الذكاء الاصطناعي، تضمن أقصى درجات الشفافية والسرعة وتوفير التكاليف'
-                : 'Sovereign performance metrics driven by real-time telemetry, ensuring highest speed, trust, and cost reduction'}
+            <p className="text-[17px] font-[400] text-[#5C5E62]">
+              {lang === 'ar' ? 'أداء موثوق ومقاييس تشغيلية مبنية على أعلى معايير الجودة العالمية' : 'Engineered for extreme reliability, speed, and sovereign control'}
             </p>
           </div>
 
-          {/* 3D Bento Matrix Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Bento Card 1: Main Metric (Spans 2 columns on desktop) */}
-            <SpotlightBentoCard
-              className="md:col-span-2 flex flex-col justify-between min-h-[280px]"
-              spotlightColor="rgba(37, 99, 235, 0.35)"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-mono text-[#D7A11E] px-2.5 py-1 rounded-full bg-[#D7A11E]/10 border border-[#D7A11E]/30">
-                    Live Telemetry Core
-                  </span>
-                  <span className="flex items-center gap-1.5 text-[12px] text-[#14A44D] font-mono">
-                    <span className="w-2 h-2 rounded-full bg-[#14A44D] animate-ping" />
-                    98.4% SLA Compliance
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="text-[48px] sm:text-[64px] font-[700] text-white font-mono tracking-tight leading-none">
-                    +1,420 <span className="text-[24px] font-[400] text-[#93C5FD]">شاحنة ومركبة</span>
-                  </div>
-                  <h3 className="text-[20px] font-[500] text-white">
-                    {lang === 'ar' ? 'أسطول النقل الثقيل المعتمد والمراقب بالأقمار الاصطناعية' : 'Sovereign Satellite-Tracked Heavy Fleet'}
-                  </h3>
-                  <p className="text-[14px] text-[#93C5FD]/80 max-w-xl leading-relaxed">
-                    {lang === 'ar'
-                      ? 'ربط مباشر لكافة الشاحنات عبر حساسات إنترنت الأشياء (IoT)، وتتبع لحظي لمعدلات استهلاك الوقود وأوزان الحمولات ومستويات الأمان.'
-                      : 'Real-time telemetry integrating IoT axle load sensors, speed governor telemetry, and live cargo condition monitoring.'}
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Spec 1 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                +1,200
               </div>
-
-              <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'شحنة شهرية منجزة' : 'Monthly Dispatched Shipments'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'إدارة متكاملة للشحنات عبر نظام تتبع إلكتروني لحظي يربط 18 ولاية.'
+                  : 'End-to-end digital load coordination connecting 18 states with 97.4% on-time delivery.'}
+              </p>
+              <div className="pt-2">
                 <button
-                  onClick={() => setCurrentView('control_tower')}
-                  className="btn-shopify-pill !bg-[#2563EB] hover:!bg-[#1d4ed8] text-white text-[13px]"
+                  onClick={() => setCurrentView('shipments')}
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
                 >
-                  <span>{lang === 'ar' ? 'فتح برج المراقبة الحي' : 'Open Live Tower'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  {lang === 'ar' ? 'عرض تفاصيل الشحنات' : 'Learn More'}
                 </button>
-                <span className="text-[12px] text-white/50 font-mono">GPS PING: 4s</span>
               </div>
-            </SpotlightBentoCard>
+            </div>
 
-            {/* Bento Card 2: Cost Reduction */}
-            <SpotlightBentoCard
-              className="flex flex-col justify-between min-h-[280px]"
-              spotlightColor="rgba(215, 161, 30, 0.35)"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-mono text-[#2563EB] px-2.5 py-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/30">
-                    Backhaul Engine
-                  </span>
-                  <Repeat className="w-5 h-5 text-[#D7A11E]" />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="text-[44px] font-[700] text-[#D7A11E] font-mono tracking-tight leading-none">
-                    -28.5%
-                  </div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'وفر في تكلفة الشحن للرحلات العائدة' : 'Backhaul Freight Cost Reduction'}
-                  </h3>
-                  <p className="text-[13.5px] text-[#93C5FD]/80 leading-relaxed">
-                    {lang === 'ar'
-                      ? 'خوارزميات ذكية تُطابق الحمولات المصدرة فوراً مع الشاحنات الفارغة العائدة من الموانئ.'
-                      : 'Algorithmic matching pairing empty returning reefers and flatbeds with inland export loads.'}
-                  </p>
-                </div>
+            {/* Spec 2 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                30%
               </div>
-
-              <div className="pt-4 border-t border-white/10">
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'وفورات في تكاليف الشحن' : 'Average Freight Cost Reduction'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'استغلال الطاقة الاستيعابية للشاحنات العائدة بأسعار تنافسية عبر بورصة الشحن.'
+                  : 'Optimized backhaul freight routing matching empty trucks with export loads in seconds.'}
+              </p>
+              <div className="pt-2">
                 <button
                   onClick={() => setCurrentView('marketplace')}
-                  className="text-[13px] font-[500] text-[#D7A11E] hover:underline flex items-center gap-1"
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
                 >
-                  <span>{lang === 'ar' ? 'استعراض بورصة الشحن' : 'Explore Exchange'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  {lang === 'ar' ? 'استعراض بورصة الشحن' : 'Explore Backhauls'}
                 </button>
               </div>
-            </SpotlightBentoCard>
+            </div>
 
-            {/* Bento Card 3: Storage Capacity */}
-            <SpotlightBentoCard
-              className="flex flex-col justify-between min-h-[280px]"
-              spotlightColor="rgba(20, 164, 77, 0.35)"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-mono text-[#14A44D] px-2.5 py-1 rounded-full bg-[#14A44D]/10 border border-[#14A44D]/30">
-                    Bonded WMS
-                  </span>
-                  <Warehouse className="w-5 h-5 text-[#14A44D]" />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="text-[44px] font-[700] text-white font-mono tracking-tight leading-none">
-                    120K MT
-                  </div>
-                  <h3 className="text-[18px] font-[500] text-white">
-                    {lang === 'ar' ? 'طاقة تخزينية استراتيجية مبردة وجافة' : 'Cold & Dry Strategic Warehousing'}
-                  </h3>
-                  <p className="text-[13.5px] text-[#93C5FD]/80 leading-relaxed">
-                    {lang === 'ar'
-                      ? 'مستودعات مرخصة جمركياً ومجهزة بأنظمة مراقبة درجات الحرارة والرطوبة لضمان سلامة البضائع.'
-                      : 'Fully bonded facilities with IoT climate monitoring for pharmaceuticals and agricultural produce.'}
-                  </p>
-                </div>
+            {/* Spec 3 */}
+            <div className="bg-white p-8 rounded-[4px] space-y-4 text-center">
+              <div className="text-[40px] font-[500] text-[#171A20] font-mono leading-none">
+                120K MT
               </div>
-
-              <div className="pt-4 border-t border-white/10">
+              <div className="text-[17px] font-[500] text-[#171A20]">
+                {lang === 'ar' ? 'طاقة تخزينية استراتيجية' : 'Cold & Dry Warehousing Capacity'}
+              </div>
+              <p className="text-[14px] font-[400] text-[#393C41] leading-relaxed">
+                {lang === 'ar'
+                  ? 'مستودعات مجهزة بالكامل وموزعة في الموانئ والمراكز الاقتصادية الرئيسية.'
+                  : 'Strategically located temperature-monitored hubs along all major trade corridors.'}
+              </p>
+              <div className="pt-2">
                 <button
                   onClick={() => setCurrentView('warehousing')}
-                  className="text-[13px] font-[500] text-[#14A44D] hover:underline flex items-center gap-1"
+                  className="text-[14px] font-[400] text-[#5C5E62] hover:text-[#171A20] hover:underline"
                 >
-                  <span>{lang === 'ar' ? 'حجز مساحات تخزين' : 'Reserve Bays'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  {lang === 'ar' ? 'حجز مساحة تخزين' : 'Reserve Capacity'}
                 </button>
               </div>
-            </SpotlightBentoCard>
-
-            {/* Bento Card 4: Port Sudan Rapid Clearance (Spans 2 columns on desktop) */}
-            <SpotlightBentoCard
-              className="md:col-span-2 flex flex-col justify-between min-h-[280px]"
-              spotlightColor="rgba(6, 182, 212, 0.35)"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-mono text-[#06B6D4] px-2.5 py-1 rounded-full bg-[#06B6D4]/10 border border-[#06B6D4]/30">
-                    Red Sea Maritime Gateway
-                  </span>
-                  <span className="text-[12px] font-mono text-[#D7A11E]">HS CODES & TARIFF ENGINE</span>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="text-[40px] sm:text-[48px] font-[700] text-white font-mono tracking-tight leading-none">
-                    24/7 <span className="text-[20px] font-[400] text-[#06B6D4]">تخليص وإفراج فوري</span>
-                  </div>
-                  <h3 className="text-[20px] font-[500] text-white">
-                    {lang === 'ar' ? 'محطة حاويات ميناء بورتسودان ومساحة العمل الجمركية' : 'Port Sudan Maritime Terminal & Customs Clearance Hub'}
-                  </h3>
-                  <p className="text-[14px] text-[#93C5FD]/80 max-w-xl leading-relaxed">
-                    {lang === 'ar'
-                      ? 'إجراءات مؤتمتة لإصدار بوالص الشحن الإلكترونية (e-BOL) وشهادات الإفراج الجمركي مع رموز QR للتحقق السريع عبر المعابر.'
-                      : 'Automated electronic bill of lading (e-BOL) issuance, instant duty calculation, and QR-authenticated inland transport dispatch.'}
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                <button
-                  onClick={() => setCurrentView('customs_workspace')}
-                  className="btn-shopify-pill !bg-[#06B6D4] hover:!bg-[#0891b2] text-[#000000] font-[600] text-[13px]"
-                >
-                  <span>{lang === 'ar' ? 'مساحة العمل الجمركية' : 'Customs Workspace'}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-                <span className="text-[12px] text-white/50 font-mono">PORT SUDAN SCT</span>
-              </div>
-            </SpotlightBentoCard>
+            </div>
           </div>
         </div>
       </section>

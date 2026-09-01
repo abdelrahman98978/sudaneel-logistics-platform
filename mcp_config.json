@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "vercel": {
+      "url": "https://mcp.vercel.com",
       "serverUrl": "https://mcp.vercel.com"
     },
     "sudanil-logistics": {
@@ -8,13 +9,6 @@
       "args": ["backend/mcp/logistics-mcp-server.js"],
       "env": {
         "NODE_ENV": "production"
-      }
-    },
-    "21st": {
-      "serverUrl": "https://21st.dev/api/mcp",
-      "headers": {
-        "x-api-key": "21st_sk_d47039f3f9bba8e5e622f7af12d75e9ef862fbad5b3ef68483cf4f2c6f2b0bcc",
-        "Authorization": "Bearer 21st_sk_d47039f3f9bba8e5e622f7af12d75e9ef862fbad5b3ef68483cf4f2c6f2b0bcc"
       }
     }
   }
