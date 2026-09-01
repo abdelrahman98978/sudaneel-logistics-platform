@@ -33,6 +33,8 @@ import {
 } from 'lucide-react';
 import { printDocument } from '@/lib/export-utils';
 import { SignaturePad } from '@/components/common/SignaturePad';
+import { exportShipmentWaybillPdf } from '@/lib/documents-service';
+import confetti from 'canvas-confetti';
 
 type TabKey =
   | 'overview'
@@ -89,6 +91,11 @@ export function ShipmentTrackingPassport() {
     }
     updateShipmentStatus(shipment.id, 'pod_verified');
     setIsPodModalOpen(false);
+    confetti({
+      particleCount: 75,
+      spread: 60,
+      origin: { y: 0.6 },
+    });
     showToast(
       lang === 'ar' ? 'تم توثيق إثبات التسليم الرقمي' : 'Digital POD Confirmed',
       lang === 'ar'
@@ -382,10 +389,14 @@ export function ShipmentTrackingPassport() {
                   </div>
                 </div>
                 <button
-                  onClick={() => printDocument(`e-BOL-${shipment.trackingNumber}`)}
+                  onClick={() => {
+                    exportShipmentWaybillPdf(shipment);
+                    showToast('تم تصدير البوليصة', `تم إنشاء بوليصة الشحن الرسمية e-BOL برمز التتبع الرقمي QR للشحنة ${shipment.trackingNumber}`, 'success');
+                  }}
                   className="btn-shopify-outline !p-2 !rounded-full"
+                  title="تصدير بوليصة الشحن الرسمية PDF"
                 >
-                  <Printer className="w-4 h-4" />
+                  <Download className="w-4 h-4" />
                 </button>
               </div>
 

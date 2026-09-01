@@ -22,6 +22,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { printDocument } from '@/lib/export-utils';
+import { exportCustomsCertificatePdf } from '@/lib/documents-service';
 
 export function CustomsWorkspaceView() {
   const { customsDeclarations, submitCustomsDeclaration, updateCustomsDeclarationStatus, showToast, t, lang } = useApp();
@@ -371,11 +372,14 @@ export function CustomsWorkspaceView() {
                 )}
 
                 <button
-                  onClick={() => printDocument(`Customs-Declaration-${selectedDeclaration.declarationNumber}`)}
+                  onClick={() => {
+                    exportCustomsCertificatePdf(selectedDeclaration);
+                    showToast('تم تصدير الشهادة', 'تم إنشاء شهادة الإفراج الجمركي الرسمية بصيغة PDF بنجاح مع الختم والرمز الرقمي QR', 'success');
+                  }}
                   className="btn-shopify-outline w-full justify-center"
                 >
                   <Printer className="w-4 h-4" />
-                  <span>طباعة شهادة الإفراج المعتمدة</span>
+                  <span>تصدير شهادة الإفراج الرسمية (PDF)</span>
                 </button>
               </div>
             </div>
