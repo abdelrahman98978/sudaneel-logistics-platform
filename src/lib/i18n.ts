@@ -21,7 +21,8 @@ export const dictionary = {
     driverApp: 'تطبيق ونظام السائق',
     driverSafetyMode: 'وضع القيادة الآمن',
     warehousing: 'سوق المستودعات وسلاسل الإمداد (WMS)',
-    portSudan: 'عمليات ميناء بورتسودان والجمارك',
+    portSudan: 'عمليات ميناء بورتسودان ومحطة الحاويات',
+    customsWorkspace: 'مساحة عمل التخليص الجمركي (Customs)',
     crossBorder: 'الشحن الإقليمي والممرات عبر الحدود',
     financeWallets: 'المالية والمحافظ والتسويات',
     incidentCenter: 'مركز الطوارئ والإنقاذ',
@@ -38,17 +39,21 @@ export const dictionary = {
     settings: 'الإعدادات والصلاحيات وسجل التدقيق',
     publicPortal: 'الموقع العام والخدمات',
 
-    // Roles
+    // Roles (Master Plan 13 Roles)
     roleSuperAdmin: 'مدير المنصة التنفيذي',
     roleOperations: 'مدير العمليات اللوجستية',
-    roleDispatcher: 'منسق الشحنات والتوزيع',
+    roleDispatcher: 'منسق الشحنات والتوجيه الذكي',
     roleFleetManager: 'مدير أسطول المركبات',
+    roleWarehouseManager: 'مدير المستودعات والتخزين WMS',
+    roleCustomsOfficer: 'ضابط الجمارك والموانئ',
+    roleCustomsAgent: 'مخلص جمركي معتمد',
     roleFinance: 'المدير المالي والتسويات',
+    roleSupportAgent: 'أخصائي الدعم وخدمة العملاء',
     roleCarrier: 'بوابة الناقل المعتمد',
     roleDriver: 'سائق شاحنة معتمد',
     roleCustomer: 'بوابة كبار الشاحنين (B2B)',
-    roleWarehouseManager: 'مدير المستودعات والتخزين',
-    roleCustomsAgent: 'مخلص جمركي معتمد',
+    roleCorporateCustomer: 'عميل شركات ومؤسسات (Enterprise)',
+    roleIndividualCustomer: 'عميل فردي (Individual Shipper)',
     roleRiskAuditor: 'مسؤول المخاطر والامتثال',
 
     // KPIs
@@ -132,6 +137,7 @@ export const dictionary = {
     driverSafetyMode: 'Driver Safety Mode',
     warehousing: 'Warehouse Marketplace & WMS',
     portSudan: 'Port Sudan Terminal & Customs',
+    customsWorkspace: 'Customs Clearance Workspace',
     crossBorder: 'Cross-Border Regional Corridors',
     financeWallets: 'Finance, Wallets & Settlements',
     incidentCenter: 'Emergency & Incident Response',
@@ -148,17 +154,21 @@ export const dictionary = {
     settings: 'Settings, RBAC & Audit Trail',
     publicPortal: 'Public Portal & Services',
 
-    // Roles
+    // Roles (Master Plan 13 Roles)
     roleSuperAdmin: 'Super Platform Admin',
     roleOperations: 'Logistics Operations Director',
     roleDispatcher: 'Smart Freight Dispatcher',
     roleFleetManager: 'Fleet Operations Manager',
+    roleWarehouseManager: 'Warehouse & Storage Director',
+    roleCustomsOfficer: 'Customs Officer',
+    roleCustomsAgent: 'Customs Clearance Agent',
     roleFinance: 'Financial Controller & Settlements',
+    roleSupportAgent: 'Customer Support Agent',
     roleCarrier: 'Certified Carrier Portal',
     roleDriver: 'Active Certified Driver',
     roleCustomer: 'Enterprise Shipper (B2B)',
-    roleWarehouseManager: 'Warehouse & Storage Director',
-    roleCustomsAgent: 'Customs Clearance Agent',
+    roleCorporateCustomer: 'Corporate Enterprise Customer',
+    roleIndividualCustomer: 'Individual Customer',
     roleRiskAuditor: 'Risk & Compliance Auditor',
 
     // KPIs

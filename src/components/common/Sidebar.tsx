@@ -108,7 +108,7 @@ export function Sidebar() {
         },
         {
           view: 'customs_workspace',
-          label: 'التخليص الجمركي (Customs)',
+          label: t.customsWorkspace,
           icon: FileCheck2,
           badge: 'HS Codes',
         },
