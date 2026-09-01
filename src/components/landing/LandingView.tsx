@@ -6,6 +6,7 @@ import { availableLanguages } from '@/lib/i18n';
 import { TiltCard } from '@/components/3d/TiltCard';
 import { Logistics3DCanvas } from '@/components/3d/Logistics3DCanvas';
 import { SpotlightBentoCard } from '@/components/3d/SpotlightBento';
+import { HeroSpatialBackground, HeroFloatingBadges } from '@/components/3d/HeroSpatialHUD';
 import {
   Search,
   Globe,
@@ -424,62 +425,99 @@ export function LandingView() {
                 style={{ backgroundImage: `url('${slide.bgImage}')` }}
               >
                 {/* Subtle contrast mask for typography clarity */}
-                <div className="absolute inset-0 bg-black/35"></div>
+                <div className="absolute inset-0 bg-black/45"></div>
+                {/* 3D Radial Glow Gradient */}
+                <div className="absolute inset-0 bg-radial from-transparent via-[#032C70]/30 to-[#010D26]/80"></div>
               </div>
+
+              {/* 3D Interactive Spatial Particle Canvas */}
+              <HeroSpatialBackground />
+
+              {/* Floating 3D Spatial Telemetry HUD Badges */}
+              <HeroFloatingBadges />
 
               {/* Top Spacing for Navigation */}
               <div className="pt-24"></div>
 
-              {/* Center Hero Information (Tesla Typography: 40px/500 Title + 22px/400 Promo Subtitle) */}
-              <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-3">
-                <h1 className="text-[32px] sm:text-[40px] font-[500] text-white leading-[48px] tracking-normal">
+              {/* Center Hero Information (3D Spatial Typography) */}
+              <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#032C70]/70 border border-[#D7A11E]/40 text-[#D7A11E] text-[12px] font-mono shadow-[0_4px_20px_rgba(215,161,30,0.2)] backdrop-blur-md">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>SUDANEEL SPATIAL TELEMETRY • RED SEA GATEWAY</span>
+                </div>
+                <h1 className="text-[34px] sm:text-[50px] font-[600] text-white leading-[48px] sm:leading-[58px] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
                   {lang === 'ar' ? slide.titleAr : slide.titleEn}
                 </h1>
-                <p className="text-[18px] sm:text-[22px] font-[400] text-[#3E6AE1] bg-black/30 backdrop-blur-sm inline-block px-4 py-1 rounded-[4px]">
+                <p className="text-[16px] sm:text-[19px] font-[400] text-[#93C5FD] bg-[#032C70]/60 backdrop-blur-md inline-block px-5 py-1.5 rounded-full border border-white/10 shadow-lg">
                   {lang === 'ar' ? slide.subtitleAr : slide.subtitleEn}
                 </p>
               </div>
 
-              {/* Bottom Actions Container (Side-by-side Primary & Secondary CTAs) */}
+              {/* Bottom Actions Container (3D Spatial Controls) */}
               <div className="relative z-10 max-w-xl mx-auto px-6 pb-20 sm:pb-24 w-full space-y-6 text-center">
                 {/* Side-by-side Button Pair */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  {/* Primary CTA (Electric Blue #3E6AE1, 4px radius, 40px height, 200px width) */}
+                  {/* Primary CTA */}
                   <button
                     onClick={slide.primaryAction}
-                    className="btn-tesla-primary w-full sm:w-auto"
+                    className="btn-tesla-primary w-full sm:w-auto shadow-[0_0_25px_rgba(62,106,225,0.5)]"
                   >
                     {lang === 'ar' ? slide.primaryBtnAr : slide.primaryBtnEn}
                   </button>
 
-                  {/* Secondary CTA (Pure White #FFFFFF, Graphite text, 4px radius, 40px height, 200px width) */}
+                  {/* Secondary CTA */}
                   <button
                     onClick={slide.secondaryAction}
-                    className="btn-tesla-secondary w-full sm:w-auto"
+                    className="btn-tesla-secondary w-full sm:w-auto hover:bg-white/90"
                   >
                     {lang === 'ar' ? slide.secondaryBtnAr : slide.secondaryBtnEn}
                   </button>
                 </div>
 
-                {/* Minimalist Shipment Search & Track Bar */}
-                <form
-                  onSubmit={handleTrackSubmit}
-                  className="max-w-md mx-auto flex items-center bg-[#FFFFFF] rounded-[4px] border border-[#D0D1D2] p-1 text-[14px]"
-                >
-                  <input
-                    type="text"
-                    value={trackingInput}
-                    onChange={(e) => setTrackingInput(e.target.value)}
-                    placeholder={lang === 'ar' ? 'أدخل رقم الشحنة أو بوليصة الشحن...' : 'Enter tracking # or B/L...'}
-                    className="flex-1 bg-transparent px-3 py-1.5 text-[#171A20] placeholder-[#8E8E8E] outline-none text-[14px] font-[400]"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-[#3E6AE1] text-white px-5 py-1.5 rounded-[4px] font-[500] text-[14px] hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
+                {/* 3D Glass Floating Search & Track Console */}
+                <div className="max-w-lg mx-auto space-y-2.5">
+                  <form
+                    onSubmit={handleTrackSubmit}
+                    className="flex items-center bg-[#032C70]/75 backdrop-blur-xl rounded-full border border-[#2563EB]/40 p-1.5 text-[14px] shadow-[0_12px_36px_rgba(0,0,0,0.5)] focus-within:border-[#D7A11E] transition-all duration-300"
                   >
-                    {lang === 'ar' ? 'تتبع' : 'Track'}
-                  </button>
-                </form>
+                    <div className="ps-3 pe-2 text-[#93C5FD]">
+                      <Search className="w-4 h-4" />
+                    </div>
+                    <input
+                      type="text"
+                      value={trackingInput}
+                      onChange={(e) => setTrackingInput(e.target.value)}
+                      placeholder={lang === 'ar' ? 'تتبع لحظي: رقم الشحنة أو بوليصة الشحن B/L...' : 'Instant Tracking: Enter ID or B/L...'}
+                      className="flex-1 bg-transparent px-2 py-2 text-white placeholder-white/50 outline-none text-[14px] font-[400]"
+                    />
+                    <button
+                      type="submit"
+                      className="btn-shopify-pill !bg-[#2563EB] hover:!bg-[#1d4ed8] text-white px-6 py-2 rounded-full font-[500] text-[13.5px] transition-all duration-300 shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>{lang === 'ar' ? 'تتبع فوري' : 'Track'}</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </button>
+                  </form>
+
+                  {/* 1-Click Quick Tracking Pills */}
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono text-white/70">
+                    <span className="text-[#D7A11E]">تجربة سريعة:</span>
+                    {['SDN-88219', 'B/L-44910', 'SDN-90412'].map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => {
+                          setTrackingInput(tag);
+                          setSelectedShipmentId(tag);
+                          setCurrentView('shipments');
+                        }}
+                        className="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white transition-colors cursor-pointer"
+                      >
+                        #{tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Carousel Dot Indicators (50% circles at bottom center) */}
