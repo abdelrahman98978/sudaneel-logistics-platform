@@ -192,8 +192,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const dir = lang === 'ar' ? 'rtl' : 'ltr';
-  const t = dictionary[lang];
+  const isRtl = lang === 'ar' || lang === 'ur' || lang === 'fa';
+  const dir: 'rtl' | 'ltr' = isRtl ? 'rtl' : 'ltr';
+  const t = dictionary[lang] || dictionary.ar;
 
   // Toast System
   const showToast = (

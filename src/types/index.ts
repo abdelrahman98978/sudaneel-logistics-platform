@@ -19,7 +19,21 @@ export type UserRole =
   | 'shipper_customer'
   | 'risk_auditor';
 
-export type Language = 'ar' | 'en';
+export type Language =
+  | 'ar'
+  | 'en'
+  | 'fr'
+  | 'zh'
+  | 'tr'
+  | 'ru'
+  | 'de'
+  | 'am'
+  | 'sw'
+  | 'ur'
+  | 'hi'
+  | 'it'
+  | 'es'
+  | 'fa';
 export type ThemeMode = 'dark' | 'light';
 
 export type ShipmentStatus =

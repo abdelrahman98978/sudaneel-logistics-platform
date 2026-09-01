@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useApp } from '@/lib/store';
+import { availableLanguages } from '@/lib/i18n';
 import { UserRole } from '@/types';
 import {
   Search,
@@ -141,15 +142,32 @@ export function Header() {
           </div>
         </div>
 
-        {/* Language switcher (Shopify Pill) */}
-        <button
-          onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#fbfbf5] border border-[#e4e4e7] text-[12px] font-[500] text-[#000000] transition-colors duration-200 cursor-pointer shadow-sm"
-          title={lang === 'ar' ? 'Switch to English' : 'التحويل للعربية'}
-        >
-          <Globe className="w-3.5 h-3.5 text-[#71717a]" />
-          <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
-        </button>
+        {/* 14-Language Switcher (Shopify Pill Dropdown) */}
+        <div className="relative">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#ffffff] border border-[#e4e4e7] text-[12px] font-[500] text-[#000000] cursor-pointer hover:bg-[#fbfbf5] transition-colors duration-200 shadow-sm">
+            <Globe className="w-3.5 h-3.5 text-[#71717a] flex-shrink-0" />
+            <select
+              value={lang}
+              onChange={(e) => {
+                const newLang = e.target.value as any;
+                setLang(newLang);
+                const selectedOpt = availableLanguages.find((l) => l.code === newLang);
+                showToast(
+                  'Language / اللغة',
+                  selectedOpt ? `${selectedOpt.flag} ${selectedOpt.nativeName} (${selectedOpt.name})` : newLang,
+                  'info'
+                );
+              }}
+              className="bg-transparent border-0 text-[12px] font-[500] text-[#000000] cursor-pointer outline-none pe-1"
+            >
+              {availableLanguages.map((l) => (
+                <option key={l.code} value={l.code} className="text-[#000000] bg-white">
+                  {l.flag} {l.nativeName}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
         {/* Emergency radar notifications */}
         <button

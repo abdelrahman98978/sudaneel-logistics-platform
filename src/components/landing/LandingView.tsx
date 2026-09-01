@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
+import { availableLanguages } from '@/lib/i18n';
 import {
   Search,
   Globe,
@@ -296,18 +297,29 @@ export function LandingView() {
 
           {/* Right Action Utilities (Language, Login / OS Switcher) */}
           <div className="flex items-center gap-3">
-            {/* Language Switcher */}
-            <button
-              onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-              className={`text-[14px] font-[500] px-3 py-1 rounded-[4px] transition-colors duration-330 cursor-pointer flex items-center gap-1.5 ${
+            {/* 14-Language Switcher */}
+            <div
+              className={`text-[13px] font-[500] px-2.5 py-1 rounded-[4px] transition-colors duration-330 flex items-center gap-1.5 border ${
                 isScrolled
-                  ? 'text-[#171A20] hover:bg-[#F4F4F4]'
-                  : 'text-white hover:bg-white/10'
+                  ? 'text-[#171A20] border-[#D0D1D2] bg-white'
+                  : 'text-white border-white/20 bg-black/20'
               }`}
             >
-              <Globe className="w-3.5 h-3.5" />
-              <span>{lang === 'ar' ? 'EN' : 'العربية'}</span>
-            </button>
+              <Globe className="w-3.5 h-3.5 flex-shrink-0" />
+              <select
+                value={lang}
+                onChange={(e) => setLang(e.target.value as any)}
+                className={`bg-transparent border-0 text-[12px] font-[500] cursor-pointer outline-none ${
+                  isScrolled ? 'text-[#171A20]' : 'text-white'
+                }`}
+              >
+                {availableLanguages.map((l) => (
+                  <option key={l.code} value={l.code} className="text-[#000000] bg-white">
+                    {l.flag} {l.nativeName}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {/* Internal OS Login Button (Tesla Secondary style) */}
             <button

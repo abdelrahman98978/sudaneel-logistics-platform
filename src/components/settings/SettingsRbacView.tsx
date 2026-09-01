@@ -17,6 +17,7 @@ import {
   FileSpreadsheet,
 } from 'lucide-react';
 import { exportToCsv } from '@/lib/export-utils';
+import { availableLanguages } from '@/lib/i18n';
 
 interface RolePermission {
   key: string;
@@ -339,6 +340,29 @@ export function SettingsRbacView() {
                   onChange={(e) => setEnableSoundFx(e.target.checked)}
                   className="w-5 h-5 accent-[#000000] cursor-pointer rounded"
                 />
+              </div>
+
+              <div className="pt-3 border-t border-[#e4e4e7] space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="font-[600] text-[#000000]">لغة واجهة المنصة (14 لغة معتمدة)</div>
+                  <Globe className="w-4 h-4 text-[#71717a]" />
+                </div>
+                <select
+                  value={lang}
+                  onChange={(e) => {
+                    const newLang = e.target.value as any;
+                    setLang(newLang);
+                    const opt = availableLanguages.find((l) => l.code === newLang);
+                    showToast('تم تغيير لغة المنصة', `اللغة النشطة الآن: ${opt?.flag} ${opt?.nativeName}`, 'success');
+                  }}
+                  className="w-full bg-[#fbfbf5] border border-[#e4e4e7] text-[#000000] p-2.5 rounded-[8px] text-[13px] font-[500] cursor-pointer outline-none"
+                >
+                  {availableLanguages.map((l) => (
+                    <option key={l.code} value={l.code}>
+                      {l.flag} {l.nativeName} — {l.name} ({l.code.toUpperCase()})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
