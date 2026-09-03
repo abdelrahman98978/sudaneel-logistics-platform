@@ -50,6 +50,7 @@ import {
   mockCustomsDeclarations,
 } from './mock-data';
 import { dictionary } from './i18n';
+import { demoMode } from './config';
 
 export type AppView =
   | 'landing'
@@ -101,6 +102,7 @@ interface AppContextType {
   setCurrentView: (view: AppView) => void;
   selectedShipmentId: string | null;
   setSelectedShipmentId: (id: string | null) => void;
+  demoMode: boolean;
 
   // Domain Datasets
   shipments: Shipment[];
@@ -159,10 +161,22 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const LOCAL_STORAGE_KEY = 'sudaneel_platform_state_v3';
 
+function readUiPreference<T extends string>(key: 'lang' | 'theme', fallback: T): T {
+  if (typeof window === 'undefined') return fallback;
+  try {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!saved) return fallback;
+    const parsed = JSON.parse(saved) as Record<string, unknown>;
+    return typeof parsed[key] === 'string' ? (parsed[key] as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<UserRole>('super_admin');
-  const [lang, setLang] = useState<Language>('ar');
-  const [theme, setTheme] = useState<ThemeMode>('dark');
+  const [lang, setLang] = useState<Language>(() => readUiPreference('lang', 'ar'));
+  const [theme, setTheme] = useState<ThemeMode>(() => readUiPreference('theme', 'dark'));
   const [currentView, setCurrentView] = useState<AppView>('control_tower');
   const [selectedShipmentId, setSelectedShipmentId] = useState<string | null>('shp-001');
 
@@ -216,46 +230,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Hydrate state from localStorage on client mount
+  // Persist only non-sensitive UI preferences. Operational records come from the server.
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
-        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed.shipments) setShipments(parsed.shipments);
-          if (parsed.invoices) setInvoices(parsed.invoices);
-          if (parsed.warehouseReservations) setWarehouseReservations(parsed.warehouseReservations);
-          if (parsed.claims) setClaims(parsed.claims);
-          if (parsed.incidents) setIncidents(parsed.incidents);
-          if (parsed.role) setRole(parsed.role);
-          if (parsed.lang) setLang(parsed.lang);
-        }
-      }
-    } catch (e) {
-      console.warn('LocalStorage hydration skipped:', e);
-    }
-  }, []);
-
-  // Persist state to localStorage on modification
-  useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const stateToSave = {
-          shipments,
-          invoices,
-          warehouseReservations,
-          claims,
-          incidents,
-          role,
-          lang,
-        };
+        const stateToSave = { lang, theme };
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
       }
     } catch (e) {
       console.warn('LocalStorage save error:', e);
     }
-  }, [shipments, invoices, warehouseReservations, claims, incidents, role, lang]);
+  }, [lang, theme]);
 
   // Set document direction on language change
   useEffect(() => {
@@ -277,6 +262,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Simulated live telemetry movement for vehicles
   useEffect(() => {
+    if (!demoMode) return;
     const interval = setInterval(() => {
       setVehicles((prev) =>
         prev.map((v) => {
@@ -520,6 +506,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setCurrentView,
         selectedShipmentId,
         setSelectedShipmentId,
+        demoMode,
         shipments,
         vehicles,
         carriers,

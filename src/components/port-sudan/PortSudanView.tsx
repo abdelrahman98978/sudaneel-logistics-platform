@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import { PortContainer, PortCustomsStatus } from '@/types';
 import {
@@ -85,9 +86,11 @@ export function PortSudanView() {
       {/* Port Sudan Container Terminal Visual Showcase (Shopify 20px Card) */}
       <div className="shopify-card overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 bg-[#ffffff]">
         <div className="md:col-span-5 relative min-h-[220px] bg-[#000000]">
-          <img
-            src="/images/port-sudan-terminal.jpg"
+          <Image
+            src="/images/port-sudan-terminal-v2.png"
             alt="Port Sudan Maritime Container Terminal"
+            width={520}
+            height={260}
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute top-4 start-4">

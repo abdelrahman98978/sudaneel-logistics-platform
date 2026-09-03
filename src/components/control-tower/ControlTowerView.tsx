@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import {
   Package,
@@ -187,9 +188,12 @@ export function ControlTowerView() {
       {/* Cinematic Multimodal Panoramic Hero Banner (DESIGN-shopify.md: canvas-night-elevated + thin Neue Haas cut + stroked/aloe pills) */}
       <div className="relative rounded-[20px] overflow-hidden bg-[#000000] border border-[#1e2c31] min-h-[260px] flex items-end p-6 sm:p-10 shadow-2xl">
         <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-multimodal.jpg"
+          <Image
+            src="/images/hero-multimodal-v2.png"
             alt="Sudaneel Sovereign Multimodal Network"
+            fill
+            priority
+            sizes="100vw"
             className="w-full h-full object-cover object-center opacity-45 scale-100 hover:scale-102 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent" />
@@ -618,9 +622,11 @@ export function ControlTowerView() {
           onClick={() => setCurrentView('mobile_app')}
           className="w-full md:w-[360px] h-[190px] rounded-[16px] overflow-hidden bg-[#fbfbf5] border border-[#e4e4e7] cursor-pointer group flex items-center justify-center p-3 shadow-sm hover:shadow-md transition-shadow"
         >
-          <img
+          <Image
             src="/images/mobile-app-showcase.png"
             alt="Mobile App Preview"
+            width={336}
+            height={180}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
           />
         </div>

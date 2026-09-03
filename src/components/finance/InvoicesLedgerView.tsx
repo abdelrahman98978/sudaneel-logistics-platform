@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import { Invoice } from '@/types';
 import {
@@ -209,7 +210,7 @@ export function InvoicesLedgerView() {
             <div className="flex items-center justify-between pb-4 border-b border-[#e4e4e7]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-[10px] bg-white p-0.5 flex items-center justify-center border border-[#e4e4e7] shadow-sm">
-                  <img src="/images/brand-logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+                  <Image src="/logo.png" alt="Sudaneel Logistics" width={40} height={40} className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="font-[600] text-[15px] text-[#000000]">فاتورة شحن ضريبية معتمدة</h3>

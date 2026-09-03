@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import { availableLanguages } from '@/lib/i18n';
 import { UserRole } from '@/types';
@@ -63,7 +64,7 @@ export function Header() {
           className="flex lg:hidden items-center gap-2 p-1 rounded-full hover:bg-[#fbfbf5] transition-colors flex-shrink-0"
           title="الرئيسية"
         >
-          <img src="/images/brand-logo.jpg" alt="Logo" className="w-8 h-8 rounded-full object-contain border border-[#e4e4e7]" />
+          <Image src="/logo.png" alt="Sudaneel Logistics" width={32} height={32} className="w-8 h-8 rounded-full object-contain border border-[#e4e4e7]" />
         </button>
         
         <button

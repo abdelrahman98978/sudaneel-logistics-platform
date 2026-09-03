@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useApp, AppView } from '@/lib/store';
 import {
   Compass,
@@ -214,9 +215,11 @@ export function Sidebar() {
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-[10px] bg-white p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-sm">
-            <img
-              src="/images/brand-logo.jpg"
+            <Image
+              src="/logo.png"
               alt="سودانيل لوجيستك"
+              width={40}
+              height={40}
               className="w-full h-full object-contain"
             />
           </div>

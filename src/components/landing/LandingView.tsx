@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import { availableLanguages } from '@/lib/i18n';
 import {
@@ -41,7 +42,7 @@ export function LandingView() {
       titleEn: 'Deliver With Confidence & Precision',
       subtitleAr: 'حلول لوجستية متكاملة تلبي احتياجاتك عبر كافة ممرات السودان وموانئه',
       subtitleEn: 'Comprehensive Multimodal Freight & Sovereign Telemetry across Sudan',
-      bgImage: '/images/hero-multimodal.jpg',
+      bgImage: '/images/hero-multimodal-v2.png',
       primaryBtnAr: 'اطلب شحنة الآن',
       primaryBtnEn: 'Order Freight Now',
       primaryAction: () => setCurrentView('create_shipment'),
@@ -55,7 +56,7 @@ export function LandingView() {
       titleEn: 'Port Sudan Global Hub & Maritime Gateway',
       subtitleAr: 'مناولة متكاملة للحاويات وتخليص جمركي إلكتروني فوري مع منع غرامات الأرضيات',
       subtitleEn: 'Integrated Container Terminal Logistics & Digital Customs Clearance',
-      bgImage: '/images/port-sudan-terminal.jpg',
+      bgImage: '/images/port-sudan-terminal-v2.png',
       primaryBtnAr: 'حجز حاوية فوري',
       primaryBtnEn: 'Book Container',
       primaryAction: () => setCurrentView('port_sudan'),
@@ -69,7 +70,7 @@ export function LandingView() {
       titleEn: 'Smart Warehousing & Cold Chain Network',
       subtitleAr: 'طاقة تخزينية 120,000 طن متري مع رصد حراري دقيق للسلع الحيوية',
       subtitleEn: '120,000 MT Storage Capacity with Active Temperature Telemetry',
-      bgImage: '/images/warehouse-hub.jpg',
+      bgImage: '/images/warehouse-cold-chain-v2.png',
       primaryBtnAr: 'حجز مساحة تخزين',
       primaryBtnEn: 'Reserve Storage',
       primaryAction: () => setCurrentView('warehousing'),
@@ -83,7 +84,7 @@ export function LandingView() {
       titleEn: 'Sovereign Logistics Fleet',
       subtitleAr: 'شاحنات ثقيلة مبردة وجافة وفانات توصيل سريع موحدة الهوية',
       subtitleEn: 'Euro 5/6 Heavy & Express Fleet with 4-second GPS Refresh',
-      bgImage: '/images/fleet-vehicles.jpg',
+      bgImage: '/images/fleet-desert-road-v2.png',
       primaryBtnAr: 'استكشف الأسطول',
       primaryBtnEn: 'View Fleet Inventory',
       primaryAction: () => setCurrentView('fleet'),
@@ -141,9 +142,9 @@ export function LandingView() {
   }> = {
     fleet: {
       columns: [
-        { name: 'Volvo Heavy Freight 40ft', type: 'شاحنة نقل ثقيل وتريلات', img: '/images/fleet-vehicles.jpg', view: 'fleet' },
-        { name: 'Mercedes Sprinter Van', type: 'فان توصيل سريع وتوزيع محلي', img: '/images/fleet-vehicles.jpg', view: 'fleet' },
-        { name: 'Heavy Highway Runner', type: 'قوافل الشحن عبر الممرات الصحراوية', img: '/images/fleet-highway.jpg', view: 'fleet' },
+        { name: 'Volvo Heavy Freight 40ft', type: 'شاحنة نقل ثقيل وتريلات', img: '/images/fleet-desert-road-v2.png', view: 'fleet' },
+        { name: 'Mercedes Sprinter Van', type: 'فان توصيل سريع وتوزيع محلي', img: '/images/fleet-desert-road-v2.png', view: 'fleet' },
+        { name: 'Heavy Highway Runner', type: 'قوافل الشحن عبر الممرات الصحراوية', img: '/images/fleet-desert-road-v2.png', view: 'fleet' },
       ],
       sidebarLinks: [
         { label: 'مواصفات ومعايير الأسطول', view: 'fleet' },
@@ -155,9 +156,9 @@ export function LandingView() {
     },
     ports: {
       columns: [
-        { name: 'محطة الحاويات الجنوبية (SCT)', type: 'بورتسودان — طاقة 650K TEU', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
-        { name: 'محطة الصب الجاف الساحلية', type: 'تفريغ وتعبئة الحبوب والأسمنت', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
-        { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/images/port-sudan-terminal.jpg', view: 'port_sudan' },
+        { name: 'محطة الحاويات الجنوبية (SCT)', type: 'بورتسودان — طاقة 650K TEU', img: '/images/port-sudan-terminal-v2.png', view: 'port_sudan' },
+        { name: 'محطة الصب الجاف الساحلية', type: 'تفريغ وتعبئة الحبوب والأسمنت', img: '/images/port-sudan-terminal-v2.png', view: 'port_sudan' },
+        { name: 'مستودعات الإيداع الجمركي (Bonded)', type: 'تخزين معفى قبل التخليص', img: '/images/port-sudan-terminal-v2.png', view: 'port_sudan' },
       ],
       sidebarLinks: [
         { label: 'مساحة عمل التخليص الجمركي (Customs Workspace)', view: 'customs_workspace' },
@@ -168,9 +169,9 @@ export function LandingView() {
     },
     warehouses: {
       columns: [
-        { name: 'المستودع الذكي المركزي A01/B01', type: 'الخرطوم وبورتسودان — 120,000 م²', img: '/images/warehouse-hub.jpg', view: 'warehousing' },
+        { name: 'المستودع الذكي المركزي A01/B01', type: 'الخرطوم وبورتسودان — 120,000 م²', img: '/images/warehouse-cold-chain-v2.png', view: 'warehousing' },
         { name: 'المقر الرئيسي وساحات الاستقبال', type: 'مركز العمليات المتقدم ومكاتب العملاء', img: '/images/hq-facility.jpg', view: 'locations' },
-        { name: 'مستودعات التبريد الدوائي والغذائي', type: 'حفظ مبرد ومجمد مع حساسات IoT', img: '/images/warehouse-hub.jpg', view: 'warehousing' },
+        { name: 'مستودعات التبريد الدوائي والغذائي', type: 'حفظ مبرد ومجمد مع حساسات IoT', img: '/images/warehouse-cold-chain-v2.png', view: 'warehousing' },
       ],
       sidebarLinks: [
         { label: 'إدارة المخزون والمساحات الفورية', view: 'warehousing' },
@@ -180,9 +181,9 @@ export function LandingView() {
     },
     marketplace: {
       columns: [
-        { name: 'رحلات بورتسودان ➔ الخرطوم', type: 'شاحنات عائدة بخصم 28%', img: '/images/fleet-highway.jpg', view: 'marketplace' },
-        { name: 'رحلات عطبرة ➔ الدمازين', type: 'شاحنات صب ومواد بناء', img: '/images/fleet-vehicles.jpg', view: 'marketplace' },
-        { name: 'رحلات كوستي ➔ كسلا', type: 'نقل محاصيل وسلع استهلاكية', img: '/images/hero-multimodal.jpg', view: 'marketplace' },
+        { name: 'رحلات بورتسودان ➔ الخرطوم', type: 'شاحنات عائدة بخصم 28%', img: '/images/fleet-desert-road-v2.png', view: 'marketplace' },
+        { name: 'رحلات عطبرة ➔ الدمازين', type: 'شاحنات صب ومواد بناء', img: '/images/fleet-desert-road-v2.png', view: 'marketplace' },
+        { name: 'رحلات كوستي ➔ كسلا', type: 'نقل محاصيل وسلع استهلاكية', img: '/images/hero-multimodal-v2.png', view: 'marketplace' },
       ],
       sidebarLinks: [
         { label: 'جميع الصفقات والعروض المفتوحة', view: 'marketplace' },
@@ -209,9 +210,11 @@ export function LandingView() {
             className="cursor-pointer flex items-center gap-3"
           >
             <div className="w-10 h-10 rounded-[4px] bg-white p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0">
-              <img
-                src="/images/brand-logo.jpg"
+              <Image
+                src="/logo.png"
                 alt="سودانيل لوجيستك"
+                width={40}
+                height={40}
                 className="w-full h-full object-contain"
               />
             </div>
@@ -536,7 +539,7 @@ export function LandingView() {
           >
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-              style={{ backgroundImage: "url('/images/fleet-highway.jpg')" }}
+              style={{ backgroundImage: "url('/images/fleet-desert-road-v2.png')" }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
@@ -570,7 +573,7 @@ export function LandingView() {
           >
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-              style={{ backgroundImage: "url('/images/port-sudan-terminal.jpg')" }}
+              style={{ backgroundImage: "url('/images/port-sudan-terminal-v2.png')" }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
@@ -604,7 +607,7 @@ export function LandingView() {
           >
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-              style={{ backgroundImage: "url('/images/warehouse-hub.jpg')" }}
+              style={{ backgroundImage: "url('/images/warehouse-cold-chain-v2.png')" }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
@@ -682,9 +685,11 @@ export function LandingView() {
 
           <div className="flex justify-center">
             <div className="p-4 bg-[#F4F4F4] rounded-[8px] border border-[#EEEEEE] max-w-2xl w-full flex justify-center">
-              <img
+              <Image
                 src="/images/services-badges-2.jpg"
                 alt="خدمات سودانيل لوجيستك المعتمدة"
+                width={900}
+                height={360}
                 className="w-full h-auto max-h-[360px] object-contain"
               />
             </div>

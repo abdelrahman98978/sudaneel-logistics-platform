@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import { Shipment } from '@/types';
 import {
@@ -58,9 +59,11 @@ export function PublicTrackingView() {
       <div className="p-8 sm:p-10 shopify-card bg-[#ffffff] text-center space-y-5">
         <div className="flex justify-center mb-2">
           <div className="w-16 h-16 rounded-[12px] bg-white p-1 flex items-center justify-center border border-[#e4e4e7] shadow-sm">
-            <img
-              src="/images/brand-logo.jpg"
+            <Image
+              src="/logo.png"
               alt="سودانيل لوجيستك"
+              width={64}
+              height={64}
               className="w-full h-full object-contain"
             />
           </div>

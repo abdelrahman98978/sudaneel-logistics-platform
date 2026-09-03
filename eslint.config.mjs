@@ -26,6 +26,7 @@ const eslintConfig = defineConfig([
     "supabase/**",
     "odoo/**",
     "sudanil_logistics_odoo/**",
+    "sudaneel-connect/**",
   ]),
 ]);
 

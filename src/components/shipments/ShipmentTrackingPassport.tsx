@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import {
   MapPin,
@@ -194,7 +195,7 @@ export function ShipmentTrackingPassport() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-6 border-b border-[#e4e4e7]">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-[12px] bg-white p-1 flex items-center justify-center border border-[#e4e4e7] shadow-sm">
-                  <img src="/images/brand-logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+                  <Image src="/logo.png" alt="Sudaneel Logistics" width={56} height={56} className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h2 className="font-[600] text-[18px] text-[#000000]">{t.brandName}</h2>

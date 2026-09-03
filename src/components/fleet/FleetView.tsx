@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/store';
 import {
   Truck,
@@ -56,9 +57,11 @@ export function FleetView() {
       {/* Official Fleet Showcase Banner (Shopify 20px Card) */}
       <div className="shopify-card overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 bg-[#ffffff]">
         <div className="md:col-span-5 relative min-h-[220px] bg-[#000000] p-6 flex items-center justify-center">
-          <img
-            src="/images/fleet-vehicles.jpg"
+          <Image
+            src="/images/fleet-desert-road-v2.png"
             alt="Sudaneel Official Fleet"
+            width={520}
+            height={260}
             className="w-full h-auto max-h-[200px] object-contain drop-shadow-md"
           />
           <div className="absolute top-4 start-4">
