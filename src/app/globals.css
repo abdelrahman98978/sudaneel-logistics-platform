@@ -17,6 +17,39 @@
   --radius-control: 10px;
   --space-unit: 4px;
 
+  /* Master Design System Tokens (MASTER.md) */
+  --color-primary: #2563EB;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #3B82F6;
+  --color-on-secondary: #000000;
+  --color-accent: #EA580C;
+  --color-on-accent: #000000;
+  --color-background: #EFF6FF;
+  --color-foreground: #1E40AF;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1E40AF;
+  --color-muted: #E9EFF8;
+  --color-muted-foreground: #475569;
+  --color-border: #BFDBFE;
+  --color-destructive: #DC2626;
+  --color-on-destructive: #FFFFFF;
+  --color-ring: #2563EB;
+
+  /* Spacing Tokens */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Shadow Depths */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+
   /* Tesla Marketing Theme Tokens */
   --electric-blue: #0849A8;
   --electric-blue-hover: #032C70;
@@ -268,3 +301,82 @@ body {
   align-items: center;
   gap: 6px;
 }
+
+/* ============================================================ */
+/* Master Logistics Design System Component Specs (MASTER.md)   */
+/* ============================================================ */
+.btn-logistics-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: all 200ms ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+}
+.btn-logistics-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.28);
+}
+
+.btn-logistics-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: all 200ms ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-logistics-secondary:hover {
+  background-color: rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+.card-logistics {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 200ms ease;
+}
+.card-logistics:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+}
+
+.input-logistics {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 200ms ease;
+}
+.input-logistics:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.chip-nowrap {
+  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

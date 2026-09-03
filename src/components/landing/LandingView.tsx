@@ -476,9 +476,9 @@ export function LandingView() {
                   />
                   <button
                     type="submit"
-                    className="bg-[#3E6AE1] text-white px-5 py-1.5 rounded-[4px] font-[500] text-[14px] hover:bg-[#345ac2] transition-colors duration-330 cursor-pointer"
+                    className="bg-[#EA580C] text-white px-5 py-1.5 rounded-[4px] font-[600] text-[14px] hover:bg-[#c2410c] transition-colors duration-200 cursor-pointer shadow-xs"
                   >
-                    {lang === 'ar' ? 'تتبع' : 'Track'}
+                    {lang === 'ar' ? 'تتبع فوري' : 'Track Live'}
                   </button>
                 </form>
               </div>

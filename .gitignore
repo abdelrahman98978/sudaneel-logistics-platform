@@ -49,3 +49,6 @@ sudaneel-connect/
 .vercel/
 *.tsbuildinfo
 .env*
+.claude/
+python.cmd
+python3.cmd

@@ -255,9 +255,15 @@ export function ControlTowerView() {
 
         <div className="relative z-10 w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[12px] font-[400] tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-[#c1fbd4] animate-pulse"></span>
-              <span>Sovereign Multimodal Network • شبكة النقل السيادية</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[12px] font-[400] tracking-wide">
+                <span className="w-2 h-2 rounded-full bg-[#c1fbd4] animate-pulse"></span>
+                <span>Sovereign Multimodal Network • شبكة النقل السيادية</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2563EB]/25 backdrop-blur-md border border-[#2563EB]/40 text-[#bfdbfe] font-mono text-[11px] font-[600]">
+                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-ping"></span>
+                <span>LIVE TELEMETRY • 4s REFRESH</span>
+              </div>
             </div>
             
             <h1 className="text-[28px] sm:text-[38px] font-[330] text-white tracking-tight leading-tight">
