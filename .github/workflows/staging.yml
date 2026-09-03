@@ -50,7 +50,7 @@ jobs:
           NEXT_TELEMETRY_DISABLED: 1
 
       - name: 🚀 Deploy to Staging (Vercel Preview / Preview URL)
-        if: env.VERCEL_TOKEN != ''
+        if: ${{ secrets.VERCEL_TOKEN != '' }}
         run: |
           npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
           npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
@@ -59,6 +59,12 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: ℹ️ Staging Pre-flight Notice
+        if: ${{ secrets.VERCEL_TOKEN == '' }}
+        run: |
+          echo "Vercel credentials (VERCEL_TOKEN) not yet added to GitHub Secrets."
+          echo "Staging pre-flight build, lint, and type checking completed successfully."
 
       - name: 📋 Staging Summary Report
         run: |

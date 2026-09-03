@@ -67,7 +67,7 @@ export function DriverAppView() {
 
   // Offline Sync
   const [isOffline, setIsOffline] = useState(false);
-  const [queuedEvents, setQueuedEvents] = useState<QueuedTelemetryEvent[]>([]);
+  const [queuedEvents, setQueuedEvents] = useState<QueuedTelemetryEvent[]>(() => getOfflineQueue());
   const [isSyncing, setIsSyncing] = useState(false);
 
   // Consignee POD Modal
@@ -82,7 +82,11 @@ export function DriverAppView() {
   const [todayTripsCount, setTodayTripsCount] = useState(2);
 
   useEffect(() => {
-    setQueuedEvents(getOfflineQueue());
+    const handleStorage = () => {
+      setQueuedEvents(getOfflineQueue());
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   const toggleOfflineMode = async () => {
