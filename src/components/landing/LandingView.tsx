@@ -23,6 +23,7 @@ import {
   Clock,
   Package,
 } from 'lucide-react';
+import { PublicServiceModal, PublicServiceType } from './PublicServiceModal';
 
 export function LandingView() {
   const { setCurrentView, setSelectedShipmentId, shipments, lang, setLang } = useApp();
@@ -33,6 +34,7 @@ export function LandingView() {
   const [trackingInput, setTrackingInput] = useState('');
   const [chatInput, setChatInput] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedServiceModal, setSelectedServiceModal] = useState<PublicServiceType | null>(null);
 
   // Hero showcase items (Tesla 100vh full-viewport gallery)
   const heroSlides = [
@@ -559,8 +561,14 @@ export function LandingView() {
                   {lang === 'ar' ? 'ربط لحظي لكافة الولايات وقوافل الشحن المؤمنة' : 'Real-time convoy routing across all sovereign corridors'}
                 </p>
               </div>
-              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                <span>{lang === 'ar' ? 'استكشف الأسطول' : 'Explore'}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedServiceModal('road_freight');
+                }}
+                className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <span>{lang === 'ar' ? 'المواصفات والأسعار' : 'Specs & Rates'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -593,8 +601,14 @@ export function LandingView() {
                   {lang === 'ar' ? 'تخليص جمركي فوري وتفريغ مباشر للحاويات' : 'Direct container evacuation & automated customs clearance'}
                 </p>
               </div>
-              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                <span>{lang === 'ar' ? 'محطة الحاويات' : 'Ports Hub'}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedServiceModal('sea_freight');
+                }}
+                className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <span>{lang === 'ar' ? 'المواصفات والأسعار' : 'Specs & Rates'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -627,8 +641,14 @@ export function LandingView() {
                   {lang === 'ar' ? '120,000 م² مساحات تخزين جاف ومبرد ومجمرك' : 'Bonded & temperature-monitored strategic facilities'}
                 </p>
               </div>
-              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                <span>{lang === 'ar' ? 'حجز مساحة' : 'Reserve'}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedServiceModal('warehousing');
+                }}
+                className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <span>{lang === 'ar' ? 'المواصفات والأسعار' : 'Specs & Rates'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -661,8 +681,14 @@ export function LandingView() {
                   {lang === 'ar' ? 'صالات استقبال مجهزة وأرصفة مناولة سريعة' : '24/7 client reception centers & rapid truck loading docks'}
                 </p>
               </div>
-              <button className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0">
-                <span>{lang === 'ar' ? 'دليل المحطات' : 'View Hubs'}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedServiceModal('enterprise');
+                }}
+                className="text-[13px] font-[500] text-white underline underline-offset-4 flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <span>{lang === 'ar' ? 'المواصفات والحلول' : 'Specs & Solutions'}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -836,6 +862,12 @@ export function LandingView() {
           </button>
         </div>
       </div>
+
+      {/* Public Service & Network Deep-Dive Modal */}
+      <PublicServiceModal
+        serviceType={selectedServiceModal}
+        onClose={() => setSelectedServiceModal(null)}
+      />
     </div>
   );
 }

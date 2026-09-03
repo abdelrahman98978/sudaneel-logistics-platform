@@ -508,7 +508,21 @@ export function CreateShipmentWizard() {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#5C5E62]">Agreed Amount:</span>
-                <span className="font-mono font-[500] text-[#3E6AE1] text-[15px]">{priceBreakdown.total.toLocaleString()} SDG</span>
+                <span className="font-mono font-[700] text-[#059669] text-[16px]">{priceBreakdown.total.toLocaleString()} SDG</span>
+              </div>
+              <div className="pt-2 border-t border-[#e4e4e7] grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] text-[#71717a]">
+                <div>
+                  <span className="block font-[600] text-[#000000] font-mono">{priceBreakdown.carrierPayout.toLocaleString()} SDG</span>
+                  <span>{lang === 'ar' ? 'مستحقات الناقل' : 'Carrier Payout'}</span>
+                </div>
+                <div>
+                  <span className="block font-[600] text-[#0849A8] font-mono">{priceBreakdown.sudaneelMarginAmount.toLocaleString()} SDG ({priceBreakdown.sudaneelMarginPercent}%)</span>
+                  <span>{lang === 'ar' ? 'هامش منصة سودانيل' : 'Platform Margin'}</span>
+                </div>
+                <div>
+                  <span className="block font-[600] text-[#059669] font-mono">-{priceBreakdown.co2SavingsKg} kg CO₂</span>
+                  <span>{lang === 'ar' ? 'وفر الكربون (Backhaul)' : 'CO₂ Avoided'}</span>
+                </div>
               </div>
             </div>
           </div>

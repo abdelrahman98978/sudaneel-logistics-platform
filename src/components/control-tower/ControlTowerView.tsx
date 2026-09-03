@@ -27,6 +27,10 @@ import {
   MapPin,
   Clock,
   Sparkles,
+  ShieldAlert,
+  Activity,
+  Check,
+  Zap,
 } from 'lucide-react';
 
 export function ControlTowerView() {
@@ -35,6 +39,56 @@ export function ControlTowerView() {
   const [dateFilter, setDateFilter] = useState('20 مايو - 27 مايو 2024');
   const [selectedCityNode, setSelectedCityNode] = useState<string | null>(null);
   const [activeMetricTab, setActiveMetricTab] = useState<'all' | 'transit' | 'hubs' | 'alerts'>('all');
+
+  // Critical Exceptions & Emergency Incident Runbook (Master Plan Sec 11 & 23)
+  const [criticalExceptions, setCriticalExceptions] = useState([
+    {
+      id: 'exc-01',
+      type: 'route_deviation',
+      titleAr: 'انحراف عن المسار (شاحنة KRT-2024)',
+      titleEn: 'Route Deviation (Truck KRT-2024)',
+      severity: 'critical',
+      location: 'طريق التحدي - مخرج شندي',
+      detailsAr: 'انحراف 14 كم خارج الممر المحدد دون توجيه مسبق.',
+      recommendedActionAr: 'إعادة التوجيه وإرسال تنبيه صوتي للسائق',
+      status: 'pending',
+    },
+    {
+      id: 'exc-02',
+      type: 'temperature_breach',
+      titleAr: 'ارتفاع حرارة ثلاجة الأدوية (REF-882)',
+      titleEn: 'Cold Chain Breach (REF-882)',
+      severity: 'high',
+      location: 'محطة أوسيف - بورتسودان',
+      detailsAr: 'ارتفعت الحرارة إلى +8.5°C (الحد الأقصى +4°C).',
+      recommendedActionAr: 'تفعيل وحدة التبريد المساعدة وإرسال فني',
+      status: 'pending',
+    },
+    {
+      id: 'exc-03',
+      type: 'customs_hold',
+      titleAr: 'حجز جمركي - معبر القلابات',
+      titleEn: 'Customs Hold - Gallabat Crossing',
+      severity: 'medium',
+      location: 'الحدود الإثيوبية',
+      detailsAr: 'مطابقة HS Code لصادرات السمسم بانتظار الإفراج الرقمي.',
+      recommendedActionAr: 'إرسال شهادة المنشأ الإلكترونية فوراً',
+      status: 'pending',
+    },
+  ]);
+
+  const handleExecuteRunbook = (excId: string, title: string) => {
+    setCriticalExceptions((prev) =>
+      prev.map((e) => (e.id === excId ? { ...e, status: 'resolved' } : e))
+    );
+    showToast(
+      lang === 'ar' ? 'تم تنفيذ بروتوكول الاستجابة الطارئ' : 'Emergency Runbook Executed',
+      lang === 'ar'
+        ? `تم تطبيق الإجراء الموصى به لـ (${title}) وتوثيقه في السجل وإبلاغ الدوريات.`
+        : `Dispatched automated incident protocol for ${title}.`,
+      'success'
+    );
+  };
 
   // Cities on Sudan Corridor Map with coordinates
   const mapNodes = [
@@ -454,29 +508,74 @@ export function ControlTowerView() {
 
         {/* Notifications & Fleet Overview (3 cols) */}
         <div className="lg:col-span-3 space-y-4">
-          {/* Notifications Feed */}
+          {/* Notifications Feed: Master Plan Sec 11 Critical Exceptions & Runbooks */}
           <div className="shopify-card p-5 space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-[#e4e4e7]">
-              <h3 className="font-[600] text-[14px] text-[#000000]">التنبيهات التشغيلية</h3>
-              <span className="shopify-tag-shade !text-[10px]">3 جديدة</span>
+              <div className="flex items-center gap-1.5">
+                <ShieldAlert className="w-4 h-4 text-[#ef4444]" />
+                <h3 className="font-[600] text-[14px] text-[#000000]">
+                  {lang === 'ar' ? 'استثناءات وبروتوكولات الطوارئ' : 'Active Critical Exceptions'}
+                </h3>
+              </div>
+              <span className="shopify-tag-shade !text-[10px]">
+                {criticalExceptions.filter((e) => e.status === 'pending').length} نشطة
+              </span>
             </div>
 
-            <div className="space-y-2.5 text-[12px]">
-              <div className="p-3 rounded-[8px] bg-[#fbfbf5] border border-[#e4e4e7] flex items-start gap-2.5">
-                <AlertTriangle className="w-4 h-4 text-[#000000] mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-[500] text-[#000000]">تأخير بسيط على طريق كوستي</div>
-                  <div className="text-[11px] text-[#71717a]">بسبب أعمال صيانة دورية</div>
-                </div>
-              </div>
+            <div className="space-y-3 text-[12px]">
+              {criticalExceptions.map((exc) => {
+                const isResolved = exc.status === 'resolved';
+                return (
+                  <div
+                    key={exc.id}
+                    className={`p-3 rounded-[8px] border transition-colors space-y-2 ${
+                      isResolved
+                        ? 'bg-[#f0fdf4] border-[#bbf7d0]'
+                        : exc.severity === 'critical'
+                        ? 'bg-[#fef2f2] border-[#fecaca]'
+                        : 'bg-[#fffbeb] border-[#fde68a]'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="font-[700] text-[#000000] text-[12.5px]">
+                        {lang === 'ar' ? exc.titleAr : exc.titleEn}
+                      </div>
+                      <span
+                        className={`text-[10px] font-mono font-[700] px-2 py-0.5 rounded-full ${
+                          isResolved
+                            ? 'bg-[#166534] text-white'
+                            : exc.severity === 'critical'
+                            ? 'bg-[#dc2626] text-white'
+                            : 'bg-[#d97706] text-white'
+                        }`}
+                      >
+                        {isResolved ? 'RESOLVED' : exc.severity.toUpperCase()}
+                      </span>
+                    </div>
 
-              <div className="p-3 rounded-[8px] bg-[#fbfbf5] border border-[#e4e4e7] flex items-start gap-2.5">
-                <Wrench className="w-4 h-4 text-[#000000] mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-[500] text-[#000000]">صيانة وقائية للشاحنة #104</div>
-                  <div className="text-[11px] text-[#71717a]">تم الفحص الفني بنجاح</div>
-                </div>
-              </div>
+                    <p className="text-[11.5px] text-[#4b5563] leading-tight">
+                      {lang === 'ar' ? exc.detailsAr : exc.detailsAr} • <strong className="text-[#000000]">{exc.location}</strong>
+                    </p>
+
+                    <div className="pt-1 flex items-center justify-between">
+                      {isResolved ? (
+                        <span className="text-[11px] font-[600] text-[#166534] flex items-center gap-1">
+                          <Check className="w-3.5 h-3.5" />
+                          <span>{lang === 'ar' ? 'تم تنفيذ البروتوكول بنجاح' : 'Protocol Executed'}</span>
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleExecuteRunbook(exc.id, exc.titleAr)}
+                          className="w-full py-1.5 px-3 rounded-[6px] bg-[#000000] hover:bg-[#27272a] text-white font-[600] text-[11px] flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                        >
+                          <Zap className="w-3 h-3 text-[#c1fbd4]" />
+                          <span>{lang === 'ar' ? `تشغيل Runbook: ${exc.recommendedActionAr}` : 'Execute Runbook'}</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
