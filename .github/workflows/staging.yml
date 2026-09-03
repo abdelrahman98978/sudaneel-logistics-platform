@@ -23,6 +23,10 @@ jobs:
     environment:
       name: staging
       url: https://sudaneel-logistics-platform.vercel.app
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     steps:
       - name: 📥 Checkout Repository
@@ -50,18 +54,14 @@ jobs:
           NEXT_TELEMETRY_DISABLED: 1
 
       - name: 🚀 Deploy to Staging (Vercel Preview / Preview URL)
-        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        if: env.VERCEL_TOKEN != ''
         run: |
-          npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-          npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
-          npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          npx vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          npx vercel build --token="$VERCEL_TOKEN"
+          npx vercel deploy --prebuilt --token="$VERCEL_TOKEN"
 
       - name: ℹ️ Staging Pre-flight Notice
-        if: ${{ secrets.VERCEL_TOKEN == '' }}
+        if: env.VERCEL_TOKEN == ''
         run: |
           echo "Vercel credentials (VERCEL_TOKEN) not yet added to GitHub Secrets."
           echo "Staging pre-flight build, lint, and type checking completed successfully."
